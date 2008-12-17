@@ -1,0 +1,110 @@
+<div id="main" class="l-border r-border span-15">
+
+    <h1 id="title"><a href="#Title">Lightbox</a></h1>
+
+    <p class="description">
+        SqueezeBox is an unobtrusive LightBox inspired overlay, for modal boxed content on your site. It’s a snap to show images but just as easy to use HTML elements, Ajax requests, iFrames, SWF movies and more.
+        <br />
+        <br />
+        Author: <a href="http://digitarald.de/">Harald Kirschner</a><br />
+        Project Page: <a href="http://digitarald.de/project/squeezebox/">Squeezebox Page</a>
+    </p>
+
+    <h2 id="Features"><a href="#Features">Features</a></h2>
+
+    <ul>
+        <li>No plugins like Flash or Java needed, no problem with popup blockers</li>
+        <li>Unobtrusive behaviour, visitors with disabled JavaScript or old browsers can still navigate through your content.</li>
+        <li>Simple and intuitive behaviour: loading-indicator, close button and changing icons describe possible interactions.</li>
+        <li>Customizable with a lot of options (controlling Fx, generated markup, etc.) and via external CSS.</li>
+    </ul>
+
+    <h2 id="Showcases"><a href="#Showcases">Showcases</a></h2>
+    <ul>
+		<li>
+			<a href="http://digitarald.de/project/squeezebox/1-1/showcase/ajax/">Ajax Requests</a>
+			Request the content via Ajax.		</li>
+		<li>
+			<a href="http://digitarald.de/project/squeezebox/1-1/showcase/get-elements/">From Elements</a>
+			Content cloned or adopted from existing Elements.		</li>
+		<li>
+			<a href="http://digitarald.de/project/squeezebox/1-1/showcase/iframed/">IFrame Content</a>
+			Include site content via IFrame.		</li>
+		<li>
+			<a href="http://digitarald.de/project/squeezebox/1-1/showcase/images/">Single Images</a>
+			SqueezeBox for single images from a gallery.		</li>
+		<li>
+			<a href="http://digitarald.de/project/squeezebox/1-1/showcase/youtube-flash/">Youtube Flash</a>
+			Inject flash content from Youtube.		</li>
+	</ul>
+
+    <h2 id="Syntax"><a href="#Syntax">Syntax</a></h2>
+
+    <script type="text/javascript">
+    // Wait for the content ...
+    window.addEvent('domready', function() {
+
+        /**
+         * Set default options, overrideable from later calls.
+         */
+        SqueezeBox.initialize({
+            size: {x: 350, y: 400}
+        });
+
+        /**
+         * Assign SqueezeBox to all links with rel="boxed" attribute, the class then reads the "href".
+         */
+        SqueezeBox.assign($$('a[rel=boxed]'));
+    });
+    </script>
+
+        <h3>Javascript:</h3>
+        <?php
+
+            $source = array();
+            $source[] = '// Wait for the content ...';
+            $source[] = "window.addEvent('domready', function() {";
+            $source[] = ' ';
+            $source[] = "   /**";
+            $source[] = '    * Set default options, overrideable from later calls.';
+            $source[] = '    */';
+            $source[] = '   SqueezeBox.initialize({';
+            $source[] = '       size: {x: 350, y: 400}';
+            $source[] = '   });';
+            $source[] = '';
+            $source[] = '   /**';
+            $source[] = '    * Assign SqueezeBox to all links with rel="boxed" attribute, the class then reads the "href".';
+            $source[] = '    */';
+            $source[] = "   SqueezeBox.assign($$('a[rel=boxed]'));";
+            $source[] = '});';
+
+            echo $this->GeSHi(implode("\n", $source), 'javascript');
+        ?>
+
+        <h3>XHTML Markup:</h3>
+        <?php
+
+            $source = array();
+            $source[] = '<a rel="boxed" href="http://farm3.static.flickr.com/2215/1675314906_e98e323f23.jpg">';
+            $source[] = '   <img src="http://farm3.static.flickr.com/2215/1675314906_e98e323f23_t.jpg" alt="El Terreno Park" />';
+            $source[] = '</a>';
+
+            echo $this->GeSHi(implode("\n", $source), 'html4strict');
+        ?>
+
+        <h2 id="Examples"><a href="#Examples">Examples</a></h2>
+        <a rel="boxed" href="http://farm3.static.flickr.com/2215/1675314906_e98e323f23.jpg">
+            <img src="http://farm3.static.flickr.com/2215/1675314906_e98e323f23_t.jpg" alt="El Terreno Park" />
+        </a>
+
+    </div>
+
+
+<div id="menu" class="span-2 last">
+    <h4 class="menu-item"><a href="#Title">Lightbox</a></h4>
+    <div class="menu-item"><a href="#Features">Features</a></div>
+    <div class="menu-item"><a href="#Showcases">Showcases</a></div>
+    <div class="menu-item"><a href="#Syntax">Syntax</a></div>
+    <div class="menu-item"><a href="#Examples">Examples</a></div>
+</div>
+

@@ -1,0 +1,81 @@
+<div id="main" class="l-border r-border span-15">
+
+    <h2 id="Intro">Blueprint</h2>
+
+    <h3 id="Intro">What is Blueprint ?</h3>
+
+        <p class="description">
+        Blueprint is a CSS framework, which aims to cut down on your CSS development time. It gives you a solid CSS foundation to build your project on top of, with an easy-to-use grid, sensible typography, and even a stylesheet for printing.
+        <br />
+        <br />
+        For more info and examples please visit: <a href="http://www.blueprintcss.org/">http://www.blueprintcss.org/</a>
+        </p>
+
+    <h2>Plugins Examples</h2>
+        <p class="description">
+            Here some example of blueprint plugins available in BaseZF.
+        </p>
+
+    <h3>Buttons</h3>
+
+        <p>
+            Fancy buttons for form or link with icons and hover.
+        </p>
+
+        <h4>Demo:</h4>
+        <p>
+            <button type="submit" class="button positive">
+              <img src="/css/lib/blueprint/plugins/buttons/icons/tick.png" alt=""/> Save
+            </button>
+
+            <a class="button" href="/password/reset/">
+              <img src="/css/lib/blueprint/plugins/buttons/icons/key.png" alt=""/> Change Password
+            </a>
+
+            <a href="#" class="button negative">
+              <img src="/css/lib/blueprint/plugins/buttons/icons/cross.png" alt=""/> Cancel
+            </a>
+            <div class="clear"></div>
+        </p>
+
+        <h4>Syntax:</h4>
+<?php
+        $source = array();
+        $source[] = '<button type="submit" class="button positive">';
+        $source[] = '  <img src="/css/lib/blueprint/plugins/buttons/icons/tick.png" alt=""/> Save';
+        $source[] = '</button>';
+        $source[] = '';
+        $source[] = '<a class="button" href="/password/reset/">';
+        $source[] = '  <img src="/css/lib/blueprint/plugins/buttons/icons/key.png" alt=""/> Change Password';
+        $source[] = '</a>';
+        $source[] = '';
+        $source[] = '<a href="#" class="button negative">';
+        $source[] = '  <img src="/css/lib/blueprint/plugins/buttons/icons/cross.png" alt=""/> Cancel';
+        $source[] = '</a>';
+
+        echo $this->GeSHi(implode("\n", $source), 'html4strict');
+?>
+    <h3>Icons</h3>
+    <p>
+        FamFamFam icons with a CSS sprite, all icons in one image file.
+    </p>
+
+    <h4>Demo:</h4>
+    <p>
+        You can <span class="ss_sprite ss_accept "> &nbsp; </span> <a href="#">Accept</a>
+        or <span class="ss_sprite ss_delete "> &nbsp; </span> <a href="#">Refuse</a> to be stupid.
+    </p>
+
+    <h4>Syntax:</h4>
+    <?php echo $this->GeSHi('<span class="ss_sprite ss_$iconName "> &nbsp; </span> <a href="#">$youLabel</a>', 'html4strict'); ?>
+
+</div>
+
+<div id="menu" class="span-2 last">
+    <h4 class="menu-item"><a href="#Core">Blueprint</a></h4>
+    <h4 class="menu-item"><a href="#Core">Plugins</a></h4>
+    <div class="menu-item"><a href="#clear">Buttons</a></div>
+    <div class="menu-item"><a href="#chk">Icons</a></div>
+
+</div>
+

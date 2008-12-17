@@ -1,0 +1,16 @@
+<?php
+
+    // Displaying javascript from controler
+    $jsData = $this->javascriptData()->getData();
+
+    if (!empty($jsData)) {
+        echo '<script type="text/javascript">';
+        echo $jsData;
+        echo '</script>';
+    }
+
+    // display html if isAjaxHTML
+    if (isset($this->isAjaxHtml)) {
+        echo $this->placeholder('Zend_Layout')->content;
+    }
+

@@ -1,0 +1,25 @@
+/**
+ * # MyProject - Descrption
+ *
+ * # Maintainers
+ *  - Harold Thétiot (hthetiot) - <hthetiot@gmail.com>
+ *
+ * # Example Release Changelog entry
+ *
+ * Release N.N (YYYY/MM/DD HH:MM)
+ * --------------
+ * + Optimized
+ *     - ...
+ *
+ *  + Changes
+ *     - ...
+ *
+ *  + Security Fixes
+ * 	   - ...
+ *
+ *  + Bugs
+ * 	   - Fixed bug #00001 (trac ticket), example... (hthetiot)
+ *
+ */
+
+

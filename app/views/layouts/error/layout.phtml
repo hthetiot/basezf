@@ -1,0 +1,20 @@
+<?php
+
+    if ($this->isAjax) {
+
+        echo '<script type="text/javascript">';
+        echo '/*';
+        echo $this->placeholder('Zend_Layout')->content;
+        echo '*/';
+        echo '</script>';
+
+    } else if ($this->isJson) {
+
+        echo '/*';
+        echo $this->placeholder('Zend_Layout')->content;
+        echo '*/';
+
+    } else {
+        echo $this->placeholder('Zend_Layout')->content;
+    }
+

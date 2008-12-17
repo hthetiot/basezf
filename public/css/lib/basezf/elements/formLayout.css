@@ -1,0 +1,689 @@
+/* formLayout.css */
+
+form.formLayout {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    min-width: 560px;
+    max-width: 620px;
+    width: 590px;
+}
+
+form.formLayout fieldset {
+    clear: both;
+    font-size: 100%;
+    border-color: #000000;
+    border-width: 1px 0 0 0;
+    border-style: solid none none none;
+    padding: 10px;
+    margin: 0 0 0 0;
+}
+
+form.formLayout fieldset legend {
+    line-height: 150%;
+    font-size: 150%;
+    font-weight: normal;
+    color: #000000;
+    margin: 0 0 0 0;
+    padding: 0 5px;
+}
+
+form.formLayout label {
+    font-size: 100%;
+}
+
+form.formLayout label u {
+    font-style: normal;
+    text-decoration: underline;
+}
+
+form.formLayout input,
+form.formLayout select,
+form.formLayout textarea {
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 100%;
+    color: #000000;
+    border:1px solid;
+    vertical-align: middle;
+}
+
+form.formLayout textarea {
+    overflow: auto;
+}
+
+form.formLayout textarea.expanding {
+    overflow: auto;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+form.formLayout div.required,
+form.formLayout div.optional
+{
+    clear: left;
+    display: block;
+    width: 354px;
+    zoom: 1;
+    margin: 5px 0 0 0;
+    padding: 1px 3px;
+    position: relative;
+}
+
+form.formLayout div.inputContainer
+{
+    margin: 3px 0 0 143px;
+}
+
+form.formLayout div fieldset {
+    clear: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #666666;
+    margin: 0 0 3px 140px;
+    padding: 0 5px 5px 5px;
+    width: 196px;
+}
+
+form.formLayout div fieldset legend {
+    font-size: 100%;
+    padding: 0 3px 0 9px;
+}
+
+form.formLayout div.required fieldset legend {
+    font-weight: bold;
+}
+
+form.formLayout div label {
+    display: block;
+    float: left;
+    width: 130px;
+    padding: 3px 5px;
+    margin: 0 0 5px 0;
+    text-align: right;
+}
+
+form.formLayout div.optional label,
+form.formLayout label.optional {
+    font-weight: normal;
+}
+
+form.formLayout div.required label,
+form.formLayout label.required {
+    font-weight: bold;
+}
+
+form.formLayout label img {
+    behavior: url(/css/lib/basezf/behaviors/label_img.htc);
+}
+
+form.formLayout div select,
+form.formLayout div textarea {
+    width: 200px;
+    padding: 1px 3px;
+    margin: 2px 0;
+}
+
+form.formLayout div input.inputText,
+form.formLayout div input.inputPassword {
+    width: 200px;
+    padding: 2px 3px;
+    margin: 2px 0;
+    height: 15px;
+}
+
+form.formLayout div input.inputFile {
+    width: 211px;
+}
+
+form.formLayout div small {
+    display: block;
+    margin: 0 0 5px 142px;
+    padding: 1px 3px;
+    font-size: 88%;
+    line-height: 125%;
+    zoom: 1;
+}
+
+form.formLayout div.optional label:before,
+form.formLayout div.required label:before {
+    content: '';
+}
+
+form.formLayout div fieldset input.inputText,
+form.formLayout div fieldset input.inputPassword,
+form.formLayout div fieldset input.inputFile,
+form.formLayout div fieldset textarea.inputTextarea {
+    width: 160px;
+    margin: 0 0 0 18px;
+}
+
+/**
+* Element: Notes
+* @begin
+*/
+form.formLayout fieldset div.notes {
+    float: right;
+    width: 158px;
+    height: auto;
+    margin: 0 0 10px 10px;
+    padding: 5px;
+    border: 1px solid #666666;
+    background-color: #ffffe1;
+    color: #666666;
+}
+
+form.formLayout fieldset div.notes h4 {
+    background-image: url(/images/icon_info.gif);
+    background-repeat: no-repeat;
+    background-position: top left;
+    padding: 3px 0 3px 27px;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #666666;
+    color: #666666;
+    font-size: 110%;
+    margin-bottom: 0.5em;
+}
+
+form.formLayout fieldset div.notes p {
+    margin: 0em 0em 1.2em 0em;
+    color: #666666;
+    font-size: 88%;
+    line-height: 125%;
+}
+
+form.formLayout fieldset div.notes p.last {
+    margin: 0em;
+}
+/*@end*/
+
+/**
+* Element: Radio/Checkbox
+* @begin
+*/
+form.formLayout div label.labelCheckbox,
+form.formLayout div label.labelRadio {
+    float: none;
+    display: block;
+    width: 200px;
+    zoom: 1;
+    padding: 0;
+    margin: 0 0 5px 142px;
+    text-align: left;
+}
+
+form.formLayout div fieldset label.labelCheckbox,
+form.formLayout div fieldset label.labelRadio {
+    margin: 0 0 5px 0;
+    width: 170px;
+}
+
+form.formLayout div input.inputCheckbox,
+form.formLayout div input.inputRadio,
+form.formLayout input.inputCheckbox,
+form.formLayout input.inputRadio {
+    display: inline;
+    height: auto;
+    width: auto;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: -2px 0 0 140px;
+}
+
+form.formLayout div label.labelCheckbox,
+form.formLayout div label.labelRadio,
+form.formLayout label.labelCheckbox,
+form.formLayout label.labelRadio {
+    display: block;
+    width: 190px;
+    zoom: 1;
+    padding: 4px 0 0 18px;
+    text-indent: -18px;
+    line-height: 120%;
+}
+
+
+form.formLayout label.labelCheckbox input.inputCheckbox,
+form.formLayout label.labelRadio input.inputRadio {
+    margin: -2px 3px 0 0;
+}
+
+form.formLayout div label.compact {
+    display: inline;
+    width: auto !important;
+    padding: 4px 4px 0 0;
+    text-indent: 0;
+    margin: 0;
+}
+/*@end*/
+
+
+/**
+* Element: Error
+* @begin
+*/
+form.formLayout p.error {
+    background-color: #ff0000;
+    background-image: url(/images/icon_error.gif);
+    background-repeat: no-repeat;
+    background-position: 3px 3px;
+    color: #ffffff;
+    padding: 3px 3px 5px 27px;
+    border: 1px solid #000000;
+    margin: auto 100px;
+}
+
+form.formLayout div.error {
+    background-color: #ffffe1;
+    background-image: url(/images/required_bg.gif);
+    background-repeat: no-repeat;
+    background-position: top left;
+    color: #666666;
+    border: 1px solid #ff0000;
+}
+
+form.formLayout div.error p.error {
+    background-image: url(/images/icon_error.gif);
+    background-position: top left;
+    background-color: transparent;
+    border-style: none;
+    font-size: 88%;
+    font-weight: bold;
+    margin: 0 0 0 118px;
+    width: 200px;
+    color: #ff0000;
+}
+/*@end*/
+
+
+/**
+* Element: inputFile
+* @begin
+*/
+form.formLayout div.inputFileFancy input.inputFile {
+    position: relative;
+	text-align: right;
+	-moz-opacity:0 ;
+	filter:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+}
+
+form.formLayout div.inputFileFancy input.inputFileFake
+{
+    height: 15px;
+    width: 125px
+}
+
+form.formLayout div.inputFileFancy div {
+    top:0;
+    position:absolute;
+    left:0;
+    z-index:1;
+    padding: 2px 0 0 143px;
+    cursor:pointer;
+}
+/*@end*/
+
+/**
+* Element: selectOne/selectMultiple
+* @begin
+*/
+form.formLayout div select.selectOne,
+form.formLayout div select.selectMultiple {
+    width: 208px;
+    padding: 1px 3px;
+}
+
+form.formLayout div select.selectDateDay {
+    width: 50px;
+}
+
+form.formLayout div select.selectDateMonth {
+    width: 92px;
+}
+
+form.formLayout div select.selectDateYear {
+    width: 60px;
+}
+/*@end*/
+
+/**
+* Element: selectMass
+* @begin
+*/
+form.formLayout div.selectMass
+{
+    margin: -2px 0 0 140px;
+}
+
+form.formLayout div.selectMassLabel
+{
+    background: #FFFFFF url(/images/lib/basezf/elements/formLayout/selectMassLabel.gif) no-repeat right 55%;
+    border:1px solid #000;
+    cursor:pointer;
+    height:18px;
+    margin:5px 6px 0 140px;
+    padding:0 20px 0 7px;
+}
+
+form.formLayout div.selectMass div.selectMassOptions
+{
+    background:#FFFFFF none repeat scroll 0 0;
+    max-height:81px;
+    overflow:hidden;
+    position:absolute;
+    width:208px;
+    z-index:1000;
+    text-align: left;
+    margin-top: 25px;
+
+    visibility: hidden;
+    opacity: 0;
+}
+
+form.formLayout div.selectMass div.selectMassOptions div
+{
+    border: solid 1px #000;
+    border-top:none;
+    max-height:80px;
+    overflow:auto;
+    width:206px;
+}
+
+form.formLayout div.selectMass label
+{
+    background:#FFF none repeat scroll 0 0;
+    cursor:pointer;
+    display:block;
+    float:none;
+    margin:0;
+    padding:0;
+    position:static;
+    text-align:left;
+    width:auto;
+    padding:0 0 0 3px;
+}
+form.formLayout div.selectMass label:hover
+{
+    background:#CCCCCC;
+}
+
+form.formLayout div.selectMass label input
+{
+    margin:4px;
+    vertical-align:middle;
+}
+
+form.formLayout div.selectMass label input.inputRadio
+{
+    visibility: hidden;
+    position: absolute;
+}
+
+form.formLayout div.selectMass label span
+{
+    display:inline;
+    float:none;
+}
+
+form.formLayout div.selectMassValue
+{
+    margin:0 0 5px 142px;
+    padding:1px 3px;
+    overflow: hidden;
+    clear: left;
+}
+/*@end*/
+
+/**
+* Element: submit/buttons
+* @begin
+*/
+form.formLayout div.submit {
+    width: 214px;
+    padding: 0 0 0 146px;
+}
+
+form.formLayout div.submit div {
+    display: inline;
+    float: left;
+    text-align: left;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+form.formLayout input.inputSubmit,
+form.formLayout input.inputButton  {
+    width: auto;
+    padding: 0 6px;
+    margin: 0;
+}
+
+form.formLayout div.submit div input.inputSubmit,
+form.formLayout div.submit div input.inputButton {
+    float: right;
+    margin: 0 0 0 5px;
+}
+/*@end*/
+
+/**
+* Element: layout size wide/auto
+* @begin
+*/
+form.formLayout div.wide label {
+    float: none;
+    width: auto;
+    text-align: left;
+    margin: 0;
+}
+
+form.formLayout div label.wide {
+    width: 348px;
+}
+
+form.formLayout div.wide small {
+    margin: 0 0 5px 0;
+}
+
+form.formLayout div.wide div.inputContainer
+{
+    margin:3px 0 0 0;
+}
+
+form.formLayout div.wide input.inputText,
+form.formLayout div.wide input.inputPassword,
+form.formLayout div.wide input.inputFile,
+form.formLayout div.wide textarea
+{
+    width: 340px;
+    margin: 0 0 2px 0;
+}
+
+form.formLayout div.wide select
+{
+    width: 348px;
+    margin: 0;
+}
+
+form.formLayout div.auto input.inputText,
+form.formLayout div.auto input.inputPassword,
+form.formLayout div.auto input.inputFile,
+form.formLayout div.auto select,
+form.formLayout div.auto textarea
+{
+    width: auto;
+    margin: 0;
+}
+
+form.formLayout div.wide fieldset
+{
+    margin:0 0 3px 0;
+    width: 336px;
+}
+
+form.formLayout div.wide fieldset input.inputText
+{
+    width: 325px;
+}
+
+form.formLayout div.wide fieldset label.labelCheckbox,
+form.formLayout div.wide fieldset label.labelRadio
+{
+    width: 319px
+}
+/*@end*/
+
+/**
+* Element: design
+* Source: http://www.hedgerwow.com/360/dhtml/ui_input_listbox/demo.php?s[]=50
+* @begin
+*/
+
+form.formLayout div.selectThumbnails {
+    height:auto;
+    overflow:visible;
+    _height:2px;
+}
+
+form.formLayout div.selectThumbnails:after {
+    content:".";
+    display:block;
+    clear:both;
+}
+
+form.formLayout div.selectThumbnails img {
+    width:50px;
+    height:50px;
+    display:block;
+    margin:0;
+    border:solid 4px #CCC;
+    behavior:expression(void(this.onclick=Function("this.parentNode.parentNode.click(\)"))||void(this.runtimeStyle.behavior="none"))
+}
+
+form.formLayout div.selectThumbnails label {
+    position:relative;
+    font-size:1px;
+    margin:1px;
+    text-align:center;
+    float:left;
+    width:52px !important;
+    clear:none;
+    height:55px;
+}
+
+form.formLayout div.selectThumbnails span {
+    float:none;
+    border:none;
+}
+
+form.formLayout div.selectThumbnails input {
+    position:absolute;
+    top:4px;
+    left:4px;
+    width:13px;
+    height:13px;
+    text-align:center;
+    float:none;
+    display:block;
+    border: none;
+}
+
+form.formLayout div.selectThumbnails label.selected span img,
+form.formLayout div.selectThumbnails input:checked+span>img
+{
+    border: solid 4px #313334;
+    opacity:0.8;
+}
+/*@end*/
+
+/**
+* Element: design/color
+* @begin
+*/
+
+/* general */
+form.formLayout div img {
+    border: 1px solid #989898;
+    border-color: #989898 #606460 #606460 #989898;
+}
+
+form.formLayout fieldset {
+    border-color: #989898;
+}
+
+form.formLayout div fieldset {
+    border: 1px solid #989898;
+}
+
+/* input border */
+form.formLayout input.inputText,
+form.formLayout input.inputPassword,
+form.formLayout select,
+form.formLayout textarea,
+form.formLayout div.selectMassLabel
+{
+    background-color: #ffffff;
+    border: solid 1px #989898;
+    border-color: #989898 #606460 #606460 #989898;
+}
+
+form.formLayout input.inputLoading
+{
+    background: #ffffff url('/images/lib/basezf/elements/formLayout/inputLoading.gif') no-repeat 99% 55%;;
+}
+
+/* selectMass */
+form.formLayout div.selectMass div.selectMassOptions div
+{
+    border-color: #ccc;
+    border-top:none;
+}
+
+form.formLayout div.selectMass label
+{
+}
+
+form.formLayout div.selectMass label:hover
+{
+
+}
+
+/* buttons */
+form.formLayout input.inputSubmit,
+form.formLayout input.inputButton {
+    background-color: #cccccc;
+    color: #000000;
+}
+
+form.formLayout input.inputSubmit,
+form.formLayout input.inputButton
+{
+    height: 23px;
+    cursor:pointer;
+    border:outset 1px #ccc;
+    background:#999;
+    color:#666;
+    font-weight:bold;
+    padding: 1px 3px;
+    background:url(/images/lib/basezf/elements/formLayout/inputButton.gif) repeat-x left top;
+}
+
+form.formLayout div.inputFileFancy input.inputButton
+{
+    background:url(/images/lib/basezf/elements/formLayout/inputButton2.gif) repeat-x left top;
+}
+
+/* notes */
+form.formLayout fieldset div.notes {
+    border: 1px solid #666666;
+    background-color: #ffffe1;
+    color: #666666;
+}
+
+form.formLayout fieldset div.notes h4 {
+}
+/*@end*/
+

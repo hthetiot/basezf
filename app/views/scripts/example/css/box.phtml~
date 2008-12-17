@@ -1,0 +1,134 @@
+<div id="main" class="l-border r-border span-15">
+
+    <h1 id="title"><a href="#Title">Round Box</a></h1>
+
+    <p class="description">
+        This Round Box skeleton is the simplest and the better way to make some box with
+        round corner.
+    </p>
+
+    <h2 id="Syntax"><a href="#Corner">Corner Generator</a></h2>
+
+    <p class="description">
+        It can be usefull to generate corner and allso cache it on client side that why you can found a script for this on this path: /tools/rounded.php
+    </p>
+
+    <h3>Arguments:</h3>
+
+    <pre>
+    Corner Name :              cn (one of: tl, bl, tr, br)
+    Height      :              h (height for elliptical arc)
+    Width       :              w (width for elliptical arc)
+    Size        :              s (alternative parameter for circular arc)
+    Border      :              b (thickness of optional border line)
+    Border color:              cb (ignored unless b!=0)
+    Inner color :              ci
+    Outer color :              co
+    </pre>
+
+    <h3>Usage:</h3>
+
+    <pre>
+    /tools/rounded.php?cn=tl&s=10&ci=ffffff&co=000077 (top left 10x10 image, white inside, light blue outside)
+    /tools/rounded.php?cn=tr&h=20&w=20&ci=ffffff&co=000077 (top right 10x20 elliptical corner image, white inside, light blue outside)
+    </pre>
+
+
+    <h2 id="Syntax"><a href="#Syntax">Syntax</a></h2>
+    <h4>CSS:</h4>
+
+    <?php
+        $source= array();
+        $source[] = ' /* set background images for corners */';
+        $source[] = '.rbroundbox { background: #000 repeat; }';
+        $source[] = '.rbtop div  { background: url(/tools/rounded.php?cn=tl) no-repeat top left; }';
+        $source[] = '.rbtop      { background: url(/tools/rounded.php?cn=tr) no-repeat top right; }';
+        $source[] = '.rbbot div  { background: url(/tools/rounded.php?cn=bl) no-repeat bottom left; }';
+        $source[] = '.rbbot      { background: url(/tools/rounded.php?cn=br) no-repeat bottom right; }';
+        $source[] = '';
+        $source[] = ' /* height and width details */';
+        $source[] = '.rbtop div, .rbtop, .rbbot div, .rbbot {';
+        $source[] = '    width: 100%;';
+        $source[] = '    height: 14px;';
+        $source[] = '    font-size: 1px;';
+        $source[] = '}';
+        $source[] = '.rbcontent  { margin: 0 14px; }';
+        $source[] = '.rbroundbox { width: 20em; margin: auto; }';
+
+        echo $this->GeSHi(implode("\n", $source), 'css');
+    ?>
+
+    <h4>XHTML Markup:</h4>
+
+    <?php
+        $source= array();
+        $source[] = '<div class="rbroundbox">';
+        $source[] = '        <div class="rbtop"><div></div></div>';
+        $source[] = '            <div class="rbcontent">';
+        $source[] = '';
+        $source[] = '               <h2>Header</h2>';
+        $source[] = '               <p>Text here my love.</p>';
+        $source[] = '';
+        $source[] = '            </div>';
+        $source[] = '        <div class="rbbot"><div></div></div>';
+        $source[] = '    </div>';
+        $source[] = '<div class="rbroundbox">';
+        $source[] = '        <div class="rbtop"><div></div></div>';
+
+        echo $this->GeSHi(implode("\n", $source), 'css');
+    ?>
+
+    <h2 id="Example"><a href="#Example">Example</a></h2>
+
+    <?php
+        function random_color(){
+            mt_srand((double)microtime()*1000000);
+            $c = '';
+            while(strlen($c)<6){
+                $c .= sprintf("%02X", mt_rand(0, 255));
+            }
+            return $c;
+        }
+
+        $color = random_color();
+    ?>
+
+     <style>
+     /* set background images for corners */
+    .rbroundbox { background: #<?php echo $color; ?> repeat; }
+    .rbtop div  { background: url(/tools/rounded.php?cn=tl&ci=<?php echo $color; ?>) no-repeat top left; }
+    .rbtop      { background: url(/tools/rounded.php?cn=tr&ci=<?php echo $color; ?>) no-repeat top right; }
+    .rbbot div  { background: url(/tools/rounded.php?cn=bl&ci=<?php echo $color; ?>) no-repeat bottom left; }
+    .rbbot      { background: url(/tools/rounded.php?cn=br&ci=<?php echo $color; ?>) no-repeat bottom right; }
+
+     /* height and width details */
+    .rbtop div, .rbtop, .rbbot div, .rbbot {
+        width: 100%;
+        height: 14px;
+        font-size: 1px;
+    }
+    .rbcontent  { margin: 0 14px; }
+    .rbroundbox { width: 20em; margin: auto; }
+
+    </style>
+
+    <div class="rbroundbox">
+        <div class="rbtop"><div></div></div>
+            <div class="rbcontent">
+
+               <h2>Header</h2>
+               <p>Text here my love.</p>
+
+            </div>
+        <div class="rbbot"><div></div></div>
+    </div>
+
+</div>
+
+<div id="menu" class="span-2 last">
+    <h4 class="menu-item"><a href="#Title">Round Box</a></h4>
+    <div class="menu-item"><a href="#Syntax">Syntax</a></div>
+    <div class="menu-item"><a href="#Example">Example</a></div>
+</div>
+
+

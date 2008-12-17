@@ -1,0 +1,70 @@
+<?php
+/**
+ * Default layout for BasZF
+ *
+ * @category   BasZF_Layouts
+ * @package    BasZF
+ * @copyright  Copyright (c) 2008 BasZF
+ * @author     Harold Thétiot (hthetiot)
+ */
+
+    // add blueprint stylesheet
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/screen.css', 'screen, projection');
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/print.css', 'print');
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/ie.css', 'screen, projection', 'IE');
+
+    // add blueprint plugins stylesheet
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/fancy-type/screen.css', 'screen, projection');
+
+    // @todo remove
+    $this->headLink()->appendStylesheet('/css/layouts/default/main.css', 'screen, projection');
+
+    // set default meta
+    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
+
+    // display DocType
+    echo $this->doctype() . "\n";
+?>
+<html>
+<head>
+<?php echo $this->headTitle(); ?>
+<?php echo $this->headMeta(); ?>
+<?php echo $this->headLink(); ?>
+<?php echo $this->headScript(); ?>
+<?php echo $this->headStyle(); ?>
+
+</head>
+<body>
+    <div class="container">
+
+        <div id="header">
+
+            <div class="span-5">
+                logo
+            </div>
+
+            <div class="span-19 last">
+
+                <div>
+                    menu top
+                </div>
+
+                <div>
+                    menu bottom
+                </div>
+
+            </div>
+
+            <div class="clear"></div>
+
+        </div>
+
+        <div id="content">
+            <?php echo $this->placeholder('Zend_Layout')->content; ?>
+        </div>
+
+        <div id="footer">
+        </div>
+    </div
+</body>
+</html>

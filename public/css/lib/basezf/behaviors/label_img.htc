@@ -1,0 +1,27 @@
+<public:component>
+  <script type="text/javascript">
+  <!--
+    function getParentElementByTagName(oElement, tagName)
+    {
+      var returnValue = null;
+      while((oElement = oElement.parentNode) && oElement != document)
+      {
+        if(oElement.tagName && oElement.tagName.toUpperCase() == tagName.toUpperCase())
+        {
+          returnValue = oElement;
+          break;
+        }
+      }
+      return returnValue;
+    }
+
+    function bubbleClick()
+    {
+      oParent = getParentElementByTagName(this, 'LABEL');
+      if(oParent)
+        oParent.click();
+    }
+  // -->
+  </script>
+  <public:attach event="onclick" onevent="bubbleClick()"/>
+</public:component>

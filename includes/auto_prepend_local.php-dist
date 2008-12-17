@@ -1,0 +1,35 @@
+<?php
+/**
+ * local_auto_prepend.php-dist for BaseZF in /includes/
+ *
+ * @brief this is a example of local config for dev
+ *
+ * @category   BaseZF
+ * @package    BaseZF
+ * @copyright  Copyright (c) 2008 BaseZF
+ * @author     Harold Thétiot (hthetiot)
+ */
+
+//---------------------------------------------------------------------------
+// Debug local value
+
+// enable xdebug error handler
+
+if (extension_loaded('xdebug')) {
+
+    xdebug_enable();
+
+    // configure error report
+    ini_set('xdebug.dump.SERVER', 'HTTP_HOST, SERVER_NAME');
+    ini_set('xdebug.dump.GET', '*');
+    ini_set('xdebug.dump.POST', '*');
+}
+
+//---------------------------------------------------------------------------
+// Overrride auto_prepend values
+define('CONFIG_ENV', 'staging');
+
+//---------------------------------------------------------------------------
+// Set Debug values
+define('DEBUG_MAILS', 'john@idontknowwhere.com');
+

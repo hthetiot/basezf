@@ -1,0 +1,133 @@
+<div id="main" class="l-border r-border span-15">
+
+    <h1 id="title"><a href="#Title">Menus</a></h1>
+
+    <p class="description">
+        Following CSS class provide to you a skeleton to build you own menus.
+        Following skeleton can be just override for design, they are tested on all current browsers.
+    </p>
+
+    <h2 id="Tabs"><a href="#Section">Tabs</a></h2>
+
+    <h3>Syntax:</h3>
+
+    <?php
+        $source= array();
+        $source[] = '<div  class="menu-tabs">';
+        $source[] = '   <ul>';
+        $source[] = '       <li><a href="">$label</a></li>';
+        $source[] = '       <li class="selected"><a href="">$label</a></li>';
+        $source[] = '       <li><a href="">$label</a></li>';
+        $source[] = '       ...';
+        $source[] = '   <ul>';
+        $source[] = '</div>';
+        $source[] = '<div class="clear"></div>';
+
+        echo $this->GeSHi(implode("\n", $source), 'html4strict');
+    ?>
+
+
+    <h3>Example:</h3>
+
+    <div class="menu-tabs">
+        <ul>
+            <li><a href="#"><span>Home</a></li>
+            <li class="selected"><a href="#"><span>Selected</span></a></li>
+            <li><a href="#"><span>Forums</span></a></li>
+            <li><a href="#"><span>Tools</span></a></li>
+            <li><a href="#"><span>JavaScript</span></a></li>
+        </ul>
+    </div>
+
+    <br />
+    <br />
+
+    <h2 id="Inline"><a href="#Inline">Inline</a></h2>
+    <h3>Syntax:</h3>
+
+    <?php
+        $source= array();
+        $source[] = '<ul class="menu-inline">';
+        $source[] = '   <li class="first"><a href="">$label</a></li>';
+        $source[] = '   <li class="selected"><a href="">$label</a></li>';
+        $source[] = '   <li><a href="">$label</a></li>';
+        $source[] = '   ...';
+        $source[] = '<ul>';
+
+        echo $this->GeSHi(implode("\n", $source), 'html4strict');
+    ?>
+
+
+    <h3>Example:</h3>
+
+        <ul class="menu-inline">
+            <li class="first"><a href="#">Home</a></li>
+            <li class="selected"><a href="#">Selected</a></li>
+            <li><a href="#">Forums</a></li>
+            <li><a href="#">Tools</a></li>
+            <li><a href="#">JavaScript</a></li>
+        </ul>
+
+    <h2 id="Vertical"><a href="#Vertical">Vertical</a></h2>
+    <h3>Syntax:</h3>
+
+    <?php
+        $source= array();
+        $source[] = '<ul class="menu-vertical">';
+        $source[] = '   <li class="first"><a href="">$label</a></li>';
+        $source[] = '   <li class="selected"><a href="">$label</a></li>';
+        $source[] = '   <li><a href="">$label</a></li>';
+        $source[] = '   ...';
+        $source[] = '<ul>';
+
+        echo $this->GeSHi(implode("\n", $source), 'html4strict');
+    ?>
+
+
+    <h3>Example:</h3>
+
+        <ul class="menu-vertical">
+            <li class="first"><a href="#">Home</a></li>
+            <li class="selected"><a href="#">Selected</a></li>
+            <li class="separator"><a href="#">Forums</a></li>
+            <li><a href="#">Tools</a></li>
+            <li><a href="#">JavaScript</a></li>
+        </ul>
+
+    <h2 id="Simple"><a href="#Simple">Simple</a></h2>
+    <h3>Syntax:</h3>
+
+    <?php
+        $source= array();
+        $source[] = '<ul class="menu">';
+        $source[] = '   <li class="first"><a href="">$label</a></li>';
+        $source[] = '   <li class="selected"><a href="">$label</a></li>';
+        $source[] = '   <li><a href="">$label</a></li>';
+        $source[] = '   ...';
+        $source[] = '<ul>';
+
+        echo $this->GeSHi(implode("\n", $source), 'html4strict');
+    ?>
+
+    <h3>Example:</h3>
+
+        <ul class="menu">
+            <li class="first"><a href="#">Home</a></li>
+            <li class="selected"><a href="#">Selected</a></li>
+            <li><a href="#">Forums</a></li>
+            <li><a href="#">Tools</a></li>
+            <li><a href="#">JavaScript</a></li>
+        </ul>
+
+</div>
+
+<div id="menu" class="span-2 last">
+    <h4 class="menu-item"><a href="#Title">Menus</a></h4>
+    <div class="menu-item"><a href="#Tabs">Tabs</a></div>
+    <div class="menu-item"><a href="#Inline">Inline</a></div>
+    <div class="menu-item"><a href="#Vertical">Vertical</a></div>
+    <div class="menu-item"><a href="#Simple">Simple</a></div>
+    <div class="menu-item"><a href="#Pagination">Pagination</a></div>
+</div>
+
+

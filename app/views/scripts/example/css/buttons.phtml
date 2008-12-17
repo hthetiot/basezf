@@ -1,0 +1,39 @@
+<div id="main" class="l-border r-border span-15">
+
+    <h1 id="title"><a href="#Title">Fancy Buttons</a></h1>
+
+    <p class="description">
+        Bla bla...
+    </p>
+
+    <h2 id="Section"><a href="#Syntax">Syntax</a></h2>
+
+    <h3>Simple Link:</h3>
+
+    <?php
+        echo $this->GeSHi('<a href="$url" class="fancyButton"><span>$label</span></a>', 'html4strict');
+    ?>
+
+    <h3>Input:</h3>
+
+    <?php
+        echo $this->GeSHi('<span class="fancyButton"><input type="button" value="$label" /></span>', 'html4strict');
+    ?>
+
+    <h2 id="Section"><a href="#Examples">Examples</a></h2>
+
+    <a href="#" class="fancyButton fancyButtonBlack"><span>Lorem Ipsum </span></a>
+
+    <a href="#" class="fancyButton"><span>Lorem ipsum dolor sit amet</span></a>
+
+    <span class="fancyButton"><input type="button" value="Lorem ipsum" /></span>
+
+</div>
+
+<div id="menu" class="span-2 last">
+    <h4 class="menu-item"><a href="#Title">Fancy Buttons</a></h4>
+    <div class="menu-item"><a href="#Syntax">Syntax</a></div>
+    <div class="menu-item"><a href="#Examples">Examples</a></div>
+</div>
+
+

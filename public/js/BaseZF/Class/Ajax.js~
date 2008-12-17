@@ -1,0 +1,105 @@
+/**
+ * Ajax.js
+ *
+ * @category   BaseZF_JS_Class
+ * @package    BaseZF
+ * @copyright  Copyright (c) 2008 BaseZF
+ * @author     Harold Thétiot (hthetiot)
+ */
+
+if (typeof BaseZF == "undefined") var BaseZF = {};
+if (typeof BaseZF.Class == "undefined") BaseZF.Class = {};
+
+/**
+ * Ajax Handler
+ */
+BaseZF.Class.Ajax = {
+
+    initialized: false,
+
+    debug: true,
+
+    nbActiveRequest: 0,
+
+    loadingElement: false,
+
+    init: function()
+    {
+        if (BaseZF.Class.Ajax.initialized) {
+            return;
+        }
+
+        BaseZF.Class.Ajax.loadingElement = $('loading');
+        BaseZF.Class.Ajax.initialized = true;
+        BaseZF.Class.Ajax.hideLoading(true);
+    },
+
+    showLoading: function()
+    {
+        // add transaction
+        if (BaseZF.Class.Ajax.nbActiveRequest >= 0) {
+            BaseZF.Class.Ajax.nbActiveRequest++;
+        }
+
+        // check loading element
+        if (!BaseZF.Class.Ajax.loadingElement) {
+            return;
+        }
+
+        // add loading if needed
+        if (!BaseZF.Class.Ajax.loadingElement.hasClass('loading')) {
+            BaseZF.Class.Ajax.loadingElement.addClass('loading');
+            BaseZF.Class.Ajax.loadingElement.fade(1);
+        }
+    },
+
+    hideLoading: function(force)
+    {
+        // remove transaction
+        if (BaseZF.Class.Ajax.nbActiveRequest >= 1) {
+            BaseZF.Class.Ajax.nbActiveRequest--;
+        }
+
+        // check loading element
+        if (!BaseZF.Class.Ajax.loadingElement) {
+            return;
+        }
+
+        // remove loading if needed
+        if ($type(force) ||
+            (
+                BaseZF.Class.Ajax.nbActiveRequest == 0 &&
+                BaseZF.Class.Ajax.loadingElement.hasClass('loading')
+            )
+        ) {
+
+            // hide loading
+            BaseZF.Class.Ajax.loadingElement.removeClass('loading');
+            BaseZF.Class.Ajax.loadingElement.fade(0);
+            BaseZF.Class.Ajax.nbActiveRequest = 0;
+        }
+    },
+
+    ajaxCallback: function(responseTree, responseElements, responseHTML, responseJavaScript)
+    {
+        var originElement = $(this);
+
+        try {
+            eval(responseJavaScript);
+        } catch (e) {
+
+            // show debug
+            if (BaseZF.Class.Ajax.debug) {
+                alert('Error : ' + e.message);
+            }
+        }
+
+        BaseZF.Class.Ajax.hideLoading();
+    }
+}
+
+// launch at domready
+window.addEvent('domready', function() {
+    BaseZF.Class.Ajax.init();
+});
+

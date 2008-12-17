@@ -1,0 +1,9 @@
+<?php
+
+    // Displaying javascript from controler
+    $jonsData = $this->jsonData()->getData();
+
+    if (!empty($jonsData)) {
+        echo json_encode($jonsData);
+    }
+

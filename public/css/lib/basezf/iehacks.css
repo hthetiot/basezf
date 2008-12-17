@@ -1,0 +1,34 @@
+/*Fix the PNG background image so that the contents can still be clicked*/
+* html .png-fix-box {
+    background: none;
+    _azimuth: expression(this.bgd = this.bgd || 'bgd:'+this.insertAdjacentHTML('afterBegin','
+'),'inherit');
+}
+* html .png-fix-box .bg {
+    display:inline;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/media/images/global/discuss-box_top.png', sizingMethod='image');
+}
+
+/*IE6 specific code to get hover working for any element*/
+#nav li,
+.something-that-should-support-hover {
+    _azimuth: expression(
+        this.onmousedown  = this.onmousedown  || new Function("this.className += ' active'"),
+        this.onmouseup    = this.onmouseup    || new Function("this.className = this.className.replace('active','')"),
+        this.onmouseenter = this.onmouseenter || new Function("this.className += ' hover'"),
+        this.onmouseleave = this.onmouseleave || new Function("this.className = this.className.replace('hover','')"),
+        'inherit'
+    );
+}
+
+* html .shimmed {
+  _azimuth: expression(
+    this.shimmed = this.shimmed || 'shimmed:'+this.insertAdjacentHTML('beforeBegin','<IFRAME style="filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);position:absolute;top:0px;left:0px;width:100%;height:100%" frameBorder=0 scrolling=no src="javascript:'+"''"+'"></IFRAME>'),
+    'inherit'
+  );
+}

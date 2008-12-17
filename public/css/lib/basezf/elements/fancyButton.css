@@ -1,0 +1,65 @@
+.fancyButton { /*fancyButton button CSS*/
+    background: transparent url('/images/lib/basezf/elements/fancyButton/left.gif') no-repeat top left;
+    display: block;
+    float: left;
+    font: bold 13px Verdana, Trebuchet MS; /* Change 13px as desired */
+    line-height: 23px; /* This value + 8px should equal height of button background (default is 31px) */
+    height: 31px; /* Height of button background height */
+    padding-left: 10px; /* Width of left menu image */
+    text-decoration: none;
+    margin-right: 5px; /*spacing between buttons*/
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=90); /*this and next two rules control opacity of buttons before hover*/
+    opacity: 0.9;
+    -moz-opacity: 0.9;
+}
+
+.fancyButton span,
+.fancyButton input
+{
+    background: transparent url('/images/lib/basezf/elements/fancyButton/right.gif') no-repeat top right;
+    display: block;
+    padding: 4px 10px 6px 0; /*Set 10px here to match value of 'padding-left' value above*/
+}
+
+.fancyButton input
+{
+    border: none;
+    height: 31px;
+    font: bold 13px Verdana, Trebuchet MS;
+    overflow: visible;
+}
+
+* html .fancyButton input
+{
+    padding-top: 6px;
+}
+
+.fancyButton:hover{ /* Hover state CSS */
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=100); /*this and next two rules control opacity of buttons during hover*/
+    opacity: 1;
+    -moz-opacity: 0.99;
+}
+
+/* Button text color */
+.fancyButton:link,
+.fancyButton:visited,
+.fancyButton:active,
+.fancyButton span, .fancyButton input
+{
+    color: white;
+}
+
+/* Hover state CSS (for text) */
+.fancyButton:hover {
+    color: yellow;
+}
+
+/* Button colors */
+.fancyButtonBlack{
+    background-image: url('/images/lib/basezf/elements/fancyButton/leftblack.gif');
+}
+
+.fancyButtonBlack span{
+    background-image: url('/images/lib/basezf/elements/fancyButton/rightblack.gif');
+}
+

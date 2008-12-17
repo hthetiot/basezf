@@ -1,0 +1,24 @@
+<div id="main" class="l-border span-18">
+
+    <h2>What is BaseZF</h2>
+
+    <p class="description">
+        BaseZF is a <a href="#">Zend Framework</a> Implementation, it provide to the native Zend Framework some missing classes and functions to implement
+        any website with standart features.
+        <br>
+        <br>
+        BaseZF include allso some frontend part to make CSS and Javascript, it using <a href="#">Mootools</a> JS Framework and <a href="#">BluePrint</a> CSS Framework.
+        <br>
+        <br>
+        BaseZF is a good start to begin a site from scratch it provide to you guidelines and structure to maintain and make evolve your website
+        and respect standart as the same time.
+    </p>
+
+    <h3>What I can found in this docs ?</h3>
+
+    <p class="description">
+        This module contains examples and documentation of features available in BaseZF Zend Framework Implementation.
+    </p>
+
+</div>
+
