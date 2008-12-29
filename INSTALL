@@ -1,1 +1,57 @@
+/**
+ * # MyProject - Description
+ *
+ * # Maintainers
+ *  - Harold Thétiot (hthetiot) - <hthetiot@gmail.com>
+ *
+ * # Last update: YYYY-MM-DD
+ */
+
+* Apache mods need to be enable
+--------------
+	- Expire
+	- Rewrite
+	- Deflate
+
+* Some Package have to be installed via apt :
+--------------
+
+	+ PHP
+	- php5
+	- php-pear
+	- php5-mysqli
+	- php5-pgsql
+	- php5-curl
+	- php5-xmlrpc
+	- php5-json
+	- php5-memcache
+
+	+ Services
+	- gettext
+	- imagemagick
+	- memcached
+	- pwgen
+	- java 1.6
+
+	+ Css compression
+	- csstidy
+
+* Some Package have to be installed via pecl :
+--------------
+
+	+ PHP
+	- apc
+
+* Locales need to be available on system
+--------------
+
+	+ linux locale
+	- bg_BG.UTF-8
+	- de_DE.UTF-8
+	- en_GB.UTF-8
+	- en_US.UTF-8
+	- es_ES.UTF-8
+	- fr_FR.UTF-8
+	- it_IT.UTF-8
+	- ru_RU.UTF-8
 
