@@ -37,12 +37,13 @@
     //
 
     // add motools JS framework
-    $this->headScript()->appendFile('http://www.google.com/jsapi?key=ABQIAAAAuno_MXfCpvDp_wlCZ6suSxT2AqkUG44FzJpmmcTlDpPqEtDyIhQA9Dn6ktK0oSoj_F88pZO-OMNkmA');
+	/*
+    $this->headScript()->appendFile('http://www.google.com/jsapi');
     $this->headScript()->appendScript('google.load("mootools", "1.2.1");');
-    /*
-    $this->headScript()->appendFile('/js/lib/mootools-1.2.1-core.js');
-    $this->headScript()->appendFile('/js/lib/mootools-1.2-more.js');
     */
+
+	$this->headScript()->appendFile('/js/lib/mootools-1.2.1-core.js');
+    $this->headScript()->appendFile('/js/lib/mootools-1.2-more.js');
 
     // add BaseZF JS framework (include in main.js)
     {
