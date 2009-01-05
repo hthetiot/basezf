@@ -8,6 +8,12 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
+    $this->headLink()->enablePacks(CONFIG_STATIC_PACK_CSS);
+    $this->headLink()->setPrefixSrc(CDN_URL_CSS);
+
+    $this->headScript()->enablePacks(CONFIG_STATIC_PACK_JS);
+    $this->headScript()->setPrefixSrc(CDN_URL_JS);
+
     //
     // CSS stuff
     //
@@ -17,18 +23,20 @@
     $this->headLink()->appendStylesheet('/css/lib/blueprint/print.css', 'print');
     $this->headLink()->appendStylesheet('/css/lib/blueprint/ie.css', 'screen, projection', 'IE');
 
-    // add blueprint plugins stylesheet
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/fancy-type/screen.css', 'screen, projection');
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/buttons/screen.css', 'screen, projection');
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/sprites/sprite.css', 'screen, projection');
-
     // set Layout stylesheet
-    $this->headLink()->appendStylesheet('/css/layouts/example/main.css', 'screen, projection');
+    $this->headLink()->appendStylesheet('/css/layouts/example/layout.css', 'screen, projection');
 
-    // add basezf elements
-    $this->headLink()->appendStylesheet('/css/lib/basezf/elements/formLayout.css', 'screen, projection');
-    $this->headLink()->appendStylesheet('/css/lib/basezf/elements/fancyMenu.css', 'screen, projection');
-    $this->headLink()->appendStylesheet('/css/lib/basezf/elements/fancyButton.css', 'screen, projection');
+    // element files (include in lib.css)
+    {
+        // add basezf elements
+        $this->headLink()->appendStylesheet('/css/lib/basezf/elements/formLayout.css', 'screen, projection');
+        $this->headLink()->appendStylesheet('/css/lib/basezf/elements/fancyMenu.css', 'screen, projection');
+        $this->headLink()->appendStylesheet('/css/lib/basezf/elements/fancyButton.css', 'screen, projection');
+
+        // add blueprint plugins stylesheet
+        $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/fancy-type/screen.css', 'screen, projection');
+        $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/sprites/sprite.css', 'screen, projection');
+    }
 
     //
     // JS stuff
@@ -42,22 +50,27 @@
     $this->headScript()->appendFile('/js/lib/mootools-1.2-more.js');
     */
 
-    // add BaseZF JS framework
-    $this->headScript()->appendFile('/js/BaseZF/BaseZF.js');
-    $this->headScript()->appendFile('/js/BaseZF/Class/Ajax.js');
-    $this->headScript()->appendFile('/js/BaseZF/Class/Helper.js');
-    $this->headScript()->appendFile('/js/BaseZF/Helper/AjaxLink.js');
-    $this->headScript()->appendFile('/js/BaseZF/Helper/FormSelectMass.js');
+    // add BaseZF JS framework (include in main.js)
+    {
+        $this->headScript()->appendFile('/js/BaseZF/BaseZF.js');
+        $this->headScript()->appendFile('/js/BaseZF/Class/Ajax.js');
+        $this->headScript()->appendFile('/js/BaseZF/Class/Helper.js');
+        $this->headScript()->appendFile('/js/BaseZF/Helper/AjaxLink.js');
+        $this->headScript()->appendFile('/js/BaseZF/Helper/FormSelectMass.js');
+    }
 
-    // auto completer
-    $this->headScript()->appendFile('/js/lib/motools-plugins/Autocompleter/Autocompleter.js');
-    $this->headScript()->appendFile('/js/lib/motools-plugins/Autocompleter/Autocompleter.Request.js');
-    $this->headScript()->appendFile('/js/lib/motools-plugins/Autocompleter/Observer.js');
-    $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Autocompleter/Autocompleter.css', 'screen, projection');
+    // motools plugins files (include in lib.js and lib.css)
+    {
+        // auto completer
+        $this->headScript()->appendFile('/js/lib/motools-plugins/Autocompleter/Autocompleter.js');
+        $this->headScript()->appendFile('/js/lib/motools-plugins/Autocompleter/Autocompleter.Request.js');
+        $this->headScript()->appendFile('/js/lib/motools-plugins/Autocompleter/Observer.js');
+        $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Autocompleter/Autocompleter.css', 'screen, projection');
 
-    // lightbox
-    $this->headScript()->appendFile('/js/lib/motools-plugins/SqueezeBox/SqueezeBox.js');
-    $this->headLink()->appendStylesheet('/js/lib/motools-plugins/SqueezeBox/SqueezeBox.css', 'screen, projection');
+        // lightbox
+        $this->headScript()->appendFile('/js/lib/motools-plugins/SqueezeBox/SqueezeBox.js');
+        $this->headLink()->appendStylesheet('/js/lib/motools-plugins/SqueezeBox/SqueezeBox.css', 'screen, projection');
+    }
 
     //
     // Others

@@ -65,23 +65,33 @@ if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(PATH_TO_INCLUDES . '/auto_p
 
 define_if_not('CONFIG_ENV', 'production');
 define_if_not('CONFIG_FILE', PATH_TO_CONFIG . '/config.xml');
-define_if_not('CONFIG_ACL_FILE', PATH_TO_CONFIG . '/acl.xml');
-define_if_not('CONFIG_ACL_ROUTES_FILE', PATH_TO_CONFIG . '/acl_routes.xml');
+define_if_not('CONFIG_ACL_ROLES', PATH_TO_CONFIG . '/acl/roles.xml');
+define_if_not('CONFIG_ACL_ROUTES', PATH_TO_CONFIG . '/acl/routes.xml');
+
+// enable or disable css pack file
+define_if_not('CONFIG_STATIC_PACK_CSS', false);
+define_if_not('CONFIG_STATIC_PACK_CSS_FILES', PATH_TO_CONFIG . '/static/css/');
+define_if_not('CONFIG_STATIC_PACK_CSS_PATH',  '/css/pack/');
+
+// enable or disable js pack file
+define_if_not('CONFIG_STATIC_PACK_JS', false);
+define_if_not('CONFIG_STATIC_PACK_JS_FILES', PATH_TO_CONFIG . '/static/js/');
+define_if_not('CONFIG_STATIC_PACK_JS_PATH',  '/js/pack/');
 
 //---------------------------------------------------------------------------
 // External variable env
 
 // main url
-define_if_not('MAIN_URL', 'bahu.com');
+define_if_not('MAIN_URL', 'basezf.stupeflix.com/');
 define_if_not('BASE_URL', BASE_HTTP_SCHEME . MAIN_URL);
 
 // sub url
 define_if_not('BASE_URL_HOME_MEMBER', 'http://%s.' . MAIN_URL);
 
 // cdn url use BASE_HTTP_SCHEME to be secure too
-define_if_not('CDN_URL_JS', BASE_HTTP_SCHEME . 'design.' . MAIN_URL);
-define_if_not('CDN_URL_CSS', BASE_HTTP_SCHEME . 'design.' . MAIN_URL);
-define_if_not('CDN_URL_DESIGN', BASE_HTTP_SCHEME . 'design.' . MAIN_URL);
+define_if_not('CDN_URL_JS', BASE_HTTP_SCHEME . MAIN_URL);
+define_if_not('CDN_URL_CSS', BASE_HTTP_SCHEME . MAIN_URL);
+define_if_not('CDN_URL_DESIGN', BASE_HTTP_SCHEME . MAIN_URL);
 
 // mail
 define_if_not('MAIL_DEFAULT_SENDER', 'noreply@' . MAIN_URL);
@@ -111,5 +121,4 @@ set_include_path(
 require_once 'Zend/Loader.php';
 
 Zend_Loader::registerAutoload();
-
 
