@@ -1,6 +1,6 @@
 <?php
 /**
- * JsonData.php
+ * GeSHi.php
  *
  * @category   BaseZF
  * @package    BaseZF_Framwork

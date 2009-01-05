@@ -8,7 +8,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-abstract class BaseZF_Image
+class BaseZF_Image
 {
 
 }
