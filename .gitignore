@@ -6,3 +6,8 @@
 *Thumbs.db
 \#Untitled-*#
 *.marks
+
+# Some production only files
+etc/apache.conf
+includes/auto_prepend_local.php
+logs/*
