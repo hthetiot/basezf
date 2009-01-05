@@ -41,16 +41,18 @@ do
 		# compress JS files
 		if [ "$1" = "js" ]
 		then
+			echo "\tProcess: compilation using yuiCompressor"
 			java -jar $yuicompressor_path $yuicompressor_params tmp.compress -o $output > /dev/null
 		fi
 
 		# compress CSS files
 		if [ "$1" = "css" ]
 		then
+			echo "\tProcess: compilation using TidyCss"
 			$csstidy_path tmp.compress $csstidy_params $output > /dev/null
 		fi
 
-		echo "\tFinished : package available here : $output"
+		echo "\tFinished: \package available here : $output"
 		rm -f tmp.compress
 	fi
 
