@@ -52,6 +52,14 @@ abstract class BaseZF_Bootstrap
         // set encoding
         $view->setEncoding('UTF-8');
 
+		// configure css CDN
+		$view->headLink()->enablePacks(CONFIG_STATIC_PACK_CSS);
+		$view->headLink()->setPrefixSrc(CDN_URL_CSS);
+
+		// configure js CDN
+		$view->headScript()->enablePacks(CONFIG_STATIC_PACK_JS);
+		$view->headScript()->setPrefixSrc(CDN_URL_JS);
+
         // configure view render (path and suffix)
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewRenderer->setView($view)

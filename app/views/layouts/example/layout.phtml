@@ -8,12 +8,6 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-    $this->headLink()->enablePacks(CONFIG_STATIC_PACK_CSS);
-    $this->headLink()->setPrefixSrc(CDN_URL_CSS);
-
-    $this->headScript()->enablePacks(CONFIG_STATIC_PACK_JS);
-    $this->headScript()->setPrefixSrc(CDN_URL_JS);
-
     //
     // CSS stuff
     //
@@ -53,7 +47,6 @@
     // add BaseZF JS framework (include in main.js)
     {
         $this->headScript()->appendFile('/js/BaseZF/BaseZF.js');
-        $this->headScript()->appendFile('/js/BaseZF/Class/Ajax.js');
         $this->headScript()->appendFile('/js/BaseZF/Class/Helper.js');
         $this->headScript()->appendFile('/js/BaseZF/Helper/AjaxLink.js');
         $this->headScript()->appendFile('/js/BaseZF/Helper/FormSelectMass.js');

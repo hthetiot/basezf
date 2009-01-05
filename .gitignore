@@ -11,3 +11,5 @@
 etc/apache.conf
 includes/auto_prepend_local.php
 logs/*
+public/css/pack/*.css
+public/js/pack/*.js

@@ -48,9 +48,9 @@ require_once PATH_TO_LIBRARY . '/missing_functions.php';
 // detect SSL
 
 if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on') {
-    define_if_not('BASE_HTTP_SCHEME', 'https://');
+    define('BASE_HTTP_SCHEME', 'https://');
 } else {
-    define_if_not('BASE_HTTP_SCHEME', 'http://');
+    define('BASE_HTTP_SCHEME', 'http://');
 }
 
 //---------------------------------------------------------------------------
@@ -70,13 +70,13 @@ define_if_not('CONFIG_ACL_ROUTES', PATH_TO_CONFIG . '/acl/routes.xml');
 
 // enable or disable css pack file
 define_if_not('CONFIG_STATIC_PACK_CSS', false);
-define_if_not('CONFIG_STATIC_PACK_CSS_FILES', PATH_TO_CONFIG . '/static/css/');
-define_if_not('CONFIG_STATIC_PACK_CSS_PATH',  '/css/pack/');
+define('CONFIG_STATIC_PACK_CSS_FILES', PATH_TO_CONFIG . '/static/css/');
+define('CONFIG_STATIC_PACK_CSS_PATH',  '/css/pack/');
 
 // enable or disable js pack file
 define_if_not('CONFIG_STATIC_PACK_JS', false);
-define_if_not('CONFIG_STATIC_PACK_JS_FILES', PATH_TO_CONFIG . '/static/js/');
-define_if_not('CONFIG_STATIC_PACK_JS_PATH',  '/js/pack/');
+define('CONFIG_STATIC_PACK_JS_FILES', PATH_TO_CONFIG . '/static/js/');
+define('CONFIG_STATIC_PACK_JS_PATH',  '/js/pack/');
 
 //---------------------------------------------------------------------------
 // External variable env

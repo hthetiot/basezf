@@ -24,10 +24,10 @@ NAME = my_project_name
 VERSION = alpha
 
 # Static
-CSS_SRC_PATH = $(ROOT)/libraries/php/src
-CSS_PACK_PATH = $(ROOT)/libraries/php/src
-JS_SRC_PATH = $(ROOT)/libraries/php/src
-JS_PACK_PATH = $(ROOT)/libraries/php/src
+CSS_SRC_PATH = $(ROOT)/etc/static/css
+CSS_PACK_PATH = $(ROOT)/public/css/pack
+JS_SRC_PATH = $(ROOT)/etc/static/js
+JS_PACK_PATH = $(ROOT)/public/js/pack
 
 # Others
 ZIP_NAME = $(NAME)-$(VERSION).zip
@@ -67,25 +67,15 @@ static-pack: static-pack-css static-pack-js
 
 static-pack-css:
 	@echo "----------------"
-	@echo "Build CSS static pack files:"
-
-#todo
-
-	@echo "done"
+	@./bin/compress-js-css.sh css $(CSS_SRC_PATH) $(CSS_PACK_PATH)
 
 static-pack-js:
 	@echo "----------------"
-	@echo "Build JavaScript static pack files:"
-
-#todo
-
-	@echo "done"
+	@./bin/compress-js-css.sh js $(JS_SRC_PATH) $(JS_PACK_PATH)
 
 # Clean Useless file
 clean:
 	@echo "----------------"
 	@echo "Cleaning useless files:"
-
-#todo
-
+	@find . -name "*~" -exec rm {} \;
 	@echo "done"
