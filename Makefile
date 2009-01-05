@@ -67,11 +67,11 @@ static-pack: static-pack-css static-pack-js
 
 static-pack-css:
 	@echo "----------------"
-	@./bin/compress-js-css.sh css $(CSS_SRC_PATH) $(CSS_PACK_PATH)
+	@./bin/tools/static-pack.sh css $(CSS_SRC_PATH) $(CSS_PACK_PATH)
 
 static-pack-js:
 	@echo "----------------"
-	@./bin/compress-js-css.sh js $(JS_SRC_PATH) $(JS_PACK_PATH)
+	@./bin/tools/static-pack.sh js $(JS_SRC_PATH) $(JS_PACK_PATH)
 
 # Clean Useless file
 clean:
