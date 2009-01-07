@@ -123,15 +123,15 @@ form.formLayout div textarea {
     margin: 2px 0;
 }
 
-form.formLayout div input.inputText,
-form.formLayout div input.inputPassword {
+form.formLayout div input.formText,
+form.formLayout div input.formPassword {
     width: 200px;
     padding: 2px 3px;
     margin: 2px 0;
     height: 15px;
 }
 
-form.formLayout div input.inputFile {
+form.formLayout div input.formFile {
     width: 211px;
 }
 
@@ -149,10 +149,10 @@ form.formLayout div.required label:before {
     content: '';
 }
 
-form.formLayout div fieldset input.inputText,
-form.formLayout div fieldset input.inputPassword,
-form.formLayout div fieldset input.inputFile,
-form.formLayout div fieldset textarea.inputTextarea {
+form.formLayout div fieldset input.formText,
+form.formLayout div fieldset input.formPassword,
+form.formLayout div fieldset input.formFile,
+form.formLayout div fieldset textarea.formTextarea {
     width: 160px;
     margin: 0 0 0 18px;
 }
@@ -201,8 +201,8 @@ form.formLayout fieldset div.notes p.last {
 * Element: Radio/Checkbox
 * @begin
 */
-form.formLayout div label.labelCheckbox,
-form.formLayout div label.labelRadio {
+form.formLayout div label.formLabelCheckbox,
+form.formLayout div label.formLabelRadio {
     float: none;
     display: block;
     width: 200px;
@@ -212,16 +212,16 @@ form.formLayout div label.labelRadio {
     text-align: left;
 }
 
-form.formLayout div fieldset label.labelCheckbox,
-form.formLayout div fieldset label.labelRadio {
+form.formLayout div fieldset label.formLabelCheckbox,
+form.formLayout div fieldset label.formLabelRadio {
     margin: 0 0 5px 0;
     width: 170px;
 }
 
-form.formLayout div input.inputCheckbox,
-form.formLayout div input.inputRadio,
-form.formLayout input.inputCheckbox,
-form.formLayout input.inputRadio {
+form.formLayout div input.formCheckbox,
+form.formLayout div input.formRadio,
+form.formLayout input.formCheckbox,
+form.formLayout input.formRadio {
     display: inline;
     height: auto;
     width: auto;
@@ -231,10 +231,10 @@ form.formLayout input.inputRadio {
     margin: -2px 0 0 140px;
 }
 
-form.formLayout div label.labelCheckbox,
-form.formLayout div label.labelRadio,
-form.formLayout label.labelCheckbox,
-form.formLayout label.labelRadio {
+form.formLayout div label.formLabelCheckbox,
+form.formLayout div label.formLabelRadio,
+form.formLayout label.formLabelCheckbox,
+form.formLayout label.formLabelRadio {
     display: block;
     width: 190px;
     zoom: 1;
@@ -244,8 +244,8 @@ form.formLayout label.labelRadio {
 }
 
 
-form.formLayout label.labelCheckbox input.inputCheckbox,
-form.formLayout label.labelRadio input.inputRadio {
+form.formLayout label.formLabelCheckbox input.formCheckbox,
+form.formLayout label.formLabelRadio input.formRadio {
     margin: -2px 3px 0 0;
 }
 
@@ -298,10 +298,10 @@ form.formLayout div.error p.error {
 
 
 /**
-* Element: inputFile
+* Element: formFile
 * @begin
 */
-form.formLayout div.inputFileFancy input.inputFile {
+form.formLayout div.formFileFancy input.formFile {
     position: relative;
 	text-align: right;
 	-moz-opacity:0 ;
@@ -310,13 +310,13 @@ form.formLayout div.inputFileFancy input.inputFile {
 	z-index: 2;
 }
 
-form.formLayout div.inputFileFancy input.inputFileFake
+form.formLayout div.formFileFancy input.formFileFake
 {
     height: 15px;
     width: 125px
 }
 
-form.formLayout div.inputFileFancy div {
+form.formLayout div.formFileFancy div {
     top:0;
     position:absolute;
     left:0;
@@ -327,115 +327,29 @@ form.formLayout div.inputFileFancy div {
 /*@end*/
 
 /**
-* Element: selectOne/selectMultiple
+* Element: formSelect/formMultiSelect
 * @begin
 */
-form.formLayout div select.selectOne,
-form.formLayout div select.selectMultiple {
+form.formLayout div select.formSelect,
+form.formLayout div select.formMultiSelect {
     width: 208px;
     padding: 1px 3px;
 }
 
-form.formLayout div select.selectDateDay {
+form.formLayout div select.formsDateDay {
     width: 50px;
 }
 
-form.formLayout div select.selectDateMonth {
+form.formLayout div select.formsDateMonth {
     width: 92px;
 }
 
-form.formLayout div select.selectDateYear {
+form.formLayout div select.formsDateYear {
     width: 60px;
 }
 /*@end*/
 
-/**
-* Element: selectMass
-* @begin
-*/
-form.formLayout div.selectMass
-{
-    margin: -2px 0 0 140px;
-}
 
-form.formLayout div.selectMassLabel
-{
-    background: #FFFFFF url(/images/lib/basezf/elements/formLayout/selectMassLabel.gif) no-repeat right 55%;
-    border:1px solid #000;
-    cursor:pointer;
-    height:18px;
-    margin:5px 6px 0 140px;
-    padding:0 20px 0 7px;
-}
-
-form.formLayout div.selectMass div.selectMassOptions
-{
-    background:#FFFFFF none repeat scroll 0 0;
-    max-height:81px;
-    overflow:hidden;
-    position:absolute;
-    width:208px;
-    z-index:1000;
-    text-align: left;
-    margin-top: 25px;
-
-    visibility: hidden;
-    opacity: 0;
-}
-
-form.formLayout div.selectMass div.selectMassOptions div
-{
-    border: solid 1px #000;
-    border-top:none;
-    max-height:80px;
-    overflow:auto;
-    width:206px;
-}
-
-form.formLayout div.selectMass label
-{
-    background:#FFF none repeat scroll 0 0;
-    cursor:pointer;
-    display:block;
-    float:none;
-    margin:0;
-    padding:0;
-    position:static;
-    text-align:left;
-    width:auto;
-    padding:0 0 0 3px;
-}
-form.formLayout div.selectMass label:hover
-{
-    background:#CCCCCC;
-}
-
-form.formLayout div.selectMass label input
-{
-    margin:4px;
-    vertical-align:middle;
-}
-
-form.formLayout div.selectMass label input.inputRadio
-{
-    visibility: hidden;
-    position: absolute;
-}
-
-form.formLayout div.selectMass label span
-{
-    display:inline;
-    float:none;
-}
-
-form.formLayout div.selectMassValue
-{
-    margin:0 0 5px 142px;
-    padding:1px 3px;
-    overflow: hidden;
-    clear: left;
-}
-/*@end*/
 
 /**
 * Element: submit/buttons
@@ -455,15 +369,15 @@ form.formLayout div.submit div {
     margin: 0;
 }
 
-form.formLayout input.inputSubmit,
-form.formLayout input.inputButton  {
+form.formLayout input.formSubmit,
+form.formLayout input.formButton  {
     width: auto;
     padding: 0 6px;
     margin: 0;
 }
 
-form.formLayout div.submit div input.inputSubmit,
-form.formLayout div.submit div input.inputButton {
+form.formLayout div.submit div input.formSubmit,
+form.formLayout div.submit div input.formButton {
     float: right;
     margin: 0 0 0 5px;
 }
@@ -493,9 +407,9 @@ form.formLayout div.wide div.inputContainer
     margin:3px 0 0 0;
 }
 
-form.formLayout div.wide input.inputText,
-form.formLayout div.wide input.inputPassword,
-form.formLayout div.wide input.inputFile,
+form.formLayout div.wide input.formText,
+form.formLayout div.wide input.formPassword,
+form.formLayout div.wide input.formFile,
 form.formLayout div.wide textarea
 {
     width: 340px;
@@ -508,9 +422,9 @@ form.formLayout div.wide select
     margin: 0;
 }
 
-form.formLayout div.auto input.inputText,
-form.formLayout div.auto input.inputPassword,
-form.formLayout div.auto input.inputFile,
+form.formLayout div.auto input.formText,
+form.formLayout div.auto input.formPassword,
+form.formLayout div.auto input.formFile,
 form.formLayout div.auto select,
 form.formLayout div.auto textarea
 {
@@ -524,13 +438,13 @@ form.formLayout div.wide fieldset
     width: 336px;
 }
 
-form.formLayout div.wide fieldset input.inputText
+form.formLayout div.wide fieldset input.formText
 {
     width: 325px;
 }
 
-form.formLayout div.wide fieldset label.labelCheckbox,
-form.formLayout div.wide fieldset label.labelRadio
+form.formLayout div.wide fieldset label.formLabelCheckbox,
+form.formLayout div.wide fieldset label.formLabelRadio
 {
     width: 319px
 }
@@ -599,91 +513,4 @@ form.formLayout div.selectThumbnails input:checked+span>img
 }
 /*@end*/
 
-/**
-* Element: design/color
-* @begin
-*/
-
-/* general */
-form.formLayout div img {
-    border: 1px solid #989898;
-    border-color: #989898 #606460 #606460 #989898;
-}
-
-form.formLayout fieldset {
-    border-color: #989898;
-}
-
-form.formLayout div fieldset {
-    border: 1px solid #989898;
-}
-
-/* input border */
-form.formLayout input.inputText,
-form.formLayout input.inputPassword,
-form.formLayout select,
-form.formLayout textarea,
-form.formLayout div.selectMassLabel
-{
-    background-color: #ffffff;
-    border: solid 1px #989898;
-    border-color: #989898 #606460 #606460 #989898;
-}
-
-form.formLayout input.inputLoading
-{
-    background: #ffffff url('/images/lib/basezf/elements/formLayout/inputLoading.gif') no-repeat 99% 55%;;
-}
-
-/* selectMass */
-form.formLayout div.selectMass div.selectMassOptions div
-{
-    border-color: #ccc;
-    border-top:none;
-}
-
-form.formLayout div.selectMass label
-{
-}
-
-form.formLayout div.selectMass label:hover
-{
-
-}
-
-/* buttons */
-form.formLayout input.inputSubmit,
-form.formLayout input.inputButton {
-    background-color: #cccccc;
-    color: #000000;
-}
-
-form.formLayout input.inputSubmit,
-form.formLayout input.inputButton
-{
-    height: 23px;
-    cursor:pointer;
-    border:outset 1px #ccc;
-    background:#999;
-    color:#666;
-    font-weight:bold;
-    padding: 1px 3px;
-    background:url(/images/lib/basezf/elements/formLayout/inputButton.gif) repeat-x left top;
-}
-
-form.formLayout div.inputFileFancy input.inputButton
-{
-    background:url(/images/lib/basezf/elements/formLayout/inputButton2.gif) repeat-x left top;
-}
-
-/* notes */
-form.formLayout fieldset div.notes {
-    border: 1px solid #666666;
-    background-color: #ffffe1;
-    color: #666666;
-}
-
-form.formLayout fieldset div.notes h4 {
-}
-/*@end*/
 

@@ -10,12 +10,11 @@
 
 class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abstract
 {
-    static $helperToElementClass = array(
-        'formText'   => 'inputText',
-	);
-
-    static $helperToLabelClass = array(
-        'formText'   => 'inputText',
+    static $helperWithoutLabel = array(
+		'forminfo',
+        'formcheckbox',
+		'formmulticheckbox',
+		'formmultiradio',
 	);
 
     public function buildField()
@@ -23,11 +22,18 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $element = $this->getElement();
 		$helper  = $element->helper;
 
-        $newAttribs = array();
+		// update attribs : remove helper attribute and merge helper name with class
+		$newAttribs = $element->getAttribs();
+		$newAttribs['class'] = $helper . ' ' . $element->getAttrib('class');
 
-        if (isset(self::$helperToElementClass[$helper])) {
-            $newAttribs['class'] = self::$helperToElementClass[$helper];
-        }
+		// do not display useless label
+		if(in_array(strtolower($helper), self::$helperWithoutLabel) ==! false) {
+			$newAttribs['label'] = $element->getLabel();
+			$newAttribs['label_class'] = 'formLabel' . ucfirst(str_replace('form', '', $helper));
+		}
+
+		// clean attribs
+		unset($newAttribs['helper']);
 
         return $element->getView()->$helper(
             $element->getName(),
@@ -51,20 +57,21 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
     public function buildLabel()
     {
         $element = $this->getElement();
+		$helper  = $element->helper;
         $label = $element->getLabel();
-        $helper  = $element->helper;
+
+		// do not display useless label
+		if(in_array(strtolower($helper), self::$helperWithoutLabel) ==! false) {
+			$element->setAttrib('label', $label);
+			return '';
+		}
 
         // translate it ?
         if ($translator = $element->getTranslator()) {
             $label = $translator->translate($label);
         }
 
-        $newAttribs = array();
-        if (isset(self::$helperToLabelClass[$helper])) {
-            $newAttribs['class'] = self::$helperToLabelClass[$helper];
-        }
-
-        return $element->getView()->formLabel($element->getName(), $label, $newAttribs);
+        return $element->getView()->formLabel($element->getName(), $label);
     }
 
     public function buildErrors()

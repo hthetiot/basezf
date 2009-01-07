@@ -1,0 +1,94 @@
+/**
+* Element: selectMass
+* @begin
+*/
+div.selectMass
+{
+    margin: -2px 0 0 140px;
+}
+
+div.selectMassLabel
+{
+    background: #FFFFFF url(/images/lib/basezf/elements/formLayout/selectMassLabel.gif) no-repeat right 55%;
+    border:1px solid #000;
+    cursor:pointer;
+    height:18px;
+    margin:5px 6px 0 140px;
+    padding:0 20px 0 7px;
+}
+
+div.selectMass div.selectMassOptions
+{
+    background:#FFFFFF none repeat scroll 0 0;
+    max-height:81px;
+    overflow:hidden;
+    position:absolute;
+    width:208px;
+    z-index:1000;
+    text-align: left;
+    margin-top: 25px;
+
+    visibility: hidden;
+    opacity: 0;
+}
+
+div.selectMass div.selectMassOptions div
+{
+    border: solid 1px #000;
+    border-top:none;
+    max-height:80px;
+    overflow:auto;
+    width:206px;
+}
+
+div.selectMass div.selectMassOptions label
+{
+    background:#FFF none repeat scroll 0 0;
+    cursor:pointer; /*miss on FF3 why ?*/
+    display:block;
+    float:none;
+    margin:0;
+    padding:0;
+    position:static;
+    text-align:left;
+    width:auto;
+    padding:0 0 0 3px;
+}
+div.selectMass div.selectMassOptions label:hover
+{
+    background:#CCCCCC;
+}
+
+div.selectMass div.selectMassOptions label input
+{
+    margin:4px;
+    vertical-align:middle;
+}
+
+div.selectMass div.selectMassOptions label input.formRadio
+{
+    visibility: hidden;
+    position: absolute;
+}
+
+div.selectMass div.selectMassOptions label span
+{
+    display:inline;
+    float:none;
+}
+
+div.selectMassValue
+{
+    margin:0 0 5px 142px;
+    padding:1px 3px;
+    overflow: hidden;
+    clear: left;
+}
+
+form.formLayout div.selectMassLabel
+{
+    background-color: #FFF;
+    border: solid 1px #000;
+}
+
+/*@end*/

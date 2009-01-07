@@ -18,12 +18,13 @@
     $this->headLink()->appendStylesheet('/css/lib/blueprint/ie.css', 'screen, projection', 'IE');
 
     // set Layout stylesheet
-    $this->headLink()->appendStylesheet('/css/layouts/example/layout.css', 'screen, projection');
+    //$this->headLink()->appendStylesheet('/css/layouts/example/layout.css', 'screen, projection');
 
     // element files (include in lib.css)
     {
         // add basezf elements
         $this->headLink()->appendStylesheet('/css/lib/basezf/elements/formLayout.css', 'screen, projection');
+		$this->headLink()->appendStylesheet('/css/lib/basezf/elements/formFancySelect.css', 'screen, projection');
         $this->headLink()->appendStylesheet('/css/lib/basezf/elements/fancyMenu.css', 'screen, projection');
         $this->headLink()->appendStylesheet('/css/lib/basezf/elements/fancyButton.css', 'screen, projection');
 

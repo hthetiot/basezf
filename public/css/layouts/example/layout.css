@@ -148,4 +148,99 @@ h2 a:link, h2 a:visited {
 /* @end */
 
 
+/**
+* Element: design/color for formLayout and form Elements
+* @begin
+*/
+
+/* general */
+form.formLayout div img {
+    border: 1px solid #989898;
+    border-color: #989898 #606460 #606460 #989898;
+}
+
+form.formLayout fieldset {
+    border-color: #989898;
+}
+
+form.formLayout div fieldset {
+    border: 1px solid #989898;
+}
+
+/* input border */
+form.formLayout input.formText,
+form.formLayout input.formPassword,
+form.formLayout select,
+form.formLayout textarea,
+form.formLayout div.selectMassLabel
+{
+    background-color: #ffffff;
+    border: solid 1px #989898;
+    border-color: #989898 #606460 #606460 #989898;
+}
+
+form.formLayout input.inputLoading
+{
+    background: #ffffff url('/images/lib/basezf/elements/formLayout/inputLoading.gif') no-repeat 99% 55%;;
+}
+
+/* selectMass */
+form.formLayout div.selectMassLabel
+{
+    background-color: #ffffff;
+    border: solid 1px #989898;
+    border-color: #989898 #606460 #606460 #989898;
+}
+
+form.formLayout div.selectMass div.selectMassOptions div
+{
+
+    border-color: #ccc;
+    border-top:none;
+}
+
+form.formLayout div.selectMass label
+{
+}
+
+form.formLayout div.selectMass label:hover
+{
+
+}
+
+/* buttons */
+form.formLayout input.formSubmit,
+form.formLayout input.formButton {
+    background-color: #cccccc;
+    color: #000000;
+}
+
+form.formLayout input.formSubmit,
+form.formLayout input.formButton
+{
+    height: 23px;
+    cursor:pointer;
+    border:outset 1px #ccc;
+    background:#999;
+    color:#666;
+    font-weight:bold;
+    padding: 1px 3px;
+    background:url(/images/lib/basezf/elements/formLayout/formButton.gif) repeat-x left top;
+}
+
+form.formLayout div.formFileFancy input.formButton
+{
+    background:url(/images/lib/basezf/elements/formLayout/formButton2.gif) repeat-x left top;
+}
+
+/* notes */
+form.formLayout fieldset div.notes {
+    border: 1px solid #666666;
+    background-color: #ffffe1;
+    color: #666666;
+}
+
+form.formLayout fieldset div.notes h4 {
+}
+/*@end*/
 
