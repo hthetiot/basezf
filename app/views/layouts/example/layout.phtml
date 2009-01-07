@@ -17,9 +17,6 @@
     $this->headLink()->appendStylesheet('/css/lib/blueprint/print.css', 'print');
     $this->headLink()->appendStylesheet('/css/lib/blueprint/ie.css', 'screen, projection', 'IE');
 
-    // set Layout stylesheet
-    //$this->headLink()->appendStylesheet('/css/layouts/example/layout.css', 'screen, projection');
-
     // element files (include in lib.css)
     {
         // add basezf elements
@@ -32,6 +29,9 @@
         $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/fancy-type/screen.css', 'screen, projection');
         $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/sprites/sprite.css', 'screen, projection');
     }
+
+	// set Layout stylesheet at the end to overide needed
+    $this->headLink()->appendStylesheet('/css/layouts/example/layout.css', 'screen, projection');
 
     //
     // JS stuff
