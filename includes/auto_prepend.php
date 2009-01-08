@@ -82,7 +82,7 @@ define('CONFIG_STATIC_PACK_JS_PATH',  '/js/pack/');
 // External variable env
 
 // main url
-define_if_not('MAIN_URL', 'basezf.stupeflix.com');
+define_if_not('MAIN_URL', 'example.com');
 define_if_not('BASE_URL', BASE_HTTP_SCHEME . MAIN_URL);
 
 // sub url
