@@ -1,5 +1,5 @@
 /**
- * FormSelectMass.js
+ * FormFancySelect.js
  *
  * @category   BaseZF_JS_Helper
  * @package    BaseZF
@@ -10,7 +10,7 @@
 if (typeof BaseZF == "undefined") var BaseZF = {};
 if (typeof BaseZF.Helper == "undefined") BaseZF.Helper = {};
 
-BaseZF.Helper.FormSelectMass = new Class({
+BaseZF.Helper.FormFancySelect = new Class({
 
     Extends: BaseZF.Class.Helper,
 
@@ -27,8 +27,8 @@ BaseZF.Helper.FormSelectMass = new Class({
             var root = document;
         }
 
-        root.getElements('div.selectMass').each(function(element) {
-            new BaseZF.Helper.FormSelectMass('element', element, options);
+        root.getElements('div.formFancySelect').each(function(element) {
+            new BaseZF.Helper.FormFancySelect('element', element, options);
         }, this);
     },
 
@@ -36,9 +36,9 @@ BaseZF.Helper.FormSelectMass = new Class({
 
         // store elements
         this.elements = {
-            container: element.getElement('div.selectMassOptions'),
-            label: element.getParent().getElement('div.selectMassLabel'),
-            value: $pick(element.getParent().getElement('.selectMassValue'), element.getParent().getElement('.selectMassLabel')),
+            container: element.getElement('div.formFancySelectOptions'),
+            label: element.getParent().getElement('div.formFancySelectLabel'),
+            value: $pick(element.getParent().getElement('.formFancySelectValue'), element.getParent().getElement('.formFancySelectLabel')),
             options: element.getElements('label')
         };
 

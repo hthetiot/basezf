@@ -15,7 +15,7 @@ form.formLayout fieldset {
     border-color: #000000;
     border-width: 1px 0 0 0;
     border-style: solid none none none;
-    padding: 10px;
+    padding: 0 10px 10px;
     margin: 0 0 0 0;
 }
 
@@ -158,10 +158,10 @@ form.formLayout div fieldset textarea.formTextarea {
 }
 
 /**
-* Element: Notes
+* Element: formInfo
 * @begin
 */
-form.formLayout fieldset div.notes {
+form.formLayout fieldset div.formInfo {
     float: right;
     width: 158px;
     height: auto;
@@ -172,11 +172,8 @@ form.formLayout fieldset div.notes {
     color: #666666;
 }
 
-form.formLayout fieldset div.notes h4 {
-    background-image: url(/images/icon_info.gif);
-    background-repeat: no-repeat;
-    background-position: top left;
-    padding: 3px 0 3px 27px;
+form.formLayout fieldset div.formInfo h4 {
+    padding: 3px 0;
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: #666666;
@@ -185,14 +182,14 @@ form.formLayout fieldset div.notes h4 {
     margin-bottom: 0.5em;
 }
 
-form.formLayout fieldset div.notes p {
+form.formLayout fieldset div.formInfo p {
     margin: 0em 0em 1.2em 0em;
     color: #666666;
     font-size: 88%;
     line-height: 125%;
 }
 
-form.formLayout fieldset div.notes p.last {
+form.formLayout fieldset div.formInfo p.last {
     margin: 0em;
 }
 /*@end*/

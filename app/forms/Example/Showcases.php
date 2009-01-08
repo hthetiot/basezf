@@ -20,7 +20,10 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 
 		// @todo
 		$this->addElement('info', 'info1', array(
-
+			'label'		=> __('Personal Informationx'),
+			'messages'	=> array(
+				__('Please enter your name and address as they are listed for your debit card, credit card, or bank account.'),
+			),
 		));
 
 		$this->addElement('radio', 'gender', array(
@@ -112,6 +115,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		));
 
 		$this->addElement('radio', 'how_contact', array(
+			'helper'		=> 'formMultiRadio',
             'label'         => __('How to Contact You ?'),
             'required'      => true,
 			'multioptions'  => array(
@@ -119,6 +123,9 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 				0 => __('Email'),
 			)
         ));
+
+		$this->getElement('how_contact')->setAttrib('label_class', 'compact');
+
 
 		$this->addElement('text', 'email', array(
             'label'         => __('Email:'),

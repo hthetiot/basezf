@@ -20,20 +20,16 @@ abstract class BaseZF_Framework_Form extends Zend_Form
      */
     public function __construct($options = null)
     {
+     	$this->setDisableTranslator(true);
+
         $loaderElement = $this->getPluginLoader('element');
         $loaderElement->addPrefixPath('BaseZF_Framework_Form_Element', PATH_TO_INCLUDES . '/BaseZF/Framework/Form/Element/');
 
         $loaderDecorator = $this->getPluginLoader('decorator');
         $loaderDecorator->addPrefixPath('BaseZF_Framework_Form_Decorator', PATH_TO_INCLUDES . '/BaseZF/Framework/Form/Decorator');
 
-        parent::__construct($options);
-
-        // default method is post
-        $this->setMethod('post');
-
-        // configure object
-        $this->init();
-    }
+	    parent::__construct($options);
+	}
 
     /**
      * Return a json array or partial validation restults

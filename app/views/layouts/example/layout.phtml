@@ -24,11 +24,7 @@
 		$this->headLink()->appendStylesheet('/css/lib/basezf/elements/formFancySelect.css', 'screen, projection');
         $this->headLink()->appendStylesheet('/css/lib/basezf/elements/fancyMenu.css', 'screen, projection');
         $this->headLink()->appendStylesheet('/css/lib/basezf/elements/fancyButton.css', 'screen, projection');
-
-        // add blueprint plugins stylesheet
-        $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/fancy-type/screen.css', 'screen, projection');
-        $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/sprites/sprite.css', 'screen, projection');
-    }
+	}
 
 	// set Layout stylesheet at the end to overide needed
     $this->headLink()->appendStylesheet('/css/layouts/example/layout.css', 'screen, projection');
@@ -51,7 +47,7 @@
         $this->headScript()->appendFile('/js/BaseZF/BaseZF.js');
         $this->headScript()->appendFile('/js/BaseZF/Class/Helper.js');
         $this->headScript()->appendFile('/js/BaseZF/Helper/AjaxLink.js');
-        $this->headScript()->appendFile('/js/BaseZF/Helper/FormSelectMass.js');
+        $this->headScript()->appendFile('/js/BaseZF/Helper/FormFancySelect.js');
     }
 
     // motools plugins files (include in lib.js and lib.css)

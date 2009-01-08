@@ -8,7 +8,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-class BaseZF_Framework_View_Helper_FormMultiRadio extends BaseZF_Framework_View_Helper_FormRadio
+class BaseZF_Framework_View_Helper_FormMultiRadio extends Zend_View_Helper_FormRadio
 {
     /**
      * Whether or not this element represents an array collection by default

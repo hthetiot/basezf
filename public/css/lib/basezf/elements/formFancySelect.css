@@ -1,15 +1,15 @@
 /**
-* Element: selectMass
+* Element: formFancySelect
 * @begin
 */
-div.selectMass
+div.formFancySelect
 {
     margin: -2px 0 0 140px;
 }
 
-div.selectMassLabel
+div.formFancySelectLabel
 {
-    background: #FFFFFF url(/images/lib/basezf/elements/formLayout/selectMassLabel.gif) no-repeat right 55%;
+    background: #FFFFFF url(/images/lib/basezf/elements/formLayout/formFancySelectLabel.gif) no-repeat right 55%;
     border:1px solid #000;
     cursor:pointer;
     height:18px;
@@ -17,7 +17,7 @@ div.selectMassLabel
     padding:0 20px 0 7px;
 }
 
-div.selectMass div.selectMassOptions
+div.formFancySelect div.formFancySelectOptions
 {
     background:#FFFFFF none repeat scroll 0 0;
     max-height:81px;
@@ -32,7 +32,7 @@ div.selectMass div.selectMassOptions
     opacity: 0;
 }
 
-div.selectMass div.selectMassOptions div
+div.formFancySelect div.formFancySelectOptions div
 {
     border: solid 1px #000;
     border-top:none;
@@ -41,7 +41,7 @@ div.selectMass div.selectMassOptions div
     width:206px;
 }
 
-div.selectMass div.selectMassOptions label
+div.formFancySelect div.formFancySelectOptions label
 {
     background:#FFF none repeat scroll 0 0;
     cursor:pointer; /*miss on FF3 why ?*/
@@ -54,30 +54,30 @@ div.selectMass div.selectMassOptions label
     width:auto;
     padding:0 0 0 3px;
 }
-div.selectMass div.selectMassOptions label:hover
+div.formFancySelect div.formFancySelectOptions label:hover
 {
     background:#CCCCCC;
 }
 
-div.selectMass div.selectMassOptions label input
+div.formFancySelect div.formFancySelectOptions label input
 {
     margin:4px;
     vertical-align:middle;
 }
 
-div.selectMass div.selectMassOptions label input.formRadio
+div.formFancySelect div.formFancySelectOptions label input.formRadio
 {
     visibility: hidden;
     position: absolute;
 }
 
-div.selectMass div.selectMassOptions label span
+div.formFancySelect div.formFancySelectOptions label span
 {
     display:inline;
     float:none;
 }
 
-div.selectMassValue
+div.formFancySelectValue
 {
     margin:0 0 5px 142px;
     padding:1px 3px;
@@ -85,7 +85,7 @@ div.selectMassValue
     clear: left;
 }
 
-form.formLayout div.selectMassLabel
+form.formLayout div.formFancySelectLabel
 {
     background-color: #FFF;
     border: solid 1px #000;

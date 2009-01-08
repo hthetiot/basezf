@@ -17,6 +17,10 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
 		'formmultiradio',
 	);
 
+	static $helperWithoutContainerClass = array(
+		'forminfo',
+	);
+
     public function buildField()
     {
         $element = $this->getElement();
@@ -28,12 +32,16 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
 
 		// do not display useless label
 		if(in_array(strtolower($helper), self::$helperWithoutLabel) ==! false) {
+
+			$labelClass = 'formLabel' . ucfirst(str_replace('form', '', $helper));
+
 			$newAttribs['label'] = $element->getLabel();
-			$newAttribs['label_class'] = 'formLabel' . ucfirst(str_replace('form', '', $helper));
+			$newAttribs['label_class'] = $labelClass . ' ' . $element->getAttrib('label_class');
 		}
 
-		// clean attribs
+		// clean attribs used by current decorator
 		unset($newAttribs['helper']);
+		unset($newAttribs['container_class']);
 
         return $element->getView()->$helper(
             $element->getName(),
@@ -97,6 +105,12 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
     public function getContainerClass()
     {
         $element = $this->getElement();
+		$helper  = $element->helper;
+
+		// do not display useless container
+		if(in_array(strtolower($helper), self::$helperWithoutContainerClass) ==! false) {
+			return '';
+		}
 
         // render containerClass
         $containerClass = array();
@@ -112,7 +126,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
             $containerClass[] = 'error';
         }
 
-        return (!empty($containerClass) ? implode(' ', $containerClass) : false);
+        return (!empty($containerClass) ? implode(' ', $containerClass) : '');
     }
 
     public function render($content)
@@ -131,7 +145,6 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $field     = $this->buildField();
         $errors    = $this->buildErrors();
         $desc      = $this->buildDescription();
-
 
         // render container
         $containerClass = $this->getContainerClass();

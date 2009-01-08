@@ -172,7 +172,7 @@ form.formLayout input.formText,
 form.formLayout input.formPassword,
 form.formLayout select,
 form.formLayout textarea,
-form.formLayout div.selectMassLabel
+form.formLayout div.formFancySelectLabel
 {
     background-color: #ffffff;
     border: solid 1px #989898;
@@ -184,26 +184,26 @@ form.formLayout input.inputLoading
     background: #ffffff url('/images/lib/basezf/elements/formLayout/inputLoading.gif') no-repeat 99% 55%;;
 }
 
-/* selectMass */
-form.formLayout div.selectMassLabel
+/* formFancySelect */
+form.formLayout div.formFancySelectLabel
 {
     background-color: #ffffff;
     border: solid 1px #989898;
     border-color: #989898 #606460 #606460 #989898;
 }
 
-form.formLayout div.selectMass div.selectMassOptions div
+form.formLayout div.formFancySelect div.formFancySelectOptions div
 {
 
     border-color: #ccc;
     border-top:none;
 }
 
-form.formLayout div.selectMass label
+form.formLayout div.formFancySelect label
 {
 }
 
-form.formLayout div.selectMass label:hover
+form.formLayout div.formFancySelect label:hover
 {
 
 }
