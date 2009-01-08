@@ -54,7 +54,7 @@ abstract class BaseZF_Bootstrap
 
 		// configure css CDN
 		$view->headLink()->enablePacks(CONFIG_STATIC_PACK_CSS);
-		$view->headLink()->setPrefixSrc(CDN_URL_CSS);
+		$view->headLink()->setPrefixHref(CDN_URL_CSS);
 
 		// configure js CDN
 		$view->headScript()->enablePacks(CONFIG_STATIC_PACK_JS);

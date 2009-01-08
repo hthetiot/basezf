@@ -11,7 +11,7 @@
 class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
 {
     static $_packsEnable = false;
-    static $_prefixSrc   = null;
+    static $_prefixHref   = null;
 
     //
     // Prefix functions
@@ -22,24 +22,24 @@ class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
         return isset($item->href);
     }
 
-    private static function _addItemSrcPrefix(&$item)
+    private static function _addItemHrefPrefix(&$item)
     {
         // check item has src
-        if (!self::_itemHasAttributeSrc($item)) {
+        if (!self::_isStylesheetItem($item)) {
             return false;
         }
 
         if (
-            self::$_prefixSrc !== null
-            && substr_count($item->attributes['src'], 'http://') == 0
+            self::$_prefixHref !== null
+            && substr_count($item->attributes['href'], 'http://') == 0
         ) {
-            $item->attributes['src'] = self::$_prefixSrc . $item->attributes['src'];
+            $item->attributes['href'] = self::$_prefixHref . $item->attributes['src'];
         }
     }
 
-    public function setPrefixSrc($prefix)
+    public function setPrefixHref($prefix)
     {
-        self::$_prefixSrc = $prefix;
+        self::$_prefixHref = $prefix;
 
         return $this;
     }
@@ -158,6 +158,10 @@ class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
 
         $items = array();
         foreach ($container as $item) {
+
+			// add prefix only if not contain "http://"
+            //self::_addItemHrefPrefix($item);
+
             $items[] = $this->itemToString($item);
         }
 
