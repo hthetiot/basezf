@@ -39,6 +39,10 @@ all: clean syntax locales static-pack
 	@echo ""
 
 doc:
+	@echo "----------------"
+	@echo "Generate doxygen doc :"
+	@doxygen ./etc/doxygen.cnf > ./logs/doc.log
+	@echo "done"
 
 list:
 
@@ -79,3 +83,5 @@ clean:
 	@echo "Cleaning useless files:"
 	@find . -name "*~" -exec rm {} \;
 	@echo "done"
+
+.PHONY: doc

@@ -8,6 +8,7 @@
 *.marks
 
 # Some production only files
+doc/*
 etc/apache.conf
 includes/auto_prepend_local.php
 logs/*
