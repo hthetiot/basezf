@@ -163,13 +163,12 @@ final class MyProject
 
     static public function sendExceptionByMail(Exception $e)
     {
-        
         $config = MyProject::registry('config');
         
         // generate mail datas
         $from	 = $config->debug->report->from;
         $to		 = $config->debug->report->to;
-        $subject = 'Exception Report: ' . substr($e->getMessage(), 0 , 50);
+        $subject = '[' . MAIN_URL . ':' . CONFIG_ENV . '] Exception Report: ' . wordlimit_bychar($e->getMessage(), 50);
         $body = $e->getMessage() . ' in ' . $e->getFile() . ' at line ' . $e->getLine();
         
         // sned mail throw Zend_Mail
@@ -188,8 +187,13 @@ final class MyProject
         $att->filename = 'GET.txt';
         $att = $mail->createAttachment(var_export($_POST, true), Zend_Mime::TYPE_TEXT);
         $att->filename = 'POST.txt';
-        $att = $mail->createAttachment(var_export($_SESSION, true), Zend_Mime::TYPE_TEXT);
-        $att->filename = 'SESSION.txt';
+        
+        // send session dump only if exists
+        if (session_id() != null) {
+            $att = $mail->createAttachment(var_export($_SESSION, true), Zend_Mime::TYPE_TEXT);
+            $att->filename = 'SESSION.txt';
+        }
+        
         $att = $mail->createAttachment(var_export($_SERVER, true), Zend_Mime::TYPE_TEXT);
         $att->filename = 'SERVER.txt';
         $att = $mail->createAttachment($e->getTraceAsString(), Zend_Mime::TYPE_TEXT);
