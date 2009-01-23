@@ -47,9 +47,24 @@ final class MyProject
         return $db;
 	}
     
-    private static function _buildRegistryMemCache()
+    private static function _buildRegistryDbCache()
 	{
-
+        $frontendOptions = array(
+           'lifetime' => 7200, // temps de vie du cache de 2 heures
+           'automatic_serialization' => true
+        );
+        
+        $backendOptions = array(
+            // Répertoire où stocker les fichiers de cache
+            'cache_dir' => '/tmp/'
+        );
+        
+        // créer un objet Zend_Cache_Core
+        $cache = Zend_Cache::factory('Core',
+                                     'File',
+                                     $frontendOptions,
+                                     $backendOptions);
+        return $cache;
 	}
     
     private static function _buildRegistryApcCache()

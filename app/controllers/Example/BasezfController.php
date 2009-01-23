@@ -33,6 +33,20 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
     public function dbitemAction()
     {
+        $examples = new MyProject_DbCollection('example');
+        $examples->filterExecute();
+        
+        foreach($examples as $example) {
+            echo $example->login;
+        }
+        
+        /*
+        $example = MyProject_DbItem::getInstance('example', 1);
+        echo $example->getId();
+        echo $example->login;
+        */
+        
+        exit();
     }
 
     public function dbsearchAction()

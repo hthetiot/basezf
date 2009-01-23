@@ -10,12 +10,20 @@
 
 abstract class BaseZF_DbItem
 {
+    /**
+     * DbQuery primary key value place holder
+     */
     const PLACE_HOLDER = '__id__';
 
 	/**
 	 * Static instance cache
 	 */
 	protected static $_STATIC_INSTANCES = array();
+    
+    /**
+     * Reference to static instance cache according current table
+     */
+    protected $_instances = array();
 
 	/**
      * Db table associate to this item
@@ -23,14 +31,14 @@ abstract class BaseZF_DbItem
     protected $_table;
 
     /**
-     * reference to static instance cache according current table
+     * Reference or array with field types and other information about current table
      */
-    protected $_instances = null;
-
+    protected $_structure;
+    
     /**
-     * reference or array with field types and other information about current table
+     * Schema of database
      */
-    protected $_structure = null;
+    protected static $_SCHEMA;
 
 	/**
      * Unique Id
@@ -86,7 +94,7 @@ abstract class BaseZF_DbItem
         $this->_table = $table;
         $this->_structure = &$this->loadStructure($table);
 
-        $this->createInstances();
+        $this->_createInstances();
         $this->setRealTime($realtime);
 		$this->setId($id);
 
@@ -111,6 +119,11 @@ abstract class BaseZF_DbItem
      * Retrieve the Logger instance
      */
     abstract protected function _getLoggerInstance();
+    
+    /**
+     * Retrieve the Database Schema as array
+     */
+    abstract protected function _getDbSchema();
 
     //
 	// Some getter and setter
@@ -126,8 +139,9 @@ abstract class BaseZF_DbItem
 	 */
 	public static function getInstance($table, $id = null, $realtime = false, $class = null)
 	{
-        if(empty($table) )
+        if(empty($table)) {
            throw new BaseZF_DbItem_Exception('There no table name for BaseZF_DbItem' );
+        }
 
 		if (!is_null($id) && ($item = self::_getExistInstance($table, $id))) {
 
@@ -150,39 +164,47 @@ abstract class BaseZF_DbItem
     protected static function _getExistInstance($table, $id)
     {
         if (!empty($id) && isset(self::$_STATIC_INSTANCES[$table]['items'][$id])) {
-            $item = self::$_STATIC_INSTANCES[$table]['items'][$id];
+            $item = &self::$_STATIC_INSTANCES[$table]['items'][$id];
         } else {
             $item = false;
         }
+        
         return $item;
     }
 
-    protected function getInstances()
+    protected function _getInstances()
     {
         if(empty($this->_instances)) {
-            $this->createInstances();
+            $this->_createInstances();
         }
 
         return $this->_instances;
     }
 
-    protected function getStructure()
+    protected function _getStructure()
     {
         return $this->_structure;
     }
 
-    protected function createInstances()
+    protected function _createInstances()
     {
         $this->_instances = &self::$_STATIC_INSTANCES[$this->getTable()];
     }
 
-    protected function &loadStructure($structure, $table)
+    protected function &loadStructure($table)
     {
+        $schema = $this->_getDbSchema();
+        
+        if (!isset($schema[$table])) {
+            throw new BaseZF_DbItem_Exception('There no table "' . $table . '" in schema for BaseZF_DbItem' ); 
+        }
+        
+        $structure = &$schema[$table];
+        
         // create string of fields in fomat: <field1> AS <alias1>, <field2> AS <alias2>, ....
         if(!isset($structure['values'])) {
             foreach ($structure['fields'] as $field => $type) {
                 $value = $table . '.' . $field;
-                if ( $type == 'TIMESTAMP' || $type == 'DATE' )  $value = 'EXTRACT(EPOCH FROM ' . $value . ')';
                 $structure['values'][$field] = $value . ' AS ' . $field;
             }
         }
@@ -495,7 +517,7 @@ abstract class BaseZF_DbItem
         return $result;
     }
 
-	protected function _loadData($ids, $realTime = null, $cacheExpire = BaseZF_QueryCache::EXPIRE_NEVER)
+	protected function _loadData($ids, $realTime = null, $cacheExpire = BaseZF_DbQuery::EXPIRE_NEVER)
     {
         $db = $this->_getDbInstance();
         $cache = $this->_getCacheInstance();
@@ -511,7 +533,7 @@ abstract class BaseZF_DbItem
         }
 
         // new queryCache
-        $queryCache = new BaseZF_QueryCache($query, $cacheKeyTemplate, $db, $cache, $logger);
+        $queryCache = new BaseZF_DbQuery($query, $cacheKeyTemplate, $db, $cache, $logger);
         $queryCache->setQueryFields($fields);
         $queryCache->setCacheExpire($cacheExpire);
         $queryCache->setRealTime($realTime);
@@ -519,9 +541,11 @@ abstract class BaseZF_DbItem
         $queryCache->setCacheKeyByRows( $primaryKey, self::PLACE_HOLDER );
 
         try {
+            
             $queryCache->execute();
             $data = $queryCache->fetchAll();
-        } catch (BaseZF_QueryCache_Exception_NoResults $e) {
+            
+        } catch (BaseZF_DbQuery_Exception_NoResults $e) {
             $data = array();
         }
 
@@ -1000,7 +1024,7 @@ abstract class BaseZF_DbItem
         if(is_null($id)) $id = $this->getId();
         if(is_null($table)) $table = $this->getTable(true);
 
-        return 'dbItem:' . $table . ':' . $id ;
+        return 'dbItem_' . $table . '_' . $id ;
     }
 
     protected function _deleteCache($id, $cache = null)

@@ -10,16 +10,20 @@
 
 abstract class BaseZF_DbCollection implements Iterator, Countable
 {
-
     /**
      * Table name
      */
     protected $_table;
 
     /**
-     * reference or array with field types and other information about current table
+     * Reference or array with field types and other information about current table
      */
-    protected $_structure = null;
+    protected $_structure;
+    
+    /**
+     * Reference or array Schema of database
+     */
+    protected static $_SCHEMA;
 
     /**
      * Unique Ids
@@ -55,7 +59,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      * Cache expire period.
      * No cache by default
      */
-    protected $_cacheExpire = BaseZF_QueryCache::EXPIRE_NONE;
+    protected $_cacheExpire = BaseZF_DbQuery::EXPIRE_NONE;
 
     const MAX_ITEM_BY_REQUEST = 100;
 
@@ -101,16 +105,13 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 
     protected function &loadStructure()
     {
-        $structure = array(
-            $this->_table => array(
-                'fields' => array(
-                    'id' => 'INT4'
-                ),
-                'primary' => 'id',
-                'foreign' => array(),
-            ),
-        );
-        return $structure;
+        $schema = $this->_getDbSchema();
+        
+        if (!isset($schema[$this->_table])) {
+            throw new BaseZF_DbCollection_Exception('There no table "' . $table . '" in schema for BaseZF_DbItem' ); 
+        }
+        
+        return $schema[$this->_table];
     }
 
     //
@@ -261,17 +262,22 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     /**
      * Retrieve the Db instance
      */
-    abstract  protected function _getDbInstance();
+    abstract protected function _getDbInstance();
 
     /**
      * Retrieve the Cache instance
      */
-    abstract  protected function _getCacheInstance();
+    abstract protected function _getCacheInstance();
 
     /**
      * Retrieve the Logger instance
      */
     abstract protected function _getLoggerInstance();
+    
+    /**
+     * Retrieve the Database Schema as array
+     */
+    abstract protected function _getDbSchema();
 
     //
     // Db tools
@@ -301,9 +307,9 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      * @param object $db use a specific instance of db
      * @param object $cache use a specific instance of cache
      *
-     * @return object instance of BaseZF_QueryCache
+     * @return object instance of BaseZF_DbQuery
      */
-    final protected function _getQueryCache($query, $cacheKey = null, $fieldsList=array(), $realTime=false, $expire = BaseZF_QueryCache::EXPIRE_DAY ,$db = null, $cache = null, $logger = null)
+    final protected function _getDbQuery($query, $cacheKey = null, $fieldsList=array(), $realTime=false, $expire = BaseZF_DbQuery::EXPIRE_DAY ,$db = null, $cache = null, $logger = null)
     {
         if (is_null($db)) {
             $db = $this->_getDbInstance();
@@ -318,7 +324,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         }
 
         // new queryCache
-        $queryCache = new BaseZF_QueryCache($query, $cacheKey, $db, $cache, $logger);
+        $queryCache = new BaseZF_DbQuery($query, $cacheKey, $db, $cache, $logger);
         $queryCache->setQueryFields($fieldsList);
         $queryCache->setCacheExpire($expire);
 
@@ -654,7 +660,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             foreach ($q_params as $key => &$p) {
                 if (!empty($p)) {
                     if (isset($params[$key])) {
-                        $p = $db->quoteInto($p . ' ?', $params[$key] /*, is_numeric($params[$key]) ? 'INTEGER' : ''*/);
+                        $p = $db->quote($p . ' ?', $params[$key] /*, is_numeric($params[$key]) ? 'INTEGER' : ''*/);
                     }
                 }
             }
@@ -885,7 +891,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      *
      * @return string SQL query
      */
-    public function filterCache($expire = BaseZF_QueryCache::EXPIRE_DAY)
+    public function filterCache($expire = BaseZF_DbQuery::EXPIRE_DAY)
     {
         $this->_cacheExpire = $expire;
 
@@ -908,7 +914,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         }
 
         // clear query
-        $queryCache = $this->_getQueryCache($query, $cacheKey, $this->getFilterFields(), $this->isRealTime(), $this->_cacheExpire);
+        $queryCache = $this->_getDbQuery($query, $cacheKey, $this->getFilterFields(), $this->isRealTime(), $this->_cacheExpire);
         $queryCache->clear();
 
         // clear ORM dependancy
@@ -920,7 +926,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             $fields = $data['fields'];
 
             $cacheKey = $this->getFilterCacheKey($query);
-            $queryCache = $this->_getQueryCache($query, $cacheKey, array_merge(array('cnt'),$fields), $this->isRealTime(), $this->_cacheExpire);
+            $queryCache = $this->_getDbQuery($query, $cacheKey, array_merge(array('cnt'),$fields), $this->isRealTime(), $this->_cacheExpire);
             $queryCache->clear();
         }
 
@@ -1001,23 +1007,23 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             $this->setIds($ids);
 
         // if no results found
-        } catch (BaseZF_QueryCache_Exception $e) {
+        } catch (BaseZF_DbQuery_Exception $e) {
             $this->setIds(array());
         }
 
         return $this;
     }
 
-    public function QueryExecute($query, $cacheKey, $filterFields, $realTime = true, $cacheExpire = BaseZF_QueryCache::EXPIRE_NONE)
+    public function QueryExecute($query, $cacheKey, $filterFields, $realTime = true, $cacheExpire = BaseZF_DbQuery::EXPIRE_NONE)
     {
-        $queryCache = $this->_getQueryCache($query, $cacheKey, $filterFields, $realTime, $cacheExpire);
+        $queryCache = $this->_getDbQuery($query, $cacheKey, $filterFields, $realTime, $cacheExpire);
 
         try {
 
             $queryCache->execute();
             $data = $queryCache->fetchAll();
 
-        } catch (BaseZF_QueryCache_Exception_NoResults $e) {
+        } catch (BaseZF_DbQuery_Exception_NoResults $e) {
             $data = array();
         }
 
@@ -1158,7 +1164,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             }
 
         // if no results found
-        } catch (BaseZF_QueryCache_Exception $e) {
+        } catch (BaseZF_DbQuery_Exception $e) {
             throw new BaseZF_DbCollection_Exception('Can not calculate count of records');
         }
         return $count;
@@ -1183,7 +1189,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             $db = $this->_getDbInstance();
             $stmt = $db->getStatement($query);
             $stmt->execute();
-        } catch (BaseZF_QueryCache_Exception $e) {
+        } catch (BaseZF_DbQuery_Exception $e) {
             throw new BaseZF_DbCollection_Exception('can\'t delete records');
         }
 
