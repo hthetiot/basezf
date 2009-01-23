@@ -42,25 +42,6 @@ if (!function_exists('define_if_not')) {
 	}
 }
 
-if (!function_exists('errorHandler')) {
-
-    function exception_error_handler($errno, $errstr, $errfile, $errline ) {
-
-        $ignoredErrNo = array(
-            E_WARNING,
-        );
-
-        if (in_array($errno, $ignoredErrNo)) {
-            return;
-        }
-
-        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
-    }
-
-    set_error_handler("exception_error_handler");
-}
-
-
 if (!function_exists('__')) {
 
     /**

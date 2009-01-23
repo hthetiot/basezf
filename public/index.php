@@ -10,6 +10,10 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
+// launch ErrorHandler
+BaseZF_Error_Handler::getInstance();
+ 
+// Override Default BootStrap
 class Bootstrap extends BaseZF_Bootstrap
 {
     protected $_controllerModules = array(
@@ -18,15 +22,6 @@ class Bootstrap extends BaseZF_Bootstrap
     );
 }
 
-try {
-
-    Bootstrap::run();
-
-} catch (Exception $e) {
-
-    MyProject::sendExceptionByMail($e);
-
-    header('');
-    exit(0);
-}
+// launch Bootstrap
+Bootstrap::run();
 
