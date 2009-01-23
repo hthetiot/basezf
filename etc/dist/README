@@ -1,0 +1,4 @@
+# This directory contain example config files
+apache.conf-dist: Config for apache virtual host
+config.init-dist: Config for application MyProject
+crontab-dist:     Scheduled Cron Jobs

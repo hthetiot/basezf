@@ -1,0 +1,17 @@
+[production]
+
+#database
+db.adapter 				= Mysqli
+db.params.host			= localhost
+db.params.dbname		= devdb
+db.params.username		= dev
+db.params.password		=
+
+#debug
+debug.cookie_name			= DEBUG_ME
+debug.enable 				= false
+debug.report.enable 		= true
+debug.report.to				= my@example.com
+debug.report.from			= debug@example.com
+
+
