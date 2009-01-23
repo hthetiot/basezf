@@ -3,9 +3,11 @@
 #database
 db.adapter 				= Mysqli
 db.params.host			= localhost
-db.params.dbname		= devdb
-db.params.username		= dev
+db.params.dbname		= proddb
+db.params.username		= prod
 db.params.password		=
+
+#static
 
 #debug
 debug.cookie_name			= DEBUG_ME
@@ -14,4 +16,14 @@ debug.report.enable 		= true
 debug.report.to				= my@example.com
 debug.report.from			= debug@example.com
 
+# staging config mode extend production config mode
+[staging: production]
 
+#database
+db.params.dbname		= devdb
+db.params.username		= dev
+db.params.password		=
+
+#debug
+debug.enable 				= true
+debug.report.enable 		= false

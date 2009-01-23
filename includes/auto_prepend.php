@@ -64,7 +64,7 @@ if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(PATH_TO_INCLUDES . '/auto_p
 // Config  (can be defined before auto_prepend include)
 
 define_if_not('CONFIG_ENV', 'production');
-define_if_not('CONFIG_FILE', PATH_TO_CONFIG . '/config.xml');
+define_if_not('CONFIG_FILE', PATH_TO_CONFIG . '/config.ini');
 define_if_not('CONFIG_ACL_ROLES', PATH_TO_CONFIG . '/acl/roles.xml');
 define_if_not('CONFIG_ACL_ROUTES', PATH_TO_CONFIG . '/acl/routes.xml');
 
@@ -84,9 +84,6 @@ define('CONFIG_STATIC_PACK_JS_PATH',  '/js/pack/');
 // main url
 define_if_not('MAIN_URL', 'example.com');
 define_if_not('BASE_URL', BASE_HTTP_SCHEME . MAIN_URL);
-
-// sub url
-define_if_not('BASE_URL_HOME_MEMBER', 'http://%s.' . MAIN_URL);
 
 // cdn url use BASE_HTTP_SCHEME to be secure too
 define_if_not('CDN_URL_JS', BASE_HTTP_SCHEME . MAIN_URL);

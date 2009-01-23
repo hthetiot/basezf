@@ -15,10 +15,64 @@ final class MyProject
 
 	private static function _buildRegistryConfig()
 	{
-
+        // check config
+        if(!file_exists(CONFIG_FILE)) {
+            throw new MyProject_Exception('Missing config file on path: "' . CONFIG_FILE . '"');
+        }
+        
+        $config = new Zend_Config_Ini(CONFIG_FILE, CONFIG_ENV);
+        
+        return $config;
 	}
 
 	private static function _buildRegistryLogger()
+	{
+
+	}
+    
+    private static function _buildRegistryDb()
+	{
+        // get config
+        $config = MyProject::registry('config');
+        
+        // init db
+        $db = Zend_Db::factory($config->db);
+        $db->query('SET NAMES utf8');
+        
+        // enable profiler 
+        if($config->db->profiler == true) {
+			$db->getProfiler()->setEnabled(true);
+		}
+        
+        return $db;
+	}
+    
+    private static function _buildRegistryMemCache()
+	{
+
+	}
+    
+    private static function _buildRegistryApcCache()
+	{
+
+	}
+    
+    private static function _buildRegistrySession()
+	{
+
+	}
+    
+    private static function _buildRegistryLocale()
+	{
+
+	}
+    
+    private static function _buildRegistryAuth()
+	{
+
+	}
+    
+    private static function _buildRegistryAcl()
 	{
 
 	}
@@ -109,6 +163,39 @@ final class MyProject
 
     static public function sendExceptionByMail(Exception $e)
     {
+        
+        $config = MyProject::registry('config');
+        
+        // generate mail datas
+        $from	 = $config->debug->report->from;
+        $to		 = $config->debug->report->to;
+        $subject = 'Exception Report: ' . substr($e->getMessage(), 0 , 50);
+        $body = $e->getMessage() . ' in ' . $e->getFile() . ' at line ' . $e->getLine();
+        
+        // sned mail throw Zend_Mail
+        $mail = new Zend_Mail();
+
+        $mail->setSubject($subject)
+             ->setFrom($from)
+             ->setBodyText($body);
+
+        $emails = explode(',', $to);
+        foreach ($emails as $email) {
+            $mail->addTo($email);
+        }
+
+        $att = $mail->createAttachment(var_export($_GET, true), Zend_Mime::TYPE_TEXT);
+        $att->filename = 'GET.txt';
+        $att = $mail->createAttachment(var_export($_POST, true), Zend_Mime::TYPE_TEXT);
+        $att->filename = 'POST.txt';
+        $att = $mail->createAttachment(var_export($_SESSION, true), Zend_Mime::TYPE_TEXT);
+        $att->filename = 'SESSION.txt';
+        $att = $mail->createAttachment(var_export($_SERVER, true), Zend_Mime::TYPE_TEXT);
+        $att->filename = 'SERVER.txt';
+        $att = $mail->createAttachment($e->getTraceAsString(), Zend_Mime::TYPE_TEXT);
+        $att->filename = 'backtraceExeption.txt';
+        $mail->send();
+        
         throw $e;
     }
 
