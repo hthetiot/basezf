@@ -75,6 +75,14 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
         } else if ($this->isAjax) {
             $this->_makeAjax();
         } else if (!is_null($this->_defaultLayout)) {
+
+            // render P3P header            
+            if(get_class($this->getFrontController()->getRequest()) == 'Zend_Controller_Request_Http') {
+                
+                $response = $this->getResponse();
+                $response->setHeader('P3P', "policyref='/w3c/policy.xml', CP='NOI DSP COR CURa ADMi DEVa TAIa OUR LEG BUS UNI COM NAV INT'", true);
+            }
+            
             $this->_layout->setLayout($this->_defaultLayout);
         }
     }

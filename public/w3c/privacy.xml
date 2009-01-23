@@ -1,0 +1,28 @@
+<POLICIES xmlns="http://www.w3.org/2002/01/P3Pv1">
+<POLICY name="Privacy" discuri="http://look.vogue.fr/w3c/privacy.html" xml:lang="en">
+  <ENTITY>
+    <DATA-GROUP>
+      <DATA ref="#business.name"></DATA>
+      <DATA ref="#business.contact-info.online.email"></DATA>
+      <DATA ref="#business.contact-info.online.uri"></DATA>
+      <DATA ref="#business.contact-info.telecom.telephone.number">+331</DATA>
+      <DATA ref="#business.contact-info.postal.street"></DATA>
+      <DATA ref="#business.contact-info.postal.city"></DATA>
+      <DATA ref="#business.contact-info.postal.stateprov"></DATA>
+      <DATA ref="#business.contact-info.postal.postalcode"></DATA>
+      <DATA ref="#business.contact-info.postal.country">France</DATA>
+    </DATA-GROUP>
+  </ENTITY>
+  <ACCESS><nonident/></ACCESS>
+  <DISPUTES-GROUP>
+    <DISPUTES resolution-type="service" service="/w3c/privacy.html" short-description="Disputes">
+      <LONG-DESCRIPTION>We will try to resolve any dispute.</LONG-DESCRIPTION>
+      <REMEDIES><correct/></REMEDIES>
+    </DISPUTES>
+  </DISPUTES-GROUP>
+  <STATEMENT>
+    <CONSEQUENCE>Collecting your informations help us to customize our web site to your use.</CONSEQUENCE>
+    <NON-IDENTIFIABLE/>
+  </STATEMENT>
+</POLICY>
+</POLICIES>
