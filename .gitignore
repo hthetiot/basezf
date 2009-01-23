@@ -1,4 +1,4 @@
-# Some useless files
+# useless files
 *.DS_Store
 *~
 *.svn
@@ -7,10 +7,17 @@
 \#Untitled-*#
 *.marks
 
-# Some production only files
+# production only files
 doc/*
-etc/apache.conf
+
+# config files
+etc/*.conf
+etc/*.ini
 includes/auto_prepend_local.php
+
+# debug output storage
 logs/*
+
+# static packs
 public/css/pack/*.css
 public/js/pack/*.js
