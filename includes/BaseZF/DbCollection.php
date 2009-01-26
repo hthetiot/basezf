@@ -372,7 +372,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      *
      * @return string SQL query
      */
-    public function filterCache($expire = BaseZF_DbQuery::EXPIRE_DAY)
+    public function filterCache($expire = BaseZF_DbQuery::EXPIRE_NEVER)
     {
         $this->_cacheExpire = $expire;
 
@@ -390,7 +390,9 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 		$select = $this->_getDbSelectInstance();
 
 		if (is_null($cacheKey)) {
-			$cacheKey = $this->_buildQueryCacheKey();
+			$cacheKey = self::_buildQueryCacheKey($select);
+
+			$this->_updatePerPageCache($select);
 		}
 
 		try {
@@ -427,10 +429,6 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     public function filterCount($cacheKey = null)
     {
-		if (is_null($cacheKey)) {
-			$cacheKey = $this->_buildQueryCacheKey() . '_count';
-		}
-
 		// clone main query and build count one
 		$selectCount = clone($this->_getDbSelectInstance());
 		$selectCount->reset(Zend_Db_Select::COLUMNS)
@@ -438,6 +436,10 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 					->reset(Zend_Db_Select::LIMIT_OFFSET)
 					->reset(Zend_Db_Select::ORDER)
 					->columns('count(*) as nb');
+
+		if (is_null($cacheKey)) {
+			$cacheKey = self::_buildQueryCacheKey($selectCount);
+		}
 
 		try {
 
@@ -461,11 +463,20 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 		return $results;
 	}
 
-	final public function _buildQueryCacheKey()
+	final protected static function _buildQueryCacheKey(Zend_Db_Select $select)
 	{
-		$query = $this->_getDbSelectInstance()->assemble();
+		$cacheKey = sha1(serialize(array(
+			$select->getPart(Zend_Db_Select::COLUMNS),
+			$select->getPart(Zend_Db_Select::FROM),
+			$select->getPart(Zend_Db_Select::WHERE),
+			$select->getPart(Zend_Db_Select::GROUP),
+			$select->getPart(Zend_Db_Select::HAVING),
+			$select->getPart(Zend_Db_Select::ORDER),
+			$select->getPart(Zend_Db_Select::LIMIT_COUNT),
+			$select->getPart(Zend_Db_Select::LIMIT_OFFSET),
+		)));
 
-		return sha1($query);
+		return $cacheKey;
 	}
 
 	final public function _getDbQuery($query, $cacheKey = null, array $fields = array())
@@ -488,33 +499,17 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      *
      * @return string SQL query
      */
-    public function clearCache($cacheKey = null, $db = null, $cache = null, $logger = null)
+    final public function clearCache($cacheKey = null)
     {
-		if (is_null($db)) {
-            $db = $this->_getDbInstance();
-        }
-
-        if (is_null($cache)) {
-            $cache = $this->_getCacheInstance();
-        }
-
-        if (is_null($logger)) {
-            $logger = $this->_getLoggerInstance();
-        }
+		$cache = $this->_getCacheInstance();
 
 		if (is_null($cacheKey)) {
-			$cacheKey = $this->_buildQueryCacheKey();
+			$select = $this->_getDbSelectInstance();
+			$cacheKey = $this->_buildQueryCacheKey($select);
 		}
 
-		// get query
-		$query = $this->_getDbSelectInstance()->assemble();
-
 		// flush cache
-		$dbQuery = new BaseZF_DbQuery($query, $cacheKey, $db, $cache, $logger);
-		$dbQuery->clear();
-
-		// free dbQuery Instance
-		unset($dbQuery);
+		$cache->remove($cacheKey);
 
 		return $this;
 	}
@@ -527,8 +522,65 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     public function clearPerPageCache($perPage = null, $recordCount = null)
     {
+		$select = $this->_getDbSelectInstance();
+		$cache = $this->_getCacheInstance();
+
+		// build main cachekey
+		$cacheKey = self::_buildPerPageCacheKey($select);
+
+		if($cacheKeys = $cache->load($cacheKey)) {
+
+			// clear main cachekey
+			$cache->remove($cacheKey);
+
+			// clear sub cachekeys
+			foreach ($cacheKeys as $cacheKey) {
+				$cache->remove($cacheKey);
+			}
+		}
 
 		return $this;
+	}
+
+	public function _updatePerPageCache(Zend_Db_Select $select)
+	{
+		$select = $this->_getDbSelectInstance();
+		$cache = $this->_getCacheInstance();
+
+		// build main cachekey
+		$cacheKey = self::_buildPerPageCacheKey($select);
+
+		// get data from cache
+		if(!$cacheKeys = $cache->load($cacheKey)) {
+			$cacheKeys = array();
+		}
+
+		$currentCacheKey = $this->_buildQueryCacheKey($select);
+
+		if (in_array($currentCacheKey, $cacheKeys) === false) {
+
+			// add data entry
+			$cacheKeys[] = $currentCacheKey;
+
+			// save to cache
+			$cache->save($cacheKeys, $cacheKey);
+		}
+
+		return $this;
+	}
+
+	final protected static function _buildPerPageCacheKey(Zend_Db_Select $select)
+	{
+		$cacheKey = sha1(serialize(array(
+			$select->getPart(Zend_Db_Select::COLUMNS),
+			$select->getPart(Zend_Db_Select::FROM),
+			$select->getPart(Zend_Db_Select::WHERE),
+			$select->getPart(Zend_Db_Select::GROUP),
+			$select->getPart(Zend_Db_Select::HAVING),
+			$select->getPart(Zend_Db_Select::ORDER),
+		)));
+
+		return $cacheKey;
 	}
 
 	//

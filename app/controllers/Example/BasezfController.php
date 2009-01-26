@@ -37,7 +37,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		$examples = new MyProject_DbCollection('example');
 		$examples->filterWhere('example_id > ?', 1);
 		$examples->filterOrderBy('example_id DESC');
-		$examples->filterLimit(10, 10);
+		$examples->filterLimit(1000);
 
 		//
 		echo '<hr />';
@@ -55,7 +55,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		// create
 		echo '<hr />';
 		echo 'insert dbItem:' . "<br />";
-		$example = MyProject_DbItem::getInstance('example');
+
 		$data = array(
 			'country_id'	=> '1',
 			'language_id'	=> '1',
@@ -65,8 +65,10 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 			'creation'		=> 'NOW()',
 		);
 
+		$example = MyProject_DbItem::getInstance('example');
 		$example->setProperties($data);
 		$example->insert();
+
 		$id = $example->getId();
 		echo $id;
 
