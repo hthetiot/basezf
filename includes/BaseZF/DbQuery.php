@@ -10,18 +10,13 @@
 
 class BaseZF_DbQuery
 {
-    const EXPIRE_NONE = false;
-    const EXPIRE_NEVER = 0;
+    const EXPIRE_NONE 	= false;
+    const EXPIRE_NEVER 	= null;
     const EXPIRE_MINUTE = 60;
-    const EXPIRE_HOUR = 3600;
-    const EXPIRE_DAY = 86400;
-    const EXPIRE_WEEK = 604800;
-    const EXPIRE_MONTH = 2592000;
-
-    /**
-     * Use MEMCACHE_COMPRESSED to use zlib by default
-     */
-    const USE_MEMCACHE_COMPRESSED = true;
+    const EXPIRE_HOUR 	= 3600;
+    const EXPIRE_DAY 	= 86400;
+    const EXPIRE_WEEK 	= 604800;
+    const EXPIRE_MONTH 	= 2592000;
 
     /**
      * Instance of Cache
@@ -322,7 +317,7 @@ class BaseZF_DbQuery
 
             foreach ($values as $key => $value) {
                 $binding = $bindingKey . '_' . $key;
-                
+
                 $this->bindValue($binding, $value);
 
                 $queryBindings[] = ':' . $binding;
@@ -457,6 +452,7 @@ class BaseZF_DbQuery
         $queryFields = $this->_getQueryFields();
         $cacheKey = $this->getCacheKey();
 
+
         try {
 
             $data = array();
@@ -467,7 +463,7 @@ class BaseZF_DbQuery
 
             // try to get from memcache
             $cacheData = $this->_getFromCache($cacheKey);
- 
+
             // check cache integrity and build data
             foreach ($cacheData as $rowId => $cacheDataRow) {
 
@@ -541,7 +537,7 @@ class BaseZF_DbQuery
 
             // try to get from memcache
             $cacheDataByRows = $this->_getFromCache($cacheKeysByRows);
-            
+
             // check cache integrity and build data
             foreach ($cacheDataByRows as $cacheKeyByRow => $cacheDataByRow) {
                 $id = array_search($cacheKeyByRow, $cacheKeysByRows);
@@ -568,8 +564,8 @@ class BaseZF_DbQuery
             }
 
         } catch (BaseZF_DbQuery_Exception $e) {
-            
-            
+
+
             // build multiple binding with the reste of ids
             $this->_buildMultipleBinding();
 
@@ -752,23 +748,23 @@ class BaseZF_DbQuery
         }
 
         if (!is_array($cacheKey)) {
-            
+
             if(!$value = $cache->load($cacheKey)) {
                 throw new BaseZF_DbQuery_Exception('value for cache key "' . $cacheKey . '" not found');
             }
-            
+
         } else {
-            
+
             $value = array();
-            
+
             foreach ($cacheKey as $cacheKeyName) {
                 $value[$cacheKeyName] = $cache->load($cacheKeyName);
             }
-            
+
         }
 
         // use json_decode if key contain json
-        
+
         // if multiple results
         if (is_array($value)) {
             $keys = array_keys($value);
@@ -809,7 +805,7 @@ class BaseZF_DbQuery
             $value = json_encode($value);
         }
 
-        return $cache->save($value, $cacheKey, array(), $expire);
+        return $cache->save($value, $cacheKey); //, array(), $expire);
     }
 
     protected function _removeFromCache($cacheKey, $cache = null)
@@ -838,15 +834,15 @@ class BaseZF_DbQuery
         if (is_null($db)) {
             $db = $this->_getDbInstance();
         }
-        
+
         // check for named binding
         if ($db->supportsParameters('named') === false) {
             throw new BaseZF_DbQuery_Exception(get_class($db) . ' do not support named parameters use PDO adapter.');
         }
-        
+
         $stmtClass = $db->getStatementClass();
         $stmt = new $stmtClass($db, $query);
-        
+
         return $stmt;
     }
 

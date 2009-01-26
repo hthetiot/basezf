@@ -19,9 +19,9 @@ final class MyProject
         if(!file_exists(CONFIG_FILE)) {
             throw new MyProject_Exception('Missing config file on path: "' . CONFIG_FILE . '"');
         }
-        
+
         $config = new Zend_Config_Ini(CONFIG_FILE, CONFIG_ENV);
-        
+
         return $config;
 	}
 
@@ -29,64 +29,63 @@ final class MyProject
 	{
 
 	}
-    
+
     private static function _buildRegistryDb()
 	{
         // get config
         $config = MyProject::registry('config');
-        
+
         // init db
         $db = Zend_Db::factory($config->db);
         $db->query('SET NAMES utf8');
-        
-        // enable profiler 
+
+        // enable profiler
         if($config->db->profiler == true) {
 			$db->getProfiler()->setEnabled(true);
 		}
-        
+
         return $db;
 	}
-    
+
     private static function _buildRegistryDbCache()
 	{
-        $frontendOptions = array(
-           'lifetime' => 7200, // temps de vie du cache de 2 heures
-           'automatic_serialization' => true
-        );
-        
-        $backendOptions = array(
-            // Répertoire où stocker les fichiers de cache
-            'cache_dir' => '/tmp/'
-        );
-        
+		// get config
+        $config = MyProject::registry('config');
+
+        $frontendOptions = $config->dbcache->frontend->toArray();
+        $backendOptions = $config->dbcache->backend->toArray();
+
         // créer un objet Zend_Cache_Core
-        $cache = Zend_Cache::factory('Core',
-                                     'File',
-                                     $frontendOptions,
-                                     $backendOptions);
+        $cache = Zend_Cache::factory(
+			'Core',
+			'File',
+			$frontendOptions,
+			$backendOptions
+		);
+
         return $cache;
 	}
-    
+
     private static function _buildRegistryApcCache()
 	{
 
 	}
-    
+
     private static function _buildRegistrySession()
 	{
 
 	}
-    
+
     private static function _buildRegistryLocale()
 	{
 
 	}
-    
+
     private static function _buildRegistryAuth()
 	{
 
 	}
-    
+
     private static function _buildRegistryAcl()
 	{
 
@@ -179,13 +178,13 @@ final class MyProject
     static public function sendExceptionByMail(Exception $e)
     {
         $config = MyProject::registry('config');
-        
+
         // generate mail datas
         $from	 = $config->debug->report->from;
         $to		 = $config->debug->report->to;
         $subject = '[' . MAIN_URL . ':' . CONFIG_ENV . '] Exception Report: ' . wordlimit_bychar($e->getMessage(), 50);
         $body = $e->getMessage() . ' in ' . $e->getFile() . ' at line ' . $e->getLine();
-        
+
         // sned mail throw Zend_Mail
         $mail = new Zend_Mail();
 
@@ -202,19 +201,19 @@ final class MyProject
         $att->filename = 'GET.txt';
         $att = $mail->createAttachment(var_export($_POST, true), Zend_Mime::TYPE_TEXT);
         $att->filename = 'POST.txt';
-        
+
         // send session dump only if exists
         if (session_id() != null) {
             $att = $mail->createAttachment(var_export($_SESSION, true), Zend_Mime::TYPE_TEXT);
             $att->filename = 'SESSION.txt';
         }
-        
+
         $att = $mail->createAttachment(var_export($_SERVER, true), Zend_Mime::TYPE_TEXT);
         $att->filename = 'SERVER.txt';
         $att = $mail->createAttachment($e->getTraceAsString(), Zend_Mime::TYPE_TEXT);
         $att->filename = 'backtraceExeption.txt';
         $mail->send();
-        
+
         throw $e;
     }
 

@@ -22,7 +22,7 @@ class MyProject_DbItem extends BaseZF_DbItem
 	{
         return parent::getInstance($table, $id, $realtime, $class);
     }
-    
+
     /**
      * Retrieve the Db instance
      */
@@ -46,11 +46,11 @@ class MyProject_DbItem extends BaseZF_DbItem
     {
         return MyProject::registry('logger');
     }
-    
+
     /**
      * Retrieve the Database Schema as array
      */
-    protected function _getDbSchema()
+    protected function &_getDbSchema()
     {
         return MyProject_DbSchema::$tables;
     }

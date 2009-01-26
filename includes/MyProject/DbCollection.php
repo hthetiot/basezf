@@ -33,11 +33,11 @@ class MyProject_DbCollection extends BaseZF_DbCollection
     {
         return MyProject::registry('logger');
     }
-    
+
     /**
      * Retrieve the Database Schema as array
      */
-    protected function _getDbSchema()
+    protected function &_getDbSchema()
     {
         return MyProject_DbSchema::$tables;
     }
