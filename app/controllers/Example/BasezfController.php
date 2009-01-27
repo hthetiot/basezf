@@ -33,7 +33,6 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
     public function dbitemAction()
 	{
-
 		// clear count cache /cache/perpage
 		// add collection dependency
 

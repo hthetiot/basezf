@@ -56,18 +56,34 @@ class ErrorController extends BaseZF_Framework_Controller_Action
                 // application error
                 $this->getResponse()->setHttpResponseCode(500);
                 $this->view->message = __('Application error');
+
+                // send debug report
+                MyProject::sendExceptionByMail($errors->exception);
                 break;
         }
 
-        // pass the environment to the view script so we can conditionally
-        // display more/less information
-        $this->view->env       = $this->getInvokeArg('env');
+        // get config
+        $config = MyProject::registry('config');
+
+        // display debug ?
+        if (!$config->debug->enable) {
+            $errorCode = $this->getResponse()->getHttpResponseCode();
+            $this->_forward('error' . $errorCode);
+        }
 
         // pass the actual exception object to the view
         $this->view->exception = $errors->exception;
 
         // pass the request to the view
         $this->view->request   = $errors->request;
+    }
+
+    public function error500Action()
+    {
+    }
+
+    public function error404Action()
+    {
     }
 }
 

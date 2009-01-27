@@ -225,6 +225,10 @@ final class MyProject
     {
         $config = MyProject::registry('config');
 
+        if (!$config->debug->report->enable) {
+            return;
+        }
+
         // generate mail datas
         $from	 = $config->debug->report->from;
         $to		 = $config->debug->report->to;
@@ -259,8 +263,6 @@ final class MyProject
         $att = $mail->createAttachment($e->getTraceAsString(), Zend_Mime::TYPE_TEXT);
         $att->filename = 'backtraceExeption.txt';
         $mail->send();
-
-        throw $e;
     }
 
     //
