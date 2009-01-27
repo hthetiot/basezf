@@ -2,6 +2,7 @@
 
 #database
 db.adapter                  = Pdo_Mysql
+db.params.persistent        = true
 db.params.host              = localhost
 db.params.dbname            = proddb
 db.params.username          = prod
