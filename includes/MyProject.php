@@ -97,13 +97,20 @@ final class MyProject
 		// get config
         $config = MyProject::registry('config');
 
-        $frontendOptions = $config->dbcache->frontend->toArray();
-        $backendOptions = $config->dbcache->backend->toArray();
+        $frontendOptions = array();
+        if (isset($config->dbcache->frontend)) {
+            $frontendOptions = $config->dbcache->frontend->toArray();
+        }
+
+        $backendOptions = array();
+        if (isset($config->dbcache->backend)) {
+            $backendOptions = $config->dbcache->backend->toArray();
+        }
 
         // créer un objet Zend_Cache_Core
         $cache = Zend_Cache::factory(
 			'Core',
-			'File',
+			$config->dbcache->adapter,
 			$frontendOptions,
 			$backendOptions
 		);
