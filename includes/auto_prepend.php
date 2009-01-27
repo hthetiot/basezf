@@ -100,7 +100,7 @@ define_if_not('COOKIES_DOMAIN', '.' . MAIN_URL);
 //---------------------------------------------------------------------------
 // ZendFramework Path
 
-define_if_not('PATH_TO_ZF', '/home/httpd/phpinclude/ZendFrameWork/release-1.7.0/library');
+define_if_not('PATH_TO_ZF', '/usr/share/php/ZendFrameWork/release-1.7.3/library');
 
 //---------------------------------------------------------------------------
 // file inclusion & autoload

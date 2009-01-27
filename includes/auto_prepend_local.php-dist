@@ -31,7 +31,3 @@ define('CONFIG_ENV', 'staging');
 define('CONFIG_STATIC_PACK_CSS', false);
 define('CONFIG_STATIC_PACK_JS', false);
 
-//---------------------------------------------------------------------------
-// Set Debug values
-define('DEBUG_MAILS', 'john@idontknowwhere.com');
-
