@@ -470,6 +470,9 @@ abstract class BaseZF_DbItem
         $this->_modified[$property] = $value;
         $this->_flushDependency($property);
 
+        // clean property by types
+        $this->_propertyCleanType($property, $this->_modified);
+
         return $this;
     }
 
@@ -1067,6 +1070,50 @@ abstract class BaseZF_DbItem
 
         return true;
     }
+
+    //
+    // Collections
+    //
+
+	/**
+	 * Set item collection
+	 *
+	 * @param object instance of BaseZF_DbCollection
+	 *
+	 * @return BaseZF_DbItem this object instance for more fluent interface
+	 */
+	public function addCollection(BaseZF_DbCollection $collection)
+	{
+	    //@TODO: relation to collections not used now, seems like we should delete
+	    //this function in future or add functionality to refresh colections if item is changed
+
+	    if(!in_array($collection, $this->_collections)) {
+	       $this->_collections[] = &$collection;
+	    }
+
+		return $this;
+	}
+
+	/**
+	 * Set item collection
+	 *
+	 * @param object instance of BaseZF_DbCollection
+	 *
+	 * @return BaseZF_DbItem this object instance for more fluent interface
+	 */
+	public function removeCollection(BaseZF_DbCollection $collection)
+	{
+        //@TODO: relation to collections not used now, seems like we should delete
+        //this function in future or add functionality to refresh colections if item is changed
+
+        $key = array_search($collection, $this->_collections);
+	    if($key !== FALSE) {
+	       unset($this->_collections[$key]);
+	    }
+
+		return $this;
+	}
+
 
 	//
 	// Magick Func

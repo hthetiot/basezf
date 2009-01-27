@@ -210,6 +210,10 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     final public function removeId($id)
     {
         if(($key = array_search($id, $this->_ids)) !== FALSE) {
+
+            $item = $this->getItem($id);
+            $item->removeCollection($this);
+
             unset($this->_ids[$key]);
         }
         return $this;
@@ -660,6 +664,9 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 		$itemClassName = $this->_getDbItemClassName();
 		$item = call_user_func(array($itemClassName, 'getInstance'), $this->_table, $id, $this->isRealTime());
 
+        // add collection dependency
+        $item->addCollection($this);
+
         return $item;
     }
 
@@ -674,7 +681,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $data = array_map('trim', $data);
 
 		$itemClassName = $this->_getDbItemClassName();
-		$item = call_user_func(array($itemClassName, 'getInstance'), $this->_table, null, $this->isRealTime());
+		$newItem = call_user_func(array($itemClassName, 'getInstance'), $this->_table, null, $this->isRealTime());
 
         $newItem->setProperties($data);
         $newItem->insert();
