@@ -427,6 +427,18 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 		return $this;
 	}
 
+    protected function _getDbSelectCountInstance()
+    {
+        $selectCount = clone($this->_getDbSelectInstance());
+		$selectCount->reset(Zend_Db_Select::COLUMNS)
+					->reset(Zend_Db_Select::LIMIT_COUNT)
+					->reset(Zend_Db_Select::LIMIT_OFFSET)
+					->reset(Zend_Db_Select::ORDER)
+					->columns('count(*) as nb');
+
+        return $selectCount;
+    }
+
 	/**
      * Get rocords count for filter
      *
@@ -435,12 +447,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     public function filterCount($cacheKey = null)
     {
 		// clone main query and build count one
-		$selectCount = clone($this->_getDbSelectInstance());
-		$selectCount->reset(Zend_Db_Select::COLUMNS)
-					->reset(Zend_Db_Select::LIMIT_COUNT)
-					->reset(Zend_Db_Select::LIMIT_OFFSET)
-					->reset(Zend_Db_Select::ORDER)
-					->columns('count(*) as nb');
+        $selectCount = $this->_getDbSelectCountInstance();
 
 		if (is_null($cacheKey)) {
 			$cacheKey = self::_buildQueryCacheKey($selectCount);
@@ -509,12 +516,22 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 		$cache = $this->_getCacheInstance();
 
 		if (is_null($cacheKey)) {
+
+            // flush cache for filter
 			$select = $this->_getDbSelectInstance();
 			$cacheKey = $this->_buildQueryCacheKey($select);
-		}
+            $cache->remove($cacheKey);
 
-		// flush cache
-		$cache->remove($cacheKey);
+            // flush cache for filterCount
+            $selectCount = $this->_getDbSelectCountInstance();
+            $cacheKeyCount = $this->_buildQueryCacheKey($selectCount);
+            $cache->remove($cacheKeyCount);
+
+		} else {
+
+            // flush cache from param
+            $cache->remove($cacheKey);
+        }
 
 		return $this;
 	}
