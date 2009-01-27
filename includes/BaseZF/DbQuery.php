@@ -10,6 +10,11 @@
 
 class BaseZF_DbQuery
 {
+	/**
+	 * Define the zend log priority
+	 */
+	const LOG_PRIORITY = 11;
+
     const EXPIRE_NONE 	= false;
     const EXPIRE_NEVER 	= null;
     const EXPIRE_MINUTE = 60;
@@ -263,9 +268,7 @@ class BaseZF_DbQuery
      */
     static protected function _getLoggerInstance()
     {
-        if (defined('DEBUG_QUERYCACHE') && DEBUG_QUERYCACHE) {
-           return self::$_LOGGER;
-        }
+	   return self::$_LOGGER;
     }
 
     static public function setLoggerInstance($logger)
@@ -521,7 +524,8 @@ class BaseZF_DbQuery
 
     public function _executeCacheKeysByRows()
     {
-        $queryFields = $this->_getQueryFields();
+
+		$queryFields = $this->_getQueryFields();
         $cacheKey = $this->getCacheKey();
         $cacheKeysByRows = $this->_buildCacheKeysByRowsFromValues();
 
@@ -558,13 +562,12 @@ class BaseZF_DbQuery
 
                 $this->bindValue($this->_getCacheKeyByRowsField(), $missingIds);
 
-                self::Log('data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
+                $this->log('data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
 
                 throw new BaseZF_DbQuery_Exception('data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
             }
 
         } catch (BaseZF_DbQuery_Exception $e) {
-
 
             // build multiple binding with the reste of ids
             $this->_buildMultipleBinding();
@@ -881,8 +884,8 @@ class BaseZF_DbQuery
      */
     public function log($msg)
     {
-        if ($logger = $this->_getLoggerInstance()) {
-            $logger->log($msg, BaseZF_Framework_Log::DBOBJECT_PROFILER);
+		if ($logger = $this->_getLoggerInstance()) {
+            $logger->log('DbQuery -> ' . $msg, self::LOG_PRIORITY);
         }
     }
 }

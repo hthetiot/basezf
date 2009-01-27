@@ -11,6 +11,11 @@
 abstract class BaseZF_DbItem
 {
 	/**
+	 * Define the zend log priority
+	 */
+	const LOG_PRIORITY = 10;
+
+	/**
      * Unique Id
      */
     protected $_id = 0;
@@ -106,7 +111,7 @@ abstract class BaseZF_DbItem
         $this->setRealTime($realtime);
 		$this->setId($id);
 
-        $this->log('Create DbItem Instance : ' . $this);
+        $this->log('Create DbItem Instance: ' . $this);
     }
 
 	//
@@ -164,7 +169,7 @@ abstract class BaseZF_DbItem
 		if (!is_null($id) && ($item = self::getExistInstance($table, $id))) {
 
             $item->setRealTime($realtime);
-            $item->log('Get DbItem Instance : ' . $item);
+            $item->log('Get DbItem Instance: ' . $item);
 
 		} else {
 
@@ -173,7 +178,7 @@ abstract class BaseZF_DbItem
 		    }
 
 		    $item = new $class($table, $id, $realtime);
-			$item->log('Init DbItem Instance with table : ' . $table);
+			$item->log('Init DbItem Instance with table: ' . $table);
 		}
 
 		return $item;
@@ -1290,7 +1295,7 @@ abstract class BaseZF_DbItem
 	public function log($msg)
 	{
 		if ($logger = $this->_getLoggerInstance()) {
-			$logger->log($msg);
+			$logger->log('DbItem -> ' . $msg, self::LOG_PRIORITY);
 		}
 	}
 }

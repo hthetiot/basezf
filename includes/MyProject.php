@@ -27,7 +27,57 @@ final class MyProject
 
 	private static function _buildRegistryLogger()
 	{
+		// get config
+        $config = MyProject::registry('config');
 
+		// disabled log
+		if (!$config->log->enable) {
+			return false;
+		}
+
+		// init logger
+		$logger = new Zend_Log();
+
+		// add default priority
+		$logger->addPriority('TABLE', 8);
+
+		// add priority per components
+		$componentsEnables = $config->log->components->toArray();
+		$components = array(
+			'DBCOLLECTION' 	=> BaseZF_DbCollection::LOG_PRIORITY,
+			'DBITEM' 		=> BaseZF_DbItem::LOG_PRIORITY,
+			'DBQUERY' 		=> BaseZF_DbQuery::LOG_PRIORITY,
+		);
+
+		foreach($components as $name => $priority) {
+			$logger->addPriority($name, $priority);
+
+			if (!$componentsEnables[strtolower($name)] && isset($componentsEnables[strtolower($name)])) {
+				$filter = new Zend_Log_Filter_Priority($priority, '!=');
+				$logger->addFilter($filter);
+			}
+		}
+
+		// add stream writer
+		if ($config->log->writers->stream->enable) {
+			$writer = new Zend_Log_Writer_Stream($config->log->writers->stream->path);
+			$logger->addWriter($writer);
+		}
+
+		// add firebug writer
+		if ($config->log->writers->firebug->enable) {
+			$writer = new Zend_Log_Writer_Firebug();
+			$writer->setPriorityStyle(8, 'TABLE');
+			$logger->addWriter($writer);
+		}
+
+		// add default writer if no writer was added
+		if (!isset($writer)) {
+			$writer = new Zend_Log_Writer_Null();
+			$logger->addWriter($writer);
+		}
+
+		return $logger;
 	}
 
     private static function _buildRegistryDb()
@@ -38,11 +88,6 @@ final class MyProject
         // init db
         $db = Zend_Db::factory($config->db);
         $db->query('SET NAMES utf8');
-
-        // enable profiler
-        if($config->db->profiler == true) {
-			$db->getProfiler()->setEnabled(true);
-		}
 
         return $db;
 	}
@@ -155,14 +200,15 @@ final class MyProject
      * @param int $level
      *
      * Possible value for $level
-     * Zend_Log::EMERG   = 0;  // Urgence : le système est inutilisable
-     * Zend_Log::ALERT   = 1;  // Alerte: une mesure corrective doit être prise immédiatement
-     * Zend_Log::CRIT    = 2;  // Critique : états critiques
-     * Zend_Log::ERR     = 3;  // Erreur: états d'erreur
-     * Zend_Log::WARN    = 4;  // Avertissement: états d'avertissement
-     * Zend_Log::NOTICE  = 5;  // Notice: normal mais état significatif
-     * Zend_Log::INFO    = 6;  // Information: messages d'informations
-     * Zend_Log::DEBUG   = 7;  // Debug: messages de déboguages
+     *
+     * Zend_Log::EMERG   = 0;  // Emergency: system is unusable
+     * Zend_Log::ALERT   = 1;  // Alert: action must be taken immediately
+     * Zend_Log::CRIT    = 2;  // Critical: critical conditions
+     * Zend_Log::ERR     = 3;  // Error: error conditions
+     * Zend_Log::WARN    = 4;  // Warning: warning conditions
+     * Zend_Log::NOTICE  = 5;  // Notice: normal but significant condition
+     * Zend_Log::INFO    = 6;  // Informational: informational messages
+	 * Zend_Log::DEBUG   = 7;  // Debug: debug messages
 	 *
 	 * @return Zend_Log::log results
      */

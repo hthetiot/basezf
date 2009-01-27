@@ -11,6 +11,11 @@
 abstract class BaseZF_DbCollection implements Iterator, Countable
 {
 	/**
+	 * Define the zend log priority
+	 */
+	const LOG_PRIORITY = 9;
+
+	/**
      * Unique Id
      */
     protected $_ids = array();
@@ -916,7 +921,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     public function log($msg)
     {
         if ($logger = $this->_getLoggerInstance()) {
-            $logger->log($msg, BaseZF_Framework_Log::DBOBJECT_PROFILER);
+            $logger->log('DbCollection -> ' . $msg, self::LOG_PRIORITY);
         }
     }
 }

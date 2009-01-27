@@ -34,6 +34,9 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
     public function dbitemAction()
 	{
 
+		// clear count cache /cache/perpage
+		// add collection dependency
+
 		$examples = new MyProject_DbCollection('example');
 		$examples->filterWhere('example_id > ?', 1);
 		$examples->filterOrderBy('example_id DESC');
@@ -92,7 +95,6 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		//$example->delete();
 		echo 'done';
 
-        exit();
     }
 
     public function dbsearchAction()
