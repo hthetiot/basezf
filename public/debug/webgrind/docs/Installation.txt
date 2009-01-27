@@ -1,0 +1,10 @@
+#summary Instructions for installing webgrind
+#labels Featured,install
+
+= Requirements =
+To run webgrind you need a webserver with PHP 5 installed. Webgrind uses `json_encode` that is available from PHP 5.2 or as a PECL extension before that.
+
+= Installation =
+  # Download webgrind.
+  # Extract webgrind in a folder within your document root.
+  # Start using webgrind with your browser of choice.

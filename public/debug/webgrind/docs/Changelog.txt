@@ -1,0 +1,30 @@
+#summary Changelog for webgrind.
+
+==0.81==
+  * Fixed: Potential infinite loop. (issue 12)
+
+==0.8==
+  * New: Autodetecting profiler_output_name, profiler_output_dir and tmp file storage
+  * New: Document title shows profiled script invoke url
+  * New: List is sortable by function kind
+  * Changed: Improved design
+  * Changed: Improved display of syntax highlighted fileviewer
+  * Fixed: Fileviewer no longer break long lines
+
+==0.71==
+  * Fixed: Works with short open tags again
+
+==0.7==
+  * New: Support for directly loading a report through hash in url (like http://webgrind.local/#cachegrind.out.5443)
+  * New: Added visual breakdown of internal, class and procedural functions and calls to include/require
+  * New: Version checking
+  * Fixed: Sort arrows no longer overlap in narrow windows.
+
+==0.6==
+  * Fixed: Webgrind does not work with php_short_tags = off (issue 4)
+  * Changed: Allow configuration of µsec or msec in output (issue 2)
+  * Changed: Wikipages added to release package
+  * Changed: Small UI adjustments
+
+==0.5==
+  * Initial release
