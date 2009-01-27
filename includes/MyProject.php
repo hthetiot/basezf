@@ -111,11 +111,6 @@ final class MyProject
         return $cache;
 	}
 
-    private static function _buildRegistryApcCache()
-	{
-
-	}
-
     private static function _buildRegistrySession()
 	{
 
@@ -123,7 +118,7 @@ final class MyProject
 
     private static function _buildRegistryLocale()
 	{
-
+        return $locale = new Zend_Locale('auto');
 	}
 
     private static function _buildRegistryAuth()
