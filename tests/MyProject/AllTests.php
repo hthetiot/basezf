@@ -8,10 +8,6 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Framework_AllTests::main');
-}
-
 // include PhpUnit Library
 require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
@@ -27,14 +23,10 @@ class MyProject_AllTests
     {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit Framework');
 
-        // $suite->addTestSuite('class');
+        $suite->addTestSuite('MyProject_ExampleTest');
         // ...
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'MyProject_AllTests::main') {
-    MyProject_AllTests::main();
 }
 

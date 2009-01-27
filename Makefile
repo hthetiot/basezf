@@ -49,21 +49,20 @@ list:
 syntax:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files:"
-
-# check syntax of PHP files
 	@PHP_SOURCES=`find . -type f -name *.php | tr '\n' ' '`
 	@for i in $(PHP_SOURCES); do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; exit 1; fi; done;
-
 	@echo "done"
 
 test:
+	@echo "----------------"
+	@echo "Exec Units test:"
+	@cd tests && phpunit AllTests
+	@echo "done"
 
 locales:
 	@echo "----------------"
 	@echo "Build GetText MO files:"
-
 #todo
-
 	@echo "done"
 
 # Static packing

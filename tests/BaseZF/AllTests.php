@@ -8,10 +8,6 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Framework_AllTests::main');
-}
-
 // include PhpUnit Library
 require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
@@ -25,16 +21,12 @@ class BaseZF_AllTests
 
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('PHPUnit Framework');
+        $suite = new PHPUnit_Framework_TestSuite('BaseZF Framework');
 
-        // $suite->addTestSuite('class');
+        // $suite->addTestSuite('BaseZF_DbItemTest');
         // ...
 
         return $suite;
     }
-}
-
-if (PHPUnit_MAIN_METHOD == 'BaseZF_AllTests::main') {
-    BaseZF_AllTests::main();
 }
 
