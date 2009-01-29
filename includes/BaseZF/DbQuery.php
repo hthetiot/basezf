@@ -808,7 +808,7 @@ class BaseZF_DbQuery
             $value = json_encode($value);
         }
 
-        return $cache->save($value, $cacheKey); //, array(), $expire);
+        return $cache->save($value, $cacheKey, array(), $expire);
     }
 
     protected function _removeFromCache($cacheKey, $cache = null)

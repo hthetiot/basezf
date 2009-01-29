@@ -33,13 +33,15 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
     public function dbitemAction()
 	{
-		// clear count cache /cache/perpage
+
+        // clear count cache /cache/perpage
 		// add collection dependency
 
 		$examples = new MyProject_DbCollection('example');
 		$examples->filterWhere('example_id > ?', 1);
 		$examples->filterOrderBy('example_id DESC');
-		$examples->filterLimit(1000);
+		$examples->filterLimit(10);
+        //$examples->clearCache();
 
 		//
 		echo '<hr />';
@@ -51,7 +53,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		echo 'filter dbColl:' . "<br />";
 		$examples->filterExecute();
         foreach($examples as $example) {
-            echo $example->getId() . '/' . $example->login . "<br />";
+            echo $example->getId() . '/' . date('Y-m-d', $example->creation) . "<br />";
         }
 
 		// create
@@ -64,12 +66,10 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 			'login'			=> time(),
 			'email'			=> 'w',
 			'display_name'	=> 'w',
-			'creation'		=> 'NOW()',
+			'creation'		=> '2008-10-10',
 		);
 
-		$example = MyProject_DbItem::getInstance('example');
-		$example->setProperties($data);
-		$example->insert();
+		$example = $examples->newItem($data);
 
 		$id = $example->getId();
 		echo $id;
@@ -88,11 +88,23 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		$example->update();
 		echo 'done';
 
+        echo '<hr />';
+		echo 'list update dbItem:' . "<br />";
+        foreach($examples as $example) {
+            echo $example->getId() . '/' . $example->login . "<br />";
+        }
+
 		// delete
 		echo '<hr />';
 		echo 'delete dbItem:' . "<br />";
-		//$example->delete();
+		$example->delete();
 		echo 'done';
+
+        echo '<hr />';
+		echo 'list deleted dbItem:' . "<br />";
+        foreach($examples as $example) {
+            echo $example->getId() . '/' . $example->login . "<br />";
+        }
 
     }
 

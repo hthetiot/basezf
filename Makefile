@@ -14,7 +14,7 @@ PROJECT_BIN = $(ROOT)/bin
 ZIP = zip
 TAR = tar
 PHP = php
-DOXYGEN = php
+DOXYGEN = doxygen
 
 YUI_VERSION = 2.3.5
 YUI = java -jar $(PROJECT_BIN)/yuicompressor-$(YUI_VERSION).jar --charset UTF-8
@@ -41,7 +41,7 @@ all: clean syntax locales static-pack
 doc:
 	@echo "----------------"
 	@echo "Generate doxygen doc :"
-	@doxygen ./etc/doxygen.cnf > ./logs/doc.log
+	@$(DOXYGEN) ./etc/doxygen.cnf > ./logs/doc.log
 	@echo "done"
 
 list:

@@ -174,7 +174,7 @@ final class MyProject
 		// Just In Time object creation
 		} catch (Zend_Exception $e) {
 
-			$callbackFunc = '_buildRegistry' . ucfirst($registryKey);
+			$callbackFunc = '_buildRegistry' . implode(array_map('ucfirst', explode('_', $registryKey)));
 
 			if (!is_callable(array('MyProject', $callbackFunc))) {
 				throw new MyProject_Exception('Non existing registryCallBack for "' . $registryKey. '" missing function "' . $callbackFunc . '"');

@@ -15,6 +15,11 @@ abstract class BaseZF_DbItem
 	 */
 	const LOG_PRIORITY = 10;
 
+    /**
+     * Encrypt ids key
+     */
+    const EXTENTED_ID_INCREMENT = '14041985';
+
 	/**
      * Unique Id
      */
