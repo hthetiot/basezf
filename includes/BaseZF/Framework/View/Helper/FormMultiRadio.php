@@ -14,7 +14,7 @@ class BaseZF_Framework_View_Helper_FormMultiRadio extends Zend_View_Helper_FormR
      * Whether or not this element represents an array collection by default
      * @var bool
      */
-    protected $_isArray = true;
+    protected $_isArray = false;
 
 	/**
      * Generates a set of checkbox button elements.

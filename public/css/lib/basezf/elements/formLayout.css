@@ -285,7 +285,6 @@ form.formLayout div label.compact {
 */
 form.formLayout div.error {
     background: #FFEBE8;
-    color: #666666;
     border:1px solid #DD3C10;
 }
 
