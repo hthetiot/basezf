@@ -15,6 +15,7 @@ div.formFancySelectLabel
     height:18px;
     margin:5px 6px 0 140px;
     padding:0 20px 0 7px;
+    overflow:hidden;
 }
 
 div.formFancySelect div.formFancySelectOptions
@@ -79,8 +80,8 @@ div.formFancySelect div.formFancySelectOptions label span
 
 div.formFancySelectValue
 {
-    margin:0 0 5px 142px;
-    padding:1px 3px;
+    margin:0 0 0 141px;
+    padding:0 6px 0 2px;
     overflow: hidden;
     clear: left;
 }
