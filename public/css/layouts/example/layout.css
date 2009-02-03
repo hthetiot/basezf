@@ -179,6 +179,22 @@ form.formLayout div.formFancySelectLabel
     border-color: #989898 #606460 #606460 #989898;
 }
 
+form.formLayout input.formText:hover,
+form.formLayout input.formPassword:hover,
+form.formLayout textarea:hover
+{
+    background-color:#F5F5F5;
+	border:1px solid #666;
+}
+
+form.formLayout input.formText:focus,
+form.formLayout input.formPassword:focus,
+form.formLayout textarea:focus
+{
+    background-color:#FFF;
+	border:1px solid #555;
+}
+
 form.formLayout input.inputLoading
 {
     background: #ffffff url('/images/lib/basezf/elements/formLayout/inputLoading.gif') no-repeat 99% 55%;;
@@ -194,18 +210,8 @@ form.formLayout div.formFancySelectLabel
 
 form.formLayout div.formFancySelect div.formFancySelectOptions div
 {
-
     border-color: #ccc;
     border-top:none;
-}
-
-form.formLayout div.formFancySelect label
-{
-}
-
-form.formLayout div.formFancySelect label:hover
-{
-
 }
 
 /* buttons */

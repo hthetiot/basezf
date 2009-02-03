@@ -167,8 +167,8 @@ form.formLayout fieldset div.formInfo {
     height: auto;
     margin: 0 0 10px 10px;
     padding: 5px;
-    border: 1px solid #666666;
-    background-color: #ffffe1;
+    border: 1px solid #FFE500;
+    background: #FFF9BF;
     color: #666666;
 }
 
@@ -180,6 +180,7 @@ form.formLayout fieldset div.formInfo h4 {
     color: #666666;
     font-size: 110%;
     margin-bottom: 0.5em;
+    white-space: nowrap;
 }
 
 form.formLayout fieldset div.formInfo p {
@@ -260,36 +261,21 @@ form.formLayout div label.compact {
 * Element: Error
 * @begin
 */
-form.formLayout p.error {
-    background-color: #ff0000;
-    background-image: url(/images/icon_error.gif);
-    background-repeat: no-repeat;
-    background-position: 3px 3px;
-    color: #ffffff;
-    padding: 3px 3px 5px 27px;
-    border: 1px solid #000000;
-    margin: auto 100px;
-}
-
 form.formLayout div.error {
-    background-color: #ffffe1;
-    background-image: url(/images/required_bg.gif);
-    background-repeat: no-repeat;
-    background-position: top left;
+    background: #FFEBE8;
     color: #666666;
-    border: 1px solid #ff0000;
+    border:1px solid #DD3C10;
 }
 
-form.formLayout div.error p.error {
-    background-image: url(/images/icon_error.gif);
-    background-position: top left;
-    background-color: transparent;
-    border-style: none;
-    font-size: 88%;
+form.formLayout div.error ul.errors {
+    background: transparent url(/images/lib/basezf/elements/formLayout/error.png) no-repeat left;
     font-weight: bold;
-    margin: 0 0 0 118px;
-    width: 200px;
-    color: #ff0000;
+    margin:0 0 0 5px;
+    padding: 3px 0 3px 23px;
+    color: #DD3C10;
+}
+form.formLayout div.error ul.errors li{
+    list-style-type:none;
 }
 /*@end*/
 

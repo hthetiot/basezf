@@ -20,7 +20,7 @@ class BaseZF_Framework_View_Helper_FormInfo extends Zend_View_Helper_FormElement
 		unset($attribs['label']);
 
 		// retrieve attributes for labels (prefixed with 'label_' or 'label')
-        $label_attribs = array('style' => 'white-space: nowrap;');
+        $label_attribs = array();
         foreach ($attribs as $key => $val) {
             $tmp    = false;
             $keyLen = strlen($key);
@@ -39,11 +39,35 @@ class BaseZF_Framework_View_Helper_FormInfo extends Zend_View_Helper_FormElement
         }
 
 		// build the element
-        $xhtml = '<div' . $this->_htmlAttribs($attribs) . '>'
-			   . (!empty($label) ? '<h4' . $this->_htmlAttribs($label_attribs) . '>' . $this->view->escape($label) . '</h4>' : '')
-			   . '</div>';
+        $xhtml = array();
+        $xhtml[] = '<div' . $this->_htmlAttribs($attribs) . '>';
 
-		return $xhtml;
+        // build label
+        if (!empty($label)) {
+            $xhtml[] = '<h4' . $this->_htmlAttribs($label_attribs) . '>' . $this->view->escape($label) . '</h4>';
+        }
+
+        // build messages
+        if (isset($attribs['messages'])) {
+
+            $messages = $attribs['messages'];
+
+            // set has array
+            if (!is_array($messages)) {
+                $messages = array($messages);
+            }
+
+            $nbMessages = count($messages);
+            for($i = 0; $i < $nbMessages; $i++) {
+
+                $xhtml[] = '<p' . ($i == ($nbMessages - 1) ? ' class="last"' : '') . '>' . $messages[$i] . '</p>';
+            }
+
+        }
+
+        $xhtml[] = '</div>';
+
+		return implode("\n", $xhtml);
 	}
 }
 

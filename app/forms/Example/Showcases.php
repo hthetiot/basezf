@@ -18,9 +18,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		// Personal Information fields
 		//
 
-		// @todo
 		$this->addElement('info', 'info1', array(
-			'label'		=> __('Personal Informationx'),
+			'label'		=> __('Personal Information'),
 			'messages'	=> array(
 				__('Please enter your name and address as they are listed for your debit card, credit card, or bank account.'),
 			),
@@ -78,13 +77,29 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         ));
 
 		$this->addElement('select', 'sexuality_id', array(
-			'label'         => __('Sexuality'),
-			'multioptions'  => array(),
+            'helper'        => 'FormFancySelect',
+            'label'         => __('Sexuality:'),
+            'notice'        => __('Choose from the list'),
+            'multioptions'  => array(
+                '1' => 'Hetero',
+                '2' => 'Bi',
+                '3' => 'Gay'
+            ),
         ));
 
 		$this->addElement('select', 'lookingfor_id', array(
-			'label'         => __('Here For:'),
-			'multioptions'  => array(),
+			'helper'        => 'FormFancySelect',
+            'label'         => __('Her for:'),
+            'multiple'      => true,
+            'show_choice'   => true,
+            'notice'        => __('Choose from the list'),
+            'multioptions'  => array(
+                '1' => 'Chatting',
+                '2' => 'Promote Myself',
+                '3' => 'Meeting new people',
+                '4' => 'Flirting',
+                '5' => 'Find the true love',
+            ),
         ));
 
 		$this->addDisplayGroup(array(
@@ -109,9 +124,20 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		// Contact Information fields
 		//
 
-		// @todo
 		$this->addElement('info', 'info2', array(
+            'label'		=> __('Contact Information'),
+			'messages'	=> array(
+                __('Please enter your full email address, for example, name@domain.com'),
+                __('It is important that you provide a valid, working email address that you have access to as it must be verified before you can use your account.'),
+                __('Please enter a land line number, not a mobile phone number.'),
 
+                // example message with HTML
+                str_replace(
+                    array('[link]', '[/link]'),
+                    array('<a href="#todo">', '</a>'),
+                    __('Your phone number will not be shared or used for telemarketing. Your information is protected by our [link]Privacy Policy[/link].')
+                ),
+			),
 		));
 
 		$this->addElement('radio', 'how_contact', array(
@@ -231,9 +257,13 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		// Login Information fields
 		//
 
-		// @todo
 		$this->addElement('info', 'info3', array(
-
+            'label'		=> __('Login Information'),
+			'messages'	=> array(
+                __('Your username and password must both be at least 8 characters long and are case-sensitive. Please do not enter accented characters.'),
+                __('We recommend that your password is not a word you can find in the dictionary, includes both capital and lower case letters, and contains at least one special character (1-9, !, *, _, etc.).'),
+                __('Your password will be encrypted and stored in our system. Due to the encryption, we cannot retrieve your password for you. If you lose or forget your password, we offer the ability to reset it.'),
+            )
 		));
 
 		$this->addElement('text', 'username', array(
@@ -275,26 +305,36 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 
 		// @todo
 		$this->addElement('info', 'info4', array(
-
+            'label'		=> __('Verification Information'),
+			'messages'	=> array(
+                __('Type the characters you see in this picture. This ensures that a person, not an automated program, is creating this account.'),
+            )
 		));
+
+        $pubKey = '6Lf59QQAAAAAANrLNTVbBEt4I1TgAIwuQuc22iuN';
+        $privKey = '6Lf59QQAAAAAAFaT3xLxeoIHkPNx3OFeTBcv1bXS';
+        $recaptcha = new Zend_Service_ReCaptcha($pubKey, $privKey);
+
+		$adapter = new Zend_Captcha_ReCaptcha();
+		$adapter->setService($recaptcha);
+
+        $this->addElement('captcha', 'captcha', array(
+             'label'         => __('Type the two words:'),
+            'captcha' => $adapter,
+        ));
 
 		$this->addDisplayGroup(array(
 			'info4',
+            'captcha',
 		), 'check_information');
 
         $this->getDisplayGroup('check_information')->setLegend(__('Verification'));
 
 
-		//
-		// Submits and buttons
-		//
-
-		$this->addDisplayGroup(array(
-			'info4',
-		), 'buttons');
-
-        $this->getDisplayGroup('buttons');
-
+        // submit and reset buttons
+        $this->addElement('reset', 'reset', array('label' => __('Cancel')))
+             ->addElement('submit', 'update', array('label' => __('Submit')))
+             ->addDisplayGroup(array('reset', 'update'), 'buttons');
     }
 }
 
