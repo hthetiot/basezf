@@ -69,9 +69,23 @@ form.formLayout div.optional
     position: relative;
 }
 
+form.formLayout div.inline
+{
+    float: left;
+    clear: none;
+    width: auto;
+    margin: 5px 0 0 0;
+    padding: 1px 3px;
+}
+
 form.formLayout div.inputContainer
 {
     margin: 3px 0 0 143px;
+}
+
+form.formLayout fieldset.fieldsetButtons
+{
+    padding:0 0 0 150px;
 }
 
 form.formLayout div fieldset {
@@ -158,6 +172,13 @@ form.formLayout div fieldset textarea.formTextarea {
 }
 
 /**
+ * Fix for captcha alignement
+ */
+form.formLayout div#recaptcha_area {
+    padding:0 0 0 47px;
+}
+
+/**
 * Element: formInfo
 * @begin
 */
@@ -176,11 +197,12 @@ form.formLayout fieldset div.formInfo h4 {
     padding: 3px 0;
     border-width: 0 0 1px 0;
     border-style: solid;
-    border-color: #666666;
-    color: #666666;
+    border-color: #B3A000;
+    color: #B3A000;
     font-size: 110%;
     margin-bottom: 0.5em;
     white-space: nowrap;
+    font-weight: bold;
 }
 
 form.formLayout fieldset div.formInfo p {
@@ -338,20 +360,8 @@ form.formLayout div select.formsDateYear {
 * Element: submit/buttons
 * @begin
 */
-form.formLayout div.submit {
-    width: 214px;
-    padding: 0 0 0 146px;
-}
 
-form.formLayout div.submit div {
-    display: inline;
-    float: left;
-    text-align: left;
-    width: auto;
-    padding: 0;
-    margin: 0;
-}
-
+form.formLayout input.formReset,
 form.formLayout input.formSubmit,
 form.formLayout input.formButton  {
     width: auto;
@@ -359,11 +369,6 @@ form.formLayout input.formButton  {
     margin: 0;
 }
 
-form.formLayout div.submit div input.formSubmit,
-form.formLayout div.submit div input.formButton {
-    float: right;
-    margin: 0 0 0 5px;
-}
 /*@end*/
 
 /**

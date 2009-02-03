@@ -303,7 +303,6 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		// Verification fields
 		//
 
-		// @todo
 		$this->addElement('info', 'info4', array(
             'label'		=> __('Verification Information'),
 			'messages'	=> array(
@@ -311,15 +310,17 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             )
 		));
 
+        // init ReCaptcha service
         $pubKey = '6Lf59QQAAAAAANrLNTVbBEt4I1TgAIwuQuc22iuN';
         $privKey = '6Lf59QQAAAAAAFaT3xLxeoIHkPNx3OFeTBcv1bXS';
         $recaptcha = new Zend_Service_ReCaptcha($pubKey, $privKey);
 
+        // inir ReCaptcha adapter
 		$adapter = new Zend_Captcha_ReCaptcha();
 		$adapter->setService($recaptcha);
 
+        // build element
         $this->addElement('captcha', 'captcha', array(
-             'label'         => __('Type the two words:'),
             'captcha' => $adapter,
         ));
 
@@ -335,6 +336,9 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         $this->addElement('reset', 'reset', array('label' => __('Cancel')))
              ->addElement('submit', 'update', array('label' => __('Submit')))
              ->addDisplayGroup(array('reset', 'update'), 'buttons');
+
+        // add class for buttons
+        $this->getDisplayGroup('buttons')->setAttrib('class', 'fieldsetButtons');
     }
 }
 

@@ -11,14 +11,21 @@
 class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abstract
 {
     static $helperWithoutLabel = array(
-		'forminfo',
-        'formcheckbox',
-		'formmulticheckbox',
-		'formmultiradio',
+		'formInfo',
+        'formCheckbox',
+		'formMultiCheckbox',
+		'formMultiRadio',
+        'formReset',
+		'formSubmit',
 	);
 
 	static $helperWithoutContainerClass = array(
-		'forminfo',
+		'formInfo',
+	);
+
+    static $helpersButton = array(
+		'formReset',
+		'formSubmit',
 	);
 
     public function buildField()
@@ -31,12 +38,17 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
 		$newAttribs['class'] = $helper . ' ' . $element->getAttrib('class');
 
 		// do not display useless label
-		if(in_array(strtolower($helper), self::$helperWithoutLabel) ==! false) {
+		if(in_array($helper, self::$helperWithoutLabel) ==! false) {
 
 			$labelClass = 'formLabel' . ucfirst(str_replace('form', '', $helper));
 
 			$newAttribs['label'] = $element->getLabel();
 			$newAttribs['label_class'] = $labelClass . ' ' . $element->getAttrib('label_class');
+		}
+
+        // set label has value for buttons
+        if(in_array($helper, self::$helpersButton) ==! false) {
+			$element->setValue($element->getLabel());
 		}
 
 		// clean attribs used by current decorator
@@ -69,7 +81,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $label = $element->getLabel();
 
 		// do not display useless label
-		if(in_array(strtolower($helper), self::$helperWithoutLabel) ==! false) {
+		if(in_array($helper, self::$helperWithoutLabel) ==! false) {
 			$element->setAttrib('label', $label);
 			return '';
 		}
@@ -108,7 +120,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
 		$helper  = $element->helper;
 
 		// do not display useless container
-		if(in_array(strtolower($helper), self::$helperWithoutContainerClass) ==! false) {
+		if(in_array($helper, self::$helperWithoutContainerClass) ==! false) {
 			return '';
 		}
 
@@ -120,8 +132,13 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         }
 
         // add default class
-        $containerClass[] = ($element->isRequired() ? 'required' : 'optional');
+        if(in_array($helper, self::$helpersButton) ==! false) {
+			$containerClass[] = 'inline';
+		} else {
+            $containerClass[] = ($element->isRequired() ? 'required' : 'optional');
+        }
 
+        // add errors class
         if ($element->hasErrors()) {
             $containerClass[] = 'error';
         }
@@ -132,7 +149,12 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
     public function render($content)
     {
         $element = $this->getElement();
-        if (!$element instanceof Zend_Form_Element) {
+
+        // ignore special elements
+        if (
+            !$element instanceof Zend_Form_Element ||
+            $element instanceof Zend_Form_Element_Captcha
+        ) {
             return $content;
         }
 

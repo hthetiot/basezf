@@ -215,12 +215,14 @@ form.formLayout div.formFancySelect div.formFancySelectOptions div
 }
 
 /* buttons */
+form.formLayout input.formReset,
 form.formLayout input.formSubmit,
 form.formLayout input.formButton {
     background-color: #cccccc;
     color: #000000;
 }
 
+form.formLayout input.formReset,
 form.formLayout input.formSubmit,
 form.formLayout input.formButton
 {
@@ -231,12 +233,17 @@ form.formLayout input.formButton
     color:#666;
     font-weight:bold;
     padding: 1px 3px;
+    background:url(/images/lib/basezf/elements/formLayout/formButton2.gif) repeat-x left top;
+}
+
+form.formLayout input.formReset
+{
     background:url(/images/lib/basezf/elements/formLayout/formButton.gif) repeat-x left top;
 }
 
 form.formLayout div.formFileFancy input.formButton
 {
-    background:url(/images/lib/basezf/elements/formLayout/formButton2.gif) repeat-x left top;
+    background:url(/images/lib/basezf/elements/formLayout/formButton.gif) repeat-x left top;
 }
 
 /* notes */

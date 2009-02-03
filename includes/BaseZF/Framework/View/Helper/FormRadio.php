@@ -92,6 +92,9 @@ class BaseZF_Framework_View_Helper_FormRadio extends Zend_View_Helper_FormRadio
             $endTag= '>';
         }
 
+        // add container open tag
+        $list[] = '<div class="inputContainer">';
+
         // add radio buttons to the list.
         require_once 'Zend/Filter/Alnum.php';
         $filter = new Zend_Filter_Alnum();
@@ -137,6 +140,9 @@ class BaseZF_Framework_View_Helper_FormRadio extends Zend_View_Helper_FormRadio
             // add to the array of radio buttons
             $list[] = $radio;
         }
+
+        // add container close tag
+        $list[] = '</div>';
 
         // done!
         $xhtml .= implode($listsep, $list);
