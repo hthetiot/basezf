@@ -148,9 +148,21 @@ abstract class BaseZF_DbItem
      *
      * @return string dbItem classname
      */
-    protected static function _getItemClassName($tableName)
+    protected static function _getItemClassName($table, $classBase = __CLASS__)
     {
-        return __CLASS__;
+        $classItem = $classBase . '_'.implode('_', array_map('ucfirst', explode('_', $table)));
+
+        try {
+            Zend_Loader::loadClass($classItem);
+
+            if(!class_exists($classItem, true)) {
+                throw new Exception('not existing class '. $classItem);
+            }
+
+            return $classItem;
+        } catch (Exception $e) {
+            return $classBase;
+        }
     }
 
 	//
@@ -178,12 +190,10 @@ abstract class BaseZF_DbItem
 
 		} else {
 
-            if(empty($class)) {
-		        $class = self::_getItemClassName($table);
-		    }
+            $class = self::_getItemClassName($table, $class);
 
-		    $item = new $class($table, $id, $realtime);
-			$item->log('Init DbItem Instance with table: ' . $table);
+            $item = new $class($table, $id, $realtime);
+            $item->log('Init DbItem Instance with table: ' . $table);
 		}
 
 		return $item;
@@ -396,7 +406,6 @@ abstract class BaseZF_DbItem
         return $this->_isDeleted;
     }
 
-
     final protected function _setDeleted($value = true)
     {
         $this->_isDeleted = $value;
@@ -448,11 +457,15 @@ abstract class BaseZF_DbItem
         return $this->_data[$property];
     }
 
-    public function getProperties($properties)
+    public function getProperties(array $properties = null)
     {
+        if (is_null($properties)) {
+            $properties = array_merge(array_keys($this->_structure['fields']), array_keys($this->_data));
+        }
+
         $propertiesValues = array();
         foreach ($properties as $property) {
-            $propertiesValues[$property] = $thhis->getProperty($property);
+            $propertiesValues[$property] = $this->getProperty($property);
         }
 
         return $propertiesValues;
