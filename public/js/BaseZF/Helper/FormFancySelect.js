@@ -18,7 +18,8 @@ BaseZF.Helper.FormFancySelect = new Class({
         container: $empty,
         label: $empty,
         values: $empty,
-        options: $empty
+        options: $empty,
+        notice: $empty,
     },
 
     launcherSelector: function(root, options) {
@@ -73,7 +74,12 @@ BaseZF.Helper.FormFancySelect = new Class({
 
     add: function(el) {
 
+        initMode = true;
+
         if ($type(el) == 'element') {
+
+            initMode = false;
+
             input = el.getElement("input");
 
             if(input.type == 'radio') {
@@ -82,6 +88,7 @@ BaseZF.Helper.FormFancySelect = new Class({
             } else {
                 input.checked = !input.checked;
             }
+
         }
 
         var values = '';
@@ -91,6 +98,16 @@ BaseZF.Helper.FormFancySelect = new Class({
             if(option.checked == true) {
                 values += (values != "" ? ", " : "") + option.getNext('span').get('html');
             }
+        }
+
+        // save notice
+        if (initMode) {
+            this.elements.notice = this.elements.value.get('html');
+        }
+
+        // apply notice
+        if (values.length == 0) {
+            values = this.elements.notice
         }
 
         this.elements.value.set('html', values);
