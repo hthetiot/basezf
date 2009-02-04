@@ -17,12 +17,11 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
     elements: {
         form: $empty,
-        fields: $empty
+        containers: $empty
     },
 
     options: {
         scroll: true,
-        action: $empty
     },
 
     launcherSelector: function(root, options) {
@@ -39,60 +38,48 @@ BaseZF.Helper.FormAjaxValidate = new Class({
     launcherElement: function(element, options) {
 
         // check semaphore
+        if (0) {
+        }
 
         // init datas
         this.elements.form = element;
-        this.elements.fields = this.getFields();
         this.options = $merge(this.options, options);
 
+        // init fields validators
+        this.initFields();
     },
 
-    /**
-     * Html builder/Fx
-     */
+    initFields: function() {
 
-    scrollToError: function(field) {
-    },
+        this.elements.containers = [];
 
-    addErrors: function(fieldsMsgs) {
-    },
+        // get fields container required
+        this.elements.form.getElements('div.required, div.optional').each( function(container) {
 
-    clearErrors: function(fields) {
-    },
+            // check semaphore
+            if (0) {
+            }
 
-    hasError: function(field)
-    {
-    },
+            // save container
+            this.elements.containers.push(container);
 
-    /**
-     * Ajax Validation
-     */
-    beginTransaction: function(nb)
-    {
-        // disable submit
-    },
+            // get field of container
+            this.getFields(container).each(function(field) {
 
-    commitTransaction: function()
-    {
-    },
+                // save container to field
+                field.store('formContainer', container);
 
-    roolBackTransaction: function()
-    {
-    },
+                // add validation events
+                this.initFieldEvents(field);
 
-    processValidation: function(formSubmit)
-    {
-        var formSubmit = ($type(formSubmit) ? true : false);
-    },
+                // set current state
+                if(this.hasError(field)) {
+                    container.store('errorValue', this.toQueryString(container));
+                }
 
-    callbackValidation: function(json)
-    {
-    },
+            }, this);
 
-    /**
-     * Tools
-     */
-    initFieldEvents: function(field) {
+         }, this);
     },
 
     initFieldEvents: function(field) {
@@ -100,14 +87,22 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         var eventNames = new Array();
 
         switch (field.type) {
+            case 'radio':
             case 'checkbox':
             case 'select-one':
+            case 'select-multiple':
                eventNames.push('change');
                break;
 
            case 'text':
                eventNames.push('onEnter');
                eventNames.push('blur');
+               break;
+
+
+           case 'reset':
+           case 'submit':
+               // field with no validators
                break;
 
             default:
@@ -117,31 +112,175 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
         eventNames.each(function(eventName) {
 
+            if (eventName == 'onEnter') {
 
+                field.addEvent('keydown', function(e) {
+
+                    if(new Event(e).code == Event.Keys.esc || new Event(e).code == Event.Keys.enter) {
+                        this.processFieldValidation.delay(500, this, field);
+                    }
+
+                }.bind(this));
+
+            } else {
+                field.addEvent(eventName, this.processFieldValidation.bind(this, field));
+            }
+
+        }, this);
+    },
+
+    /**
+     * Html builder/Fx
+     */
+
+    scrollField: function(field) {
+/*
+        var myFx = new Fx.Scroll(window).start(0, field.retrieve('formContainer').offsetTop - 50);
+
+        try {
+            field.fireEvent('focus').focus();
+        } catch(e){} //IE barfs if you call focus on hidden elements
+        */
+    },
+
+    addFieldErrors: function(field, errors) {
+
+        var errorList = new Hash(errors);
+        var container = field.retrieve('formContainer');
+
+        // save error value
+        container.store('errorValue', this.toQueryString(container));
+
+        // build errors msg
+        container.addClass('error');
+
+        var errorList = new Element('ul', {'class': 'errors'});
+        $H(errors).each(function(error, errorType) {
+            var errorEntry = new Element('li').appendText(error);
+            errorEntry.inject(errorList);
+        });
+
+        errorList.injectTop(container);
+    },
+
+    clearFieldErrors: function(field) {
+
+        var container = field.retrieve('formContainer');
+
+        if (container.hasClass('error')) {
+            container.store('errorValue', null);
+            container.removeClass('error');
+            container.removeChild(container.getElement('.errors'));
+        }
+    },
+
+    clearErrors: function() {
+
+        this.form.getElements('div.error').each( function(container) {
+            container.store('errorValue', null);
+            container.removeClass('error');
+            container.removeChild(container.getElement('.errors'));
         });
     },
+
+    hasError: function(field)
+    {
+        return field.retrieve('formContainer').hasClass('error');
+    },
+
+    /**
+     * Ajax Validation
+     */
+    beginTransaction: function(nb)
+    {
+        // disable submit
+        this.toggleFormSubmit(true);
+    },
+
+    commitTransaction: function()
+    {
+        // enable submit
+        this.toggleFormSubmit(false);
+    },
+
+    roolBackTransaction: function()
+    {
+        // enable submit
+        this.toggleFormSubmit(false);
+    },
+
+    processFieldValidation: function(field)
+    {
+        var container = field.retrieve('formContainer')
+
+        if (this.hasError(field) && container.retrieve('errorValue') == this.toQueryString(container)) {
+            return;
+        }
+
+        this.beginTransaction();
+
+        // clear error
+        this.clearFieldErrors(field);
+
+        var myRequest = this.getRequest({
+            method: this.elements.form.get('method'),
+            url: this.elements.form.get('action'),
+            data: this.toQueryString(container)
+        }, 'JSON', this);
+
+        myRequest.send();
+    },
+
+    processValidation: function(formSubmit)
+    {
+        this.beginTransaction();
+    },
+
+    requestCallback: function(json)
+    {
+        try {
+
+            $H(json).each(function(errors, field) {
+
+                var field = $(field);
+
+                this.clearFieldErrors(field);
+                this.addFieldErrors(field, errors);
+                this.scrollField(field);
+
+            }, this);
+
+            // hide loading
+            this.hideLoading();
+
+        } catch (e) {
+
+            // force hide loading
+            this.hideLoading(true);
+
+            throw e;
+        }
+    },
+
+    /**
+     * Tools
+     */
 
     getFields: function(root) {
 
-        if (!$type(root)) {
-            var root = this.elements.form;
-        }
-
-        // init response
-        fields = $H();
-
         // get by name
         fieldElements = root.getElements('input, select, textarea');
-        fieldElements.each(function(v, k) {
-            //console.info(v.get('name'));
 
-        });
-
-        return fields;
+        return fieldElements;
     },
 
     getFieldContainer: function(field) {
+        return field.retrieve('formContainer');
+    },
 
+    toggleFormSubmit: function(state)
+    {
+        this.elements.form.getElement('input[type=submit]').disabled = (state) ? false : true ;
     },
 
     toQueryString: function(root){
@@ -152,14 +291,39 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
 		var queryString = [];
 		root.getElements('input, select, textarea').each(function(el){
+
 			if (!el.name || el.disabled) return;
+/*
+            if (el.tagName.toLowerCase() == 'select') {
+
+                var value = Element.getSelected(el).map(function(opt){
+                    return opt.value;
+                });
+
+                if (value.length == 0) {
+                    value = '';
+                }
+
+            } else if((el.type == 'radio' || el.type == 'checkbox') && !el.checked) {
+                var value = '';
+            } else {
+                var value = el.value;
+            }
+*/
+            // optimised version
 			var value = (el.tagName.toLowerCase() == 'select') ? Element.getSelected(el).map(function(opt){
 				return opt.value;
 			}) : ((el.type == 'radio' || el.type == 'checkbox') && !el.checked) ? null : el.value;
+
+            if (el.tagName.toLowerCase() == 'select' && value.length == 0) {
+                value = '';
+            }
+
 			$splat(value).each(function(val){
 				queryString.push(el.name + '=' + encodeURIComponent(val));
 			});
 		});
+
 		return queryString.join('&');
 	},
 });

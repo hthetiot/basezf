@@ -82,6 +82,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'helper'        => 'FormFancySelect',
             'label'         => __('Sexuality:'),
             'notice'        => __('Choose from the list'),
+            'required'      => true,
             'multioptions'  => array(
                 '1' => 'Hetero',
                 '2' => 'Bi',
@@ -95,6 +96,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'multiple'      => true,
             'show_choice'   => true,
             'notice'        => __('Choose from the list'),
+            'required'      => true,
             'multioptions'  => array(
                 '1' => 'Chatting',
                 '2' => 'Promote Myself',
@@ -160,6 +162,16 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'required'      => true,
 			'description'	=> __('We will never sell or disclose your email address to anyone. Once your account is setup, you may add additional email addresses.'),
         ));
+
+        $this->getElement('email')->addValidator('EmailAddress', true, array(
+             'messages' => array(
+                'emailAddressInvalid'           => __('This does not appear to be a valid email address'),
+                'emailAddressInvalidHostname'   => __('This does not appear to be a valid email address'),
+                'emailAddressInvalidMxRecord'   => __('This does not appear to be a valid email address'),
+                'emailAddressDotAtom'           => __('This does not appear to be a valid email address'),
+                'emailAddressQuotedString'      => __('This does not appear to be a valid email address'),
+                'emailAddressInvalidLocalPart'  => __('This does not appear to be a valid email address'),
+          )));
 
 		$this->addElement('text', 'email_check', array(
             'label'         => __('Re-enter Email:'),
@@ -288,6 +300,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 
 		$this->addElement('checkbox', 'remember_me', array(
             'label'         => __('Remember Me'),
+            'required'      => true,
             'description'	=> __("If you don't want to bother with having to login every time you visit the site, then checking \"Remember Me\" will place a unique identifier only our site can read that we'll use to identify you and log you in automatically each time you visit."),
         ));
 

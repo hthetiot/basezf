@@ -12,6 +12,23 @@ class BaseZF_Framework_View_Helper_FormDate extends BaseZF_Framework_View_Helper
 {
 	public function formDate($name, $value = null, $attribs = null, $options = null)
     {
+        return '
+
+            <select id="" name="' . $name . '_d">
+                <option>1</option>
+                <option>2</option>
+            </select>
+
+            <select id="" name="' . $name . '_y">
+                <option>1</option>
+                <option>2</option>
+            </select>
+
+            <select id="" name="' . $name . '_m">
+                <option>1</option>
+                <option>2</option>
+            </select>
+        ';
 	}
 }
 

@@ -18,6 +18,7 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
     public function indexAction()
     {
         $form = new MyProject_Form_Example_Showcases();
+        $form->setAction('/example/form/index');
 
         $request = $this->getRequest();
 
@@ -29,12 +30,13 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
             // ajax validation
             if ($this->isJson) {
 
+
                 // set output mode for json only
-                $this->makeJson();
+                $this->_makeJson();
 
                 if (!$form->isValidPartial($formData)) {
-                    $messages = $this->getMessages();
-                    $this->addJson($messages);
+                    $messages = $form->getMessages();
+                    $this->_setJson($messages);
                 }
 
             // check if all form is valid before normal process

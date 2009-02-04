@@ -75,56 +75,55 @@ BaseZF.Helper.AjaxAbstract = {
         }
     },
 
-    getRequest: function(options) {
+    getRequest: function(options, type, origin) {
 
-        // get abtract layer
-        that = BaseZF.Helper.AjaxAbstract;
-
+        // one request per helper
         if (typeof(this.myRequest) != 'undefined') {
             this.myRequest.cancel();
+        }
+
+        // set callback origin
+        if (typeof(origin) != 'undefined') {
+           requestCallback = this.requestCallback.bindWithEvent(origin)
+        } else {
+           requestCallback = this.requestCallback.bind(this)
         }
 
         options = $merge({
             method: 'get',
             evalScripts: false,
-            onCancel: that.hideLoading,
-            onRequest: that.showLoading,
-            onSuccess: that.ajaxCallback.bindWithEvent(this)
+            onCancel: this.hideLoading,
+            onRequest: this.showLoading,
+            onSuccess: requestCallback
         }
         , options);
 
-        this.myRequest = new Request.HTML(options);
-
-        return this.myRequest;
-    },
-
-    ajaxCallback: function(responseTree, responseElements, responseHTML, responseJavaScript) {
-
-        // get abtract layer
-        that = BaseZF.Helper.AjaxAbstract;
-
-        var originElement = ($type(this) == 'element' ? $(this) : null)
-
-        try {
-
-            eval(responseJavaScript);
-
-            if (responseHTML.length > 0) {
-                new BaseZF.Class.Helper.run(responseHTML);
-            }
-
-        } catch (e) {
-            throw e;
+        if (typeof(type) != 'undefined') {
+            eval('this.myRequest = new Request.' + type + '(options);');
+        } else {
+            this.myRequest = new Request(options);
         }
 
-        that.hideLoading();
+        return this.myRequest;
     }
+    /*
+
+    // example callback for Request.HTML
+    requestCallback: function(responseTree, responseElements, responseHTML, responseJavaScript) {
+    }
+
+    // example callback for Request.JSON
+    requestCallback: function(json) {
+    }
+    */
 };
 
 /**
  * AjaxLink Helper Class
  */
 BaseZF.Helper.AjaxLink = new Class({
+
+    test: 'toto',
 
     Extends: BaseZF.Class.Helper,
     Implements: BaseZF.Helper.AjaxAbstract,
@@ -146,15 +145,14 @@ BaseZF.Helper.AjaxLink = new Class({
             return;
         }
 
-        that = this;
+        var that = this;
 
         element.addEvent('click', function(e)
         {
             new Event(e).stop();
 
-            var myRequest = that.getRequest.run({
-                url: this.href
-            }, this);
+            var myRequestParams = [{url: this.href}, 'HTML', element];
+            var myRequest = that.getRequest.run(myRequestParams, that);
 
             myRequest.send();
 
@@ -162,7 +160,29 @@ BaseZF.Helper.AjaxLink = new Class({
 
         }, element);
 
-         element.retrieve('ajaxlink:semaphore', true)
+        element.retrieve('ajaxlink:semaphore', true);
+    },
+
+    requestCallback: function(responseTree, responseElements, responseHTML, responseJavaScript) {
+
+        // get abtract layer
+        that = BaseZF.Helper.AjaxAbstract;
+
+        var originElement = ($type(this) == 'element' ? $(this) : null)
+
+        try {
+
+            eval(responseJavaScript);
+
+            if ($type(responseHTML) && responseHTML.length > 0) {
+                new BaseZF.Class.Helper.run(responseHTML);
+            }
+
+        } catch (e) {
+            throw e;
+        }
+
+        that.hideLoading();
     }
 });
 

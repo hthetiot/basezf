@@ -100,6 +100,9 @@ BaseZF.Class.Helper.run = new Class({
 
         $H(BaseZF.Helper).each( function (helper, name) {
             if (typeof(helper) == 'function') {
+
+                console.info(name);
+
                 helperClass = new helper('selector');
                 delete(helperClass);
             }
