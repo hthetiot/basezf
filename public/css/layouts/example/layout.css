@@ -1,6 +1,6 @@
 /* @group Main */
 body {
-	font-family: Helvetica,Arial,sans-serif;
+	font-family:Arial,Helvetica,sans-serif;
 	color: #313334;
 	background: #f9f9f9;
 	margin: 0;
@@ -163,11 +163,8 @@ form.formLayout fieldset {
     border-color: #989898;
 }
 
-form.formLayout div fieldset {
-    border: 1px solid #989898;
-}
-
 /* input border */
+form.formLayout div fieldset,
 form.formLayout input.formText,
 form.formLayout input.formPassword,
 form.formLayout select,

@@ -164,14 +164,14 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         ));
 
         $this->getElement('email')->addValidator('EmailAddress', true, array(
-             'messages' => array(
+            'messages' => array(
                 'emailAddressInvalid'           => __('This does not appear to be a valid email address'),
                 'emailAddressInvalidHostname'   => __('This does not appear to be a valid email address'),
                 'emailAddressInvalidMxRecord'   => __('This does not appear to be a valid email address'),
                 'emailAddressDotAtom'           => __('This does not appear to be a valid email address'),
                 'emailAddressQuotedString'      => __('This does not appear to be a valid email address'),
                 'emailAddressInvalidLocalPart'  => __('This does not appear to be a valid email address'),
-          )));
+        )));
 
 		$this->addElement('text', 'email_check', array(
             'label'         => __('Re-enter Email:'),
@@ -286,13 +286,13 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 			'description'	=> __('May only contain letters, numbers, and underscore (_) and 8-20 characters long.'),
         ));
 
-		$this->addElement('text', 'password', array(
+		$this->addElement('password', 'password', array(
             'label'         => __('Password:'),
             'required'      => true,
 			'description'	=> __('Must be 6-25 characters long.'),
         ));
 
-		$this->addElement('text', 'password_check', array(
+		$this->addElement('password', 'password_check', array(
             'label'         => __('Please re-enter your password:'),
             'required'      => true,
 			'description'	=> __('Must match the password you entered just above.'),

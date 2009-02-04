@@ -101,6 +101,7 @@ form.formLayout div fieldset {
 form.formLayout div fieldset legend {
     font-size: 100%;
     padding: 0 3px 0 9px;
+    white-space:nowrap;
 }
 
 form.formLayout div.required fieldset legend {

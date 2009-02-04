@@ -30,7 +30,6 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
             // ajax validation
             if ($this->isJson) {
 
-
                 // set output mode for json only
                 $this->_makeJson();
 

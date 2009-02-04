@@ -94,6 +94,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
                eventNames.push('change');
                break;
 
+           case 'password':
            case 'text':
                eventNames.push('onEnter');
                eventNames.push('blur');
@@ -118,6 +119,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
                     if(new Event(e).code == Event.Keys.esc || new Event(e).code == Event.Keys.enter) {
                         this.processFieldValidation.delay(500, this, field);
+                        return false;
                     }
 
                 }.bind(this));
@@ -134,13 +136,13 @@ BaseZF.Helper.FormAjaxValidate = new Class({
      */
 
     scrollField: function(field) {
-/*
+
         var myFx = new Fx.Scroll(window).start(0, field.retrieve('formContainer').offsetTop - 50);
 
         try {
             field.fireEvent('focus').focus();
         } catch(e){} //IE barfs if you call focus on hidden elements
-        */
+
     },
 
     addFieldErrors: function(field, errors) {
