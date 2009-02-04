@@ -55,6 +55,7 @@ div.formFancySelect div.formFancySelectOptions label
     text-align:left;
     width:auto;
     padding:0 0 0 3px;
+    text-indent: 0;
 }
 div.formFancySelect div.formFancySelectOptions label:hover
 {

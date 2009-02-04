@@ -14,6 +14,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
      */
     public function init()
     {
+        $this->setAttrib('class', 'formAjaxValidate');
+
 		//
 		// Personal Information fields
 		//
@@ -87,7 +89,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             ),
         ));
 
-		$this->addElement('select', 'lookingfor_id', array(
+		$this->addElement('multiselect', 'lookingfor_id', array(
 			'helper'        => 'FormFancySelect',
             'label'         => __('Her for:'),
             'multiple'      => true,
