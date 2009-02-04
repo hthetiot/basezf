@@ -13,9 +13,10 @@ div.formFancySelectLabel
     border:1px solid #000;
     cursor:pointer;
     height:18px;
-    margin:5px 6px 0 140px;
+    margin:5px 6px 0 0;
     padding:0 20px 0 7px;
     overflow:hidden;
+    width: 179px;
 }
 
 div.formFancySelect div.formFancySelectOptions
