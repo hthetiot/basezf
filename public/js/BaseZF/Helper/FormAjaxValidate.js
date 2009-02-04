@@ -10,7 +10,7 @@
 if (typeof BaseZF == "undefined") var BaseZF = {};
 if (typeof BaseZF.Helper == "undefined") BaseZF.Helper = {};
 
-BaseZF.Helper.AjaxFormValidate = new Class({
+BaseZF.Helper.FormAjaxValidate = new Class({
 
     Extends: BaseZF.Class.Helper,
     Implements: BaseZF.Helper.AjaxAbstract,
@@ -31,14 +31,19 @@ BaseZF.Helper.AjaxFormValidate = new Class({
             var root = document;
         }
 
-        root.getElements('form.formValidate').each(function(element) {
-            new BaseZF.Helper.FormSelectMass('element', element, options);
+        root.getElements('form.formAjaxValidate').each(function(element) {
+            new BaseZF.Helper.FormAjaxValidate('element', element, options);
         }, this);
     },
 
     launcherElement: function(element, options) {
 
-        // add semaphore
+        // check semaphore
+
+        // init datas
+        this.elements.form = element;
+        this.elements.fields = this.getFields();
+        this.options = $merge(this.options, options);
 
     },
 
@@ -87,7 +92,10 @@ BaseZF.Helper.AjaxFormValidate = new Class({
     /**
      * Tools
      */
-    initFieldEvents: function(fieldContainer) {
+    initFieldEvents: function(field) {
+    },
+
+    initFieldEvents: function(field) {
 
         var eventNames = new Array();
 
@@ -111,7 +119,7 @@ BaseZF.Helper.AjaxFormValidate = new Class({
 
 
         });
-    }
+    },
 
     getFields: function(root) {
 
@@ -119,7 +127,17 @@ BaseZF.Helper.AjaxFormValidate = new Class({
             var root = this.elements.form;
         }
 
-        return root.getElements('input, select, textarea');
+        // init response
+        fields = $H();
+
+        // get by name
+        fieldElements = root.getElements('input, select, textarea');
+        fieldElements.each(function(v, k) {
+            //console.info(v.get('name'));
+
+        });
+
+        return fields;
     },
 
     getFieldContainer: function(field) {
