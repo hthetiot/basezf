@@ -62,6 +62,12 @@
         // lightbox
         $this->headScript()->appendFile('/js/lib/motools-plugins/SqueezeBox/SqueezeBox.js');
         $this->headLink()->appendStylesheet('/js/lib/motools-plugins/SqueezeBox/SqueezeBox.css', 'screen, projection');
+
+        // Calendar
+        $this->headScript()->appendFile('/js/lib/motools-plugins/Calendar/calendar.js');
+        $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/default/calendar.css', 'screen, projection');
+        $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/i-heart-ny/calendar.css', 'screen, projection');
+        $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/dashboard/calendar.css', 'screen, projection');
     }
 
     //

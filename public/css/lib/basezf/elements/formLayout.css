@@ -353,6 +353,36 @@ form.formLayout div select.formsDateYear {
 }
 /*@end*/
 
+/**
+* Element: formData
+* @begin
+*/
+form.formLayout div.formDate
+{
+}
+
+form.formLayout div.formDate select.formDateYear
+{
+    width:60px;
+}
+
+form.formLayout div.formDate select.formDateMonth
+{
+    width:67px;
+}
+
+form.formLayout div.formDate select.formDateDay
+{
+    width:50px;
+}
+
+form.formLayout div.formDate button
+{
+    float:none;
+    margin:0 0 0 5px;
+    vertical-align:middle;
+}
+/*@end*/
 
 
 /**

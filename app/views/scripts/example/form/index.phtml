@@ -19,6 +19,14 @@
 
 	<h3>PHP</h3>
 
+    <script type="text/javascript">
+
+        // launch at domready
+        window.addEvent('domready', function() {
+            myCal2 = new Calendar({ birthday_d: { birthday_y: 'Y', birthday_m: 'm', birthday_d: 'd' }}, { direction: 2, tweak: { x: 6, y: 0 }, navigation: 2});
+        });
+
+    </script>
 	<?php
         echo $this->form;
 
