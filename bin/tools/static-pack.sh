@@ -11,7 +11,7 @@
 public_path=public
 
 csstidy_path=bin/tools/csstidy
-csstidy_params="--template=high --silent=false --merge_selectors=2"
+csstidy_params="--template=high --silent=false --merge_selectors=4"
 
 yuicompressor_path=bin/tools/yuicompressor.jar
 yuicompressor_params="--charset UTF-8 --type js"
