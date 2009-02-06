@@ -5,9 +5,11 @@ body {
 	background: #f9f9f9;
 	margin: 0;
 	padding: 0;
+
+    /*disable font resize*/
+    -webkit-text-size-adjust: none;
 }
-/*disable font resize*/
--webkit-text-size-adjust: none;
+
 
 h1, h2, h3, h4, h5, h6 {
 	color: #313334;
