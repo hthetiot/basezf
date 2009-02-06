@@ -74,13 +74,22 @@
     // Others
     //
 
+    // set default title if empty
+    $title = $this->headTitle()->getValue();
+    if (empty($title)) {
+        $this->headTitle()->set(__('Examples module'));
+
+	    // set prepend title
+    	$this->headTitle()->prepend(__('BaseZF') . ' - ');
+    }
+
     // set default meta
     $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
 
     // display DocType
     echo $this->doctype() . "\n";
 ?>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <?php echo $this->headTitle(); ?>
 <?php echo $this->headMeta(); ?>

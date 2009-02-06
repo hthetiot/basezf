@@ -111,6 +111,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
                break;
         }
 
+        // add event validation
         eventNames.each(function(eventName) {
 
             if (eventName == 'onEnter') {
@@ -213,11 +214,16 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
     processFieldValidation: function(field)
     {
-        var container = field.retrieve('formContainer')
+        var container = field.retrieve('formContainer');
 
         if (this.hasError(field) && container.retrieve('errorValue') == this.toQueryString(container)) {
             return;
         }
+
+
+        container.setStyle('background', '#FFF9BF');
+        container.setStyle.delay(1000, container, ['background', '']);
+
 
         this.beginTransaction();
 
@@ -292,7 +298,8 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         }
 
 		var queryString = [];
-		root.getElements('input, select, textarea').each(function(el){
+        var elements = root.getElements('input, select, textarea');
+		elements.each(function(el){
 
 			if (!el.name || el.disabled) return;
 /*

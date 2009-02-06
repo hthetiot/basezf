@@ -88,7 +88,6 @@ BaseZF.Helper.FormFancySelect = new Class({
             } else {
                 input.checked = !input.checked;
             }
-
         }
 
         var values = '';
@@ -108,6 +107,15 @@ BaseZF.Helper.FormFancySelect = new Class({
         // apply notice
         if (values.length == 0) {
             values = this.elements.notice
+        }
+
+        // detect change on radio
+        if (
+            !initMode &&
+            this.elements.value.get('html') != values &&
+            input.type == 'radio'
+        ) {
+            input.fireEvent('change');
         }
 
         this.elements.value.set('html', values);

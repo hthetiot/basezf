@@ -50,7 +50,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 
 		// @todo
 		$this->addElement('date', 'birthday', array(
-			'label'		=> __('Birthday:'),
+			'label'		    => __('Birthday:'),
 		));
 
 		$this->addElement('text', 'addr1', array(

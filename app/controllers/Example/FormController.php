@@ -49,8 +49,9 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
 
                     // success, do stuff with your data here!
                     // i'll just do a lame redirect here
-
                 }
+
+                //die('not valid');
             }
         }
 
