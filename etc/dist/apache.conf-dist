@@ -1,101 +1,175 @@
-# Exemple Apache2 conf
-<VirtualHost *:80>
+#
+# Exemple Apache2 config file for Project using BaseZF
+#
+# TO INSTALL:
+# Replace PATH_TO_PROJECT to you project path and
+# MY_DOMAIN by your domain name
+#
+<VirtualHost *>
 
-    # Need SSL ?
-    # <VirtualHost *:443>
-    # SSLEngine On
+    ### Domains
+    ServerName MY_DOMAIN
+    ServerAlias www.MY_DOMAIN, www2.MY_DOMAIN
 
-    # DNS
-    ServerName basezf.example.com
-    ServerAdmin hthetiot@gmail.com
+    ### DocumentRoot && Locations
+    DocumentRoot PATH_TO_PROJECT/public
 
-
-    # Some default value
-    AddDefaultCharset utf-8
-	AddType text/x-component .htc
-    RewriteEngine On
-
-    # Logs
-    # CustomLog /home/hthetiot/projects/logs/www_server_access.log common
-    # ErrorLog /home/hthetiot/projects/logs/www_server_error.log
-    # RewriteLog /home/hthetiot/projects/logs/www_server_rewrite.log
-    RewriteLogLevel 0
-
-    # DocumentRoot && Locations
-    DocumentRoot /home/hthetiot/projects/BaseZF/public
-
-    <Location />
-        Order allow,deny
-        Allow from all
-    </Location>
-
-    # Directories
-    <Directory /home/hthetiot/projects/BaseZF/public>
-        Options Indexes FollowSymLinks MultiViews
-        AllowOverride None
-
-        Order allow,deny
-        Allow from all
-    </Directory>
-
-	<Location /debug/>
+    ### Debugging tools
+    <Location /debug/>
         AuthType Basic
-        AuthName "Admin"
+        AuthName "Debugging tools"
 
-        # (Following line optional)
-        #AuthBasicProvider file
-        #AuthUserFile /home/hthetiot/projects/BaseZF/etc/debug.htpasswd
-        #Require valid-user
+        ### (Following line optional)
+        AuthBasicProvider file
+        AuthUserFile PATH_TO_PROJECT/etc/debug.htpasswd
+        Require valid-user
     </Location>
 
-	<Location /debug/server-status>
+    <Location /debug/server-status>
         SetHandler server-status
     </Location>
 
-    # Alias
-    Alias /admin/doc  /home/hthetiot/projects/BaseZF/doc/html
+    ### Alias to doc in debug directory
+    Alias /debug/doc  PATH_TO_PROJECT/doc/html
 
-    # Php auto_prepend file
-    php_value auto_prepend_file /home/hthetiot/projects/BaseZF/includes/auto_prepend.php
+    ### Custom Logs
+    # CustomLog  PATH_TO_PROJECT/data/log/apache_access.log common
+    # ErrorLog   PATH_TO_PROJECT/data/log/apache_error.log
+    # RewriteLog PATH_TO_PROJECT/data/log/apache_rewrite.log
+    # RewriteLogLevel 0
 
-    # Other PHP config
-    php_value date.timezone "Europe/Paris"
-    php_value upload_max_filesize 25000000
-	php_value zlib.output_compression 1
-    php_value zlib.output_compression_level 9
-	#php_value session.save_path "3;/tmp/example.com/sessions/"
+    ### Php Errors Logs
+    # php_value error_log PATH_TO_PROJECT/data/log/php_error.log
 
-    # Php Errors Logs
-    php_value error_log /home/hthetiot/projects/logs/www_server_php_error.log
+    ### Server defaults
+    ServerSignature Off
 
-    # Php xdebug config
-    # php_value xdebug.auto_trace 1
-    # php_value xdebug.collect_params 1
-    # php_value xdebug.collect_return 1
-    # php_value xdebug.remote_enable 1
-    # php_value xdebug.profiler_enable 1
-    # php_value xdebug.profiler_append 1
+    ### Default file types
+    AddType application/x-shockwave-flash .swf
+    AddType image/x-icon .ico
+    AddType video/x-flv .flv
 
-    # Zend framework RewriteCond
-    RewriteCond /home/hthetiot/projects/BaseZF/public%{REQUEST_FILENAME} !-f
-    RewriteCond /home/hthetiot/projects/BaseZF/public%{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} !^/debug/.*
-    RewriteRule !\.(cgi|js|ico|gif|jpg|png|css|htc|rdf|xpi|src|pdf|swf|xml)$ /index.php [L]
+    # Default charset
+    AddDefaultCharset UTF-8
 
-    # Expires directive
-    <IfModule expires_module>
-        ExpiresActive On
-        ExpiresByType text/css                 "now plus 7 days"
-        ExpiresByType application/x-javascript "now plus 7 days"
-        ExpiresByType image/gif                "now plus 7 days"
-        ExpiresByType image/jpeg               "now plus 7 days"
+    ## Language to file mapping
+    #AddLanguage en-US .html .htm .txt .xml .php
+
+    ## Server timezone
+    #SetEnv TZ GMT
+
+    ## Server admin contact
+    #SetEnv SERVER_ADMIN webmaster@localhost
+
+    ## Prevent directory listing
+    IndexIgnore *
+
+    ## Follow symbolic links
+    Options +FollowSymLinks
+
+    ## Disable access to .htaccess & .htpasswd
+    <Files ~ "^\.ht">
+        Order allow,deny
+        Deny from all
+    </Files>
+
+    ### PHP settings
+    <IfModule mod_php5.c>
+
+        ## Php auto_prepend file
+        php_value auto_prepend_file PATH_TO_PROJECT/includes/auto_prepend.php
+
+        ## Register globals
+        php_flag register_globals off
+
+        ## Magic quotes
+        php_flag magic_quotes_gpc off
+
+        ## Session auto starting
+        php_flag session.autostart off
+
+        ## Short open tags
+        php_flag short_open_tag on
+
+        ## Output Compression
+        php_value zlib.output_compression 1
+        php_value zlib.output_compression_level 9
     </IfModule>
 
-    # Deflate
-    AddOutputFilterByType DEFLATE text/html
-    AddOutputFilterByType DEFLATE text/plain
-    AddOutputFilterByType DEFLATE text/xml
-    AddOutputFilterByType DEFLATE text/css
-    AddOutputFilterByType DEFLATE application/x-javascript
+    ### Mod rewrite configuration
+    <IfModule mod_rewrite.c>
+        ## URL Rewriting
+        RewriteEngine on
+
+        ## Rewrite base
+        # RewriteBase /
+
+        ## Rewrite urls to index.php
+        RewriteCond %{REQUEST_FILENAME} -f [OR]
+        RewriteCond %{REQUEST_FILENAME} -l [OR]
+        RewriteCond %{REQUEST_FILENAME} -d
+        RewriteRule ^.*$ - [NC,L]
+
+        RewriteCond %{REQUEST_URI} !^/debug/.*
+        RewriteRule !\.(cgi|js|ico|gif|jpg|png|css|htc|rdf|xpi|src|pdf|swf|xml)$ /index.php [L]
+    </IfModule>
+
+    ### Output compression
+    <IfModule mod_deflate.c>
+        ## Always compress html content
+        AddOutputFilterByType DEFLATE text/html
+
+        ## Set output filter on these file extensions
+        <FilesMatch "\.(js|css|txt|xml|json)$">
+            SetOutputFilter DEFLATE
+        </FilesMatch>
+
+        ## Netscape 4.x has some problems...
+        BrowserMatch ^Mozilla/4 gzip-only-text/html
+
+        ## Netscape 4.06-4.08 have some more problems
+        BrowserMatch ^Mozilla/4\.0[678] no-gzip
+
+        ## MSIE masquerades as Netscape, but it is fine
+        ## BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+        ## NOTE: Due to a bug in mod_setenvif up to Apache 2.0.48
+        ## the above regex won't work. You can use the following
+        ## workaround to get the desired effect:
+        BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+
+        ## Make sure proxies don't deliver the wrong content
+        <IfModule mod_headers.c>
+            Header append Vary User-Agent env=!dont-vary
+        </IfModule>
+    </IfModule>
+
+    ### Browser Caching
+
+    ## any Expires Directives go here
+    <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresDefault A3600
+        #ExpiresByType application/x-javascript       A3600
+        #ExpiresByType application/x-shockwave-flash  A3600
+        #ExpiresByType text/css                       A3600
+        #ExpiresByType image/x-icon                   A3600
+        #ExpiresByType image/gif                      A3600
+        #ExpiresByType image/png                      A3600
+        #ExpiresByType image/jpeg                     A3600
+        #ExpiresByType text/plain                     A3600
+        #ExpiresByType video/x-flv                    A3600
+    </IfModule>
+
+    ## any Header directives go here
+    <IfModule mod_headers.c>
+        ## Safely cache for 1 hour
+        <FilesMatch "\.(ico|png|gif|jpg|jpeg|js|css)$">
+            Header set Cache-Control "max-age=3600, private, proxy-revalidate"
+        </FilesMatch>
+    </IfModule>
+
+    ### Disable E-Tags
+    FileETag none
 
 </VirtualHost>
