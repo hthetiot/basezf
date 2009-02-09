@@ -1,0 +1,131 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: John Doe <me@example.com>\n"
+"Language-Team: MyProject <mailto:me@example.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"Project-Id-Version: MyProject\n"
+
+# Singulars
+msgid "%d year"
+msgstr ""
+
+msgid "%d month"
+msgstr ""
+
+msgid "%d week"
+msgstr ""
+
+msgid "%d day"
+msgstr ""
+
+msgid "%d hour"
+msgstr ""
+
+msgid "%d minute"
+msgstr ""
+
+msgid "%d second"
+msgstr ""
+
+# Plurals
+msgid "%d years"
+msgstr ""
+
+msgid "%d months"
+msgstr ""
+
+msgid "%d weeks"
+msgstr ""
+
+msgid "%d days"
+msgstr ""
+
+msgid "%d hours"
+msgstr ""
+
+msgid "%d minutes"
+msgstr ""
+
+msgid "%d seconds"
+msgstr ""
+
+# Double Singlular
+msgid "%d year and %d month"
+msgstr ""
+
+msgid "%d month and %d week"
+msgstr ""
+
+msgid "%d week and %d day"
+msgstr ""
+
+msgid "%d day and %d hour"
+msgstr ""
+
+msgid "%d hour and %d minute"
+msgstr ""
+
+msgid "%d minute and %d second"
+msgstr ""
+
+# Double Plurals
+msgid "%d years and %d months"
+msgstr ""
+
+msgid "%d months and %d weeks"
+msgstr ""
+
+msgid "%d weeks and %d days"
+msgstr ""
+
+msgid "%d days and %d hours"
+msgstr ""
+
+msgid "%d hours and %d minutes"
+msgstr ""
+
+msgid "%d minutes and %d seconds"
+msgstr ""
+
+# Double First Singlular and Second Plural
+msgid "%d year and %d months"
+msgstr ""
+
+msgid "%d month and %d weeks"
+msgstr ""
+
+msgid "%d week and %d days"
+msgstr ""
+
+msgid "%d day and %d hours"
+msgstr ""
+
+msgid "%d hour and %d minutes"
+msgstr ""
+
+msgid "%d minute and %d seconds"
+msgstr ""
+
+# Double First Plurals and Second Singular
+msgid "%d years and %d month"
+msgstr ""
+
+msgid "%d months and %d week"
+msgstr ""
+
+msgid "%d weeks and %d day"
+msgstr ""
+
+msgid "%d days and %d hour"
+msgstr ""
+
+msgid "%d hours and %d minute"
+msgstr ""
+
+msgid "%d minutes and %d second"
+msgstr ""
