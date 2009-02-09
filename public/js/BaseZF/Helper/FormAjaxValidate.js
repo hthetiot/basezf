@@ -138,7 +138,9 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
     scrollField: function(field) {
 
-        var myFx = new Fx.Scroll(window).start(0, field.retrieve('formContainer').offsetTop - 50);
+        if (this.option.scroll) {
+            var myFx = new Fx.Scroll(window).start(0, field.retrieve('formContainer').offsetTop - 50);
+        }
 
         try {
             field.fireEvent('focus').focus();
