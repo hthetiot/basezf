@@ -2,17 +2,20 @@
 # static-pack.sh - A simple compressor bash script for CSS and JS files
 #
 # Usage:
-# ./static-pack.sh (js|css) source_path dest_path
+# ./static-pack.sh (js|css) <source_path> <dest_path>
 #
 # @copyright  Copyright (c) 2008 BaseZF
 # @author     Harold Thétiot (hthetiot)
 # @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
+# path to js/pack and css/pack directory
 public_path=public
 
+# TidyCss config
 csstidy_path=bin/tools/csstidy
 csstidy_params="--template=high --silent=false --merge_selectors=4"
 
+# YuiCompressor config
 yuicompressor_path=bin/tools/yuicompressor.jar
 yuicompressor_params="--charset UTF-8 --type js"
 
