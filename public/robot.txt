@@ -1,3 +1,9 @@
+# A robots.txt file on a website will function as a request that specified
+# robots ignore specified files or directories in their search.
 User-agent: *
+Disallow: /css
+Disallow: /js
 Disallow: /cgi-bin/
 
+# Sitemap location
+# Sitemap: http://domain.com/sitemap.xml
