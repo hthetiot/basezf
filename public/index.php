@@ -12,7 +12,7 @@
 
 // launch ErrorHandler
 BaseZF_Error_Handler::getInstance();
- 
+
 // Override Default BootStrap
 class Bootstrap extends BaseZF_Bootstrap
 {
@@ -20,6 +20,11 @@ class Bootstrap extends BaseZF_Bootstrap
         'default',
         'example',
     );
+
+    protected function _getRoutes()
+    {
+        return MyProject_Routes::fetch();
+    }
 }
 
 // launch Bootstrap

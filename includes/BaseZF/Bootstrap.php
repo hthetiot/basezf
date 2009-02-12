@@ -84,6 +84,11 @@ abstract class BaseZF_Bootstrap
         $layout->setInflectorTarget(':script/layout.:suffix');
     }
 
+    protected function _getRoutes()
+    {
+        return array();
+    }
+
     protected function _initFrontController()
     {
         // init standart router
@@ -103,5 +108,11 @@ abstract class BaseZF_Bootstrap
         $frontController = Zend_Controller_Front::getInstance();
         $frontController->setRouter($router)
                         ->setDispatcher($dispatcher);
+
+        // init routes
+        $routes = $this->_getRoutes();
+        foreach ($routes as $name => & $route) {
+            $router->addRoute($name, $route);
+        }
     }
 }

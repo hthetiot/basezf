@@ -13,21 +13,24 @@ class BaseZF_Error_Handler
     static private $_INSTANCE = false;
 
     private $_oldErrorhandler = null;
-    
+
     private function __construct()
     {
+        // prevent stack error
+        Zend_Loader::loadClass('BaseZF_Error_Exception');
+
         $this->_oldErrorhandler = set_error_handler(array($this, 'newErrorhandler'));
     }
-    
+
     static public function getInstance()
     {
         if (!self::$_INSTANCE instanceof self) {
             self::$_INSTANCE = new self();
         }
-        
+
         return self::$_INSTANCE;
     }
-    
+
     public function newErrorhandler($code, $message, $file, $line)
     {
 	  // if error_reporting() == 0 then it was a
@@ -56,7 +59,7 @@ class BaseZF_Error_Handler
             E_STRICT             => 'Runtime Notice',
             E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
         );
-        
+
 		return $errortype[$errorNo];
     }
 }

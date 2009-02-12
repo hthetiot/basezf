@@ -8,7 +8,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-class BaseZF_Routes
+abstract class BaseZF_Routes
 {
     /**
      * Take a localized string and return an url valid representation of it
@@ -20,9 +20,7 @@ class BaseZF_Routes
 	{
 		/* convert the string to a 7bits representation */
 		//
-		$url = mb_convert_encoding(($url),
-		'HTML-ENTITIES',
-		'ISO-8859-15');
+		$url = stringToAscii($url);
 
 		$url = preg_replace(array('/&szlig;/',
 		'/&(..)lig;/',
