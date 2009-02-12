@@ -92,7 +92,7 @@ define_if_not('CDN_URL_DESIGN', BASE_HTTP_SCHEME . MAIN_URL);
 
 // mail
 define_if_not('MAIL_DEFAULT_SENDER', 'noreply@' . MAIN_URL);
-define_if_not('MAIL_DEFAULT_SENDER_NAME', 'BaseZF');
+define_if_not('MAIL_DEFAULT_SENDER_NAME', 'MyProject');
 
 // cookies
 define_if_not('COOKIES_DOMAIN', '.' . MAIN_URL);
