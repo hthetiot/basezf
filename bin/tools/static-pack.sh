@@ -32,7 +32,7 @@ do
 
 	# begin compilation
 	echo ""
-	echo  "\tCompiling: \"$2/$ls_result\""
+	echo  "    Compiling: \"$2/$ls_result\""
 	error=0;
 	input=`echo -n`
 	path=`echo "$2/$ls_result"`
@@ -46,7 +46,7 @@ do
 		then
 			continue
 		fi
-		echo "\t\tAdded $file"
+		echo "        Added $file"
 		cat "$public_path/$file" >> tmp.compress
 
 		done < $path
@@ -59,22 +59,22 @@ do
 		# compress JS files
 		if [ "$1" = "js" ]
 		then
-			echo "\tProcess: compilation using yuiCompressor"
+			echo "    Process: compilation using yuiCompressor"
 			java -jar $yuicompressor_path $yuicompressor_params tmp.compress -o $output > /dev/null
 		fi
 
 		# compress CSS files
 		if [ "$1" = "css" ]
 		then
-			echo "\tProcessing: compilation using TidyCss"
+			echo "    Processing: compilation using TidyCss"
 			$csstidy_path tmp.compress $csstidy_params $output > /dev/null
 		fi
 
-		echo "\tFinished: packed file path \"$output\""
+		echo "    Finished: packed file path \"$output\""
 		rm -f tmp.compress
 
 	else
-		echo "\tFatal Error code: \"$error\""
+		echo "    Fatal Error code: \"$error\""
 		rm -f tmp.compress
 	fi
 
