@@ -1,25 +1,20 @@
-[production]
+[app]
 
 #database
 db.adapter                  = Pdo_Mysql
 db.params.persistent        = true
 db.params.host              = localhost
-db.params.dbname            = proddb
-db.params.username          = prod
+db.params.dbname            =
+db.params.username          =
 db.params.password          =
 db.params.profiler.enabled  = false
 db.params.profiler.class    = Zend_Db_Profiler_Firebug
 
 #database cache
-dbcache.adapter                             = File
-dbcache.backend.cache_dir                   = /tmp/
-dbcache.frontend.lifetime                   = 7200
+dbcache.adapter                             = Memcached
 dbcache.frontend.automatic_serialization    = true
-
-# To use memcache adapter
-#dbcache.adapter                      = Memcached
-#dbcache.backend.servers.node1.port   = 11211
-#dbcache.backend.servers.node1.host   = localhost
+dbcache.backend.servers.node1.port          = 11211
+dbcache.backend.servers.node1.host          = localhost
 
 #log config
 log.enable                  = false
@@ -27,12 +22,10 @@ log.writers.stream.enable   = false
 log.writers.stream.path     = php://output
 log.writers.firebug.enable  = false
 
-#log component
+#log components
 log.components.dbcollection  = false
 log.components.dbitem        = false
 log.components.dbquery       = false
-
-#static
 
 #debug
 debug.cookie_name       = DEBUG_ME
@@ -41,25 +34,8 @@ debug.report.enable     = true
 debug.report.to         = my@example.com
 debug.report.from       = debug@example.com
 
-# staging config mode extend production config mode
-[staging: production]
+# production config mode extend app config mode
+[production: app]
 
-#database
-db.params.dbname            = dev
-db.params.username          = dev
-db.params.password          =
-db.params.profiler.enabled  = true
-
-#log config
-log.enable                  = true
-log.writers.stream.enable   = true
-log.writers.firebug.enable  = true
-
-#log components
-log.components.dbcollection  = true
-log.components.dbitem        = true
-log.components.dbquery       = true
-
-#debug
-debug.enable                = true
-debug.report.enable         = false
+# staging config mode extend app config mode
+[staging: app]
