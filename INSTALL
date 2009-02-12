@@ -55,3 +55,8 @@
 	- it_IT.UTF-8
 	- ru_RU.UTF-8
 
+* Init Project
+-------------
+Example:
+$ find . -iname *.php | sed 's/ /\\ /g' | sed 's/#/\#/g' | xargs sed -i 's#MyProject#NewProject#gi'
+
