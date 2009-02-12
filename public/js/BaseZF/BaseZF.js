@@ -22,7 +22,7 @@ BaseZF.log = function() {
 
 // Js GetText handler
 if (typeof _ == "undefined") {
-  _ = function(s) {
+  var _ = function(s) {
     return s
   };
 }

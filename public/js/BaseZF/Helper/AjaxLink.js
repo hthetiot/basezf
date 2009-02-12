@@ -13,7 +13,7 @@ if (typeof BaseZF.Helper == "undefined") BaseZF.Helper = {};
 
 BaseZF.Helper.AjaxAbstract = {
 
-    loadingElement: null,
+    loadingElement: $empty,
     initialized: false,
     nbActiveRequest: 0,
 
@@ -24,7 +24,7 @@ BaseZF.Helper.AjaxAbstract = {
         // get abtract layer
         that = BaseZF.Helper.AjaxAbstract;
 
-        if (that.initialized) {
+        if (!$type($('loading')) || that.initialized) {
             return;
         }
 

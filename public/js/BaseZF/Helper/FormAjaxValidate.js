@@ -1,5 +1,5 @@
 /**
- * FormSelectMass.js
+ * FormAjaxValidate.js
  *
  * @category   BaseZF_JS_Helper
  * @package    BaseZF
@@ -21,7 +21,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
     },
 
     options: {
-        scroll: true,
+        scroll: true
     },
 
     launcherSelector: function(root, options) {

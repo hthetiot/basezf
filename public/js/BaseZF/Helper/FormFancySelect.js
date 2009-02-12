@@ -19,7 +19,7 @@ BaseZF.Helper.FormFancySelect = new Class({
         label: $empty,
         values: $empty,
         options: $empty,
-        notice: $empty,
+        notice: $empty
     },
 
     launcherSelector: function(root, options) {
