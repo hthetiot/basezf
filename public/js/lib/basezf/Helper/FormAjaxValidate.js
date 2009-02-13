@@ -138,7 +138,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
     scrollField: function(field) {
 
-        if (this.option.scroll) {
+        if (this.options.scroll) {
             var myFx = new Fx.Scroll(window).start(0, field.retrieve('formContainer').offsetTop - 50);
         }
 

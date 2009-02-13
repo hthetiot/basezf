@@ -123,8 +123,6 @@ BaseZF.Helper.AjaxAbstract = {
  */
 BaseZF.Helper.AjaxLink = new Class({
 
-    test: 'toto',
-
     Extends: BaseZF.Class.Helper,
     Implements: BaseZF.Helper.AjaxAbstract,
 
