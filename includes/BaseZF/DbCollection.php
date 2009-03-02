@@ -782,7 +782,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $this->_loadIteratorPosition();
 
         if(!empty($items)) {
-            Bahu_DbItem::massUpdate($items);
+            BaseZF_DbItem::massUpdate($items);
         }
         return $this;
     }
@@ -805,7 +805,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $this->_loadIteratorPosition();
 
         if(!empty($items)) {
-            Bahu_DbItem::massDelete($items);
+            BaseZF_DbItem::massDelete($items);
         }
 
 		$this->setIds(array());

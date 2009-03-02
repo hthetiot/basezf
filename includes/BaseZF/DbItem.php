@@ -929,7 +929,7 @@ abstract class BaseZF_DbItem
 	/**
      * Mass records update
      */
-	public static function massUpdate($items)
+	final public static function massUpdate($items)
     {
         if(empty($items) || !is_array($items)) return false;
 
@@ -1024,7 +1024,7 @@ abstract class BaseZF_DbItem
 	/**
      * Mass records delete
      */
-	public static function massDelete($items)
+	final public static function massDelete($items)
     {
         if(empty($items) || !is_array($items)) return false;
 
