@@ -1,20 +1,28 @@
 <?php
 
-    if ($this->isAjax) {
+    // display error for json callback
+    if ($this->isJson) {
+
+        $json = array(
+            'error' => $this->message,
+        );
+
+        echo json_encode($json);
+
+    // display error for ajax callback
+    } else if ($this->isAjax) {
 
         echo '<script type="text/javascript">';
-        echo '/*';
-        echo $this->placeholder('Zend_Layout')->content;
-        echo '*/';
+        echo '/*' . $this->message . '*/';
         echo '</script>';
 
-    } else if ($this->isJson) {
-
-        echo '/*';
-        echo $this->placeholder('Zend_Layout')->content;
-        echo '*/';
-
+    // display error for HTML callback
     } else {
+
+        echo '<html>';
+        echo '<body>';
         echo $this->placeholder('Zend_Layout')->content;
+        echo '</body>';
+        echo '</html>';
     }
 

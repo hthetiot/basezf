@@ -57,16 +57,13 @@ class ErrorController extends BaseZF_Framework_Controller_Action
     {
         // set header (disable json/ajax)
         $response = $this->getResponse();
-        $response->setHeader('content-type', 'text/html', true);
-
-        // configure view render for new view file suffix
-        $this->_helper->viewRenderer->setNoRender(false);
-	    $this->_helper->viewRenderer->setViewSuffix('phtml');
 
         // force error 404 from throw exception width code 404
         if ($this->_error_handler->exception->getCode() == 404) {
             $this->_error_handler->type = Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION;
         }
+
+        $this->layout->setLayout($this->_defaultLayout);
 
         // $errors will be an object set as a parameter of the request object, type is a property
         switch ($this->_error_handler->type) {
@@ -77,6 +74,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
             {
                 $response->setHttpResponseCode(404);
                 $this->_forward('notfound');
+                $this->view->message = __('Page not found');
                 break;
             }
 
@@ -85,6 +83,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
             {
                 $response->setHttpResponseCode(500);
                 $this->_forward('applicationerror');
+                $this->view->message = __('Application error');
                 break;
             }
         }

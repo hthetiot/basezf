@@ -21,10 +21,7 @@ class Example_JavascriptController extends BaseZF_Framework_Controller_Action
 
     public function ajaxlinkAction()
     {
-
         if ($this->isAjax) {
-
-            sleep(5);
 
            // callback for ajax link with HTML
            if ($this->_getParam('html') == 1) {

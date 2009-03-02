@@ -25,7 +25,6 @@ final class Bootstrap extends BaseZF_Bootstrap
 
     protected function _getRoutes()
     {
-        MyProject_Routes::fetch();
         return MyProject_Routes::fetch();
     }
 }

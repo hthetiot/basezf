@@ -93,8 +93,10 @@ BaseZF.Helper.AjaxAbstract = {
             method: 'get',
             evalScripts: false,
             onCancel: this.hideLoading,
+            onFailure: this.hideLoading,
             onRequest: this.showLoading,
-            onSuccess: requestCallback
+            onSuccess: requestCallback,
+
         }
         , options);
 

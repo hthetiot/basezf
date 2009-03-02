@@ -82,7 +82,7 @@ class BaseZF_Framework_View_Helper_FormCheckbox extends Zend_View_Helper_FormChe
         // build the element
         $xhtml = '';
         if (!strstr($name, '[]')) {
-            $xhtml = $this->_hidden($name, $checkedOptions['unCheckedValue']);
+            //$xhtml = $this->_hidden($name, $checkedOptions['unCheckedValue']);
         }
         $xhtml .= '<label'
 		        . $this->_htmlAttribs($label_attribs)

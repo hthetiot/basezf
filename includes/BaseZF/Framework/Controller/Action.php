@@ -49,9 +49,12 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_initAjax();
+        // detect context if needed
+        if (!isset($this->view->isAjax)) {
 
-        $this->_initJson();
+            $this->view->isAjax = $this->isAjax = $this->getRequest()->isXmlHttpRequest();
+            $this->view->isJson = $this->isJson = $this->getRequest()->getHeader('X_REQUEST') == 'JSON';
+        }
 
         $this->_initLayout();
 
@@ -90,31 +93,8 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     {
         $this->layout = Zend_layout::getMvcInstance();
 
-        // set default layout
-        if ($this->isJson) {
-            $this->_makeJson();
-        } else if ($this->isAjax) {
-            $this->_makeAjax();
-        } else if (!is_null($this->_defaultLayout)) {
-
-            // render P3P header
-            if(get_class($this->getFrontController()->getRequest()) == 'Zend_Controller_Request_Http') {
-
-                $response = $this->getResponse();
-                $response->setHeader('P3P', "policyref='/w3c/policy.xml', CP='NOI DSP COR CURa ADMi DEVa TAIa OUR LEG BUS UNI COM NAV INT'", true);
-            }
-
-            // set XHTML strict as default
-            $this->view->doctype('XHTML1_STRICT');
-
-            // configure css CDN
-            $this->view->headLink()->enablePacks(CONFIG_STATIC_PACK_CSS);
-            $this->view->headLink()->setPrefixHref(CDN_URL_CSS);
-
-            // configure js CDN
-            $this->view->headScript()->enablePacks(CONFIG_STATIC_PACK_JS);
-            $this->view->headScript()->setPrefixSrc(CDN_URL_JS);
-
+        // set defaultLayout
+        if (!is_null($this->_defaultLayout)) {
             $this->layout->setLayout($this->_defaultLayout);
         }
     }
@@ -140,7 +120,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
      */
     public function initModule()
     {
-
+        $this->_initResponse();
     }
 
     /**
@@ -150,8 +130,30 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     {
     }
 
+    public function postDispatch()
+    {
+    }
+
     //
-    // Ajax layout helpers
+    // HTML Standard response helper
+    //
+
+    public function _makeHtml()
+    {
+        // set XHTML strict as default
+        $this->view->doctype('XHTML1_STRICT');
+
+        // configure view render for new view file suffix
+        $this->_helper->viewRenderer->setNoRender(false);
+	    $this->_helper->viewRenderer->setViewSuffix('phtml');
+
+        // set header
+        $response = $this->getResponse();
+        $response->setHeader('content-type', 'text/html', true);
+    }
+
+    //
+    // Ajax response helper
     //
 
     /**
@@ -159,9 +161,15 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
      *
      * @return bool $this->isAjax value
      */
-    protected function _initAjax()
+    protected function _initResponse()
     {
-        return $this->isAjax = $this->getRequest()->isXmlHttpRequest();
+        if ($this->isJson) {
+            $this->_makeJson();
+        } else if ($this->isAjax) {
+            $this->_makeAjax();
+        } else {
+            $this->_makeHtml();
+        }
     }
 
     /**
@@ -191,8 +199,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
         // set controller properties
         $this->view->isAjax = $this->isAjax = true;
-        $this->view->isAjaxHtml = false;
-        $this->isAjaxHtml = false;
+        $this->view->isAjaxHtml = $this->isAjaxHtml = false;
 
         return $this;
     }
@@ -219,18 +226,8 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     }
 
     //
-    // Json layout helpers
+    // Json response helper
     //
-
-    /**
-     * Init $this->isJsons value
-     *
-     * @return bool $this->isJsons value
-     */
-    protected function _initJson()
-    {
-         return $this->view->isJson = $this->isJson = $this->getRequest()->getHeader('X_REQUEST') == 'JSON';
-    }
 
     /**
      * Add json array to layout Json

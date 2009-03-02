@@ -33,10 +33,13 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
                 // set output mode for json only
                 $this->_makeJson();
 
+                $this->_setJson(array());
                 if (!$form->isValidPartial($formData)) {
                     $messages = $form->getMessages();
                     $this->_setJson($messages);
                 }
+
+                //die('ok');
 
             // check if all form is valid before normal process
             } else {
