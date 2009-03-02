@@ -8,7 +8,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-class MyProject_View_Helper_Example_Navigation extends BaseZF_Framework_View_Helper_Abstract
+class View_Helper_Example_Navigation extends BaseZF_Framework_View_Helper_Abstract
 {
     /**
      * This is the main helper methods

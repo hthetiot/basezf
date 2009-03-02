@@ -8,7 +8,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-class MyProject_View_Helper_Example
+class View_Helper_Example
 {
     /**
      * This is the main helper methods

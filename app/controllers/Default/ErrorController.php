@@ -10,19 +10,35 @@
 
 class ErrorController extends BaseZF_Framework_Controller_Action
 {
+    /**
+     * Set default layout of controller
+     * @var string
+     */
+    protected $_defaultLayout = 'error';
 
+    /**
+     * Error object provide by zend controller plugins error
+     * @var object
+     */
+    protected $_error_handler;
+
+    /**
+     * preDispatch for Controller
+     *
+     * @return void
+     */
     public function initController()
     {
-        // set header (disable json/ajax)
-        $response = $this->getResponse();
-        $response->setHeader('content-type', 'text/html', true);
+        // Grab the error object from the request
+        $this->_error_handler = $this->_getParam('error_handler');
 
-        // configure view render for new view file suffix
-        $this->_helper->viewRenderer->setNoRender(false);
-		$this->_helper->viewRenderer->setViewSuffix('phtml');
+        // get current config
+        $config = MyProject::registry('config');
 
-        // set layout
-        $this->_layout->setLayout('error');
+        // throw Exception and do not display end user error if debug is enable
+        if ($config->debug->enable) {
+            throw $this->_error_handler->exception;
+        }
     }
 
     /**
@@ -39,50 +55,71 @@ class ErrorController extends BaseZF_Framework_Controller_Action
      */
     public function errorAction()
     {
-        // Grab the error object from the request
-        $errors = $this->_getParam('error_handler');
+        // set header (disable json/ajax)
+        $response = $this->getResponse();
+        $response->setHeader('content-type', 'text/html', true);
 
-        // $errors will be an object set as a parameter of the request object,
-        // type is a property
-        switch ($errors->type) {
+        // configure view render for new view file suffix
+        $this->_helper->viewRenderer->setNoRender(false);
+	    $this->_helper->viewRenderer->setViewSuffix('phtml');
+
+        // force error 404 from throw exception width code 404
+        if ($this->_error_handler->exception->getCode() == 404) {
+            $this->_error_handler->type = Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION;
+        }
+
+        // $errors will be an object set as a parameter of the request object, type is a property
+        switch ($this->_error_handler->type) {
+
+            // not found error (controller or action not found or exception code is 404)
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
-
-                // 404 error -- controller or action not found
-                $this->getResponse()->setHttpResponseCode(404);
-                $this->view->message = __('Page not found');
+            {
+                $response->setHttpResponseCode(404);
+                $this->_forward('notfound');
                 break;
+            }
+
+            // application error by default
             default:
-                // application error
-                $this->getResponse()->setHttpResponseCode(500);
-                $this->view->message = __('Application error');
-
-                // send debug report
-                MyProject::sendExceptionByMail($errors->exception);
+            {
+                $response->setHttpResponseCode(500);
+                $this->_forward('applicationerror');
                 break;
+            }
         }
 
-        // get config
+        // send error handler to view
+        $this->view->error_handler = $this->_error_handler;
+    }
+
+    /**
+     * Display error to end user and report it by mail if enable
+     *
+     * @return void
+     */
+    public function applicationerrorAction()
+    {
+        // get current config
         $config = MyProject::registry('config');
 
-        // display debug ?
-        if (!$config->debug->enable) {
-            $errorCode = $this->getResponse()->getHttpResponseCode();
-            $this->_forward('error' . $errorCode);
+        // if report is enable sent exception info by mail
+        if (!$config->debug->report->enable) {
+
+            BaseZF_Error_Handler::sendExceptionByMail(
+                $this->_error_handler->exception,
+                $config->debug->report->from,
+                $config->debug->report->to
+            );
         }
-
-        // pass the actual exception object to the view
-        $this->view->exception = $errors->exception;
-
-        // pass the request to the view
-        $this->view->request   = $errors->request;
     }
 
-    public function error500Action()
-    {
-    }
-
-    public function error404Action()
+    /**
+     * Display page not found to end User
+     *
+     * @return void
+     */
+    public function notfoundAction()
     {
     }
 }

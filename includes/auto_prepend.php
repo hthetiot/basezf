@@ -13,7 +13,7 @@ $t_start = microtime(true);
 //---------------------------------------------------------------------------
 // Set PHP Errors Reporting
 
-error_reporting(E_ALL);
+error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', 'on');
 
 //---------------------------------------------------------------------------
@@ -82,7 +82,7 @@ define('CONFIG_STATIC_PACK_JS_PATH',  '/js/pack/');
 // External variable env
 
 // main url
-define_if_not('MAIN_URL', $_SERVER['HTTP_HOST']);
+define_if_not('MAIN_URL', 'myproject.com');
 define_if_not('BASE_URL', BASE_HTTP_SCHEME . MAIN_URL);
 
 // cdn url use BASE_HTTP_SCHEME to be secure too

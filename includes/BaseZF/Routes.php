@@ -39,61 +39,49 @@ abstract class BaseZF_Routes
 		return trim($url, '-');
 	}
 
-    public function getNameSpace()
+    static public function getCurrentNameSpace()
     {
         // get current route namespace for app with many route
         // to do not have to create all route instance
+
+        return 'default';
     }
 
     /**
-     * Give routes
+     * Give routes by namespace
      *
      * @return array an array of instance of Zend_Controller_Router_Route
      */
-    abstract static public function &fetch();
+    abstract static public function &fetch($nameSpace = null);
     /*
+    static public function &fetch($nameSpace = null)
+    {
+        static $routes;
 
-    new Zend_Controller_Router_Route(
-    'author/:username',
-    array(
-        'controller' => 'profile',
-        'action'     => 'userinfo'
-    )
-    );
+        if ($nameSpace === null) {
+            $nameSpace = MyProject_Routes::getNameSpace();
+        }
 
-    $route = new Zend_Controller_Router_Route(
-        'archive/:year',
-        array('year' => 2006)
-    );
+        // do not create multiple instance of routes
+        if (!isset($routes[$nameSpace])) {
 
-    $route = new Zend_Controller_Router_Route(
-        'archive/:year',
-        array(
-            'year'       => 2006,
-            'controller' => 'archive',
-            'action'     => 'show'
-        ),
-        array('year' => '\d+')
-    );
+            $routes = array(
+                'error-404' => new Zend_Controller_Router_Route('404',
+                    array('module' 		=> 'default',
+                    'controller' 	=> 'error',
+                    'action'     	=> 'error404')
+                ),
 
-    $hostnameRoute = new Zend_Controller_Router_Route_Hostname(
-        ':username.users.example.com',
-        array(
-            'controller' => 'profile',
-            'action'     => 'userinfo'
-        )
-    );
+                'error-500' => new Zend_Controller_Router_Route('500',
+                    array('module' 		=> 'default',
+                    'controller' 	=> 'error',
+                    'action'     	=> 'error500')
+                ),
+            );
+        }
 
-    'error-404' => new Zend_Controller_Router_Route_Regex('^site/page-non-trouvee$',
-                array('module' 		=> 'default',
-                      'controller' 	=> 'error',
-                      'action'     	=> 'error404')
-            ),
-
-    'error-500' => new Zend_Controller_Router_Route_Regex('^site/erreur-interne$',
-        array('module' 		=> 'default',
-              'controller' 	=> 'error',
-              'action'     	=> 'error500')
-    */
+        return $routes;
+    }
+   */
 }
 

@@ -17,10 +17,10 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     protected $_defaultLayout = 'default';
 
     /**
-     * Instance of Zend_Layout
+     * Instance of Zendlayout
      * @var object
      */
-    protected $_layout = null;
+    protected $layout = null;
 
     /**
      * Ajax mode flag
@@ -58,36 +58,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
         $this->_initModuleHelpers();
     }
 
-    /**
-     * Initialize Layout object
-     *
-     * Initializes {@link $layout}
-     *
-     * @return Zend_Layout
-     */
-    protected function _initLayout()
-    {
-        $this->_layout = Zend_Layout::getMvcInstance();
-
-        // set default layout
-        if ($this->isJson) {
-            $this->_makeJson();
-        } else if ($this->isAjax) {
-            $this->_makeAjax();
-        } else if (!is_null($this->_defaultLayout)) {
-
-            // render P3P header            
-            if(get_class($this->getFrontController()->getRequest()) == 'Zend_Controller_Request_Http') {
-                
-                $response = $this->getResponse();
-                $response->setHeader('P3P', "policyref='/w3c/policy.xml', CP='NOI DSP COR CURa ADMi DEVa TAIa OUR LEG BUS UNI COM NAV INT'", true);
-            }
-            
-            $this->_layout->setLayout($this->_defaultLayout);
-        }
-    }
-
-    /**
+     /**
      * Add module Helper path
      *
      * @return $this for more fluent interface
@@ -102,10 +73,50 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
             $module = ucfirst(strtolower($module));
 
-            $this->view->addHelperPath(PATH_TO_HELPERS . '/' . $module, 'MyProject_View_Helper_' . $module);
+            $this->view->addHelperPath(PATH_TO_HELPERS . '/' . $module, 'View_Helper_' . $module);
         }
 
         return  $this;
+    }
+
+    /**
+     * Initialize Layout object
+     *
+     * Initializes {@link $layout}
+     *
+     * @return Zendlayout
+     */
+    protected function _initLayout()
+    {
+        $this->layout = Zend_layout::getMvcInstance();
+
+        // set default layout
+        if ($this->isJson) {
+            $this->_makeJson();
+        } else if ($this->isAjax) {
+            $this->_makeAjax();
+        } else if (!is_null($this->_defaultLayout)) {
+
+            // render P3P header
+            if(get_class($this->getFrontController()->getRequest()) == 'Zend_Controller_Request_Http') {
+
+                $response = $this->getResponse();
+                $response->setHeader('P3P', "policyref='/w3c/policy.xml', CP='NOI DSP COR CURa ADMi DEVa TAIa OUR LEG BUS UNI COM NAV INT'", true);
+            }
+
+            // set XHTML strict as default
+            $this->view->doctype('XHTML1_STRICT');
+
+            // configure css CDN
+            $this->view->headLink()->enablePacks(CONFIG_STATIC_PACK_CSS);
+            $this->view->headLink()->setPrefixHref(CDN_URL_CSS);
+
+            // configure js CDN
+            $this->view->headScript()->enablePacks(CONFIG_STATIC_PACK_JS);
+            $this->view->headScript()->setPrefixSrc(CDN_URL_JS);
+
+            $this->layout->setLayout($this->_defaultLayout);
+        }
     }
 
     //
@@ -173,7 +184,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     public function _makeAjax()
     {
         // set layout
-        $this->_layout->setLayout('ajax');
+        $this->layout->setLayout('ajax');
 
         // disable view render
         $this->_helper->viewRenderer->setNoRender();
@@ -195,7 +206,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     public function _makeAjaxHtml()
     {
         // set layout
-        $this->_layout->setLayout('ajax');
+        $this->layout->setLayout('ajax');
 
         // configure view render for new view file suffix
         $this->_helper->viewRenderer->setNoRender(false);
@@ -253,7 +264,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     public function _makeJson()
     {
         // set view render and layout
-        $this->_layout->setLayout('json');
+        $this->layout->setLayout('json');
         $this->_helper->viewRenderer->setNoRender();
 
         // set header
