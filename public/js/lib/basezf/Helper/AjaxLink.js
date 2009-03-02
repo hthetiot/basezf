@@ -100,10 +100,18 @@ BaseZF.Helper.AjaxAbstract = {
         }
         , options);
 
-        if (typeof(type) != 'undefined') {
-            eval('this.myRequest = new Request.' + type + '(options);');
-        } else {
-            this.myRequest = new Request(options);
+        switch (type) {
+            case 'JSON':
+                this.myRequest = new Request.JSON(options);
+                break;
+
+            case 'HTML':
+                this.myRequest = new Request.HTML(options);
+                break;
+
+            default:
+                this.myRequest = new Request(options);
+                break;
         }
 
         return this.myRequest;
@@ -172,7 +180,9 @@ BaseZF.Helper.AjaxLink = new Class({
 
         try {
 
-            eval(responseJavaScript);
+            if ($type(responseJavaScript) && responseJavaScript.length > 0) {
+                //eval(responseJavaScript);
+            }
 
             if ($type(responseHTML) && responseHTML.length > 0) {
                 new BaseZF.Class.Helper.run(responseHTML);

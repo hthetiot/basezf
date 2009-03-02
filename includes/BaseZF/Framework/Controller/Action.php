@@ -120,7 +120,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
      */
     public function initModule()
     {
-        $this->_initResponse();
+
     }
 
     /**
@@ -132,6 +132,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
     public function postDispatch()
     {
+        $this->_initResponse();
     }
 
     //
