@@ -16,9 +16,11 @@ BaseZF.Helper.FormAjaxValidate = new Class({
     Implements: BaseZF.Helper.AjaxAbstract,
 
     elements: {
-        form: $empty,
-        containers: $empty
+        form: null,
+        containers: []
     },
+
+    focusElement: null,
 
     options: {
         scroll: true
@@ -117,16 +119,33 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             if (eventName == 'onEnter') {
 
                 field.addEvent('keydown', function(e) {
-
                     if(new Event(e).code == Event.Keys.esc || new Event(e).code == Event.Keys.enter) {
-                        this.processFieldValidation.delay(500, this, field);
+                        $clear(this.validationTimer);
+                        this.validationTimer = this.processFieldValidation.delay(500, this, field);
                         return false;
                     }
-
                 }.bind(this));
 
             } else {
-                field.addEvent(eventName, this.processFieldValidation.bind(this, field));
+
+                field.addEvent(eventName, function(e) {
+
+                    // clear anti jump
+                    if (eventName == 'blur' && this.hasError(field)) {
+                        this.focusElement = null;
+                    }
+
+                    // need validation asap
+                    if (field.value.length > 0) {
+                        this.processFieldValidation(field);
+
+                    // possible jump due tab usage and is empty delay validation
+                    } else {
+                        $clear(this.validationTimer);
+                        this.validationTimer = this.processFieldValidation.delay(500, this, field);
+                    }
+                }.bind(this));
+
             }
 
         }, this);
@@ -143,6 +162,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         }
 
         try {
+            this.focusElement = field;
             field.fireEvent('focus').focus();
         } catch(e){} //IE barfs if you call focus on hidden elements
 
@@ -218,14 +238,23 @@ BaseZF.Helper.FormAjaxValidate = new Class({
     {
         var container = field.retrieve('formContainer');
 
+        // do not valid same error
         if (this.hasError(field) && container.retrieve('errorValue') == this.toQueryString(container)) {
             return;
         }
 
+        // do not valid field on back jump
+        if (
+              $type(this.focusElement) &&
+              this.focusElement != field &&
+              this.hasError(this.focusElement)
+        ) {
+            return;
+        }
 
+        // debug
         container.setStyle('background', '#FFF9BF');
         container.setStyle.delay(1000, container, ['background', '']);
-
 
         this.beginTransaction();
 
@@ -304,7 +333,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 		elements.each(function(el){
 
 			if (!el.name || el.disabled) return;
-/*
+
             if (el.tagName.toLowerCase() == 'select') {
 
                 var value = Element.getSelected(el).map(function(opt){
@@ -320,7 +349,8 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             } else {
                 var value = el.value;
             }
-*/
+
+/*173
             // optimised version
 			var value = (el.tagName.toLowerCase() == 'select') ? Element.getSelected(el).map(function(opt){
 				return opt.value;
@@ -329,7 +359,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             if (el.tagName.toLowerCase() == 'select' && value.length == 0) {
                 value = '';
             }
-
+*/
 			$splat(value).each(function(val){
 				queryString.push(el.name + '=' + encodeURIComponent(val));
 			});
