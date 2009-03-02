@@ -13,8 +13,10 @@
 // launch ErrorHandler
 BaseZF_Error_Handler::getInstance();
 
-// Override Default BootStrap
-class Bootstrap extends BaseZF_Bootstrap
+/**
+ * Main BootStrap
+ */
+final class Bootstrap extends BaseZF_Bootstrap
 {
     protected $_controllerModules = array(
         'default',
@@ -23,6 +25,7 @@ class Bootstrap extends BaseZF_Bootstrap
 
     protected function _getRoutes()
     {
+        MyProject_Routes::fetch();
         return MyProject_Routes::fetch();
     }
 }

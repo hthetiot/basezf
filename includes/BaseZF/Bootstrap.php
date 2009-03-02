@@ -12,6 +12,8 @@
 
 abstract class BaseZF_Bootstrap
 {
+    protected $_projectClassName;
+
     protected $_useRouterRewrite = false;
 
     protected $_controllerPlugins = array();
@@ -32,9 +34,17 @@ abstract class BaseZF_Bootstrap
 
     static public function run()
     {
-        new Bootstrap();
+        try {
 
-        Zend_Controller_Front::getInstance()->dispatch();
+            new Bootstrap();
+
+            Zend_Controller_Front::getInstance()->dispatch();
+
+        // catch exception
+        } catch (Exception $e) {
+
+            BaseZF_Error_Handler::printException($e);
+        }
     }
 
     protected function _initView()
@@ -43,29 +53,17 @@ abstract class BaseZF_Bootstrap
 
         // set view path
         $view->addScriptPath(PATH_TO_VIEWS);
-        $view->addHelperPath(PATH_TO_HELPERS, 'MyProject_View_Helper');
-        $view->addHelperPath(PATH_TO_INCLUDES . '/BaseZF/Framework/View/Helper', 'BaseZF_Framework_View_Helper');
-
-        // set XHTML strict as default
-        $view->doctype('XHTML1_STRICT');
+        $view->addHelperPath(PATH_TO_HELPERS, 'View_Helper');
+        $view->addHelperPath('BaseZF/Framework/View/Helper', 'BaseZF_Framework_View_Helper');
 
         // set encoding
         $view->setEncoding('UTF-8');
-
-		// configure css CDN
-		$view->headLink()->enablePacks(CONFIG_STATIC_PACK_CSS);
-		$view->headLink()->setPrefixHref(CDN_URL_CSS);
-
-		// configure js CDN
-		$view->headScript()->enablePacks(CONFIG_STATIC_PACK_JS);
-		$view->headScript()->setPrefixSrc(CDN_URL_JS);
 
         // configure view render (path and suffix)
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewRenderer->setView($view)
 					 ->setViewScriptPathSpec('scripts/:module/:controller/:action.:suffix')
 					 ->setViewScriptPathNoControllerSpec(':action.:suffix');
-
     }
 
     protected function _initLayout()
@@ -84,10 +82,10 @@ abstract class BaseZF_Bootstrap
         $layout->setInflectorTarget(':script/layout.:suffix');
     }
 
-    protected function _getRoutes()
-    {
-        return array();
-    }
+    /**
+     * Return an array of routes
+     */
+    abstract protected function _getRoutes();
 
     protected function _initFrontController()
     {
@@ -97,6 +95,7 @@ abstract class BaseZF_Bootstrap
         // init dispatcher with modules controllers
         $dispatcher = new Zend_Controller_Dispatcher_Standard();
 
+        // init controllers modules
         $controllerModules = array();
         foreach ($this->_controllerModules as $controllerModule) {
             $controllerModules[strtolower($controllerModule)] = PATH_TO_CONTROLLERS . '/' . ucfirst(strtolower($controllerModule));
