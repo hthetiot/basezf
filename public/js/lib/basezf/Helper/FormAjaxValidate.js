@@ -21,6 +21,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
     },
 
     focusElement: null,
+    processingElement: [],
 
     options: {
         scroll: true
@@ -76,7 +77,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
                 // set current state
                 if(this.hasError(field)) {
-                    container.store('errorValue', this.toQueryString(container));
+                    container.store('lastErrorValue', this.toQueryString(container));
                 }
 
             }, this);
@@ -130,15 +131,16 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
                 field.addEvent(eventName, function(e) {
 
-                    // need validation asap cause have value
+                    // direct process to validation asap have value
                     if (field.value.length > 0) {
                         this.processFieldValidation(field);
 
-                    // possible jump due tab usage and is empty , so use delay validation
+                    // delay validation cause is empty and can from a tab usage
                     } else {
                         $clear(this.validationTimer);
                         this.validationTimer = this.processFieldValidation.delay(500, this, field);
                     }
+
                 }.bind(this));
 
             }
@@ -147,12 +149,6 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
         field.addEvent('focus', function(e) {
             this.focusElement = field;
-        }.bind(this));
-
-        field.addEvent('focus', function(e) {
-            if (this.hasError(field)) {
-                this.focusElement = null;
-            }
         }.bind(this));
     },
 
@@ -167,7 +163,6 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         }
 
         try {
-            this.focusElement = field;
             field.fireEvent('focus').focus();
         } catch(e){} //IE barfs if you call focus on hidden elements
 
@@ -176,10 +171,10 @@ BaseZF.Helper.FormAjaxValidate = new Class({
     addFieldErrors: function(field, errorsMsg) {
 
         var container = field.retrieve('formContainer');
-        var errorValue = this.toQueryString(container);
+        var fieldValue = this.toQueryString(container);
 
-        // save error value
-        container.store('errorValue', errorValue);
+        // update lastErrorValue
+        container.store('lastErrorValue', fieldValue);
 
         // build errorsMsg
         container.addClass('error');
@@ -191,32 +186,27 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
         errorList.injectTop(container);
 
-        // update cache
-        var errorsCache = container.retrieve('errorCache', $H());
-        if (!errorsCache.has(errorValue)) {
-            errorsCache.set(errorValue, errorsMsg)
-        }
-
         this.scrollField(field);
     },
 
     clearFieldErrors: function(field) {
 
+        // get container
         var container = field.retrieve('formContainer');
 
         if (container.hasClass('error')) {
-            container.store('errorValue', null);
             container.removeClass('error');
             container.removeChild(container.getElement('.errors'));
+            container.store('lastErrorValue', null);
         }
     },
 
     clearErrors: function() {
 
         this.form.getElements('div.error').each( function(container) {
-            container.store('errorValue', null);
             container.removeClass('error');
             container.removeChild(container.getElement('.errors'));
+            container.store('lastErrorValue', null);
         });
     },
 
@@ -246,6 +236,19 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         this.toggleFormSubmit(false);
     },
 
+    updateFieldCache: function(field, errorsMsg) {
+
+        // get container
+        var container = field.retrieve('formContainer');
+
+        // update cache
+        var fieldValue = this.toQueryString(container);
+        var validationCache = container.retrieve('validationCache', $H());
+        if (!validationCache.has(fieldValue)) {
+            validationCache.set(fieldValue, errorsMsg);
+        }
+    },
+
     processFieldValidation: function(field)
     {
         var container = field.retrieve('formContainer');
@@ -253,7 +256,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         // do not valid same error value
         if (
             this.hasError(field) &&
-            container.retrieve('errorValue') == this.toQueryString(container)
+            container.retrieve('lastErrorValue') == this.toQueryString(container)
         ) {
             return;
         }
@@ -267,22 +270,24 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             return;
         }
 
-        // debug
-        container.setStyle('background', '#FFF9BF');
-        container.setStyle.delay(1000, container, ['background', '']);
-
+        // disable form submit
         this.beginTransaction();
 
-        // clear error
+        this.processingElement.push(field);
+
+        // clear field errors
         this.clearFieldErrors(field);
 
         // has values to validate
         var fieldValue = this.toQueryString(container);
-        var errorsCache = container.retrieve('errorCache', $H());
+        var validationCache = container.retrieve('validationCache', $H());
 
-        if (errorsCache.has(fieldValue)) {
+        if (validationCache.has(fieldValue)) {
 
-            this.addFieldErrors(field, errorsCache.get(fieldValue));
+            var errorMsg = validationCache.get(fieldValue);
+            if (errorMsg !== null) {
+                this.addFieldErrors(field, errorMsg);
+            }
 
         } else {
 
@@ -298,17 +303,30 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
     processValidation: function(formSubmit)
     {
-        this.beginTransaction();
+        // @todo
     },
 
-    requestCallback: function(json)
+    requestCallback: function(json, b)
     {
         try {
 
-            $H(json).each(function(errors, field) {
-                var field = this.elements.form.getElement('[name^=' + field + ']');
-                this.addFieldErrors(field, errors);
+            // add error on field
+            $H(json).each(function(errorsMsg, field) {
 
+                var field = this.elements.form.getElement('[name^=' + field + ']');
+                this.addFieldErrors(field, errorsMsg);
+
+                // update cache
+                this.updateFieldCache(field, errorsMsg);
+
+                // remove from spool
+                this.processingElement.erase(field);
+
+            }, this);
+
+            // update field cache with good response
+            this.processingElement.each(function(field) {
+                this.updateFieldCache(field, null);
             }, this);
 
             // hide loading
