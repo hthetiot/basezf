@@ -180,6 +180,14 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 			'description'	=> __('Must match the email address you just entered above.'),
         ));
 
+        $this->getElement('email_check')->addValidator('StringEquals', true, array(
+            'field1' => 'email',
+            'field2' => 'email_check',
+            'messages' => array(
+                'notMatch'  => __("Emails don't match, please enter them again")
+            ),
+        ));
+
 		$this->addElement('text', 'phone', array(
             'label'         => __('Phone:'),
         ));
@@ -284,19 +292,27 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		$this->addElement('text', 'username', array(
             'label'         => __('Username:'),
             'required'      => true,
-			'description'	=> __('May only contain letters, numbers, and underscore (_) and 8-20 characters long.'),
+			'description'	 => __('May only contain letters, numbers, and underscore (_) and 8-20 characters long.'),
         ));
 
 		$this->addElement('password', 'password', array(
             'label'         => __('Password:'),
             'required'      => true,
-			'description'	=> __('Must be 6-25 characters long.'),
+			'description'	 => __('Must be 6-25 characters long.'),
         ));
 
 		$this->addElement('password', 'password_check', array(
             'label'         => __('Please re-enter your password:'),
             'required'      => true,
-			'description'	=> __('Must match the password you entered just above.'),
+			'description'	 => __('Must match the password you entered just above.'),
+        ));
+
+        $this->getElement('password_check')->addValidator('StringEquals', true, array(
+            'field1' => 'password',
+            'field2' => 'password_check',
+            'messages' => array(
+                'notMatch'  => __("Passwords don't match, please enter them again")
+            ),
         ));
 
 		$this->addElement('checkbox', 'remember_me', array(

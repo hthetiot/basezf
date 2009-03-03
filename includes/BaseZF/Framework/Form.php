@@ -20,15 +20,14 @@ abstract class BaseZF_Framework_Form extends Zend_Form
      */
     public function __construct($options = null)
     {
-     	$this->setDisableTranslator(true);
+        $this->setDisableTranslator(true);
 
-        $loaderElement = $this->getPluginLoader('element');
-        $loaderElement->addPrefixPath('BaseZF_Framework_Form_Element', PATH_TO_INCLUDES . '/BaseZF/Framework/Form/Element/');
+        $this->addElementPrefixPath('BaseZF_Framework', 'BaseZF/Framework/');
+        $this->addPrefixPath('BaseZF_Framework_Form_Element', 'BaseZF/Framework/Form/Element/', 'element');
+        $this->addPrefixPath('BaseZF_Framework_Form_Decorator', 'BaseZF/Framework/Form/Decorator/', 'decorator');
 
-        $loaderDecorator = $this->getPluginLoader('decorator');
-        $loaderDecorator->addPrefixPath('BaseZF_Framework_Form_Decorator', PATH_TO_INCLUDES . '/BaseZF/Framework/Form/Decorator');
+        parent::__construct($options);
 
-	    parent::__construct($options);
 	}
 
     /**

@@ -345,6 +345,14 @@ BaseZF.Helper.FormAjaxValidate = new Class({
      * Tools
      */
 
+    getFieldCheckParent: function(field) {
+        return this.elements.form.getElement('[name=' + field.name.replace('_check','') + ']')
+    },
+
+    getFieldCheck: function(field) {
+        return this.elements.form.getElement('[name=' + field.name + '_check]')
+    },
+
     getFields: function(root) {
 
         // get by name
@@ -380,11 +388,12 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             var tagName = el.tagName.toLowerCase();
             var name = el.name;
 
-            if (!elementsValues.has(name)) {
-                elementsValues.set(name, []);
-            }
+
 
             var values = elementsValues.get(name);
+            if ($type(values) != 'array') {
+                values = [];
+            }
 
             if (tagName == 'select') {
 
@@ -397,7 +406,21 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             } else if (type == 'checkbox' && el.checked) {
                 values.push(el.value);
             } else if (type == 'password' || type == 'text' || type == 'textarea') {
+
                 values.push(el.value);
+
+                // is a field for check previous value ?
+                var elParent = this.getFieldCheckParent(el);
+                if ($type(elParent) && elParent.type == type) {
+
+                    // validate current if has value
+                    if(elParent.value.length == 0) {
+                        name = elParent.name;
+                        values = [elParent.value];
+                    } else {
+                        elementsValues.set(elParent.name, [elParent.value]);
+                    }
+                }
             }
 
             elementsValues.set(name, values);

@@ -7,7 +7,6 @@
  * @copyright  Copyright (c) 2008 MyProject
  * @author     Harold Thétiot (hthetiot)
  */
-
 class Example_IndexController extends BaseZF_Framework_Controller_Action
 {
     /**
