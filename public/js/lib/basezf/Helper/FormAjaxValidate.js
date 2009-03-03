@@ -251,6 +251,22 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
     processFieldValidation: function(field)
     {
+        // is a field for check previous value ?
+        var parentField = this.getFieldCheckParent(field);
+        if ($type(parentField)) {
+
+            // validate parent field if has value and no error
+            if(!this.hasError(parentField)) {
+
+                if ( parentField.value.length == 0) {
+                    field = parentField;
+                }
+            } else {
+                this.scrollField(parentField);
+            }
+        }
+
+
         var container = field.retrieve('formContainer');
 
         // do not valid same error value
@@ -290,6 +306,9 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             }
 
         } else {
+
+            field.addClass('loading');
+            field.removeClass.delay(1000, field, 'loading');
 
             var myRequest = this.getRequest({
                 method: this.elements.form.get('method'),
@@ -379,6 +398,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         var elementsValues = $H();
         var elements = root.getElements('input, select, textarea');
 
+
         elements.each(function(el) {
 
 			if (!el.name || el.disabled) return;
@@ -387,13 +407,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             var type = el.type;
             var tagName = el.tagName.toLowerCase();
             var name = el.name;
-
-
-
-            var values = elementsValues.get(name);
-            if ($type(values) != 'array') {
-                values = [];
-            }
+            var values = $splat(elementsValues.get(name));
 
             if (tagName == 'select') {
 
@@ -407,20 +421,14 @@ BaseZF.Helper.FormAjaxValidate = new Class({
                 values.push(el.value);
             } else if (type == 'password' || type == 'text' || type == 'textarea') {
 
-                values.push(el.value);
-
                 // is a field for check previous value ?
-                var elParent = this.getFieldCheckParent(el);
-                if ($type(elParent) && elParent.type == type) {
+                var parentField = this.getFieldCheckParent(el);
+                if ($type(parentField)) {
 
-                    // validate current if has value
-                    if(elParent.value.length == 0) {
-                        name = elParent.name;
-                        values = [elParent.value];
-                    } else {
-                        elementsValues.set(elParent.name, [elParent.value]);
-                    }
+                    elementsValues.set(parentField.name, [parentField.value]);
                 }
+
+                values.push(el.value);
             }
 
             elementsValues.set(name, values);

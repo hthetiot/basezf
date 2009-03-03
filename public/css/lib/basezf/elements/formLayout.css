@@ -528,6 +528,10 @@ form.formLayout div.selectThumbnails input:checked+span>img
     border: solid 4px #313334;
     opacity:0.8;
 }
+
+input.loading {
+    background: transparent url(/images/lib/basezf/elements/formLayout/inputLoading.gif) no-repeat scroll 188px 2px;
+}
 /*@end*/
 
 
