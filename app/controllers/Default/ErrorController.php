@@ -103,7 +103,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
         $config = MyProject::registry('config');
 
         // if report is enable sent exception info by mail
-        if (!$config->debug->report->enable) {
+        if ($config->debug->report->enable) {
 
             BaseZF_Error_Handler::sendExceptionByMail(
                 $this->_error_handler->exception,
