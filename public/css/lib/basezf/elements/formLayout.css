@@ -529,8 +529,8 @@ form.formLayout div.selectThumbnails input:checked+span>img
     opacity:0.8;
 }
 
-input.loading {
-    background: transparent url(/images/lib/basezf/elements/formLayout/inputLoading.gif) no-repeat scroll 188px 2px;
+form.formLayout div.loading input {
+    background: #FFF url(/images/lib/basezf/elements/formLayout/inputLoading.gif) no-repeat scroll 188px 2px;
 }
 /*@end*/
 

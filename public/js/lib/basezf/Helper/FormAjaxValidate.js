@@ -122,7 +122,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
                 field.addEvent('keydown', function(e) {
                     if(new Event(e).code == Event.Keys.esc || new Event(e).code == Event.Keys.enter) {
                         $clear(this.validationTimer);
-                        this.validationTimer = this.processFieldValidation.delay(500, this, field);
+                        this.validationTimer = this.processFieldValidation.delay(250, this, field);
                         return false;
                     }
                 }.bind(this));
@@ -131,14 +131,23 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
                 field.addEvent(eventName, function(e) {
 
+                    var isEmpty = (field.value.length == 0);
+
+                    if (field.retrieve('formContainer').hasClass('optional') && isEmpty) {
+                        return;
+                    } else if (eventName != 'blur') {
+                        this.processFieldValidation(field);
+                        return;
+                    }
+
                     // direct process to validation asap have value
-                    if (field.value.length > 0) {
+                    if (!isEmpty) {
                         this.processFieldValidation(field);
 
                     // delay validation cause is empty and can from a tab usage
                     } else {
                         $clear(this.validationTimer);
-                        this.validationTimer = this.processFieldValidation.delay(500, this, field);
+                        this.validationTimer = this.processFieldValidation.delay(250, this, field);
                     }
 
                 }.bind(this));
@@ -253,12 +262,12 @@ BaseZF.Helper.FormAjaxValidate = new Class({
     {
         // is a field for check previous value ?
         var parentField = this.getFieldCheckParent(field);
-        if ($type(parentField)) {
+        if ($type(parentField) == 'element') {
 
             // validate parent field if has value and no error
             if(!this.hasError(parentField)) {
 
-                if ( parentField.value.length == 0) {
+                if (parentField.value.length == 0) {
                     field = parentField;
                 }
             } else {
@@ -307,8 +316,8 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
         } else {
 
-            field.addClass('loading');
-            field.removeClass.delay(1000, field, 'loading');
+            container.addClass('loading');
+            container.removeClass.delay(1000, container, 'loading');
 
             var myRequest = this.getRequest({
                 method: this.elements.form.get('method'),
@@ -365,7 +374,10 @@ BaseZF.Helper.FormAjaxValidate = new Class({
      */
 
     getFieldCheckParent: function(field) {
-        return this.elements.form.getElement('[name=' + field.name.replace('_check','') + ']')
+
+        if (field.name.contains('_check')) {
+            return this.elements.form.getElement('[name=' + field.name.replace('_check','') + ']')
+        }
     },
 
     getFieldCheck: function(field) {
