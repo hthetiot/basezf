@@ -34,8 +34,6 @@ class BaseZF_Framework_Validate_StringEquals extends Zend_Validate_Abstract
      */
     public function __construct() {
         $this->_fields = func_get_args();
-
-        var_dump($this->_fields);
     }
 
     /**
