@@ -177,7 +177,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
     },
 
-    addFieldErrors: function(field, errorsMsg) {
+    addFieldErrors: function(field, errorsMsg, noScroll) {
 
         var container = field.retrieve('formContainer');
         var fieldValue = this.toQueryString(container);
@@ -187,6 +187,8 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
         // build errorsMsg
         container.addClass('error');
+        container.removeClass('validate');
+
         var errorList = new Element('ul', {'class': 'errors'});
         $H(errorsMsg).each(function(error, errorType) {
             var errorEntry = new Element('li').appendText(error);
@@ -195,7 +197,9 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
         errorList.injectTop(container);
 
-        this.scrollField(field);
+        if (!$type(noScroll)) {
+            this.scrollField(field);
+        }
     },
 
     clearFieldErrors: function(field) {
@@ -275,7 +279,6 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             }
         }
 
-
         var container = field.retrieve('formContainer');
 
         // do not valid same error value
@@ -298,8 +301,6 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         // disable form submit
         this.beginTransaction();
 
-        this.processingElement.push(field);
-
         // clear field errors
         this.clearFieldErrors(field);
 
@@ -316,14 +317,15 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
         } else {
 
+            // set field has loading
+            container.removeClass('validate');
             container.addClass('loading');
-            container.removeClass.delay(1000, container, 'loading');
 
             var myRequest = this.getRequest({
                 method: this.elements.form.get('method'),
                 url: this.elements.form.get('action'),
                 data: fieldValue
-            }, 'JSON', this);
+            }, 'JSON', this, true);
 
             myRequest.send();
         }
@@ -338,23 +340,28 @@ BaseZF.Helper.FormAjaxValidate = new Class({
     {
         try {
 
+            var fieldErrors = $H(json);
+
             // add error on field
-            $H(json).each(function(errorsMsg, field) {
+            fieldErrors.each(function(errorsMsg, field) {
 
                 var field = this.elements.form.getElement('[name^=' + field + ']');
-                this.addFieldErrors(field, errorsMsg);
+                var container = field.retrieve('formContainer');
+
+                // add error is needed
+                if (errorsMsg != null) {
+                    this.addFieldErrors(field, errorsMsg);
+                // add validate
+                } else {
+                    container.addClass('validate');
+                }
 
                 // update cache
                 this.updateFieldCache(field, errorsMsg);
 
-                // remove from spool
-                this.processingElement.erase(field);
+                // hide loading
+                container.removeClass('loading');
 
-            }, this);
-
-            // update field cache with good response
-            this.processingElement.each(function(field) {
-                this.updateFieldCache(field, null);
             }, this);
 
             // hide loading

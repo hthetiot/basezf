@@ -30,14 +30,16 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
             // ajax validation
             if ($this->isJson) {
 
+                // test asynchron validation
+                if (isset($formData['first_name'])) {
+                    sleep(5);
+                }
+
                 // set output mode for json only
                 $this->_makeJson();
 
-                $this->_setJson(array());
-                if (!$form->isValidPartial($formData)) {
-                    $messages = $form->getMessages();
-                    $this->_setJson($messages);
-                }
+                $response = $form->processJson($formData);
+                $this->_setJson($response);
 
             // check if all form is valid before normal process
             } else {

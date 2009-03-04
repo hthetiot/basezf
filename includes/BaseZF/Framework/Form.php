@@ -35,7 +35,20 @@ abstract class BaseZF_Framework_Form extends Zend_Form
      */
     public function processJson($formData)
     {
-        return json_decode($this->processAjax($formData), true);
+        $response = array();
+
+        if (!$this->isValidPartial($formData)) {
+            $response = $this->getMessages();
+        }
+
+        $params = array_keys($formData);
+        foreach ($params as $param) {
+            if (!isset($response[$param])) {
+                $response[$param] = null;
+            }
+        }
+
+        return $response;
     }
 
     /**

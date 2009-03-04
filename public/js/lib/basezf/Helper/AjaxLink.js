@@ -75,10 +75,13 @@ BaseZF.Helper.AjaxAbstract = {
         }
     },
 
-    getRequest: function(options, type, origin) {
+    getRequest: function(options, type, origin, notUnique) {
 
         // one request per helper
-        if (typeof(this.myRequest) != 'undefined') {
+        if (
+            typeof(notUnique) == 'undefined' &&
+            typeof(this.myRequest) != 'undefined'
+        ) {
             this.myRequest.cancel();
         }
 

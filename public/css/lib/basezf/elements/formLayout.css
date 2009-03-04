@@ -532,6 +532,19 @@ form.formLayout div.selectThumbnails input:checked+span>img
 form.formLayout div.loading input {
     background: #FFF url(/images/lib/basezf/elements/formLayout/inputLoading.gif) no-repeat scroll 188px 2px;
 }
+
+form.formLayout div.wide.loading input
+{
+    background-position: 327px 2px;
+}
+
+form.formLayout div.validate input {
+    background: #EFF5EA;
+    border:1px solid #95A486;
+    border-color:#95A486 #637451 #637451 #95A486;
+}
+
+
 /*@end*/
 
 
