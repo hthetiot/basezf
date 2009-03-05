@@ -10,29 +10,30 @@
 
 abstract class BaseZF_StCollection extends ArrayObject
 {
-    protected $_disableExtendedId = false;
-
     /**
      * do not forget to specify into inherited class property:
      * protected $_data = array(...);
      */
     protected $_data = array();
 
+    /**
+	 * Static instance cache
+	 */
+	protected static $_STATIC_INSTANCES = array();
+
 	/**
      * Constructor fill array object from array
      */
-    public function __construct($itemClassName = 'BaseZF_StItem')
+    public function __construct($itemClassName = null)
     {
-        $has_numeric_key = false;
         $rows = array();
+        $has_numeric_key = false;
+        $itemClassName = $this->_getItemClassName($itemClassName);
 
-        if(is_array($this->_data)) {
-
-            foreach ($this->_data as $key => $item) {
-                $row = new $itemClassName($key, $item);
-                $rows[$key] = $row;
-                $has_numeric_key = $has_numeric_key || strcmp(intval($key),$key)==0;
-            }
+        foreach ($this->_data as $key => $item) {
+            $row = new $itemClassName($key, $item);
+            $rows[$key] = $row;
+            $has_numeric_key = $has_numeric_key || strcmp(intval($key),$key)==0;
         }
 
         parent::__construct($rows);
@@ -42,57 +43,91 @@ abstract class BaseZF_StCollection extends ArrayObject
         }
     }
 
-	/**
+    /**
 	 * Get instance of allready contructed object
 	 *
 	 * @return object instance of StCollection
 	 */
-	static protected function getInstance($className, $itemClassName = 'BaseZF_StItem')
+	static protected function getInstance($className, $itemClassName = null)
 	{
-        static $instances;
-
-        if(!isset($instances)) {
-            $instances = array();
+        if(!isset(self::$_STATIC_INSTANCES[$className])) {
+            self::$_STATIC_INSTANCES = &new $className($itemClassName);
         }
 
-        if(!isset($instances[$className])) {
-            $instances[$className] = new $className($itemClassName);
-        }
-
-        return $instances[$className];
+        return self::$_STATIC_INSTANCES;
 	}
 
+    //
+	// StItem manager
+	//
+
     /**
-     * Get a StItem from collection
+     * Get stItem class name
      *
-     * @param void $id stiem id
-     *
-     * @return BaseZF_StItem object
+     * @return string stItem classname
      */
-    protected function _getStItem($id)
+    protected function _getItemClassName($collClassName = null)
     {
-        if (!$this->_disableExtendedId) {
-            $id = BaseZF_StItem::getIdFromExtendedId($id);
+        if (is_null($collClassName)) {
+            $collClassName = get_class($this);
         }
 
-        if (!parent::offsetExists($id)) {
-            throw new BaseZF_StCollection_Exception('No existing StItem for id : "' . $id . '"');
+        $itemClassName = str_replace('_StCollection', '_StItem', $collClassName);
+
+        try {
+
+            Zend_Loader::loadClass($itemClassName);
+
+            if(!class_exists($itemClassName, true)) {
+                throw new Exception('not existing class '. $classItem);
+            }
+
+        } catch (Exception  $e) {
+
+            $itemClassName = $this->_getItemClassName('BaseZF_StCollection');
         }
 
-        return parent::offsetGet($id);
+        return $itemClassName;
+    }
+
+    //
+	// DbItem data
+	//
+
+	/**
+     * Retrieve property items values has array
+     *
+     * @param string property item name
+     *
+     * @return array of property value index by stItem ids
+     */
+    public function getProperty($property)
+    {
+        $result = array();
+        foreach ($this as $id=> $item) {
+            $result[$id] = $item->$property;
+        }
+
+        return $result;
     }
 
     /**
-     * @todo doc
+     * Retrieve properties items values has array
+     *
+     * @param array properties item name
+     *
+     * @return array of properties value index by stItem ids
      */
-    public function getProperty($property = 'name')
+    public function getProperties(array $properties)
     {
-        $value = array();
-        foreach ($this as $id => $data) {
-            $value[$id] = $data[$property];
+        $result = array();
+        foreach ($this as $id=> $item) {
+            foreach ($properties as $property) {
+                $result[$id] = $item->$property;
+            }
         }
 
-        return $value;
+        return $result;
     }
 }
 

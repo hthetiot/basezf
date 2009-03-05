@@ -10,8 +10,14 @@
 
 class BaseZF_StItem extends ArrayObject {
 
+    /**
+     * Encrypt ids key
+     */
     const EXTENTED_ID_INCREMENT = 123;
 
+    /**
+     * Unique Id
+     */
     private $_id;
 
 	/**
