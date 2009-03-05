@@ -390,7 +390,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		//
 		// Verification fields
 		//
-/*
+
 		$this->addElement('info', 'info4', array(
             'label'		=> __('Verification Information'),
 			'messages'	=> array(
@@ -418,7 +418,6 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		), 'check_information');
 
         $this->getDisplayGroup('check_information')->setLegend(__('Verification'));
-*/
 
         // submit and reset buttons
         $this->addElement('reset', 'reset', array('label' => __('Cancel')))
