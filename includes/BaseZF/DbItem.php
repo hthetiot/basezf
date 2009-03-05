@@ -150,9 +150,10 @@ abstract class BaseZF_DbItem
      */
     protected static function _getItemClassName($table, $classBase = __CLASS__)
     {
-        $classItem = $classBase . '_'.implode('_', array_map('ucfirst', explode('_', $table)));
+        $classItem = $classBase . '_' . implode('_', array_map('ucfirst', explode('_', $table)));
 
         try {
+
             Zend_Loader::loadClass($classItem);
 
             if(!class_exists($classItem, true)) {
@@ -160,7 +161,9 @@ abstract class BaseZF_DbItem
             }
 
             return $classItem;
+
         } catch (Exception $e) {
+
             return $classBase;
         }
     }

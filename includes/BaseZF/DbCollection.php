@@ -647,7 +647,22 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 
 	protected function _getDbItemClassName()
 	{
-		return str_replace('DbCollection', 'DbItem', get_class($this));
+		if (is_null($collClassName)) {
+            $collClassName = get_class($this);
+        }
+
+        $itemClassName = str_replace('_StCollection', '_StItem', $collClassName);
+
+        try {
+
+            Zend_Loader::loadClass($itemClassName);
+
+        } catch (BaseZF_Error_Exception  $e) {
+
+            $itemClassName = $this->_getItemClassName('BaseZF_DbCollection');
+        }
+
+        return $itemClassName;
 	}
 
 	/**
@@ -708,7 +723,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $result = array();
         $this->_saveIteratorPosition();
         try {
-            foreach ($this as $id=>$item) {
+            foreach ($this as $id => $item) {
                 $result[$id] = $item->$property;
             }
         } catch (Exception $e) {
