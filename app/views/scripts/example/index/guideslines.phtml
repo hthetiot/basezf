@@ -1,17 +1,98 @@
 <div id="main" class="l-border r-border span-15">
 
-    <h1 id="title"><a href="#Title">Title</a></h1>
+    <h1 id="title"><a href="#Title">Coding Guidelines</a></h1>
+
+    <h2><a href="#Section">Naming convention</a></h2>
 
     <p class="description">
-        Bla bla...
+        <ul>
+            <li>Short names are quicker to write, harder to read</li>
+            <li>Prefer printArray() rather than p_ar())</li>
+            <li>Use $videoId rather than $vid</li>
+            <li>Methods are verbs/action, variables are names/subjects</li>
+            <li>A method does ONLY and ALL what its name says, not more, not less</li>
+            <li>The method name should describe its arguments
+                <ul>
+                    <li>prefer getItemById($id) rather than getItem($id)</li>
+                    <li>prefer moveItemFromPositionToPosition(ItemClass $item, $fromPosition, $toPosition) rather than move(ItemClass $item, $p1, $p2)</li>
+                </ul>
+            </li>
+        </ul>
     </p>
 
-    <h2 id="Section"><a href="#Section">Section</a></h2>
-    <h3 id="">Sub Sections</h3>
+    <h2><a href="#Section">Code conventions</a></h2>
 
     <p class="description">
-        Bla bla...
+        <ul>
+            <li>4 spaces indentation (tabs are not allowed, anywhere, anytime)</li>
+            <li>No space between a function name and its parenthesis</li>
+            <li>Space between a parenthesis and arguments in the parenthesis</li>
+            <li>No close tag ?> at the end of file, but new blank line
+                <?php
+
+                    $source = array();
+                    $source[] = 'static public function foo($test, $test2) //spaces after commas';
+                    $source[] = "array('foo', 'bar'); //small array notation";
+
+                    echo $this->GeSHi(implode("\n", $source), 'php');
+                ?>
+            </li>
+            <li>bigger array notation (in php we add a trailling commas in order to avoid syntax errors)
+
+            <?php
+
+                $source = array();
+                $source[] = '$test = array (';
+                $source[] = "   'test' => 'foo',";
+                $source[] = "   'tilt' => 'bar',";
+                $source[] = "   'subarray' => array (";
+                $source[] = "       'foo' => 'bar', ";
+                $source[] = "   ),";
+                $source[] = ");";
+
+                echo $this->GeSHi(implode("\n", $source), 'php');
+            ?>
+            </li>
+        </ul>
     </p>
+
+    <h2><a href="#Section">PHP Source</a></h2>
+
+    <p class="description">
+        <ul>
+            <li>Php 5 only</li>
+            <li>One object, one file</li>
+            <li>Objects are not supposed to print anything</li>
+            <li>Use object approach</li>
+            <li>Prefer to pass objects to functions rather than ids</li>
+            <li>Opening Php tag is <?php echo $this->escape('<?php'); ?> not <?php echo $this->escape('<?'); ?></li>
+            <li>Return $this on class methods if methods return nothing...</li>
+        </ul>
+
+
+    <h3>References</h3>
+
+    <ul>
+        <li><a href="http://www.php.net/zend-engine-2.php">http://www.php.net/zend-engine-2.php</li>
+        <li><a href="http://www.php.net/manual/en/language.exceptions.php">http://www.php.net/manual/en/language.exceptions.php</li>
+        <li><a href="http://en.wikipedia.org/wiki/Design_pattern">http://en.wikipedia.org/wiki/Design_pattern</a> (computer_science) (Iterator, Singleton, Factory...)</li>
+    </ul>
+
+    <h2><a href="#Section">Javascript Source</a></h2>
+
+    <ul>
+        <li>object notation (namespace to avoid conflicts)</li>
+        <li>scripts should be in js files, not in html code</li>
+    </ul>
+
+    <h2><a href="#Section">HTML</a></h2>
+    <h3>References</h3>
+    <ul>
+        <li><a href="http://www.w3.org/TR/html401/strict.dtd">http://www.w3.org/TR/html401/strict.dtd</a></li>
+    </ul>
+
+
+
 
 </div>
 
