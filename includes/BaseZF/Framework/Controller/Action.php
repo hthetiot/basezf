@@ -41,6 +41,12 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     public $isAjaxHtml;
 
     /**
+     * inited Response
+     * @var boolean
+     */
+    protected $_initedReponse = false;
+
+    /**
      * Initialize object
      *
      * Called from {@link __construct()} as final step of object instantiation.
@@ -164,6 +170,10 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
      */
     protected function _initResponse()
     {
+        if ($this->_initedReponse) {
+            return;
+        }
+
         if ($this->isJson) {
             $this->_makeJson();
         } else if ($this->isAjax) {
@@ -202,6 +212,9 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
         $this->view->isAjax = $this->isAjax = true;
         $this->view->isAjaxHtml = $this->isAjaxHtml = false;
 
+        // set response has inited
+        $this->_initedReponse = true;
+
         return $this;
     }
 
@@ -224,6 +237,8 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
         $this->view->isAjax = $this->isAjax = true;
         $this->view->isAjaxHtml = $this->isAjaxHtml = true;
 
+        // set response has inited
+        $this->_initedReponse = true;
     }
 
     //
@@ -271,6 +286,9 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
         // set controller properties
         $this->view->isJson = $this->isJson = true;
+
+        // set response has inited
+        $this->_initedReponse = true;
 
         return $this;
     }
