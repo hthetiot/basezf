@@ -42,7 +42,7 @@ final class MyProject
 	private static function _createLogger()
 	{
 		// get config
-        $config = Self::registry('config');
+        $config = MyProject::registry('config');
 
 		// disabled log
 		if (!$config->log->enable) {
@@ -98,7 +98,7 @@ final class MyProject
     private static function _createDb()
 	{
         // get config
-        $config = Self::registry('config');
+        $config = MyProject::registry('config');
 
         // init db
         $db = Zend_Db::factory($config->db);
@@ -110,7 +110,7 @@ final class MyProject
     private static function _createDbCache()
 	{
 		// get config
-        $config = Self::registry('config');
+        $config = MyProject::registry('config');
 
         $frontendOptions = array();
         if (isset($config->dbcache->frontend)) {
@@ -136,7 +136,7 @@ final class MyProject
     private static function _createSession()
 	{
         // get config
-        $config = Self::registry('config');
+        $config = MyProject::registry('config');
 
         // set session config if available
         if (isset($config->session)) {
@@ -207,7 +207,7 @@ final class MyProject
 			}
 
 			// call
-			$object = self::$callbackFunc();
+			$object = MyProject::$callbackFunc();
 
 			Zend_Registry::set($registryKey, $object);
 
@@ -242,7 +242,7 @@ final class MyProject
      */
 	public static function log($msg, $level = Zend_Log::INFO)
 	{
-		$logger = Self::registry('logger');
+		$logger = MyProject::registry('logger');
 
 		if ($logger->hasWriter()) {
 			return $logger->log($msg, $level);
