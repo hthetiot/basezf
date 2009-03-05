@@ -111,6 +111,7 @@
         RewriteRule ^.*$ - [NC,L]
 
         RewriteCond %{REQUEST_URI} !^/debug/.*
+        RewriteCond %{REQUEST_URI} !^/tools/.*
         RewriteRule !\.(cgi|js|ico|gif|jpg|png|css|htc|rdf|xpi|src|pdf|swf|xml)$ /index.php [L]
     </IfModule>
 

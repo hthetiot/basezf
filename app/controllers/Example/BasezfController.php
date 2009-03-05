@@ -25,15 +25,37 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
     public function notifyAction()
     {
+        /*
+        $notify = BaseZF_Notify::getInstance();
+
+        if($data = $notify->get('test')) {
+            var_dump($data);
+        } else {
+            $notify->set('test', 'toto');
+        }
+
+        die();
+        */
     }
 
     public function stitemAction()
     {
+        /*
+        $countries = MyProject_StCollection_Country::getInstance();
+
+
+        foreach ($countries as $country) {
+
+            echo $country->getExtendedId();
+        }
+
+        die();
+        */
     }
 
     public function dbitemAction()
 	{
-
+/*
         // clear count cache /cache/perpage
 		// add collection dependency
 
@@ -105,6 +127,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
         foreach($examples as $example) {
             echo $example->getId() . '/' . $example->login . "<br />";
         }
+        */
 
     }
 

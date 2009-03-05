@@ -16,22 +16,20 @@
     <h3>Arguments:</h3>
 
     <pre>
-    Corner Name :              cn (one of: tl, bl, tr, br)
-    Height      :              h (height for elliptical arc)
-    Width       :              w (width for elliptical arc)
-    Size        :              s (alternative parameter for circular arc)
-    Border      :              b (thickness of optional border line)
-    Border color:              cb (ignored unless b!=0)
-    Inner color :              ci
-    Outer color :              co
-    </pre>
+Corner Name :              cn (one of: tl, bl, tr, br)
+Height      :              h (height for elliptical arc)
+Width       :              w (width for elliptical arc)
+Size        :              s (alternative parameter for circular arc)
+Border      :              b (thickness of optional border line)
+Border color:              cb (ignored unless b!=0)
+Inner color :              ci
+Outer color :              co</pre>
 
     <h3>Usage:</h3>
 
     <pre>
-    /tools/rounded.php?cn=tl&s=10&ci=ffffff&co=000077 (top left 10x10 image, white inside, light blue outside)
-    /tools/rounded.php?cn=tr&h=20&w=20&ci=ffffff&co=000077 (top right 10x20 elliptical corner image, white inside, light blue outside)
-    </pre>
+/tools/rounded.php?cn=tl&s=10&ci=ffffff&co=000077 (top left 10x10 image, white inside, light blue outside)
+/tools/rounded.php?cn=tr&h=20&w=20&ci=ffffff&co=000077 (top right 10x20 elliptical corner image, white inside, light blue outside)</pre>
 
 
     <h2 id="Container"><a href="#Container">Container</a></h2>
@@ -63,15 +61,15 @@
     <?php
         $source= array();
         $source[] = '<div class="rbroundbox">';
-        $source[] = '        <div class="rbtop"><div></div></div>';
-        $source[] = '            <div class="rbcontent">';
+        $source[] = '   <div class="rbtop"><div></div></div>';
+        $source[] = '       <div class="rbcontent">';
         $source[] = '';
-        $source[] = '               <h2>Header</h2>';
-        $source[] = '               <p>Text here my love.</p>';
+        $source[] = '           <h2>Header</h2>';
+        $source[] = '           <p>Text here my love.</p>';
         $source[] = '';
-        $source[] = '            </div>';
-        $source[] = '        <div class="rbbot"><div></div></div>';
-        $source[] = '    </div>';
+        $source[] = '        </div>';
+        $source[] = '    <div class="rbbot"><div></div></div>';
+        $source[] = '</div>';
 
         echo $this->GeSHi(implode("\n", $source), 'css');
     ?>

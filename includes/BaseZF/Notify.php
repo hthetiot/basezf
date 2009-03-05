@@ -77,7 +77,7 @@ class BaseZF_Notify
 
         $this->_data[$notifierId][] = $data;
 
-        $this->updateStorage();
+        $this->_updateStorage();
 
         return $this;
     }
@@ -150,7 +150,7 @@ class BaseZF_Notify
             unset($this->_data[$notifierId]);
         }
 
-        $this->updateStorage();
+        $this->_updateStorage();
 
         return $this;
     }
@@ -171,7 +171,7 @@ class BaseZF_Notify
      *
      * @return object instance of Bahu_Notify
      */
-    protected function updateStorage()
+    protected function _updateStorage()
     {
         $this->_storage->data = $this->_data;
 
