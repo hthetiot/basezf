@@ -305,7 +305,13 @@ form.formLayout div.error ul.errors li{
 * Element: formFile
 * @begin
 */
-form.formLayout div.formFileFancy input.formFile {
+
+form.formLayout div div.formFileContainer
+{
+    position: relative;
+}
+
+form.formLayout div.formFileContainer input.formFile {
     position: relative;
 	text-align: right;
 	-moz-opacity:0 ;
@@ -314,20 +320,32 @@ form.formLayout div.formFileFancy input.formFile {
 	z-index: 2;
 }
 
-form.formLayout div.formFileFancy input.formFileFake
+form.formLayout div div.formFileContainer input.formFileFake
 {
     height: 15px;
-    width: 125px
+    width: 125px;
+    margin: 0;
 }
 
-form.formLayout div.formFileFancy div {
+form.formLayout div div.formFileContainer div {
     top:0;
     position:absolute;
     left:0;
     z-index:1;
-    padding: 2px 0 0 143px;
+    padding: 0 0 0 143px;
     cursor:pointer;
 }
+
+form.formLayout div.wide div.formFileContainer div
+{
+    padding: 0;
+}
+
+form.formLayout div.wide div.formFileContainer input.formFileFake
+{
+    width:265px;
+}
+
 /*@end*/
 
 /**

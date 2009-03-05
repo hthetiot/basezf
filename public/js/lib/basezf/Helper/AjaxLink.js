@@ -184,7 +184,7 @@ BaseZF.Helper.AjaxLink = new Class({
         try {
 
             if ($type(responseJavaScript) && responseJavaScript.length > 0) {
-                //eval(responseJavaScript);
+                eval(responseJavaScript);
             }
 
             if ($type(responseHTML) && responseHTML.length > 0) {

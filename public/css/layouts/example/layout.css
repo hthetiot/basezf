@@ -227,7 +227,7 @@ form.formLayout input.formReset,
 form.formLayout input.formSubmit,
 form.formLayout input.formButton
 {
-    height: 23px;
+    height: 21px;
     cursor:pointer;
     border:outset 1px #ccc;
     background:#999;

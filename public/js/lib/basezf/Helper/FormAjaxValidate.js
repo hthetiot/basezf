@@ -59,8 +59,9 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         // get fields container required
         this.elements.form.getElements('div.required, div.optional').each( function(container) {
 
-            // check semaphore
-            if (0) {
+            // ignore file input
+            if (container.getElement('input[type=file]')) {
+                return;
             }
 
             // save container

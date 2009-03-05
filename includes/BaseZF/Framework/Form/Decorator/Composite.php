@@ -55,12 +55,22 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
 		unset($newAttribs['helper']);
 		unset($newAttribs['container_class']);
 
-        return $element->getView()->$helper(
-            $element->getName(),
-            $element->getValue(),
-            $newAttribs,
-            $element->options
-        );
+        if ($helper == 'formFile') {
+
+            return $element->getView()->$helper(
+                $element->getName(),
+                $newAttribs
+            );
+
+        } else {
+
+            return $element->getView()->$helper(
+                $element->getName(),
+                $element->getValue(),
+                $newAttribs,
+                $element->options
+            );
+        }
     }
 
     public function buildDescription()

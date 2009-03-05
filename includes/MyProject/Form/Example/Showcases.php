@@ -345,10 +345,52 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 
         $this->getDisplayGroup('login_information')->setLegend(__('Login Information'));
 
+        //
+		// Avatar
+		//
+
+        $this->addElement('info', 'info5', array(
+            'label'		=> __('Avatar Information'),
+			'messages'	=> array(
+                __('You can upload a JPG, GIF or PNG file.'),
+                __('File size limit 4 MB. If your upload does not work, try a smaller picture.'),
+            )
+		));
+
+        // add synchron upload support
+        $this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
+        $this->addElement('file', 'avatar_file', array(
+            'label'         => __('Upload your Avatar:'),
+            'required'      => true,
+
+			// extras
+			'container_class'	=> 'wide',
+        ));
+
+        $this->addElement('checkbox', 'therms_file', array(
+            'label'         => __('I certify that I have the right to distribute this picture and that it does not violate the Terms of Use'),
+            'required'      => true,
+
+            // extras
+			'container_class'	=> 'wide',
+        ));
+
+        $thermsRequired = new Zend_Validate_InArray(array(1));
+        $thermsRequired->setMessage('You should accept the Terms of Use');
+        $this->getElement('therms_file')->addValidator($thermsRequired);
+
+        $this->addDisplayGroup(array(
+			'info5',
+            'avatar_file',
+            'therms_file',
+		), 'avatar');
+
+        $this->getDisplayGroup('avatar')->setLegend(__('Avatar'));
+
 		//
 		// Verification fields
 		//
-
+/*
 		$this->addElement('info', 'info4', array(
             'label'		=> __('Verification Information'),
 			'messages'	=> array(
@@ -376,7 +418,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		), 'check_information');
 
         $this->getDisplayGroup('check_information')->setLegend(__('Verification'));
-
+*/
 
         // submit and reset buttons
         $this->addElement('reset', 'reset', array('label' => __('Cancel')))
