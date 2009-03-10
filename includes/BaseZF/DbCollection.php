@@ -645,13 +645,13 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 	// DbItem manager
 	//
 
-	protected function _getDbItemClassName()
+	protected function _getDbItemClassName($collClassName = null)
 	{
 		if (is_null($collClassName)) {
             $collClassName = get_class($this);
         }
 
-        $itemClassName = str_replace('_StCollection', '_StItem', $collClassName);
+        $itemClassName = str_replace('_DbCollection', '_DbItem', $collClassName);
 
         try {
 
