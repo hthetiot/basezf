@@ -1,0 +1,41 @@
+<div id="main" class="l-border r-border span-15">
+
+    <h1 id="title"><a href="#Title">Google Analytics</a></h1>
+
+    <p class="description">
+        Bla bla...
+    </p>
+
+    <h2 id="Usage"><a href="#Usage">Usage</a></h2>
+
+<?php
+
+    $source = array();
+    $source[] = '// in layout or init of controller';
+    $source[] = "\$trackerId = '123';";
+    $source[] = '$googleAnalytics = $this->GoogleAnalytics($trackerId, array(';
+    $source[] = "   array('setVar', 'sex:f'),";
+    $source[] = "   array('setVar', 'member_id:' . \$memberId),";
+    $source[] = "));";
+    $source[] = '';
+    $source[] = "// from controller or view";
+    $source[] = '$this->GoogleAnalytics()->setVar($trackerId, \'another_var\');';
+    $source[] = '$this->view->GoogleAnalytics()->setVar($trackerId, \'online:1\');';
+    $source[] = '';
+    $source[] = '// displaying tracker';
+    $source[] = 'echo $this->GoogleAnalytics();';
+
+    echo $this->GeSHi(implode("\n", $source), 'php');
+?>
+
+    <h2 id="Functions"><a href="#Functions">Functions</a></h2>
+
+    <h3 id="">Sub Sections</h3>
+
+</div>
+
+<div id="menu" class="span-2 last">
+    <h4 class="menu-item"><a href="#Title">Google Analytics</a></h4>
+    <div class="menu-item"><a href="#Usage">Usage</a></div>
+    <div class="menu-item"><a href="#Functions">Functions</a></div>
+</div>

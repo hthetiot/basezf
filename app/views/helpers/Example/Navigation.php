@@ -19,13 +19,13 @@ class View_Helper_Example_Navigation extends BaseZF_Framework_View_Helper_Abstra
         $menus = array(
 
             '' => array(
-                '/example'                  => 'Home',
-                '/example/index/guideslines'      => 'Coding Guidelines',
+                '/example'                      => 'Home',
+                '/example/index/guideslines'    => 'Coding Guidelines',
             ),
 
             'Tools' => array(
-               '/example/index/blueprint'         => 'Blueprint',
-               '/example/index/mootools'          => 'Mootools',
+               '/example/index/blueprint'       => 'Blueprint',
+               '/example/index/mootools'        => 'Mootools',
             ),
 
             'Form Elements' => array(
@@ -51,6 +51,7 @@ class View_Helper_Example_Navigation extends BaseZF_Framework_View_Helper_Abstra
 
             'Helpers' => array(
                 '/example/helper/geshi'            => 'GeShi',
+                '/example/helper/googleanalytics'  => 'Google Analytics',
             ),
 
             'Classes' => array(
