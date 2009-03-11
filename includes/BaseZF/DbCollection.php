@@ -548,6 +548,8 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     public function clearPerPageCache($perPage = null, $recordCount = null)
     {
+        return;
+
 		$select = $this->_getDbSelectInstance();
 		$cache = $this->_getCacheInstance();
 
@@ -570,6 +572,8 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 
 	public function _updatePerPageCache(Zend_Db_Select $select)
 	{
+        return;
+
 		$select = $this->_getDbSelectInstance();
 		$cache = $this->_getCacheInstance();
 
