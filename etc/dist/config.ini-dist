@@ -29,8 +29,8 @@ log.components.dbquery       = false
 
 #debug
 debug.cookie_name       = DEBUG_ME
-debug.enable            = false
-debug.report.enable     = true
+debug.enable            = true
+debug.report.enable     = false
 debug.report.to         = my@example.com
 debug.report.from       = debug@example.com
 
