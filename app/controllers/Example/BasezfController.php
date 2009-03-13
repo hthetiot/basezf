@@ -55,7 +55,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
     public function dbitemAction()
 	{
-/*
+
         // clear count cache /cache/perpage
 		// add collection dependency
 
@@ -99,7 +99,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		// select
 		echo '<hr />';
 		echo 'properties dbItem:' . "<br />";
-		$example = MyProject_DbItem::getInstance('example', $id);
+		$example = MyProject_DbItem_Example::getInstance('example', $id);
         $example->getId();
         echo $example->login;
 
@@ -107,6 +107,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		echo '<hr />';
 		echo 'update dbItem:' . "<br />";
 		$example->login = 'titi' . time();
+        $example->login = 'titi' . time();
 		$example->update();
 		echo 'done';
 
@@ -127,7 +128,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
         foreach($examples as $example) {
             echo $example->getId() . '/' . $example->login . "<br />";
         }
-        */
+
 
     }
 
