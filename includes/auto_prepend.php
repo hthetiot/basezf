@@ -29,7 +29,7 @@ date_default_timezone_set('Europe/Paris');
 define('PATH_BASE',             realpath(dirname(__FILE__) . '/..'));
 define('PATH_TO_INCLUDES',      realpath(dirname(__FILE__)));
 define('PATH_TO_BIN',           PATH_BASE . '/bin');
-define('PATH_TO_LIBRARY',       PATH_BASE . '/library');
+define('PATH_TO_LIBRARY',       PATH_BASE . '/lib');
 define('PATH_TO_DOCUMENT_ROOT', PATH_BASE . '/public');
 define('PATH_TO_APPLICATION',   PATH_BASE . '/app');
 define('PATH_TO_CONFIG',        PATH_BASE . '/etc');
