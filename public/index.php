@@ -16,7 +16,7 @@ BaseZF_Error_Handler::getInstance();
 /**
  * Main BootStrap
  */
-final class Bootstrap extends BaseZF_Bootstrap
+final class MyProject_Bootstrap extends BaseZF_Bootstrap
 {
     protected $_controllerModules = array(
         'default',
@@ -30,5 +30,5 @@ final class Bootstrap extends BaseZF_Bootstrap
 }
 
 // launch Bootstrap
-Bootstrap::run();
+MyProject_Bootstrap::run();
 
