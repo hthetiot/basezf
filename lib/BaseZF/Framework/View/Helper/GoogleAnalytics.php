@@ -101,7 +101,7 @@ class BaseZF_Framework_View_Helper_GoogleAnalytics
     public function __call($optionsName, $optionsArgs)
     {
         if (in_array($optionsName, self::$_availableOptions) === false) {
-            throw new BaseZF_Exception('Unknow "' . $optionFunc . '" GoogleAnalytics options');
+            throw new BaseZF_Exception('Unknown "' . $optionFunc . '" GoogleAnalytics options');
         }
 
         if (empty($optionsArgs)) {
