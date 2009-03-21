@@ -4,11 +4,9 @@
 # Targets:
 #  - clean: remove the staged files.
 #
-
-# Path
-ROOT = .
-PROJECT_LIB = $(ROOT)/lib
-PROJECT_BIN = $(ROOT)/bin
+# @copyright  Copyright (c) 2008 BaseZF
+# @author     Harold Thétiot (hthetiot)
+# @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
 # Binary
 ZIP = zip
@@ -20,16 +18,25 @@ YUI_VERSION = 2.3.5
 YUI = java -jar $(PROJECT_BIN)/yuicompressor-$(YUI_VERSION).jar --charset UTF-8
 
 # Project ID
-NAME = my_project_name
-VERSION = alpha
+PROJECT_NAME = MyProject
+PROJECT_VERSION = alpha
+
+# Path
+ROOT = .
+PROJECT_LIB = $(ROOT)/lib
+PROJECT_BIN = $(ROOT)/bin
 
 # Static
+LOCALES_SRC_PATH = $(ROOT)/app
 CSS_SRC_PATH = $(ROOT)/etc/static/css
 CSS_PACK_PATH = $(ROOT)/public/css/pack
 JS_SRC_PATH = $(ROOT)/etc/static/js
 JS_PACK_PATH = $(ROOT)/public/js/pack
 
 # Others
+RELEASE_NAME = $(NAME)-$(VERSION)
+CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
+
 ZIP_NAME = $(NAME)-$(VERSION).zip
 TAR_NAME = $(NAME)-$(VERSION).tar.gz
 
