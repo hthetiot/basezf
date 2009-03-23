@@ -1,0 +1,110 @@
+<?php
+/**
+ * Uwa layout for MyProject
+ *
+ * @category   MyProject_Layouts
+ * @package    MyProject
+ * @copyright  Copyright (c) 2008 MyProject
+ * @author     Harold Thétiot (hthetiot)
+ */
+
+    // set default title if empty
+    $this->headTitle()->set($this->widget->title);
+
+    // add default styleSheet
+    $this->headLink()->prependStylesheet('http://www.netvibes.com/themes/uwa/style.css');
+
+    // add default scripts
+    $this->headScript()->prependFile('http://www.netvibes.com/js/UWA/load.js.php?env=Standalone');
+
+    // set favicon
+    $this->headLink(array('rel' => 'favicon', 'href' => BASE_URL . '/favicon.ico', 'type' => 'image/x-icon'));
+
+    // add default meta
+    foreach($this->widget->metas as $name => $value) {
+        if (!is_null($value)) {
+            $this->headMeta()->appendName($name, $value);
+        }
+    }
+
+    // extract widget data
+    $widgetSource = $this->placeholder('Zend_Layout')->content;
+    $pattern = '|(<script[^>]*>([\s\S]*?)<\/script>)?(.*)?|ims';
+    preg_match($pattern, $widgetSource, $matches);
+
+    $widgetScript = isset($matches[2]) ? $matches[2] : null;
+    $widgetBody = isset($matches[3]) ? $matches[3] : null;
+
+    // render
+    echo '<?xml version="1.0" encoding="utf-8"?>';
+
+    // display DocType
+    echo $this->doctype() . "\n";
+
+?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:widget="http://www.netvibes.com/ns/">
+    <head>
+    <?php echo $this->headTitle(); ?>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink(); ?>
+    <?php echo $this->headScript(); ?>
+    <?php echo $this->headStyle(); ?>
+    <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/favicon.ico" />
+
+    <widget:preferences>
+    <?php
+        // render Widget preferences
+        foreach($this->widget->preferences as $name => $data) {
+
+            $attribs = array(
+                'name'          => $name,
+                'type'          => $data->type,
+                'label'         => $data->label, // label will translated
+                'defaultValue'  => $data->value,
+            );
+
+            foreach ($data->options as $option => $value) {
+                $attribs[$option] = $value;
+            }
+
+            $XhtmlAttribs = array();
+            foreach ($attribs as $key => $value) {
+                if ($key != 'options') {
+
+                    if (is_array($value)) {
+                        $value = json_encode($value);
+                    }
+
+                    $XhtmlAttribs[] = $key . '="' . $this->escape($value) . '"';
+                }
+            }
+
+            if ($data->type == 'list' && !empty($data->options['options'])) {
+                echo '<preference ' . implode(' ', $XhtmlAttribs) . '>';
+
+                foreach ($data->options['options'] as $key => $label) {
+                    echo '<option value="' . $key . '" label="' . $this->escape(__($label)) . '" />';
+                }
+
+                echo '</preference>';
+            } else {
+                echo '<preference ' . implode(' ', $XhtmlAttribs) . ' />';
+            }
+        }
+    ?>
+    </widget:preferences>
+    <script type="text/javascript">
+        widget.setTitle('<?php echo $this->escape(__($this->widget->title)); ?>');
+        <?php echo $widgetScript; ?>
+    </script>
+    <style>
+        #moduleIcon {
+            padding: 2px 5px 0 3px !important;
+        }
+    </style>
+    </head>
+    <body>
+        <?php echo $widgetBody; ?>
+    </body>
+</html>
+
