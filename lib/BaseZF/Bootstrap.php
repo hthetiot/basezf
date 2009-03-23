@@ -23,33 +23,28 @@ abstract class BaseZF_Bootstrap
         'example',
     );
 
-    protected function __construct()
+    public function __construct()
     {
-        if (Zend_Version::compareVersion($this->_zendRequiredVersion) > 0) {
-            throw new Exception('Require Zend Framework Version upper than ' . $this->_zendRequiredVersion . ', current is version ' . Zend_Version::VERSION);
-        }
+		try {
 
-        $this->_initLayout();
+			if (Zend_Version::compareVersion($this->_zendRequiredVersion) > 0) {
+				throw new Exception('Require Zend Framework Version upper than ' . $this->_zendRequiredVersion . ', current is version ' . Zend_Version::VERSION);
+			}
 
-        $this->_initView();
+			$this->_initLayout();
 
-        $this->_initFrontController();
-    }
+			$this->_initView();
 
-    static public function run()
-    {
-        try {
+			$this->_initFrontController();
 
-            new Bootstrap();
+			Zend_Controller_Front::getInstance()->dispatch();
 
-            Zend_Controller_Front::getInstance()->dispatch();
-
-        // catch exception
+			// catch exception
         } catch (Exception $e) {
 
             BaseZF_Error_Handler::printException($e);
         }
-    }
+	}
 
     protected function _initView()
     {

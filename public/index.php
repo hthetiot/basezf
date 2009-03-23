@@ -30,5 +30,5 @@ final class MyProject_Bootstrap extends BaseZF_Bootstrap
 }
 
 // launch Bootstrap
-MyProject_Bootstrap::run();
+new MyProject_Bootstrap();
 
