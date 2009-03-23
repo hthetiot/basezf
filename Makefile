@@ -20,6 +20,8 @@ YUI = java -jar $(PROJECT_BIN)/yuicompressor-$(YUI_VERSION).jar --charset UTF-8
 # Project ID
 PROJECT_NAME = MyProject
 PROJECT_VERSION = alpha
+PROJECT_MAINTAINER =
+PROJECT_MAINTAINER_COURRIEL = debug@myproject.com
 
 # Path
 ROOT = .
@@ -27,20 +29,20 @@ PROJECT_LIB = $(ROOT)/lib
 PROJECT_BIN = $(ROOT)/bin
 
 # Static
-LOCALES_SRC_PATH = $(ROOT)/app
+LOCALE_SRC_PATH = $(ROOT)/app/locales/
 CSS_SRC_PATH = $(ROOT)/etc/static/css
 CSS_PACK_PATH = $(ROOT)/public/css/pack
 JS_SRC_PATH = $(ROOT)/etc/static/js
 JS_PACK_PATH = $(ROOT)/public/js/pack
 
 # Others
-RELEASE_NAME = $(NAME)-$(VERSION)
+RELEASE_NAME = $(PROJECT_NAME)-$(PROJECT_VERSION)
 CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
 
 ZIP_NAME = $(NAME)-$(VERSION).zip
 TAR_NAME = $(NAME)-$(VERSION).tar.gz
 
-all: clean syntax locales static-pack
+all: clean syntax locale static-pack
 	@echo "----------------"
 	@echo "Project build complete."
 	@echo ""
@@ -66,10 +68,21 @@ test:
 	@cd tests && phpunit AllTests
 	@echo "done"
 
-locales:
+locale:
 	@echo "----------------"
-	@echo "Build GetText MO files:"
-#todo
+	@echo "Build GetText POT files:"
+	@touch $(LOCALE_SRC_PATH)/message.pot
+	@find . -type f -iname "*.php" | xgettext --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/message.pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) --package-version=$(PROJECT_VERSION) --package-name=$(PROJECT_NAME) -f -
+	@echo "done"
+
+locale-update:
+	@echo "----------------"
+	@echo "Update GetText PO files:"
+	@echo "done"
+
+locale-translator:
+	@echo "----------------"
+	@echo "Create a new GetText Po files:"
 	@echo "done"
 
 # Static packing

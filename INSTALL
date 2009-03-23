@@ -45,6 +45,9 @@
 * Locales need to be available on system
 --------------
 
+# find . -type f -iname "*.php" | xgettext --keyword=__ -j -s -o message.pot -f -
+# --msgid-bugs-address=ADRESSE@COURRIEL
+
 	+ linux locale
 	- bg_BG.UTF-8
 	- de_DE.UTF-8
