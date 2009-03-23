@@ -32,6 +32,7 @@ PROJECT_LOG = $(ROOT)/data/log
 
 # Locales
 LOCALE_SRC_PATH = $(ROOT)/app/locales
+LOCALE_PO_DIR = LC_MESSAGES
 LOCALE_DOMAINS = $(PROJECT_LOCALE_DOMAIN) time validate
 
 # Static
@@ -82,7 +83,7 @@ locale-template:
 	@echo "----------------"
 	@echo "Build GetText POT files for $(PROJECT_NAME):"
 	@touch $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
-	@find . -type f -iname "*.php" | xgettext --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) --package-version=$(PROJECT_VERSION) --package-name=$(PROJECT_NAME) -f -
+	@find . -type f -iname "*.php" | xgettext --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) -f -
 	@msguniq $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
 	@echo "done"
 
@@ -91,13 +92,13 @@ locale-update:
 	@echo "----------------"
 	@echo "Update GetText PO files from POT files:"
 	@for o in $(LOCALE_DOMAINS); do \
-	for i in `find $(LOCALE_SRC_PATH) -type d | grep LC_MESSAGES`; do \
-		if [ -e "$$i/$$o.po" ] ; then \
-			echo "Updated $$i/$$o.po"; \
-			msgmerge $(LOCALE_SRC_PATH)/$$o.pot $$i/$$o.po -o $$i/$$o.po; \
-			else msginit -l `echo "$(ROOT)/$$i" | sed 's:$(LOCALE_SRC_PATH)\/::g' | sed 's:\/LC_MESSAGES::g'` --no-translator --no-wrap -i $(LOCALE_SRC_PATH)/$$o.pot -o $$i/$$o.po; \
+	for i in `find $(LOCALE_SRC_PATH) -maxdepth 1 -mindepth 1 -type d`; do \
+		if [ -e "$$i/$(LOCALE_PO_DIR)/$$o.po" ] ; then \
+			echo "Updated $$i/$(LOCALE_PO_DIR)/$$o.po"; \
+			msgmerge $(LOCALE_SRC_PATH)/$$o.pot $$i/$(LOCALE_PO_DIR)/$$o.po -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
+			else mkdir $$i/$(LOCALE_PO_DIR)/ -p; msginit -l `echo "$(ROOT)/$$i" | sed 's:$(LOCALE_SRC_PATH)\/::g' | sed 's:\/LC_MESSAGES::g'` --no-translator --no-wrap -i $(LOCALE_SRC_PATH)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
 		fi; \
-		msguniq $$i/$$o.po -o $$i/$$o.po; \
+		msguniq $$i/$(LOCALE_PO_DIR)/$$o.po -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
     done \
 	done
 

@@ -9,6 +9,7 @@
 
 # production only files
 doc/*
+app/locales/*/LC_MESSAGES/*
 
 # config files
 etc/*.conf
