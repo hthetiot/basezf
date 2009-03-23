@@ -17,7 +17,9 @@ etc/*.ini
 includes/auto_prepend_local.php
 
 # debug output storage
-logs/*
+data/log/*
+data/cache/*
+data/upload/*
 
 # static packs
 public/css/pack/*.css

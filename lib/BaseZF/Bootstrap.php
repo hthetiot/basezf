@@ -12,9 +12,9 @@
 
 abstract class BaseZF_Bootstrap
 {
-    protected $_projectClassName;
+    protected $_zendRequiredVersion = '1.7.6';
 
-    protected $_useRouterRewrite = false;
+    protected $_projectClassName;
 
     protected $_controllerPlugins = array();
 
@@ -25,6 +25,10 @@ abstract class BaseZF_Bootstrap
 
     protected function __construct()
     {
+        if (Zend_Version::compareVersion($this->_zendRequiredVersion) > 0) {
+            throw new Exception('Require Zend Framework Version upper than ' . $this->_zendRequiredVersion . ', current is version ' . Zend_Version::VERSION);
+        }
+
         $this->_initLayout();
 
         $this->_initView();
@@ -82,11 +86,6 @@ abstract class BaseZF_Bootstrap
         $layout->setInflectorTarget(':script/layout.:suffix');
     }
 
-    /**
-     * Return an array of routes
-     */
-    abstract protected function _getRoutes();
-
     protected function _initFrontController()
     {
         // init standart router
@@ -95,6 +94,44 @@ abstract class BaseZF_Bootstrap
         // init dispatcher with modules controllers
         $dispatcher = new Zend_Controller_Dispatcher_Standard();
 
+        // init front controller
+        $frontController = Zend_Controller_Front::getInstance();
+        $frontController->setRouter($router)
+                        ->setDispatcher($dispatcher);
+
+        // init Controller module
+        $this->_initControllerModules($dispatcher);
+
+        // init Controller module
+        $this->_initControllerPlugins($frontController);
+
+        // init routes
+        $this->_initRoute($router);
+
+		return $this;
+    }
+
+    /**
+     * Return an array of routes
+     */
+    protected function _getRoutes()
+    {
+        return array();
+    }
+
+    protected function _initRoute(Zend_Controller_Router_Interface $router)
+    {
+        // init routes
+        $routes = $this->_getRoutes();
+        foreach ($routes as $name => & $route) {
+            $router->addRoute($name, $route);
+        }
+
+        return $this;
+    }
+
+    protected function _initControllerModules(Zend_Controller_Dispatcher_Interface $dispatcher)
+    {
         // init controllers modules
         $controllerModules = array();
         foreach ($this->_controllerModules as $controllerModule) {
@@ -103,15 +140,17 @@ abstract class BaseZF_Bootstrap
 
         $dispatcher->setControllerDirectory($controllerModules);
 
-        // init front controller
-        $frontController = Zend_Controller_Front::getInstance();
-        $frontController->setRouter($router)
-                        ->setDispatcher($dispatcher);
+        return $this;
+    }
 
-        // init routes
-        $routes = $this->_getRoutes();
-        foreach ($routes as $name => & $route) {
-            $router->addRoute($name, $route);
+    protected function _initControllerPlugins(Zend_Controller_Front $frontController)
+    {
+        // init controllers plugins
+        foreach ($this->_controllerPlugins as $controllerPlugin => $options) {
+             $plugin = new $controllerPlugin($options);
+             $frontController->registerPlugin($plugin);
         }
+
+        return $this;
     }
 }
