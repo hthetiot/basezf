@@ -1,0 +1,517 @@
+# English translations for PACKAGE package.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MyProject alpha\n"
+"Report-Msgid-Bugs-To: debug@myproject.com\n"
+"POT-Creation-Date: 2009-03-23 17:00+0100\n"
+"PO-Revision-Date: 2009-03-23 16:32+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 58
+# File: includes/MyProject/Form/Example/Showcases.php, line: 58
+msgid "Address:"
+msgstr "Address:"
+#
+# File: app/controllers/Default/ErrorController.php, line: 86
+# File: app/controllers/Default/ErrorController.php, line: 86
+msgid "Application error"
+msgstr "Application error"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 388
+# File: includes/MyProject/Form/Example/Showcases.php, line: 388
+msgid "Avatar"
+msgstr "Avatar"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 353
+# File: includes/MyProject/Form/Example/Showcases.php, line: 353
+msgid "Avatar Information"
+msgstr "Avatar Information"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 53
+# File: includes/MyProject/Form/Example/Showcases.php, line: 53
+msgid "Birthday:"
+msgstr "Birthday:"
+#
+# File: lib/BaseZF/Framework/View/Helper/FormFile.php, line: 61
+# File: lib/BaseZF/Framework/View/Helper/FormFile.php, line: 61
+msgid "Browse"
+msgstr "Browse"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 327
+# File: includes/MyProject/Form/Example/Showcases.php, line: 327
+#, php-format
+msgid ""
+"By checking this, you are indicating that you are agree with the %sTerms of "
+"Use%s."
+msgstr ""
+"By checking this, you are indicating that you are agree with the %sTerms of "
+"Use%s."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 423
+# File: includes/MyProject/Form/Example/Showcases.php, line: 423
+msgid "Cancel"
+msgstr "Cancel"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 85
+# File: includes/MyProject/Form/Example/Showcases.php, line: 99
+# File: includes/MyProject/Form/Example/Showcases.php, line: 85
+# File: includes/MyProject/Form/Example/Showcases.php, line: 99
+msgid "Choose from the list"
+msgstr "Choose from the list"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 79
+# File: includes/MyProject/Form/Example/Showcases.php, line: 79
+msgid "City:"
+msgstr "City:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 133
+# File: includes/MyProject/Form/Example/Showcases.php, line: 277
+# File: includes/MyProject/Form/Example/Showcases.php, line: 133
+# File: includes/MyProject/Form/Example/Showcases.php, line: 277
+msgid "Contact Information"
+msgstr "Contact Information"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 65
+# File: includes/MyProject/Form/Example/Showcases.php, line: 65
+msgid "Country:"
+msgstr "Country:"
+#
+# File: lib/BaseZF/Framework/View/Helper/FormDate.php, line: 34
+# File: lib/BaseZF/Framework/View/Helper/FormDate.php, line: 34
+msgid "Day"
+msgstr "Day"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 154
+# File: includes/MyProject/Form/Example/Showcases.php, line: 154
+msgid "Email"
+msgstr "Email"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 162
+# File: includes/MyProject/Form/Example/Showcases.php, line: 162
+msgid "Email:"
+msgstr "Email:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 187
+# File: includes/MyProject/Form/Example/Showcases.php, line: 187
+msgid "Emails don't match, please enter them again"
+msgstr "Emails don't match, please enter them again"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 196
+# File: includes/MyProject/Form/Example/Showcases.php, line: 196
+msgid "Fax:"
+msgstr "Fax:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 35
+# File: includes/MyProject/Form/Example/Showcases.php, line: 35
+msgid "Female"
+msgstr "Female"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 356
+# File: includes/MyProject/Form/Example/Showcases.php, line: 356
+msgid ""
+"File size limit 4 MB. If your upload does not work, try a smaller picture."
+msgstr ""
+"File size limit 4 MB. If your upload does not work, try a smaller picture."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 42
+# File: includes/MyProject/Form/Example/Showcases.php, line: 42
+msgid "First Name:"
+msgstr "First Name:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 243
+# File: includes/MyProject/Form/Example/Showcases.php, line: 255
+# File: includes/MyProject/Form/Example/Showcases.php, line: 243
+# File: includes/MyProject/Form/Example/Showcases.php, line: 255
+msgid "Full-time (Days)"
+msgstr "Full-time (Days)"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 245
+# File: includes/MyProject/Form/Example/Showcases.php, line: 257
+# File: includes/MyProject/Form/Example/Showcases.php, line: 245
+# File: includes/MyProject/Form/Example/Showcases.php, line: 257
+msgid "Full-time (Graveyard)"
+msgstr "Full-time (Graveyard)"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 244
+# File: includes/MyProject/Form/Example/Showcases.php, line: 256
+# File: includes/MyProject/Form/Example/Showcases.php, line: 244
+# File: includes/MyProject/Form/Example/Showcases.php, line: 256
+msgid "Full-time (Swing)"
+msgstr "Full-time (Swing)"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 31
+# File: includes/MyProject/Form/Example/Showcases.php, line: 31
+msgid "Gender:"
+msgstr "Gender:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 203
+# File: includes/MyProject/Form/Example/Showcases.php, line: 203
+msgid "Help, my brother/sister is driving me crazy!"
+msgstr "Help, my brother/sister is driving me crazy!"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 96
+# File: includes/MyProject/Form/Example/Showcases.php, line: 96
+msgid "Her for:"
+msgstr "Her for:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 204
+# File: includes/MyProject/Form/Example/Showcases.php, line: 204
+msgid "How can I tell my father/mother, it's time for them to retire?"
+msgstr "How can I tell my father/mother, it's time for them to retire?"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 206
+# File: includes/MyProject/Form/Example/Showcases.php, line: 206
+msgid "How do I stop my family members from interfering?"
+msgstr "How do I stop my family members from interfering?"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 150
+# File: includes/MyProject/Form/Example/Showcases.php, line: 150
+msgid "How to Contact You ?"
+msgstr "How to Contact You ?"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 324
+# File: includes/MyProject/Form/Example/Showcases.php, line: 324
+msgid "I agree to the bellow terms"
+msgstr "I agree to the bellow terms"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 371
+# File: includes/MyProject/Form/Example/Showcases.php, line: 371
+msgid ""
+"I certify that I have the right to distribute this picture and that it does "
+"not violate the Terms of Use"
+msgstr ""
+"I certify that I have the right to distribute this picture and that it does "
+"not violate the Terms of Use"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 205
+# File: includes/MyProject/Form/Example/Showcases.php, line: 205
+msgid "I'm exasperated with an awkward partner!"
+msgstr "I'm exasperated with an awkward partner!"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 320
+# File: includes/MyProject/Form/Example/Showcases.php, line: 320
+msgid ""
+"If you don't want to bother with having to login every time you visit the "
+"site, then checking \"Remember Me\" will place a unique identifier only our "
+"site can read that we'll use to identify you and log you in automatically "
+"each time you visit."
+msgstr ""
+"If you don't want to bother with having to login every time you visit the "
+"site, then checking \"Remember Me\" will place a unique identifier only our "
+"site can read that we'll use to identify you and log you in automatically "
+"each time you visit."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 136
+# File: includes/MyProject/Form/Example/Showcases.php, line: 136
+msgid ""
+"It is important that you provide a valid, working email address that you "
+"have access to as it must be verified before you can use your account."
+msgstr ""
+"It is important that you provide a valid, working email address that you "
+"have access to as it must be verified before you can use your account."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 230
+# File: includes/MyProject/Form/Example/Showcases.php, line: 230
+msgid "Keywords:"
+msgstr "Keywords:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 47
+# File: includes/MyProject/Form/Example/Showcases.php, line: 47
+msgid "Last Name:"
+msgstr "Last Name:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 284
+# File: includes/MyProject/Form/Example/Showcases.php, line: 346
+# File: includes/MyProject/Form/Example/Showcases.php, line: 284
+# File: includes/MyProject/Form/Example/Showcases.php, line: 346
+msgid "Login Information"
+msgstr "Login Information"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 34
+# File: includes/MyProject/Form/Example/Showcases.php, line: 34
+msgid "Male"
+msgstr "Male"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 295
+# File: includes/MyProject/Form/Example/Showcases.php, line: 295
+msgid ""
+"May only contain letters, numbers, and underscore (_) and 8-20 characters "
+"long."
+msgstr ""
+"May only contain letters, numbers, and underscore (_) and 8-20 characters "
+"long."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 201
+# File: includes/MyProject/Form/Example/Showcases.php, line: 201
+msgid "Message Subject:  "
+msgstr "Message Subject:  "
+#
+# File: lib/BaseZF/Framework/View/Helper/FormDate.php, line: 30
+# File: lib/BaseZF/Framework/View/Helper/FormDate.php, line: 30
+msgid "Month"
+msgstr "Month"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 217
+# File: includes/MyProject/Form/Example/Showcases.php, line: 217
+msgid "Must be 250 characters or less."
+msgstr "Must be 250 characters or less."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 301
+# File: includes/MyProject/Form/Example/Showcases.php, line: 301
+msgid "Must be 6-25 characters long."
+msgstr "Must be 6-25 characters long."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 180
+# File: includes/MyProject/Form/Example/Showcases.php, line: 180
+msgid "Must match the email address you just entered above."
+msgstr "Must match the email address you just entered above."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 307
+# File: includes/MyProject/Form/Example/Showcases.php, line: 307
+msgid "Must match the password you entered just above."
+msgstr "Must match the password you entered just above."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 207
+# File: includes/MyProject/Form/Example/Showcases.php, line: 207
+msgid "Other:"
+msgstr "Other:"
+#
+# File: app/controllers/Default/ErrorController.php, line: 77
+# File: app/controllers/Default/ErrorController.php, line: 77
+msgid "Page not found"
+msgstr "Page not found"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 242
+# File: includes/MyProject/Form/Example/Showcases.php, line: 254
+# File: includes/MyProject/Form/Example/Showcases.php, line: 242
+# File: includes/MyProject/Form/Example/Showcases.php, line: 254
+msgid "Part-time"
+msgstr "Part-time"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 299
+# File: includes/MyProject/Form/Example/Showcases.php, line: 299
+msgid "Password:"
+msgstr "Password:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 314
+# File: includes/MyProject/Form/Example/Showcases.php, line: 314
+msgid "Passwords don't match, please enter them again"
+msgstr "Passwords don't match, please enter them again"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 24
+# File: includes/MyProject/Form/Example/Showcases.php, line: 126
+# File: includes/MyProject/Form/Example/Showcases.php, line: 24
+# File: includes/MyProject/Form/Example/Showcases.php, line: 126
+msgid "Personal Information"
+msgstr "Personal Information"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 153
+# File: includes/MyProject/Form/Example/Showcases.php, line: 153
+msgid "Phone"
+msgstr "Phone"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 192
+# File: includes/MyProject/Form/Example/Showcases.php, line: 192
+msgid "Phone:"
+msgstr "Phone:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 137
+# File: includes/MyProject/Form/Example/Showcases.php, line: 137
+msgid "Please enter a land line number, not a mobile phone number."
+msgstr "Please enter a land line number, not a mobile phone number."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 135
+# File: includes/MyProject/Form/Example/Showcases.php, line: 135
+msgid "Please enter your full email address, for example, name@domain.com"
+msgstr "Please enter your full email address, for example, name@domain.com"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 26
+# File: includes/MyProject/Form/Example/Showcases.php, line: 26
+msgid ""
+"Please enter your name and address as they are listed for your debit card, "
+"credit card, or bank account."
+msgstr ""
+"Please enter your name and address as they are listed for your debit card, "
+"credit card, or bank account."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 305
+# File: includes/MyProject/Form/Example/Showcases.php, line: 305
+msgid "Please re-enter your password:"
+msgstr "Please re-enter your password:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 178
+# File: includes/MyProject/Form/Example/Showcases.php, line: 178
+msgid "Re-enter Email:"
+msgstr "Re-enter Email:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 319
+# File: includes/MyProject/Form/Example/Showcases.php, line: 319
+msgid "Remember Me"
+msgstr "Remember Me"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 84
+# File: includes/MyProject/Form/Example/Showcases.php, line: 84
+msgid "Sexuality:"
+msgstr "Sexuality:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 70
+# File: includes/MyProject/Form/Example/Showcases.php, line: 70
+msgid "State:"
+msgstr "State:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 424
+# File: includes/MyProject/Form/Example/Showcases.php, line: 424
+msgid "Submit"
+msgstr "Submit"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 169
+# File: includes/MyProject/Form/Example/Showcases.php, line: 170
+# File: includes/MyProject/Form/Example/Showcases.php, line: 171
+# File: includes/MyProject/Form/Example/Showcases.php, line: 172
+# File: includes/MyProject/Form/Example/Showcases.php, line: 173
+# File: includes/MyProject/Form/Example/Showcases.php, line: 174
+# File: includes/MyProject/Form/Example/Showcases.php, line: 169
+# File: includes/MyProject/Form/Example/Showcases.php, line: 170
+# File: includes/MyProject/Form/Example/Showcases.php, line: 171
+# File: includes/MyProject/Form/Example/Showcases.php, line: 172
+# File: includes/MyProject/Form/Example/Showcases.php, line: 173
+# File: includes/MyProject/Form/Example/Showcases.php, line: 174
+msgid "This does not appear to be a valid email address"
+msgstr "This does not appear to be a valid email address"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 397
+# File: includes/MyProject/Form/Example/Showcases.php, line: 397
+msgid ""
+"Type the characters you see in this picture. This ensures that a person, not "
+"an automated program, is creating this account."
+msgstr ""
+"Type the characters you see in this picture. This ensures that a person, not "
+"an automated program, is creating this account."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 363
+# File: includes/MyProject/Form/Example/Showcases.php, line: 363
+msgid "Upload your Avatar:"
+msgstr "Upload your Avatar:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 240
+# File: includes/MyProject/Form/Example/Showcases.php, line: 240
+msgid "Use the CTRL key to select more than one."
+msgstr "Use the CTRL key to select more than one."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 293
+# File: includes/MyProject/Form/Example/Showcases.php, line: 293
+msgid "Username:"
+msgstr "Username:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 420
+# File: includes/MyProject/Form/Example/Showcases.php, line: 420
+msgid "Verification"
+msgstr "Verification"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 395
+# File: includes/MyProject/Form/Example/Showcases.php, line: 395
+msgid "Verification Information"
+msgstr "Verification Information"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 287
+# File: includes/MyProject/Form/Example/Showcases.php, line: 287
+msgid ""
+"We recommend that your password is not a word you can find in the "
+"dictionary, includes both capital and lower case letters, and contains at "
+"least one special character (1-9, !, *, _, etc.)."
+msgstr ""
+"We recommend that your password is not a word you can find in the "
+"dictionary, includes both capital and lower case letters, and contains at "
+"least one special character (1-9, !, *, _, etc.)."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 164
+# File: includes/MyProject/Form/Example/Showcases.php, line: 164
+msgid ""
+"We will never sell or disclose your email address to anyone. Once your "
+"account is setup, you may add additional email addresses."
+msgstr ""
+"We will never sell or disclose your email address to anyone. Once your "
+"account is setup, you may add additional email addresses."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 223
+# File: includes/MyProject/Form/Example/Showcases.php, line: 223
+msgid ""
+"We'd love to get your feedback on any of the products or services we offer "
+"or on your experience with us."
+msgstr ""
+"We'd love to get your feedback on any of the products or services we offer "
+"or on your experience with us."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 246
+# File: includes/MyProject/Form/Example/Showcases.php, line: 258
+# File: includes/MyProject/Form/Example/Showcases.php, line: 246
+# File: includes/MyProject/Form/Example/Showcases.php, line: 258
+msgid "Weekends Only"
+msgstr "Weekends Only"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 238
+# File: includes/MyProject/Form/Example/Showcases.php, line: 251
+# File: includes/MyProject/Form/Example/Showcases.php, line: 238
+# File: includes/MyProject/Form/Example/Showcases.php, line: 251
+msgid "What is your current availability?"
+msgstr "What is your current availability?"
+#
+# File: lib/BaseZF/Framework/View/Helper/FormDate.php, line: 26
+# File: lib/BaseZF/Framework/View/Helper/FormDate.php, line: 26
+msgid "Year"
+msgstr "Year"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 355
+# File: includes/MyProject/Form/Example/Showcases.php, line: 355
+msgid "You can upload a JPG, GIF or PNG file."
+msgstr "You can upload a JPG, GIF or PNG file."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 215
+# File: includes/MyProject/Form/Example/Showcases.php, line: 221
+# File: includes/MyProject/Form/Example/Showcases.php, line: 215
+# File: includes/MyProject/Form/Example/Showcases.php, line: 221
+msgid "Your Message:"
+msgstr "Your Message:"
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 288
+# File: includes/MyProject/Form/Example/Showcases.php, line: 288
+msgid ""
+"Your password will be encrypted and stored in our system. Due to the "
+"encryption, we cannot retrieve your password for you. If you lose or forget "
+"your password, we offer the ability to reset it."
+msgstr ""
+"Your password will be encrypted and stored in our system. Due to the "
+"encryption, we cannot retrieve your password for you. If you lose or forget "
+"your password, we offer the ability to reset it."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 143
+# File: includes/MyProject/Form/Example/Showcases.php, line: 143
+msgid ""
+"Your phone number will not be shared or used for telemarketing. Your "
+"information is protected by our [link]Privacy Policy[/link]."
+msgstr ""
+"Your phone number will not be shared or used for telemarketing. Your "
+"information is protected by our [link]Privacy Policy[/link]."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 286
+# File: includes/MyProject/Form/Example/Showcases.php, line: 286
+msgid ""
+"Your username and password must both be at least 8 characters long and are "
+"case-sensitive. Please do not enter accented characters."
+msgstr ""
+"Your username and password must both be at least 8 characters long and are "
+"case-sensitive. Please do not enter accented characters."
+#
+# File: includes/MyProject/Form/Example/Showcases.php, line: 75
+# File: includes/MyProject/Form/Example/Showcases.php, line: 75
+msgid "Zip/Postal Code:"
+msgstr "Zip/Postal Code:"
