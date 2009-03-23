@@ -35,6 +35,10 @@
 	+ Css compression
 	- csstidy
 
+	+ Documentation
+	- doxygen
+	- graphviz
+
 * Some Package have to be installed via pecl :
 --------------
 
@@ -45,8 +49,7 @@
 * Locales need to be available on system
 --------------
 
-# find . -type f -iname "*.php" | xgettext --keyword=__ -j -s -o message.pot -f -
-# --msgid-bugs-address=ADRESSE@COURRIEL
+#  sudo dpkg-configure locales
 
 	+ linux locale
 	- bg_BG.UTF-8

@@ -22,15 +22,17 @@ PROJECT_NAME = MyProject
 PROJECT_VERSION = alpha
 PROJECT_MAINTAINER =
 PROJECT_MAINTAINER_COURRIEL = debug@myproject.com
+PROJECT_LOCALE_DOMAIN = message
 
 # Path
 ROOT = .
 PROJECT_LIB = $(ROOT)/lib
 PROJECT_BIN = $(ROOT)/bin
+PROJECT_LOG = $(ROOT)/data/log
 
 # Locales
 LOCALE_SRC_PATH = $(ROOT)/app/locales
-LOCALE_DOMAIN = message
+LOCALE_DOMAINS = $(PROJECT_LOCALE_DOMAIN) time validate
 
 # Static
 CSS_SRC_PATH = $(ROOT)/etc/static/css
@@ -45,7 +47,7 @@ CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
 ZIP_NAME = $(NAME)-$(VERSION).zip
 TAR_NAME = $(NAME)-$(VERSION).tar.gz
 
-all: locale locale-update locale-deploy
+all: locale
 #all: clean syntax locale locale-update locale-deploy static-pack
 	@echo "----------------"
 	@echo "Project build complete."
@@ -54,7 +56,7 @@ all: locale locale-update locale-deploy
 doc:
 	@echo "----------------"
 	@echo "Generate doxygen doc :"
-	@$(DOXYGEN) ./etc/doxygen.cnf > ./logs/doc.log
+	@$(DOXYGEN) ./etc/doxygen.cnf > $(PROJECT_LOG)/doc.log
 	@echo "done"
 
 list:
@@ -66,6 +68,7 @@ syntax:
 	@for i in $(PHP_SOURCES); do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; exit 1; fi; done;
 	@echo "done"
 
+# exec unitTest
 test:
 	@echo "----------------"
 	@echo "Exec Units test:"
@@ -74,34 +77,50 @@ test:
 
 locale: locale-template locale-update locale-deploy
 
+# ganerate .pot file for current project domain
 locale-template:
 	@echo "----------------"
-	@echo "Build GetText POT files:"
-	@echo $(LOCALE_SRC_PATH)/$(LOCALE_DOMAIN).pot
-	@touch $(LOCALE_SRC_PATH)/$(LOCALE_DOMAIN).pot
-	@find . -type f -iname "*.php" | xgettext --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) --package-version=$(PROJECT_VERSION) --package-name=$(PROJECT_NAME) -f -
-	@msguniq $(LOCALE_SRC_PATH)/$(LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/$(LOCALE_DOMAIN).pot
+	@echo "Build GetText POT files for $(PROJECT_NAME):"
+	@touch $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
+	@find . -type f -iname "*.php" | xgettext --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) --package-version=$(PROJECT_VERSION) --package-name=$(PROJECT_NAME) -f -
+	@msguniq $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
 	@echo "done"
 
+# update .po files of from current .pot for all available local domains
 locale-update:
 	@echo "----------------"
-	@echo "Update GetText PO files:"
-	@list=`find app/locales/ -type d | grep LC_MESSAGE`; \
-	for i in $$list; do \
-		if [ -e "$$i/$(LOCALE_DOMAIN).po" ] ; then \
-		msgmerge  --previous --strict $$i/$(LOCALE_DOMAIN).po $(LOCALE_SRC_PATH)/$(LOCALE_DOMAIN).pot -o $$i/$(LOCALE_DOMAIN).po; \
-		else msginit -l `echo "$(ROOT)/$$i" | sed 's:$(LOCALE_SRC_PATH)\/::g' | sed 's:\/LC_MESSAGES::g'` --no-translator --no-wrap -i $(LOCALE_SRC_PATH)/$(LOCALE_DOMAIN).pot -o $$i/$(LOCALE_DOMAIN).po; \
+	@echo "Update GetText PO files from POT files:"
+	@for o in $(LOCALE_DOMAINS); do \
+	for i in `find $(LOCALE_SRC_PATH) -type d | grep LC_MESSAGES`; do \
+		if [ -e "$$i/$$o.po" ] ; then \
+			echo "Updated $$i/$$o.po"; \
+			msgmerge $(LOCALE_SRC_PATH)/$$o.pot $$i/$$o.po -o $$i/$$o.po; \
+			else msginit -l `echo "$(ROOT)/$$i" | sed 's:$(LOCALE_SRC_PATH)\/::g' | sed 's:\/LC_MESSAGES::g'` --no-translator --no-wrap -i $(LOCALE_SRC_PATH)/$$o.pot -o $$i/$$o.po; \
 		fi; \
-    done
+		msguniq $$i/$$o.po -o $$i/$$o.po; \
+    done \
+	done
 
+# generate all .mo files
 locale-deploy:
 	@echo "----------------"
 	@echo "Generate GetText MO files:"
-	@list=`find $(LOCALE_SRC_PATH) -type f -iname "$(LOCALE_DOMAIN).po"`; \
+	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po"`; \
 	for i in $$list;do \
-		echo $$i; \
-		msgfmt -c --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
+		echo "Compiling  $$i"; \
+		msgfmt --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
     done
+
+# remove all .mo and .po files
+locale-clean:
+	@echo "----------------"
+	@echo "Clean GetText MO and PO files:"
+	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.*o"`; \
+	for i in $$list;do \
+		echo "Removed $$i"; \
+		rm -f $$i; \
+    done
+	@echo "done"
 
 # Static packing
 static-pack: static-pack-css static-pack-js
