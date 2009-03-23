@@ -48,8 +48,13 @@ CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
 ZIP_NAME = $(NAME)-$(VERSION).zip
 TAR_NAME = $(NAME)-$(VERSION).tar.gz
 
-all: locale
-#all: clean syntax locale locale-update locale-deploy static-pack
+install: clean syntax locale locale static-pack
+	@echo "----------------"
+	@echo "Project install complete."
+	@echo ""
+
+all: clean syntax locale locale
+#all: clean syntax locale locale static-pack
 	@echo "----------------"
 	@echo "Project build complete."
 	@echo ""
@@ -60,13 +65,10 @@ doc:
 	@$(DOXYGEN) ./etc/doxygen.cnf > $(PROJECT_LOG)/doc.log
 	@echo "done"
 
-list:
-
 syntax:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files:"
-	@PHP_SOURCES=`find . -type f -name *.php | tr '\n' ' '`
-	@for i in $(PHP_SOURCES); do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; exit 1; fi; done;
+	@for i in =`find . -type f -name *.php | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
 # exec unitTest
