@@ -2,7 +2,12 @@
 # MyProject Makefile
 #
 # Targets:
-#  - clean: remove the staged files.
+#  - clean: 	Remove the staged files
+#  - doc: 		Generate the doc
+#  - syntax:	Check syntax of PHP files
+#  - test: 		Exec unitTest
+#  - locale: 	Generate gettext files
+#  - update: 	Update from current GIT repository
 #
 # @copyright  Copyright (c) 2008 BaseZF
 # @author     Harold Thétiot (hthetiot)
@@ -13,9 +18,6 @@ ZIP = zip
 TAR = tar
 PHP = php
 DOXYGEN = doxygen
-
-YUI_VERSION = 2.3.5
-YUI = java -jar $(PROJECT_BIN)/yuicompressor-$(YUI_VERSION).jar --charset UTF-8
 
 # Project ID
 PROJECT_NAME = MyProject
@@ -48,30 +50,31 @@ CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
 ZIP_NAME = $(NAME)-$(VERSION).zip
 TAR_NAME = $(NAME)-$(VERSION).tar.gz
 
-install: clean syntax locale locale static-pack
+install: clean syntax locale-deploy static-pack
 	@echo "----------------"
 	@echo "Project install complete."
 	@echo ""
 
-all: clean syntax locale locale
-#all: clean syntax locale locale static-pack
+all: clean syntax locale
 	@echo "----------------"
 	@echo "Project build complete."
 	@echo ""
 
+# Generate the doc
 doc:
 	@echo "----------------"
 	@echo "Generate doxygen doc :"
 	@$(DOXYGEN) ./etc/doxygen.cnf > $(PROJECT_LOG)/doc.log
 	@echo "done"
 
+# Check syntax of PHP files
 syntax:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files:"
 	@for i in =`find . -type f -name *.php | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
-# exec unitTest
+# Exec unitTest
 test:
 	@echo "----------------"
 	@echo "Exec Units test:"
@@ -80,7 +83,7 @@ test:
 
 locale: locale-template locale-update locale-deploy
 
-# ganerate .pot file for current project domain
+# Generate .pot file for current project domain
 locale-template:
 	@echo "----------------"
 	@echo "Build GetText POT files for $(PROJECT_NAME):"
@@ -89,7 +92,7 @@ locale-template:
 	@msguniq $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
 	@echo "done"
 
-# update .po files of from current .pot for all available local domains
+# Update .po files of from current .pot for all available local domains
 locale-update:
 	@echo "----------------"
 	@echo "Update GetText PO files from POT files:"
@@ -104,7 +107,7 @@ locale-update:
     done \
 	done
 
-# generate all .mo files
+# Generate all .mo files
 locale-deploy:
 	@echo "----------------"
 	@echo "Generate GetText MO files:"
@@ -114,7 +117,7 @@ locale-deploy:
 		msgfmt --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
     done
 
-# remove all .mo and .po files
+# Remove all .mo and .po files
 locale-clean:
 	@echo "----------------"
 	@echo "Clean GetText MO and PO files:"
@@ -136,11 +139,17 @@ static-pack-js:
 	@echo "----------------"
 	@./bin/tools/static-pack.sh js $(JS_SRC_PATH) $(JS_PACK_PATH)
 
-# Clean Useless file
+# Remove the staged files
 clean:
 	@echo "----------------"
 	@echo "Cleaning useless files:"
 	@find . -name "*~" -exec rm {} \;
 	@echo "done"
+
+# Update from current GIT repository
+update:
+	@echo "----------------"
+	@echo "Update from repository:"
+	@git pull
 
 .PHONY: doc
