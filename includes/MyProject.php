@@ -146,12 +146,99 @@ final class MyProject
         return new Zend_Session_Namespace('Default');
 	}
 
-    private static function _createLocale()
+    /**
+     * Initilize Locale registry
+     *
+     * @param string $locale iso code of locale, fr_FR for example
+     * @return object Zend_Locale instance of current locale
+     */
+    private static function _createLocale($locale = null)
 	{
-        // @todo set current localte in cookies for better perfomance of Zend_Locale
+		try {
 
-        return $locale = new Zend_Locale('auto');
+            // get from cookie if not forced
+            if (is_null($locale) && isset($_COOKIE['lang'])) {
+                $locale = $_COOKIE['lang'];
+            }
+
+            if (is_null($locale)) {
+                throw new Exception('No locale found in cookies or param');
+            }
+
+            $locale = new Zend_Locale($locale);
+
+        } catch (Exception $e) {
+
+            $auth = MyProject::registry('auth');
+
+            // get from current member, if logged in
+            if ($auth->hasIdentity()) {
+
+                // @todo get from member
+                $locale = new Zend_Locale('auto');
+
+            // get from browser->env->ip
+            } else {
+                $locale = new Zend_Locale('auto');
+            }
+
+            // set in cookies, if not equal or empty
+            if (!isset($_COOKIE['lang']) || $_COOKIE['lang'] != $locale->toString()) {
+                return setcookie('lang', $locale->toString(), 0, '/', COOKIES_DOMAIN);
+            }
+        }
+
+        // init translation setting
+        self::_initLocaleTranslation($locale);
+
+        return $locale;
 	}
+
+    /**
+     * Set current used locale
+     *
+     * @param string $locale iso code of locale, fr_FR for example
+     * @return object Zend_Locale instance of current locale
+     */
+    public static function setCurrentLocale($locale)
+	{
+        $locale = self::_createLocale($locale);
+
+        Zend_Registry::set('locale', $locale);
+
+        return $locale;
+    }
+
+    /**
+     * Init Translation system using gettext
+     *
+     * @param object $locale instance of Zend_Locale
+     * @return void
+     */
+    protected static function _initLocaleTranslation(Zend_Locale $locale)
+    {
+        $defaultDomain = 'message';
+        $availableDomains = array(
+            'message',
+            'time',
+            'validate',
+        );
+
+        // init available gettext domains
+        foreach ($availableDomains as $domain) {
+            bindtextdomain($domain, PATH_TO_LOCALES);
+            bind_textdomain_codeset($domain, 'UTF-8');
+        }
+
+        // set default domain
+        textdomain($defaultDomain);
+
+		// mandatory for gettext
+		putenv('LANGUAGE=' . $locale);
+
+		setlocale(LC_MESSAGES, $locale . '.utf8');
+		setlocale(LC_TIME, $locale . '.utf8');
+    }
 
     private static function _createAuth()
 	{
