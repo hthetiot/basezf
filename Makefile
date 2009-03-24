@@ -71,7 +71,7 @@ doc:
 syntax:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files:"
-	@for i in =`find . -type f -name *.php | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
+	@for i in =`find . -type f -name *.ph* | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
 # Exec unitTest
@@ -100,7 +100,7 @@ locale-update:
 	for i in `find $(LOCALE_SRC_PATH) -maxdepth 1 -mindepth 1 -type d`; do \
 		if [ -e "$$i/$(LOCALE_PO_DIR)/$$o.po" ] ; then \
 			echo "Updated $$i/$(LOCALE_PO_DIR)/$$o.po"; \
-			msgmerge $(LOCALE_SRC_PATH)/$$o.pot $$i/$(LOCALE_PO_DIR)/$$o.po -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
+			msgmerge --previous $$i/$(LOCALE_PO_DIR)/$$o.po $(LOCALE_SRC_PATH)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
 			else mkdir $$i/$(LOCALE_PO_DIR)/ -p; msginit -l `echo "$(ROOT)/$$i" | sed 's:$(LOCALE_SRC_PATH)\/::g' | sed 's:\/LC_MESSAGES::g'` --no-translator --no-wrap -i $(LOCALE_SRC_PATH)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
 		fi; \
 		msguniq $$i/$(LOCALE_PO_DIR)/$$o.po -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
