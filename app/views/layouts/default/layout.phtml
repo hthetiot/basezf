@@ -31,9 +31,11 @@
     	$this->headTitle()->prepend(__('MyProject') . ' - ');
     }
 
-      // set default meta
-    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
+    // set favicon
+    $this->headLink(array('rel' => 'favicon', 'href' => '/favicon.ico'));
 
+    // set default meta
+    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
 
     // display DocType
     echo $this->doctype() . "\n";
@@ -66,6 +68,6 @@
 
         <div id="footer">
         </div>
-    </div
+    </div>
 </body>
 </html>

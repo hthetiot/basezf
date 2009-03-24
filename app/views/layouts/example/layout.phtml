@@ -84,6 +84,9 @@
     	$this->headTitle()->prepend(__('BaseZF') . ' - ');
     }
 
+    // set favicon
+    $this->headLink(array('rel' => 'favicon', 'href' => '/favicon.ico'));
+
     // set default meta
     $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
 
