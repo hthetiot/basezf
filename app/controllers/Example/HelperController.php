@@ -18,4 +18,9 @@ class Example_HelperController extends BaseZF_Framework_Controller_Action
     public function geshiAction()
     {
     }
+
+	public function googleanalyticsAction()
+    {
+
+    }
 }

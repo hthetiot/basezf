@@ -45,18 +45,44 @@ class BaseZF_Error_Handler
     static public function printException(Exception $e)
     {
         ?>
+		<style>
+		pre.debug {
+			max-height: 100px;
+			overflow: auto;
+			background: grey;
+			padding: 5px;
+		}
+		</style>
         <h1>An error occurred</h1>
-        <h2><?php echo $e->getMessage() ?></h2>
+        <h2><?php echo $e->getMessage(); ?></h2>
 
         <h3>Exception information: </h3>
         <p>
-            <b>Name:</b> <?php echo get_class($e) ?>
+            <b>Name:</b> <?php echo get_class($e); ?>
         </p>
 
-        <h3>Stack trace:</h3>
-        <pre><?php echo $e->getTraceAsString() ?></pre>
+		<p>
+            <b>Code:</b> <?php echo $e->getCode(); ?>
+        </p>
 
-        <h3>Request Parameters:</h3>
+		<p>
+			<b>Source:</b> <?php echo $e->getFile(); ?> Line <?php echo $e->getLine() ?>
+		</p>
+
+        <h3>Stack trace:</h3>
+        <pre class="debug"><?php echo $e->getTraceAsString() ?></pre>
+
+        <h3>Server Parameters:</h3>
+		<pre class="debug"><?php echo var_dump($_SERVER); ?></pre>
+
+		<h3>POST Parameters:</h3>
+		<pre class="debug"><?php echo var_dump($_POST); ?></pre>
+
+		<h3>GET Parameters:</h3>
+		<pre class="debug"><?php echo var_dump($_GET); ?></pre>
+
+		<h3>SESSION Parameters:</h3>
+		<pre class="debug"><?php echo isset($_SESSION) ?  var_dump($_SESSION) : 'No Session initialized.'; ?></pre>
         <?php
         exit();
     }
