@@ -52,7 +52,7 @@
 				tabs.setContent("tab7", 'current date is:' + json.time);
             }
 
-            UWA.Data.request('/example/uwa/jsoncallback', {
+            UWA.Data.request('<?php echo BASE_URL; ?>/example/uwa/jsoncallback', {
                 method: 'get',
                 type: 'json',
                 onComplete: onComplete.bind(this)
@@ -73,10 +73,7 @@
         //alert('resize');
     }
 
-    </script>
-    </head>
-    <body>
-
+</script>
 
 <div id="hello-content" class="tab-content">
     <ul>
