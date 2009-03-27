@@ -12,39 +12,67 @@
 
 abstract class BaseZF_Bootstrap
 {
+	/**
+	 * Set Zend Framework Required Version
+	 */
     protected $_zendRequiredVersion = '1.7.6';
 
+	/**
+	 * Project ClassName
+	 */
     protected $_projectClassName;
 
+	/**
+	 * Available controller plugins
+	 */
     protected $_controllerPlugins = array();
 
+	/**
+	 * Available controller modules
+	 */
     protected $_controllerModules = array(
         'default',
         'example',
     );
 
+    /**
+	 * Initilize Bootstrap
+	 */
     public function __construct()
     {
-		try {
+        try {
 
-			if (Zend_Version::compareVersion($this->_zendRequiredVersion) > 0) {
-				throw new Exception('Require Zend Framework Version upper than ' . $this->_zendRequiredVersion . ', current is version ' . Zend_Version::VERSION);
-			}
+            if (!version_compare($this->_zendRequiredVersion, Zend_Version::VERSION, '=')) {
+                throw new Exception('Require Zend Framework Version ' . $this->_zendRequiredVersion . ', current is version ' . Zend_Version::VERSION);
+            }
 
-			$this->_initLayout();
+			$this->_init();
 
-			$this->_initView();
+            $this->_initLayout();
 
-			$this->_initFrontController();
+            $this->_initView();
 
-			Zend_Controller_Front::getInstance()->dispatch();
+            $this->_initFrontController();
 
-			// catch exception
+            Zend_Controller_Front::getInstance()->dispatch();
+
+        // catch all exception
         } catch (Exception $e) {
-
             BaseZF_Error_Handler::printException($e);
         }
+    }
+
+	/**
+	 * You can overide this function to exec some predispatch requirements
+	 */
+	protected function _init()
+	{
 	}
+
+	/**
+     * Get current defined Routes
+     */
+    abstract protected function _getRoutes();
 
     protected function _initView()
     {
@@ -106,19 +134,11 @@ abstract class BaseZF_Bootstrap
 		return $this;
     }
 
-    /**
-     * Return an array of routes
-     */
-    protected function _getRoutes()
-    {
-        return array();
-    }
-
     protected function _initRoute(Zend_Controller_Router_Interface $router)
     {
         // init routes
         $routes = $this->_getRoutes();
-        foreach ($routes as $name => & $route) {
+        foreach ($routes as $name => &$route) {
             $router->addRoute($name, $route);
         }
 
