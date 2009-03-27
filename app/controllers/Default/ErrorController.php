@@ -36,8 +36,8 @@ class ErrorController extends BaseZF_Framework_Controller_Action
         $config = MyProject::registry('config');
 
         // throw Exception and do not display end user error if debug is enable
-        if ($config->debug->enable) {
-            throw $this->_error_handler->exception;
+        if ($config->debug->enable || isset($_COOKIE[$config->debug->cookie_name])) {
+			throw $this->_error_handler->exception;
         }
     }
 
@@ -120,6 +120,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
      */
     public function notfoundAction()
     {
+
     }
 }
 

@@ -33,4 +33,11 @@ class Example_UwaController extends BaseZF_Framework_Controller_Action_Uwa
         // disable debug
         $this->_enableDebug(false);
     }
+
+	public function jsoncallbackAction()
+    {
+		$this->_makeJson();
+
+		$this->_setJson(array('time' => time()));
+    }
 }
