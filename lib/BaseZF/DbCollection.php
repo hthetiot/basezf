@@ -67,7 +67,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      * @param array $ids array of unique id
      * @param boolean $realtime disable cache
      */
-    public function __construct($table = '', array $ids = array(), $realtime = false, $class = __CLASS__)
+    public function __construct($table = '', array $ids = array(), $realtime = false)
     {
         $this->_table = $table;
 
@@ -434,6 +434,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     protected function _getDbSelectCountInstance()
     {
         $selectCount = clone($this->_getDbSelectInstance());
+
 		$selectCount->reset(Zend_Db_Select::COLUMNS)
 					->reset(Zend_Db_Select::LIMIT_COUNT)
 					->reset(Zend_Db_Select::LIMIT_OFFSET)
@@ -968,3 +969,4 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         }
     }
 }
+
