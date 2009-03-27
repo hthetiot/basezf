@@ -13,4 +13,11 @@ class Example_UwaController extends BaseZF_Framework_Controller_Action_Uwa
     public function indexAction()
     {
     }
+
+	public function jsoncallbackAction()
+    {
+		$this->_makeJson();
+
+		$this->_setJson(array('time' => time()));
+    }
 }
