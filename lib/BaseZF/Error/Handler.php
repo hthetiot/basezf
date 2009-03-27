@@ -22,7 +22,7 @@ class BaseZF_Error_Handler
         $this->_oldErrorhandler = set_error_handler(array($this, 'newErrorhandler'));
     }
 
-    static public function getInstance()
+    static public function replaceErrorHandler()
     {
         if (!self::$_INSTANCE instanceof self) {
             self::$_INSTANCE = new self();
