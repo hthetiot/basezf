@@ -12,6 +12,7 @@ class IndexController extends BaseZF_Framework_Controller_Action
 {
     public function indexAction()
     {
+		//throw new Exception('test');
     }
 }
 

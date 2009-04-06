@@ -23,23 +23,88 @@
 
 final class MyProject
 {
-    // add your registry callback here...
+	 /**
+     * Environment type development
+     *
+     */
+    const ENV_DEVELOPMENT = 'development';
 
-    // Default Registry CallBacks
+    /**
+     * Environment type production
+     *
+     */
+    const ENV_PRODUCTION  = 'production';
 
-	private static function _createConfig()
+    /**
+     * Environment type test
+     *
+     */
+    const ENV_TEST        = 'test';
+
+    /**
+     * Environment
+     *
+     * @var string
+     */
+    protected static $_environment = self::ENV_PRODUCTION;
+
+	/**
+	 *
+	 */
+    protected static $_configFilePath;
+
+	/**
+	 *
+	 */
+    private static function _createConfig()
 	{
+		if(!isset(self::$_configFilePath)) {
+			throw new MyProject_Exception('Empty config file path, use setConfigFilePath to configure');
+		}
+
         // check config
-        if(!file_exists(CONFIG_FILE)) {
-            throw new MyProject_Exception('Missing config file on path: "' . CONFIG_FILE . '"');
+        if(!file_exists(self::$_configFilePath)) {
+            throw new MyProject_Exception('Missing config file on path: "' . self::$_configFilePath . '"');
         }
 
-        $config = new Zend_Config_Ini(CONFIG_FILE, CONFIG_ENV);
+        $config = new Zend_Config_Ini(self::$_configFilePath, self::getEnvironment());
 
         return $config;
 	}
 
-	private static function _createLogger()
+	/**
+	 *
+	 */
+    public static function setConfigFilePath($configFilePath)
+	{
+		self::$_configFilePath = $configFilePath;
+	}
+
+	/**
+     * Set environment
+     *
+     * @param string $env
+     * @return Zym_App
+     */
+    public static function setEnvironment($env)
+    {
+        self::$_environment = (string) $env;
+    }
+
+    /**
+     * Get environment
+     *
+     * @return string
+     */
+    public static function getEnvironment()
+    {
+		return self::$_environment;
+	}
+
+	/**
+	 *
+	 */
+    private static function _createLogger()
 	{
 		// get config
         $config = MyProject::registry('config');
@@ -52,7 +117,7 @@ final class MyProject
 		// init logger
 		$logger = new Zend_Log();
 
-		// add default priority for
+		// add default priority for db profiler
         $dbProfilerLogPriority = 8;
 		$logger->addPriority('TABLE', $dbProfilerLogPriority);
 
@@ -95,6 +160,9 @@ final class MyProject
 		return $logger;
 	}
 
+    /**
+	 *
+	 */
     private static function _createDb()
 	{
         // get config
@@ -107,6 +175,9 @@ final class MyProject
         return $db;
 	}
 
+    /**
+	 *
+	 */
     private static function _createDbCache()
 	{
 		// get config
@@ -133,6 +204,9 @@ final class MyProject
         return $cache;
 	}
 
+	/**
+	 *
+	 */
     private static function _createSession()
 	{
         // get config
@@ -184,7 +258,7 @@ final class MyProject
 
             // set in cookies, if not equal or empty
             if (!isset($_COOKIE['lang']) || $_COOKIE['lang'] != $locale->toString()) {
-                return setcookie('lang', $locale->toString(), 0, '/', COOKIES_DOMAIN);
+                setcookie('lang', $locale->toString(), 0, '/');
             }
         }
 
@@ -240,11 +314,17 @@ final class MyProject
 		setlocale(LC_TIME, $locale . '.utf8');
     }
 
+    /**
+	 *
+	 */
     private static function _createAuth()
 	{
         return Zend_Auth::getInstance();
 	}
 
+    /**
+	 *
+	 */
     private static function _createAcl()
 	{
         // @todo read CONFIG_ACL_ROLES and CONFIG_ACL_ROUTES
@@ -268,6 +348,7 @@ final class MyProject
      */
 	public static function registry($registryKey = null, $refresh = false)
 	{
+		$registryNameSpace = __CLASS__;
 		$registryKey = strtolower($registryKey);
 
 		if (is_null($registryKey)) {
@@ -280,7 +361,7 @@ final class MyProject
 				throw new MyProject_Exception('Get fresh "' . $registryKey. '" from registry');
 			}
 
-			$object = Zend_Registry::get($registryKey);
+			$object = Zend_Registry::get($registryNameSpace . $registryKey);
 
 			return $object;
 
@@ -289,14 +370,14 @@ final class MyProject
 
 			$callbackFunc = '_create' . implode(array_map('ucfirst', explode('_', $registryKey)));
 
-			if (!is_callable(array('MyProject', $callbackFunc))) {
+			if (!is_callable(array(__CLASS__, $callbackFunc))) {
 				throw new MyProject_Exception('Non existing registryCallBack for "' . $registryKey. '" missing function "' . $callbackFunc . '"');
 			}
 
 			// call
 			$object = MyProject::$callbackFunc();
 
-			Zend_Registry::set($registryKey, $object);
+			Zend_Registry::set($registryNameSpace . ':' . $registryKey, $object);
 
 			return $object;
 

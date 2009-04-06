@@ -1,0 +1,141 @@
+# Language  translations for PACKAGE package.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: debug@myproject.com\n"
+"POT-Creation-Date: 2009-03-23 19:19+0100\n"
+"PO-Revision-Date: 2009-03-23 19:19+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "notAlnum"
+msgstr "Value must be alphanumeric"
+
+msgid "stringEmpty"
+msgstr "Cannot be an empty string"
+
+msgid "notAlpha"
+msgstr "Value must consist of only alphabetic characters"
+
+msgid "notBetween"
+msgstr "Value must be between \"%min%\" and \"%max%\", inclusively"
+
+msgid "notBetweenStrict"
+msgstr "Value must be strictly between \"%min%\" and \"%max%\""
+
+msgid "ccnumLength"
+msgstr "Value must contain between 13 and 19 digits"
+
+msgid "ccnumChecksum"
+msgstr "Luhn algorithm (mod-10 checksum) failed"
+
+msgid "dateNotYYYY-MM-DD"
+msgstr "Date must be in YYYY-MM-DD format"
+
+msgid "dateInvalid"
+msgstr "\"%value%\" does not appear to be a valid date"
+
+msgid "dateFalseFormat"
+msgstr "\"%value%\" does not fit given date format"
+
+msgid "notDigits"
+msgstr "Value must be a number"
+
+msgid "emailAddressInvalid"
+msgstr "\"%value%\" does not appear to be a valid email address"
+
+msgid "emailAddressInvalidHostname"
+msgstr "\"%hostname%\" is not a valid hostname for email address \"%value%\""
+
+msgid "emailAddressInvalidMxRecord"
+msgstr ""
+"\"%hostname%\" does not appear to have a valid MX record for the email "
+"address \"%value%\""
+
+msgid "emailAddressDotAtom"
+msgstr "\"%localPart%\" does not match against the dot-atom format"
+
+msgid "emailAddressQuotedString"
+msgstr "\"%localPart%\" does not match against the quoted-string format"
+
+msgid "emailAddressInvalidLocalPart"
+msgstr ""
+"\"%localPart%\" is not a valid local part for email address \"%value%\""
+
+msgid "notFloat"
+msgstr "Value must be a float or decimal"
+
+msgid "notGreaterThan"
+msgstr "Value must be greater than \"%min%\""
+
+msgid "notHex"
+msgstr "Value must be hexadecimal"
+
+msgid "hostnameIpAddressNotAllowed"
+msgstr "Value appears to be an IP address, but IP addresses are not allowed"
+
+msgid "hostnameUnknownTld"
+msgstr ""
+"\"%value%\" appears to be a DNS hostname but cannot match the TLD against "
+"our known list"
+
+msgid "hostnameDashCharacter"
+msgstr ""
+"\"%value%\" appears to be a DNS hostname but contains a dash (-) in an "
+"invalid position"
+
+msgid "hostnameInvalidHostnameSchema"
+msgstr ""
+"\"%value%\" appears to be a DNS hostname but cannot match against hostname "
+"schema for TLD \"%tld%\""
+
+msgid "hostnameUndecipherableTld"
+msgstr "\"%value%\" appears to be a DNS hostname but cannot extract TLD part"
+
+msgid "hostnameInvalidHostname"
+msgstr "\"%value%\" does not match the expected structure for a DNS hostname"
+
+msgid "hostnameInvalidLocalName"
+msgstr "Value does not appear to be a valid local network name"
+
+msgid "hostnameLocalNameNotAllowed"
+msgstr ""
+"\"%value%\" appears to be a local network name but local network names are "
+"not allowed"
+
+msgid "notSame"
+msgstr "Values are not the same"
+
+msgid "missingToken"
+msgstr "No token was provided to match against"
+
+msgid "notInArray"
+msgstr "\"%value%\" was not found in the collection"
+
+msgid "notInt"
+msgstr "Value must be an integer"
+
+msgid "notIpAddress"
+msgstr "Value does not appear to be a valid IP address"
+
+msgid "notLessThan"
+msgstr "Value must be less than \"%max%\""
+
+msgid "isEmpty"
+msgstr "Value cannot be empty"
+
+msgid "regexNotMatched"
+msgstr "\"%value%\" does not match against pattern \"%pattern%\""
+
+msgid "stringLengthTooShort"
+msgstr "Value must be more than %min% characters"
+
+msgid "stringLengthTooLong"
+msgstr "Value must be shorter than %max% characters"

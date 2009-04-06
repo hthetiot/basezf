@@ -2,7 +2,7 @@
 /**
  * index.php
  *
- * Main Bootstrap
+ * Main Bootstrap launcher
  *
  * @category   MyProject
  * @package    MyProject
@@ -11,39 +11,30 @@
  */
 
 // launch ErrorHandler
-BaseZF_Error_Handler::replaceErrorHandler();
+BaseZF_Error_Handler::registerErrorHandler();
 
-/**
- * Main BootStrap
- */
-final class MyProject_Bootstrap extends BaseZF_Bootstrap
-{
-	/**
-	 * Available controller modules
-	 */
-    protected $_controllerModules = array(
-        'default',
-        'example',
-    );
+ // load Bootstrap Class
+Zend_Loader::loadClass('Bootstrap', PATH_TO_APPLICATION);
 
-	/**
-	 * Initilize Bootstrap
-	 */
-	public function _init()
-    {
-		// init locales
-		MyProject::registry('locale');
-	}
+// run Bootstrap
+$bootstrap = new Bootstrap(array(
 
-	/**
-     * Get current defined Routes
-     */
-    protected function _getRoutes()
-    {
-        return MyProject_Routes::fetch();
-    }
-}
+	// somes path
+	'path_to_controllers' 	=> PATH_TO_CONTROLLERS,
+	'path_to_layout' 		=> PATH_TO_LAYOUTS,
+	'path_to_helper' 		=> PATH_TO_HELPERS,
+	'path_to_views' 		=> PATH_TO_VIEWS,
 
-// launch Bootstrap
-new MyProject_Bootstrap();
+	// enable modules
+	'controller_modules'	=> array(
+		'default',
+		'example',
+	),
+));
 
+$bootstrap->dispatch();
+
+/*
+// displaying current used memory
+echo bytes_to_human_size(memory_get_usage());
+*/

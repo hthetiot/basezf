@@ -44,14 +44,6 @@ define('PATH_TO_LAYOUTS',       PATH_TO_VIEWS . '/layouts');
 
 require_once PATH_TO_LIBRARY . '/missing_functions.php';
 
-//---------------------------------------------------------------------------
-// detect SSL
-
-if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on') {
-    define('BASE_HTTP_SCHEME', 'https://');
-} else {
-    define('BASE_HTTP_SCHEME', 'http://');
-}
 
 //---------------------------------------------------------------------------
 // Include local_auto_prepend.php if available
@@ -68,37 +60,19 @@ define_if_not('CONFIG_FILE', PATH_TO_CONFIG . '/config.ini');
 define_if_not('CONFIG_ACL_ROLES', PATH_TO_CONFIG . '/acl/roles.xml');
 define_if_not('CONFIG_ACL_ROUTES', PATH_TO_CONFIG . '/acl/routes.xml');
 
-// enable or disable css pack file
-define_if_not('CONFIG_STATIC_PACK_CSS', false);
-define('CONFIG_STATIC_PACK_CSS_FILES', PATH_TO_CONFIG . '/static/css/');
-define('CONFIG_STATIC_PACK_CSS_PATH',  '/css/pack/');
-
-// enable or disable js pack file
-define_if_not('CONFIG_STATIC_PACK_JS', false);
-define('CONFIG_STATIC_PACK_JS_FILES', PATH_TO_CONFIG . '/static/js/');
-define('CONFIG_STATIC_PACK_JS_PATH',  '/js/pack/');
-
 //---------------------------------------------------------------------------
 // External variable env
 
-// main url
+// url
 define_if_not('MAIN_URL', 'myproject.com');
-define_if_not('BASE_URL', BASE_HTTP_SCHEME . MAIN_URL);
 
-// cdn url use BASE_HTTP_SCHEME to be secure too
-define_if_not('CDN_URL_JS', BASE_HTTP_SCHEME . MAIN_URL);
-define_if_not('CDN_URL_CSS', BASE_HTTP_SCHEME . MAIN_URL);
-define_if_not('CDN_URL_DESIGN', BASE_HTTP_SCHEME . MAIN_URL);
 
 // mail
 define_if_not('MAIL_DEFAULT_SENDER', 'noreply@' . MAIN_URL);
 define_if_not('MAIL_DEFAULT_SENDER_NAME', 'MyProject');
 
-// cookies
-define_if_not('COOKIES_DOMAIN', '.' . MAIN_URL);
-
 //---------------------------------------------------------------------------
-// ZendFramework Path
+// Frameworks Path
 
 define_if_not('PATH_TO_ZF', '/usr/share/php/ZendFrameWork/release-1.7.3/library');
 

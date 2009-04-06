@@ -1,4 +1,7 @@
 # useless files
+.project
+.cache
+.settings
 *.DS_Store
 *~
 *.svn
@@ -8,8 +11,8 @@
 *.marks
 
 # production only files
-doc/*
-app/locales/*/LC_MESSAGES/*
+docs/*
+locales/*/LC_MESSAGES/*.mo
 
 # config files
 etc/*.conf

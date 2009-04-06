@@ -8,84 +8,64 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-class BaseZF_Error_Handler
+abstract class BaseZF_Error_Handler
 {
-    static private $_INSTANCE = false;
+    private static $_oldErrorhandler;
 
-    private $_oldErrorhandler = null;
-
-    private function __construct()
+    static public function registerErrorHandler()
     {
         // prevent stack error
         Zend_Loader::loadClass('BaseZF_Error_Exception');
 
-        $this->_oldErrorhandler = set_error_handler(array($this, 'newErrorhandler'));
+		self::$_oldErrorhandler = set_error_handler(array(get_class(), 'handleError'));
     }
 
-    static public function replaceErrorHandler()
+	static public function unregisterErrorHandler()
     {
-        if (!self::$_INSTANCE instanceof self) {
-            self::$_INSTANCE = new self();
-        }
-
-        return self::$_INSTANCE;
-    }
-
-    public function newErrorhandler($code, $message, $file, $line)
-    {
-	  // if error_reporting() == 0 then it was a
-	  // suppressed error with the @-operator!
-	  //(We don't want to handle that kind of errors!)
-        if (error_reporting() != 0) {
-            $message = '(' . $this->_getErrorType($code) . ') ' . $message;
-            throw new BaseZF_Error_Exception($message, $code, $file, $line);
-        }
-    }
-
-    static public function printException(Exception $e)
-    {
-        ?>
-		<style>
-		pre.debug {
-			max-height: 100px;
-			overflow: auto;
-			background: grey;
-			padding: 5px;
+		if (isset(self::$_oldErrorhandler)) {
+			set_error_handler(self::$_oldErrorhandler);
 		}
-		</style>
-        <h1>An error occurred</h1>
-        <h2><?php echo $e->getMessage(); ?></h2>
+	}
 
-        <h3>Exception information: </h3>
-        <p>
-            <b>Name:</b> <?php echo get_class($e); ?>
-        </p>
-
-		<p>
-            <b>Code:</b> <?php echo $e->getCode(); ?>
-        </p>
-
-		<p>
-			<b>Source:</b> <?php echo $e->getFile(); ?> Line <?php echo $e->getLine() ?>
-		</p>
-
-        <h3>Stack trace:</h3>
-        <pre class="debug"><?php echo $e->getTraceAsString() ?></pre>
-
-        <h3>Server Parameters:</h3>
-		<pre class="debug"><?php echo var_dump($_SERVER); ?></pre>
-
-		<h3>POST Parameters:</h3>
-		<pre class="debug"><?php echo var_dump($_POST); ?></pre>
-
-		<h3>GET Parameters:</h3>
-		<pre class="debug"><?php echo var_dump($_GET); ?></pre>
-
-		<h3>SESSION Parameters:</h3>
-		<pre class="debug"><?php echo isset($_SESSION) ?  var_dump($_SESSION) : 'No Session initialized.'; ?></pre>
-        <?php
-        exit();
+    static public function handleError($code, $message, $file, $line, array $context)
+    {
+		// if error_reporting() == 0 then it was a
+		// suppressed error with the @-operator!
+		//(We don't want to handle that kind of errors!)
+        if (error_reporting() != 0) {
+			$message = '(' . self::getErrorType($code) . ') ' . $message;
+            throw new BaseZF_Error_Exception($message, $code, $file, $line, $context);
+        }
     }
+
+	static public function getErrorType($errorNo)
+    {
+		$errortype = array (
+            E_ERROR              => 'Error',
+            E_WARNING            => 'Warning',
+            E_PARSE              => 'Parsing Error',
+            E_NOTICE             => 'Notice',
+            E_CORE_ERROR         => 'Core Error',
+            E_CORE_WARNING       => 'Core Warning',
+            E_COMPILE_ERROR      => 'Compile Error',
+            E_COMPILE_WARNING    => 'Compile Warning',
+            E_USER_ERROR         => 'User Error',
+            E_USER_WARNING       => 'User Warning',
+            E_USER_NOTICE        => 'User Notice',
+            E_STRICT             => 'Runtime Notice',
+            E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
+        );
+
+		return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
+    }
+
+	static public function debugException(Exception $e, $debuggerClass = 'BaseZF_Error_Debugger')
+    {
+		// prevent loop stack error
+        Zend_Loader::loadClass($debuggerClass);
+
+		return new $debuggerClass($e);
+	}
 
     static public function sendExceptionByMail(Exception $e, $from, $to)
     {
@@ -93,7 +73,7 @@ class BaseZF_Error_Handler
         $subject = '[' . MAIN_URL . ':' . CONFIG_ENV . '] Exception Report: ' . wordlimit_bychar($e->getMessage(), 50);
         $body = $e->getMessage() . ' in ' . $e->getFile() . ' at line ' . $e->getLine();
 
-        // sned mail throw Zend_Mail
+        // send mail throw Zend_Mail
         $mail = new Zend_Mail();
 
         $mail->setSubject($subject)
@@ -118,30 +98,11 @@ class BaseZF_Error_Handler
 
         $att = $mail->createAttachment(var_export($_SERVER, true), Zend_Mime::TYPE_TEXT);
         $att->filename = 'SERVER.txt';
+
         $att = $mail->createAttachment($e->getTraceAsString(), Zend_Mime::TYPE_TEXT);
         $att->filename = 'backtraceExeption.txt';
+
         $mail->send();
-    }
-
-    private function _getErrorType($errorNo)
-    {
-		$errortype = array (
-            E_ERROR              => 'Error',
-            E_WARNING            => 'Warning',
-            E_PARSE              => 'Parsing Error',
-            E_NOTICE             => 'Notice',
-            E_CORE_ERROR         => 'Core Error',
-            E_CORE_WARNING       => 'Core Warning',
-            E_COMPILE_ERROR      => 'Compile Error',
-            E_COMPILE_WARNING    => 'Compile Warning',
-            E_USER_ERROR         => 'User Error',
-            E_USER_WARNING       => 'User Warning',
-            E_USER_NOTICE        => 'User Notice',
-            E_STRICT             => 'Runtime Notice',
-            E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
-        );
-
-		return $errortype[$errorNo];
     }
 }
 

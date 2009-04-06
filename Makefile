@@ -33,7 +33,7 @@ PROJECT_BIN = $(ROOT)/bin
 PROJECT_LOG = $(ROOT)/data/log
 
 # Locales
-LOCALE_SRC_PATH = $(ROOT)/app/locales
+LOCALE_SRC_PATH = $(ROOT)/locales
 LOCALE_PO_DIR = LC_MESSAGES
 LOCALE_DOMAINS = $(PROJECT_LOCALE_DOMAIN) time validate
 

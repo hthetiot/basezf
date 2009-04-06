@@ -22,16 +22,32 @@ class MyProject_Routes extends BaseZF_Routes
         if (!isset($routes[$nameSpace])) {
 
             $routes = array(
-                'error-404' => new Zend_Controller_Router_Route('404',
-                    array('module' 		=> 'default',
-                    'controller' 	=> 'error',
-                    'action'     	=> 'error404')
+
+				'user' => new Zend_Controller_Router_Route(
+					'user/:username',
+                    array(
+						'module' 		=> 'default',
+						'controller' 	=> 'index',
+						'action'     	=> 'index'
+					)
                 ),
 
-                'error-500' => new Zend_Controller_Router_Route('500',
-                    array('module' 		=> 'default',
-                    'controller' 	=> 'error',
-                    'action'     	=> 'error500')
+                'error404' => new Zend_Controller_Router_Route(
+					'error-404',
+                    array(
+						'module' 		=> 'default',
+						'controller' 	=> 'error',
+						'action'     	=> 'notfound'
+					)
+                ),
+
+                'error500' => new Zend_Controller_Router_Route(
+					'error-500',
+                    array(
+						'module' 		=> 'default',
+						'controller' 	=> 'error',
+						'action'     	=> 'applicationerror'
+					)
                 ),
             );
         }
