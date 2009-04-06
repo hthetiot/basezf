@@ -57,6 +57,29 @@ if (!function_exists('__')) {
 
 }
 
+if (!function_exists('bytes_to_human_size')) {
+
+    /**
+     * Convert bytes to human readable size
+     *
+     * @param int $size
+     * @param int $decimals
+     * @return string
+     */
+    function bytes_to_human_size($size, $decimals = 1)
+    {
+        $suffix = array('Bytes','KB','MB','GB','TB','PB','EB','ZB','YB','NB','DB');
+        $i = 0;
+
+        while ($size >= 1024 && ($i < count($suffix) - 1)){
+            $size /= 1024;
+            $i++;
+        }
+
+        return round($size, $decimals) . ' ' . $suffix[$i];
+    }
+}
+
 if (!function_exists('array_set_current')) {
 
 	/**
