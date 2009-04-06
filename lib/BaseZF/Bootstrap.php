@@ -87,7 +87,7 @@ abstract class BaseZF_Bootstrap
 
 			$this->_initFrontController();
 
-			$this->_init();
+            $this->_init();
 
 		} catch (Exception $exception) {
 

@@ -44,7 +44,6 @@ define('PATH_TO_LAYOUTS',       PATH_TO_VIEWS . '/layouts');
 
 require_once PATH_TO_LIBRARY . '/missing_functions.php';
 
-
 //---------------------------------------------------------------------------
 // Include local_auto_prepend.php if available
 
@@ -55,7 +54,7 @@ if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(PATH_TO_INCLUDES . '/auto_p
 //---------------------------------------------------------------------------
 // Config  (can be defined before auto_prepend include)
 
-define_if_not('CONFIG_ENV', 'production');
+define_if_not('CONFIG_ENV', 'production'); // production || development || test
 define_if_not('CONFIG_FILE', PATH_TO_CONFIG . '/config.ini');
 define_if_not('CONFIG_ACL_ROLES', PATH_TO_CONFIG . '/acl/roles.xml');
 define_if_not('CONFIG_ACL_ROUTES', PATH_TO_CONFIG . '/acl/routes.xml');
@@ -63,11 +62,7 @@ define_if_not('CONFIG_ACL_ROUTES', PATH_TO_CONFIG . '/acl/routes.xml');
 //---------------------------------------------------------------------------
 // External variable env
 
-// url
 define_if_not('MAIN_URL', 'myproject.com');
-
-
-// mail
 define_if_not('MAIL_DEFAULT_SENDER', 'noreply@' . MAIN_URL);
 define_if_not('MAIL_DEFAULT_SENDER_NAME', 'MyProject');
 
@@ -75,12 +70,16 @@ define_if_not('MAIL_DEFAULT_SENDER_NAME', 'MyProject');
 // Frameworks Path
 
 define_if_not('PATH_TO_ZF', '/usr/share/php/ZendFrameWork/release-1.7.3/library');
+define_if_not('PATH_TO_BASEZF', PATH_TO_LIBRARY);
+define_if_not('PATH_TO_MYPROJECT', PATH_TO_INCLUDES);
 
 //---------------------------------------------------------------------------
 // file inclusion & autoload
 
 set_include_path(
     PATH_TO_ZF . PATH_SEPARATOR .
+    PATH_TO_BASEZF . PATH_SEPARATOR .
+    PATH_TO_MYPROJECT . PATH_SEPARATOR .
     PATH_TO_INCLUDES . PATH_SEPARATOR .
     PATH_TO_LIBRARY . PATH_SEPARATOR .
     get_include_path()

@@ -21,7 +21,7 @@ class MyProject_AllTests
 
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('PHPUnit Framework');
+        $suite = new PHPUnit_Framework_TestSuite('MyProject Framework');
 
         $suite->addTestSuite('MyProject_ExampleTest');
         // ...

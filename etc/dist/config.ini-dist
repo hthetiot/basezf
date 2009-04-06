@@ -43,6 +43,9 @@ debug.report.enable     = false
 debug.report.to         = my@example.com
 debug.report.from       = debug@example.com
 
+# test config mode extend app config mode
+[test: app]
+
 # production config mode extend app config mode
 [production: app]
 

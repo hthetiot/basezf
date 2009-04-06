@@ -10,7 +10,7 @@
 
 Contents
 ========
-- GNU gettext, PHP and Horde
+- GNU gettext, PHP
 - Starting a new translation
 - Example messages header
 - Updating a existing translation
@@ -22,7 +22,7 @@ Contents
 GNU gettext, PHP and Horde
 --------------------------
 
-Horde uses GNU gettext for internationalization (i18n) and localization
+MyProject uses GNU gettext for internationalization (i18n) and localization
 (l10n). The manual at http://www.gnu.org/manual/gettext/index.html is
 biased against C and using Emacs. This is more for Horde.
 
@@ -36,8 +36,7 @@ dutch (nl_NL) as an example everywhere.
 Starting a new translation
 --------------------------
 
-- run xgettext.sh (in this directory - horde/po/), this generates a
-  messages.po file.
+- run make locale this generates a messages.po file.
 - rename it to the language you are translating to, e.g. nl_NL.po
 - adjust the header of nl_NL.po, then remove the #, fuzzy line.
   Emacs has support for .po files, but I used vi

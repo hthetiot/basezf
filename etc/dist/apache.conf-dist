@@ -2,17 +2,17 @@
 # Exemple Apache2 config file for Project using BaseZF
 #
 # TO INSTALL:
-# Replace PATH_TO_PROJECT to you project path and
-# MY_DOMAIN by your domain name
+# Replace $PROJECT_PATH to you project path and
+# $PROJECT_DOMAIN by your domain name
 #
 <VirtualHost *>
 
     ### Domains
-    ServerName MY_DOMAIN
-    ServerAlias www.MY_DOMAIN, www2.MY_DOMAIN
+    ServerName $PROJECT_DOMAIN
+    ServerAlias www.$PROJECT_DOMAIN, www2.$PROJECT_DOMAIN
 
     ### DocumentRoot && Locations
-    DocumentRoot PATH_TO_PROJECT/public
+    DocumentRoot $PROJECT_PATH/public
 
     ### Debugging tools
     <Location /debug/>
@@ -21,7 +21,7 @@
 
         ### (Following line optional)
         AuthBasicProvider file
-        AuthUserFile PATH_TO_PROJECT/etc/debug.htpasswd
+        AuthUserFile $PROJECT_PATH/etc/debug.htpasswd
         Require valid-user
     </Location>
 
@@ -30,16 +30,16 @@
     </Location>
 
     ### Alias to doc in debug directory
-    Alias /debug/docs  PATH_TO_PROJECT/docs/html
+    Alias /debug/docs  $PROJECT_PATH/docs/html
 
     ### Custom Logs
-    # CustomLog  PATH_TO_PROJECT/data/log/apache_access.log common
-    # ErrorLog   PATH_TO_PROJECT/data/log/apache_error.log
-    # RewriteLog PATH_TO_PROJECT/data/log/apache_rewrite.log
+    # CustomLog  $PROJECT_PATH/data/log/apache_access.log common
+    # ErrorLog   $PROJECT_PATH/data/log/apache_error.log
+    # RewriteLog $PROJECT_PATH/data/log/apache_rewrite.log
     # RewriteLogLevel 0
 
     ### Php Errors Logs
-    # php_value error_log PATH_TO_PROJECT/data/log/php_error.log
+    # php_value error_log $PROJECT_PATH/data/log/php_error.log
 
     ### Server defaults
     ServerSignature Off
@@ -77,7 +77,7 @@
     <IfModule mod_php5.c>
 
         ## Php auto_prepend file
-        php_value auto_prepend_file PATH_TO_PROJECT/includes/auto_prepend.php
+        php_value auto_prepend_file $PROJECT_PATH/includes/auto_prepend.php
 
         ## Register globals
         php_flag register_globals off

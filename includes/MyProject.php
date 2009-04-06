@@ -23,30 +23,12 @@
 
 final class MyProject
 {
-	 /**
-     * Environment type development
-     *
-     */
-    const ENV_DEVELOPMENT = 'development';
-
-    /**
-     * Environment type production
-     *
-     */
-    const ENV_PRODUCTION  = 'production';
-
-    /**
-     * Environment type test
-     *
-     */
-    const ENV_TEST        = 'test';
-
     /**
      * Environment
      *
      * @var string
      */
-    protected static $_environment = self::ENV_PRODUCTION;
+    protected static $_environment = 'production';
 
 	/**
 	 *
@@ -84,7 +66,6 @@ final class MyProject
      * Set environment
      *
      * @param string $env
-     * @return Zym_App
      */
     public static function setEnvironment($env)
     {

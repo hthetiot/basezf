@@ -25,6 +25,7 @@ PROJECT_VERSION = alpha
 PROJECT_MAINTAINER =
 PROJECT_MAINTAINER_COURRIEL = debug@myproject.com
 PROJECT_LOCALE_DOMAIN = message
+PROJECT_LOCALE_INCLUDE_PATH = $(ROOT)/app $(ROOT)/includes
 
 # Path
 ROOT = .
@@ -88,7 +89,7 @@ locale-template:
 	@echo "----------------"
 	@echo "Build GetText POT files for $(PROJECT_NAME):"
 	@touch $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
-	@find . -type f -iname "*.php" | xgettext --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) -f -
+	@find $(PROJECT_LOCALE_INCLUDE_PATH) -type f -iname "*.php" | xgettext --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) -f -
 	@msguniq $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
 	@echo "done"
 
