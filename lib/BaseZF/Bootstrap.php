@@ -112,13 +112,13 @@ abstract class BaseZF_Bootstrap
 	/**
 	 *
 	 */
-	public function dispatch()
+	public function dispatch(Zend_Controller_Request_Abstract $request = null, Zend_Controller_Response_Abstract $response = null)
     {
 		try {
 
 			$this->_preDispatch();
 
-			Zend_Controller_Front::getInstance()->dispatch();
+			Zend_Controller_Front::getInstance()->dispatch($request, $response);
 
 			$this->_postDispatch();
 

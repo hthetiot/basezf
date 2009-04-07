@@ -1,0 +1,4 @@
+# This directory contain used config files
+apache.conf: Config for apache virtual host
+config.init: Config for application MyProject
+crontab:     Scheduled Cron Jobs

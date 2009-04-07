@@ -10,6 +10,11 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
+// prevent missing auto_prepend_file from apache
+if (!defined('PATH_TO_APPLICATION')) {
+    require_once('../includes/auto_prepend.php');
+}
+
 // launch ErrorHandler
 BaseZF_Error_Handler::registerErrorHandler();
 

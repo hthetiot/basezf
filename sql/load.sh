@@ -18,13 +18,12 @@ db_username="$1"
 shift
 db_hostname="$1"
 
-echo $db_hostname
 if [ -z "${db_hostname}" ]; then
     db_hostname=localhost
 else
     shift
 fi
-echo $db_adapter
+
 if [ -z "${db_adapter}" ]; then
     db_adapter=mysql
 else

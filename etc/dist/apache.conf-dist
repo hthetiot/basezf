@@ -38,6 +38,10 @@
     # RewriteLog $PROJECT_PATH/data/log/apache_rewrite.log
     # RewriteLogLevel 0
 
+    ### Urchin logs
+    # LogFormat "%h %v %u %t \"%r\" %>s %b \"%{Referer}i\"\"%{User-Agent}i\"\"%{Cookie}i\"" special
+    # CustomLog $PROJECT_PATH/data/log/apache_visits.log special
+
     ### Php Errors Logs
     # php_value error_log $PROJECT_PATH/data/log/php_error.log
 
@@ -112,7 +116,7 @@
 
         RewriteCond %{REQUEST_URI} !^/debug/.*
         RewriteCond %{REQUEST_URI} !^/tools/.*
-        RewriteRule !\.(cgi|js|ico|gif|jpg|png|css|htc|rdf|xpi|src|pdf|swf|xml)$ /index.php [L]
+        RewriteRule !\.(cgi|js|ico|gif|jpg|png|css|htc|rdf|xpi|src|pdf|swf|xml)$ /index.php [NC,L]
     </IfModule>
 
     ### Output compression
