@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-04-06 14:55+0200\n"
+"POT-Creation-Date: 2009-04-07 14:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,14 @@ msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:353
 msgid "Avatar Information"
+msgstr ""
+
+#: app/views/layouts/example/layout.phtml:84
+msgid "BaseZF"
+msgstr ""
+
+#: app/views/scripts/example/index/index.phtml:3
+msgid "BaseZF Examples"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:53
@@ -84,6 +92,10 @@ msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:187
 msgid "Emails don't match, please enter them again"
+msgstr ""
+
+#: app/views/layouts/example/layout.phtml:81
+msgid "Examples module"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:196
@@ -221,6 +233,11 @@ msgstr ""
 msgid "Must match the password you entered just above."
 msgstr ""
 
+#: app/views/layouts/default/layout.phtml:31
+#: app/views/layouts/default/layout.phtml:58
+msgid "MyProject"
+msgstr ""
+
 #: includes/MyProject/Form/Example/Showcases.php:207
 msgid "Other:"
 msgstr ""
@@ -351,6 +368,10 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:246
 #: includes/MyProject/Form/Example/Showcases.php:258
 msgid "Weekends Only"
+msgstr ""
+
+#: app/views/layouts/default/layout.phtml:28
+msgid "Welcome to MyProject!"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:238

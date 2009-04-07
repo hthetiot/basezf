@@ -89,7 +89,7 @@ locale-template:
 	@echo "----------------"
 	@echo "Build GetText POT files for $(PROJECT_NAME):"
 	@touch $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
-	@find $(PROJECT_LOCALE_INCLUDE_PATH) -type f -iname "*.php" | xgettext --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) -f -
+	@find $(PROJECT_LOCALE_INCLUDE_PATH) -type f -iname "*.ph*" | xgettext -L PHP --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) -f -
 	@msguniq $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
 	@echo "done"
 
