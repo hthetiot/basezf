@@ -27,7 +27,7 @@ if (extension_loaded('xdebug')) {
 //---------------------------------------------------------------------------
 // Config  (can be defined before auto_prepend include)
 
-define_if_not('CONFIG_ENV', 'development');
+define_if_not('CONFIG_ENV', 'development'); // production || development || test
 
 //---------------------------------------------------------------------------
 // External variable env

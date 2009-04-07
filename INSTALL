@@ -63,6 +63,10 @@
 
 * Init Project
 -------------
-Example:
-$ find . -iname *.php | sed 's/ /\\ /g' | sed 's/#/\#/g' | xargs sed -i 's#MyProject#NewProject#gi'
+
+    - Set /etc/apache.conf from /etc/dist/apache.conf-dist by replace $PROJECT_PATH to you project path and
+    $PROJECT_DOMAIN by your domain name
+
+    - Rename MyProject Classes with this command for example:
+    $find . -iname *.php | sed 's/ /\\ /g' | sed 's/#/\#/g' | xargs sed -i 's#MyProject#NewProject#gi'
 

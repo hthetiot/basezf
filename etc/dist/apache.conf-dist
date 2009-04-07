@@ -53,25 +53,25 @@
     AddType image/x-icon .ico
     AddType video/x-flv .flv
 
-    # Default charset
+    ### Default charset
     AddDefaultCharset UTF-8
 
-    ## Language to file mapping
-    #AddLanguage en-US .html .htm .txt .xml .php
+    ### Language to file mapping
+    # AddLanguage en-US .html .htm .txt .xml .php
 
-    ## Server timezone
-    #SetEnv TZ GMT
+    ### Server timezone
+    # SetEnv TZ GMT
 
-    ## Server admin contact
-    #SetEnv SERVER_ADMIN webmaster@localhost
+    ### Server admin contact
+    # SetEnv SERVER_ADMIN webmaster@localhost
 
-    ## Prevent directory listing
+    ### Prevent directory listing
     IndexIgnore *
 
-    ## Follow symbolic links
+    ### Follow symbolic links
     Options +FollowSymLinks
 
-    ## Disable access to .htaccess & .htpasswd
+    ### Disable access to .htaccess & .htpasswd
     <Files ~ "^\.ht">
         Order allow,deny
         Deny from all
@@ -98,6 +98,13 @@
         ## Output Compression
         php_value zlib.output_compression 1
         php_value zlib.output_compression_level 9
+
+        ## Xdebug profiler
+        # php_value xdebug.profiler_enable 1
+        # php_value xdebug.profiler_append 1
+        # php_value xdebug.profiler_output_dir $PROJECT_PATH/data/log/
+        # php_value xdebug.profiler_output_name php_xdebug.out.%H.%R
+
     </IfModule>
 
     ### Mod rewrite configuration
@@ -121,6 +128,7 @@
 
     ### Output compression
     <IfModule mod_deflate.c>
+
         ## Always compress html content
         AddOutputFilterByType DEFLATE text/html
 

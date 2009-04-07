@@ -12,7 +12,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-// set current environment config mode
+// Set current environment config mode to test
 define('CONFIG_ENV', 'test');
 
 // Init Environement
