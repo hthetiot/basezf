@@ -1,5 +1,24 @@
 #summary Changelog for webgrind.
 
+==1.0==
+ * Added: Ability to click on functions listed in 'calls' and 'called from' info slides to fill details of said function (issue 29)
+ * Fixed: Changed default setting of $storageDir to empty string. This allows webgrind to use system defaults or user may override.
+
+==0.9==
+ * Fixed: Added default xdebug output dir for when xdebug is not loaded (issue 13)
+ * Fixed: Javascript error (issue 16)
+ * Changed: Changed HTML to version 4
+ * Fixed: Removed short php opening tags (issue 18)
+ * Changed: xdebug file format less restrictive. (issue 14)
+ * Changed: method breakdown hover title  (issue 15)
+ * Fixed: Javascript error in Firefox (issue 20)
+ * Fixed: Error parsing some cachegrind files (issue 5)
+ * Fixed: Better parsing of cmd field in cachegrind file (issue 22)
+ * New: Filesize to profile popup menu (issue 24)
+ * Fixed: Using realpath() on all paths
+ * Fixed: Percentage calculated correctly when appending profiles, output shows number of runs (issue 25)
+ * Changed: Added default setting of hiding webgrind profiles from list
+
 ==0.81==
   * Fixed: Potential infinite loop. (issue 12)
 
