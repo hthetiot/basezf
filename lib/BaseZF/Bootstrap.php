@@ -328,7 +328,7 @@ abstract class BaseZF_Bootstrap
 
 		$controllerModules = array();
         foreach ($config['controller_modules'] as $controllerModule) {
-			$controllerModule = mb_strtolower($controllerModule);
+			$controllerModule = strtolower($controllerModule);
             $controllerModules[$controllerModule] = $config['controller_path'] . '/' . $controllerModule;
         }
 

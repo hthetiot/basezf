@@ -67,7 +67,7 @@ class View_Helper_Example_Navigation extends BaseZF_Framework_View_Helper_Abstra
         $xhtml = array();
         foreach ($menus as $menu => $links) {
 
-            if (mb_strlen($menu) > 0) {
+            if (strlen($menu) > 0) {
                 $xhtml[] = '<h4>' . $this->view->escape($menu) . '</h4>';
             }
 
