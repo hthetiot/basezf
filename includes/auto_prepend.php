@@ -33,7 +33,7 @@ define('PATH_TO_LIBRARY',       PATH_BASE . '/lib');
 define('PATH_TO_DOCUMENT_ROOT', PATH_BASE . '/public');
 define('PATH_TO_APPLICATION',   PATH_BASE . '/app');
 define('PATH_TO_CONFIG',        PATH_BASE . '/etc');
-define('PATH_TO_LOCALES',       PATH_TO_APPLICATION . '/locales');
+define('PATH_TO_LOCALES',       PATH_TO_APPLICATION . '/locale');
 define('PATH_TO_CONTROLLERS',   PATH_TO_APPLICATION . '/controllers');
 define('PATH_TO_VIEWS',         PATH_TO_APPLICATION . '/views');
 define('PATH_TO_HELPERS',       PATH_TO_VIEWS . '/helpers');
@@ -51,13 +51,15 @@ if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(PATH_TO_INCLUDES . '/auto_p
 	require_once(PATH_TO_INCLUDES . '/auto_prepend_local.php');
 }
 
+//
+// Following define_if_not cann be defined before auto_prepend include or inauto_prepend_local
+//
+
 //---------------------------------------------------------------------------
-// Config  (can be defined before auto_prepend include)
+// Config
 
 define_if_not('CONFIG_ENV', 'production'); // production || development || test
 define_if_not('CONFIG_FILE', PATH_TO_CONFIG . '/config.ini');
-define_if_not('CONFIG_ACL_ROLES', PATH_TO_CONFIG . '/acl/roles.xml');
-define_if_not('CONFIG_ACL_ROUTES', PATH_TO_CONFIG . '/acl/routes.xml');
 
 //---------------------------------------------------------------------------
 // External variable env
@@ -65,6 +67,14 @@ define_if_not('CONFIG_ACL_ROUTES', PATH_TO_CONFIG . '/acl/routes.xml');
 define_if_not('MAIN_URL', 'myproject.com');
 define_if_not('MAIL_DEFAULT_SENDER', 'noreply@' . MAIN_URL);
 define_if_not('MAIL_DEFAULT_SENDER_NAME', 'MyProject');
+
+//---------------------------------------------------------------------------
+// Debug
+
+define_if_not('DEBUG_ENABLE', false);
+define_if_not('DEBUG_REPORT', true);
+define_if_not('DEBUG_REPORT_FROM', 'debug@' . MAIN_URL);
+define_if_not('DEBUG_REPORT_TO', 'dev@' . MAIN_URL);
 
 //---------------------------------------------------------------------------
 // Frameworks Path

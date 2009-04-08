@@ -1,17 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Language  translations for PACKAGE package.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Automatically generated, 2009.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-04-07 14:50+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2009-04-08 11:33+0200\n"
+"PO-Revision-Date: 2009-04-08 11:33+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,8 +19,7 @@ msgstr ""
 msgid "Address:"
 msgstr ""
 
-#: app/controllers/Default/ErrorController.php:86
-#: app/controllers/default/ErrorController.php:98
+#: app/controllers/default/ErrorController.php:79
 msgid "Application error"
 msgstr ""
 
@@ -43,10 +41,6 @@ msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:53
 msgid "Birthday:"
-msgstr ""
-
-#: lib/BaseZF/Framework/View/Helper/FormFile.php:61
-msgid "Browse"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:327
@@ -76,10 +70,6 @@ msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:65
 msgid "Country:"
-msgstr ""
-
-#: lib/BaseZF/Framework/View/Helper/FormDate.php:34
-msgid "Day"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:154
@@ -132,10 +122,6 @@ msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:31
 msgid "Gender:"
-msgstr ""
-
-#: test.php:1
-msgid "Harold"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:203
@@ -213,10 +199,6 @@ msgstr ""
 msgid "Message Subject:  "
 msgstr ""
 
-#: lib/BaseZF/Framework/View/Helper/FormDate.php:30
-msgid "Month"
-msgstr ""
-
 #: includes/MyProject/Form/Example/Showcases.php:217
 msgid "Must be 250 characters or less."
 msgstr ""
@@ -242,8 +224,7 @@ msgstr ""
 msgid "Other:"
 msgstr ""
 
-#: app/controllers/Default/ErrorController.php:77
-#: app/controllers/default/ErrorController.php:89
+#: app/controllers/default/ErrorController.php:70
 msgid "Page not found"
 msgstr ""
 
@@ -377,10 +358,6 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:238
 #: includes/MyProject/Form/Example/Showcases.php:251
 msgid "What is your current availability?"
-msgstr ""
-
-#: lib/BaseZF/Framework/View/Helper/FormDate.php:26
-msgid "Year"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:355

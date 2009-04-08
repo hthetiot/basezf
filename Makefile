@@ -34,7 +34,7 @@ PROJECT_BIN = $(ROOT)/bin
 PROJECT_LOG = $(ROOT)/data/log
 
 # Locales
-LOCALE_SRC_PATH = $(ROOT)/locales
+LOCALE_SRC_PATH = $(ROOT)/locale
 LOCALE_PO_DIR = LC_MESSAGES
 LOCALE_DOMAINS = $(PROJECT_LOCALE_DOMAIN) time validate
 
@@ -75,6 +75,12 @@ syntax:
 	@for i in =`find . -type f -name *.ph* | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
+syntax-fast:
+	@echo "----------------"
+	@echo "Check PHP syntax on all php files updated:"
+	@for i in =`git-diff --name-only | grep '.ph' | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
+	@echo "done"
+
 # Exec unitTest
 test:
 	@echo "----------------"
@@ -88,9 +94,9 @@ locale: locale-template locale-update locale-deploy
 locale-template:
 	@echo "----------------"
 	@echo "Build GetText POT files for $(PROJECT_NAME):"
-	@touch $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
-	@find $(PROJECT_LOCALE_INCLUDE_PATH) -type f -iname "*.ph*" | xgettext -L PHP --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) -f -
-	@msguniq $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/$(PROJECT_LOCALE_DOMAIN).pot
+	@touch $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot
+	@find $(PROJECT_LOCALE_INCLUDE_PATH) -type f -iname "*.ph*" | xgettext -L PHP --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) -f -
+	@msguniq $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot
 	@echo "done"
 
 # Update .po files of from current .pot for all available local domains
@@ -98,11 +104,11 @@ locale-update:
 	@echo "----------------"
 	@echo "Update GetText PO files from POT files:"
 	@for o in $(LOCALE_DOMAINS); do \
-	for i in `find $(LOCALE_SRC_PATH) -maxdepth 1 -mindepth 1 -type d`; do \
+	for i in `find $(LOCALE_SRC_PATH) -maxdepth 1 -mindepth 1 -type d -not -name "dist"`; do \
 		if [ -e "$$i/$(LOCALE_PO_DIR)/$$o.po" ] ; then \
 			echo "Updated $$i/$(LOCALE_PO_DIR)/$$o.po"; \
-			msgmerge --previous $$i/$(LOCALE_PO_DIR)/$$o.po $(LOCALE_SRC_PATH)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
-			else mkdir $$i/$(LOCALE_PO_DIR)/ -p; msginit -l `echo "$(ROOT)/$$i" | sed 's:$(LOCALE_SRC_PATH)\/::g' | sed 's:\/LC_MESSAGES::g'` --no-translator --no-wrap -i $(LOCALE_SRC_PATH)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
+			msgmerge --previous $$i/$(LOCALE_PO_DIR)/$$o.po $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
+			else mkdir $$i/$(LOCALE_PO_DIR)/ -p; msginit -l `echo "$(ROOT)/$$i" | sed 's:$(LOCALE_SRC_PATH)\/::g' | sed 's:\/LC_MESSAGES::g'` --no-translator --no-wrap -i $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
 		fi; \
 		msguniq $$i/$(LOCALE_PO_DIR)/$$o.po -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
     done \
@@ -139,6 +145,27 @@ static-pack-css:
 static-pack-js:
 	@echo "----------------"
 	@./bin/tools/static-pack.sh js $(JS_SRC_PATH) $(JS_PACK_PATH)
+
+# Remove the log files
+log-clean:
+	@echo "----------------"
+	@echo "Cleaning log files:"
+	@list=`find $(PROJECT_LOG) -type f -not -name "README"`; \
+	for i in $$list;do \
+		echo "Removed $$i"; \
+		rm -f $$i; \
+    done
+	@echo "done"
+
+# Archive the log files
+log-archive:
+	@echo "----------------"
+	@echo "Archive log files:"
+	@list=`find $(PROJECT_LOG) -type f -not -name "README"`; \
+	for i in $$list;do \
+		echo "Archived $$i"; \
+    done
+	@echo "done"
 
 # Remove the staged files
 clean:

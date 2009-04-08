@@ -22,19 +22,21 @@ if (extension_loaded('xdebug')) {
     ini_set('xdebug.dump.SERVER', 'HTTP_HOST, SERVER_NAME');
     ini_set('xdebug.dump.GET', '*');
     ini_set('xdebug.dump.POST', '*');
+    ini_set('xdebug.show_local_vars', '1');
+    ini_set('xdebug.collect_params', '1');
 }
 
 //---------------------------------------------------------------------------
 // Config  (can be defined before auto_prepend include)
 
-define_if_not('CONFIG_ENV', 'development'); // production || development || test
+define_if_not('CONFIG_ENV', 'development');
 
 //---------------------------------------------------------------------------
 // External variable env
 
-define_if_not('MAIN_URL', isset($SERVER['HTTP_HOST']) ? $SERVER['HTTP_HOST'] : 'localhost');
+define_if_not('MAIN_URL', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost'));
 
 //---------------------------------------------------------------------------
 // Frameworks Path
 
-define_if_not('PATH_TO_ZF', '/home/hthetiot/projects/ZendFramework-1.7.7-minimal/library');
+//define_if_not('PATH_TO_ZF', '/home/johndoe/ZendFramework-1.7.7-minimal/library');

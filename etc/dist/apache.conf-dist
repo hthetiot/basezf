@@ -30,7 +30,7 @@
     </Location>
 
     ### Alias to doc in debug directory
-    Alias /debug/docs  $PROJECT_PATH/docs/html
+    Alias /debug/doc  $PROJECT_PATH/doc/html
 
     ### Custom Logs
     # CustomLog  $PROJECT_PATH/data/log/apache_access.log common
