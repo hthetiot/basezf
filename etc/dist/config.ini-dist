@@ -49,5 +49,5 @@ debug.report.from       = debug@example.com
 # production config mode extend app config mode
 [production: app]
 
-# staging config mode extend app config mode
-[staging: app]
+# development config mode extend app config mode
+[development: app]
