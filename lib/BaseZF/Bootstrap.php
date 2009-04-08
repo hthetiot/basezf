@@ -22,32 +22,36 @@ abstract class BaseZF_Bootstrap
 	 */
 	protected $_defaultConfig = array(
 
-		// somes path
-		'path_to_controllers' 	=> null,
-		'path_to_layout' 		=> null,
-		'path_to_helper' 		=> null,
-		'path_to_views' 		=> null,
+        // debug config
+        'debug_enable'          => false,
+        'debug_report'          => true,
+        'debug_report_from'     => null,
+        'debug_report_to'       => null,
 
-		// enable modules
+		// Controller
+		'controller_path'			=> '',
+		'controller_helper_path'	=> '',
+		'controller_plugins'		=> array(
+		),
+
 		'controller_modules'	=> array(
 			'default',
 			'example',
 		),
 
-		// enable plugins
-		'controller_plugins'	=> array(
-		),
-
-		// other
+		// dependency
 		'zend_version'			=> '1.7.7',
 
-		// layout
+		// Layout
+		'layout_path'			=> '',
 		'layout_default' 		=> 'default',
 		'layout_content_key'	=> 'content',
 		'layout_script_suffix' 	=> '.phtml',
 		'layout_inflector' 		=> ':script/layout.:suffix',
 
-		// views
+		// View
+		'view_path'				=> '',
+		'view_helper_path'		=> '',
 		'view_script_suffix' 	=> '.phtml',
 		'view_inflector' 		=> 'scripts/:module/:controller/:action.:suffix',
 		'view_helper_paths' 	=> array(
@@ -59,10 +63,10 @@ abstract class BaseZF_Bootstrap
 	 * Required config values
 	 */
 	protected $_requiredConfig = array(
-		'path_to_controllers',
-		'path_to_layout',
-		'path_to_helper',
-		'path_to_views',
+		'controller_path',
+		'layout_path',
+		'view_helper_path',
+		'view_path',
 	);
 
     /**
@@ -149,6 +153,20 @@ abstract class BaseZF_Bootstrap
 	/**
 	 *
 	 */
+	protected function _handleException(Exception $exception)
+	{
+        if (1) {
+			$this->_debugException($exception);
+		} else {
+			$this->_dispatchException($exception);
+		}
+
+        //BaseZF_Error_Handler::sendExceptionByMail
+	}
+
+    /**
+	 *
+	 */
 	protected function _debugException(Exception $exception)
 	{
 		throw $exception;
@@ -157,24 +175,9 @@ abstract class BaseZF_Bootstrap
 	/**
 	 *
 	 */
-	protected function _handleException(Exception $exception)
-	{
-		$front = Zend_Controller_Front::getInstance();
-		$request = $front->getRequest();
-
-		if ($request instanceof Zend_Controller_Request_Abstract && $request->getParam('error_debug') == true) {
-			$this->_debugException($exception);
-		} else {
-			$this->_dispatchException($exception);
-		}
-	}
-
-	/**
-	 *
-	 */
 	protected function _dispatchException(Exception $exception)
 	{
-		// Build request
+        // Build request
 		$errorHandlerParams = new ArrayObject(
 			array(
 				'exception' => $exception,
@@ -196,6 +199,7 @@ abstract class BaseZF_Bootstrap
 				->setParam('error_handler', $errorHandlerParams);
 
 		Zend_Controller_Front::getInstance()->dispatch($request);
+
 		exit();
 	}
 
@@ -210,8 +214,8 @@ abstract class BaseZF_Bootstrap
     {
 		// get view config
         $config = $this->getConfig(array(
-			'path_to_views',
-			'path_to_helper',
+			'view_path',
+			'view_helper_path',
 			'view_inflector',
 			'view_helper_paths',
 		));
@@ -219,8 +223,8 @@ abstract class BaseZF_Bootstrap
         $view = Zend_Layout::getMvcInstance()->getView();
 
         // set view default path
-        $view->addScriptPath($config['path_to_views']);
-        $view->addHelperPath($config['path_to_helper'], 'View_Helper');
+        $view->addScriptPath($config['view_path']);
+        $view->addHelperPath($config['view_helper_path'], 'View_Helper');
 
 		// add view helper paths
 		foreach ($config['view_helper_paths'] as $helperPath => $helperClass) {
@@ -243,7 +247,7 @@ abstract class BaseZF_Bootstrap
     {
 		// set layout config
         $config = $this->getConfig(array(
-			'path_to_layout',
+			'layout_path',
 			'layout_default',
 			'layout_content_key',
 			'layout_inflector',
@@ -251,7 +255,7 @@ abstract class BaseZF_Bootstrap
 
         // init layout
 		$layout = Zend_Layout::startMvc(array(
-			'layoutPath' => $config['path_to_layout'],
+			'layoutPath' => $config['layout_path'],
 			'layout'     => $config['layout_default'],
 			'contentKey' => $config['layout_content_key'],
 		));
@@ -289,6 +293,11 @@ abstract class BaseZF_Bootstrap
         // init Controller module
         $this->_initControllerPlugins($frontController);
 
+        // init error plugins
+        if (0) {
+            $frontController->throwExceptions(true);
+        }
+
 		return $this;
     }
 
@@ -313,14 +322,14 @@ abstract class BaseZF_Bootstrap
     protected function _initControllerModules(Zend_Controller_Front $frontController)
     {
         $config = $this->getConfig(array(
-			'path_to_controllers',
+			'controller_path',
 			'controller_modules',
 		));
 
 		$controllerModules = array();
         foreach ($config['controller_modules'] as $controllerModule) {
 			$controllerModule = mb_strtolower($controllerModule);
-            $controllerModules[$controllerModule] = $config['path_to_controllers'] . '/' . $controllerModule;
+            $controllerModules[$controllerModule] = $config['controller_path'] . '/' . $controllerModule;
         }
 
         $frontController->setControllerDirectory($controllerModules);

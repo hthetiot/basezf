@@ -12,7 +12,7 @@
 
 // prevent missing auto_prepend_file from apache
 if (!defined('PATH_TO_APPLICATION')) {
-    require_once('../includes/auto_prepend.php');
+    require_once(realpath(dirname(__FILE__) . '/..') . '/includes/auto_prepend.php');
 }
 
 // launch ErrorHandler
@@ -25,10 +25,10 @@ Zend_Loader::loadClass('Bootstrap', PATH_TO_APPLICATION);
 $bootstrap = new Bootstrap(array(
 
 	// somes path
-	'path_to_controllers' 	=> PATH_TO_CONTROLLERS,
-	'path_to_layout' 		=> PATH_TO_LAYOUTS,
-	'path_to_helper' 		=> PATH_TO_HELPERS,
-	'path_to_views' 		=> PATH_TO_VIEWS,
+	'controller_path' 	=> PATH_TO_CONTROLLERS,
+	'layout_path' 		=> PATH_TO_LAYOUTS,
+	'view_helper_path'  => PATH_TO_HELPERS,
+	'view_path' 		=> PATH_TO_VIEWS,
 
 	// enable modules
 	'controller_modules'	=> array(
