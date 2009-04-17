@@ -1,12 +1,24 @@
+#
+# Description: Application config file for Project using BaseZF
+#
+# Config template vars:
+# $DB_ADAPTER: Database server type [default: Pdo_Mysql]
+# $DB_HOST: Database server [default: localhost]
+# $DB_NAME: Database name
+# $DB_USERNAME: Database username
+# $DB_PASSWORD: Database username password
+# $DEBUG_REPORT_TO: Error mail report recipients (separate by ",")
+# $DEBUG_REPORT_FROM: Error mail report email from
+#
 [app]
 
 #database
-db.adapter                  = Pdo_Mysql
+db.adapter                  = $DB_ADAPTER
 db.params.persistent        = true
-db.params.host              = localhost
-db.params.dbname            =
-db.params.username          =
-db.params.password          =
+db.params.host              = $DB_HOST
+db.params.dbname            = $DB_NAME
+db.params.username          = $DB_USERNAME
+db.params.password          = $DB_PASSWORD
 db.params.profiler.enabled  = false
 db.params.profiler.class    = Zend_Db_Profiler_Firebug
 
@@ -40,8 +52,8 @@ log.components.dbquery       = false
 debug.cookie_name       = DEBUG_ME
 debug.enable            = true
 debug.report.enable     = false
-debug.report.to         = my@example.com
-debug.report.from       = debug@example.com
+debug.report.to         = $DEBUG_REPORT_TO
+debug.report.from       = $DEBUG_REPORT_FROM
 
 # test config mode extend app config mode
 [test: app]

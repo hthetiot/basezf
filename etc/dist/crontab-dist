@@ -1,1 +1,16 @@
+#
+# Description: crontab config file for Project using BaseZF
+#
+# Config template vars:
+# $PROJECT_PATH: Your project path (example: /home/jhondoe/project/basezf)
+# $CRON_USER: User execute the cron tasks (example: www-data)
+#
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:$PROJECT_PATH/bin/tools
+
+# m h dom mon dow user	command
+
+# exec unit test each day at 3AM
+00 3	* * *	$CRON_USER    cd $PROJECT_PATH && make test
+00 5	* * *	$CRON_USER    cd $PROJECT_PATH && make log-rotate
 

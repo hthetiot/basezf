@@ -1,9 +1,9 @@
 #
-# Exemple Apache2 config file for Project using BaseZF
+# Description: Apache2 config file for Project using BaseZF
 #
-# TO INSTALL:
-# Replace $PROJECT_PATH to you project path and
-# $PROJECT_DOMAIN by your domain name
+# Config template vars:
+# $PROJECT_PATH: Your project path (example: /home/jhondoe/project/basezf)
+# $PROJECT_DOMAIN: Your project domain name (example: myproject.com)
 #
 <VirtualHost *>
 

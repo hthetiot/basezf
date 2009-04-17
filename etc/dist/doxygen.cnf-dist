@@ -1,5 +1,9 @@
-# Doxyfile 1.4.6
-
+#
+# Doxyfile 1.4.6 config file for Project using BaseZF
+#
+# Config template vars:
+# $PROJECT_PATH: your project path
+#
 # This file describes the settings to be used by the documentation system
 # doxygen (www.doxygen.org) for a project
 #

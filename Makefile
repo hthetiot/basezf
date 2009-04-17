@@ -32,6 +32,7 @@ ROOT = .
 PROJECT_LIB = $(ROOT)/lib
 PROJECT_BIN = $(ROOT)/bin
 PROJECT_LOG = $(ROOT)/data/log
+PROJECT_CONFIG = $(ROOT)/etc
 
 # Locales
 LOCALE_SRC_PATH = $(ROOT)/locale
@@ -86,6 +87,22 @@ test:
 	@echo "----------------"
 	@echo "Exec Units test:"
 	@cd tests && phpunit AllTests
+	@echo "done"
+
+config: config-install config-show
+
+# initialise or update config files
+config-install:
+	@echo "----------------"
+	@echo "Configure config files:"
+	@$(PROJECT_BIN)/tools/config-generator.php configure $(PROJECT_CONFIG) $(PROJECT_CONFIG)/dist
+	@echo "done"
+
+# displaying config files variables values
+config-show:
+	@echo "----------------"
+	@echo "Current config files variables values is:"
+	@$(PROJECT_BIN)/tools/config-generator.php show $(PROJECT_CONFIG) $(PROJECT_CONFIG)/dist
 	@echo "done"
 
 locale: locale-template locale-update locale-deploy
