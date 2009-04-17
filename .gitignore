@@ -15,8 +15,7 @@ doc/*
 locale/*/LC_MESSAGES/*.mo
 
 # config files
-etc/*.conf
-etc/*.ini
+etc/*
 includes/auto_prepend_local.php
 
 # debug output storage
