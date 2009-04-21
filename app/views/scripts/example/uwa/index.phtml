@@ -17,6 +17,7 @@
       tabs.addTab("tab5", {text: "Rich list "});
       tabs.addTab("tab6", {text: "Thumbnailed list"});
       tabs.addTab("tab7", {text: "Json"});
+      tabs.addTab("tab8", {text: "Ajax"});
 
       // Put some content in tabs
       tabs.setContent("tab1", $('hello-content').get('html'));
@@ -26,11 +27,13 @@
       tabs.setContent("tab5", $('richlist-content').get('html'));
       tabs.setContent("tab6", $('thumbist-content').get('html'));
 	  tabs.setContent("tab7", $('json-content').get('html'));
+      tabs.setContent("tab8", $('ajax-content').get('html'));
 
       // Restore saved active tab
       var activeTab = widget.getValue("activeTab");
       if (activeTab) {
-        tabs.selectTab(activeTab);
+          tabs.selectTab(activeTab);
+          TabViewSample.onActiveTabChanged(activeTab);
       }
 
       // Register to activeTabChange event
@@ -52,9 +55,22 @@
 				tabs.setContent("tab7", 'current date is:' + json.time);
             }
 
-            UWA.Data.request('<?php echo BASE_URL; ?>/example/uwa/jsoncallback', {
+            UWA.Data.request('/example/uwa/jsoncallback', {
                 method: 'get',
                 type: 'json',
+                onComplete: onComplete.bind(this)
+            });
+
+        }
+
+        if (name == 'tab8') {
+
+            var onComplete = function(html) {
+				tabs.setContent("tab8", html);
+            }
+
+            UWA.Data.request('/example/uwa/ajaxcallback', {
+                method: 'get',
                 onComplete: onComplete.bind(this)
             });
 
@@ -64,13 +80,14 @@
       widget.setValue("activeTab", name);
     }
 
+
     widget.setTitle('Test Title');
     widget.setIcon("http://cdn.netvibes.com/modules/uwa/icon.png");
     widget.setUnreadCount(1);
     widget.setSearchResultCount(2);
 
     widget.onResize = function() {
-        //alert('resize');
+
     }
 
 </script>
@@ -230,6 +247,10 @@
 </div>
 
 <div id="json-content">
+	Loading...
+</div>
+
+<div id="ajax-content">
 	Loading...
 </div>
 
