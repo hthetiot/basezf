@@ -40,7 +40,7 @@ abstract class BaseZF_Error_Handler
 
     static public function getErrorType($errorNo)
     {
-		$errortype = array (
+	$errortype = array (
             E_ERROR              => 'Error',
             E_WARNING            => 'Warning',
             E_PARSE              => 'Parsing Error',
@@ -56,12 +56,12 @@ abstract class BaseZF_Error_Handler
             E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
         );
 
-		return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
+	return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
     }
 
     static public function debugException(Exception $e, $debuggerClass = 'BaseZF_Error_Debugger')
     {
-		// prevent loop stack error
+	// prevent loop stack error
         Zend_Loader::loadClass($debuggerClass);
 
         return new $debuggerClass($e);
