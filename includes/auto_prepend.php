@@ -34,10 +34,6 @@ define('PATH_TO_DOCUMENT_ROOT', PATH_BASE . '/public');
 define('PATH_TO_APPLICATION',   PATH_BASE . '/app');
 define('PATH_TO_CONFIG',        PATH_BASE . '/etc');
 define('PATH_TO_LOCALES',       PATH_BASE . '/locale');
-define('PATH_TO_CONTROLLERS',   PATH_TO_APPLICATION . '/controllers');
-define('PATH_TO_VIEWS',         PATH_TO_APPLICATION . '/views');
-define('PATH_TO_HELPERS',       PATH_TO_VIEWS . '/helpers');
-define('PATH_TO_LAYOUTS',       PATH_TO_VIEWS . '/layouts');
 
 //---------------------------------------------------------------------------
 // Include missing functions from library path
@@ -87,13 +83,20 @@ define_if_not('PATH_TO_MYPROJECT', PATH_TO_INCLUDES);
 // file inclusion & autoload
 
 set_include_path(
-    PATH_TO_ZF . PATH_SEPARATOR .
+
+    // load ZF lib
+    PATH_TO_ZF . '/library' . PATH_SEPARATOR .
+    PATH_TO_ZF . '/library/incubator' . PATH_SEPARATOR .
+
+    // load others lib
     PATH_TO_BASEZF . PATH_SEPARATOR .
     PATH_TO_MYPROJECT . PATH_SEPARATOR .
     PATH_TO_INCLUDES . PATH_SEPARATOR .
     PATH_TO_LIBRARY . PATH_SEPARATOR .
+
     get_include_path()
 );
+
 
 //---------------------------------------------------------------------------
 // Start Zend Loader
@@ -101,4 +104,5 @@ set_include_path(
 require_once 'Zend/Loader.php';
 
 Zend_Loader::registerAutoload();
+
 

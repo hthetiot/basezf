@@ -64,28 +64,6 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
         $this->_initLayout();
 
-        $this->_initModuleHelpers();
-    }
-
-     /**
-     * Add module Helper path
-     *
-     * @return $this for more fluent interface
-     */
-    protected function _initModuleHelpers($module = null)
-    {
-        if (is_null($module)) {
-            $module = $this->getRequest()->getModuleName();
-        }
-
-        if (!empty($module) && strtolower($module) != 'default') {
-
-            $module = ucfirst(strtolower($module));
-
-            $this->view->addHelperPath(PATH_TO_HELPERS . '/' . $module, 'View_Helper_' . $module);
-        }
-
-        return  $this;
     }
 
     /**
@@ -97,7 +75,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
      */
     protected function _initLayout()
     {
-        $this->layout = Zend_layout::getMvcInstance();
+        $this->layout = Zend_Layout::getMvcInstance();
 
         // set defaultLayout
         if (!is_null($this->_defaultLayout)) {

@@ -10,36 +10,40 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-// prevent missing auto_prepend_file from apache
-if (!defined('PATH_TO_APPLICATION')) {
-    require_once(realpath(dirname(__FILE__) . '/..') . '/includes/auto_prepend.php');
-}
+/**
+ * Initialize Application Configuration and Environment
+ */
+$application = new Zend_Application(
 
-// launch ErrorHandler
-BaseZF_Error_Handler::registerErrorHandler();
+    // Application environment
+    CONFIG_ENV,
 
- // load Bootstrap Class
-Zend_Loader::loadClass('Bootstrap', PATH_TO_APPLICATION);
+    // Application Options
+    array(
 
-// run Bootstrap
-$bootstrap = new Bootstrap(array(
+        // Bootstrap Options
+        'bootstrap' => array(
 
-	// somes path
-	'controller_path' 	=> PATH_TO_CONTROLLERS,
-	'layout_path' 		=> PATH_TO_LAYOUTS,
-	'view_helper_path'  => PATH_TO_HELPERS,
-	'view_path' 		=> PATH_TO_VIEWS,
+            // Main bootstrap Class path
+            'path' => PATH_TO_APPLICATION . '/Bootstrap.php',
 
-	// enable modules
-	'controller_modules'	=> array(
-		'default',
-		'example',
-	),
-));
+            // Debug options
+            'debug_enable'          => false,
+            'debug_report'          => true,
+            'debug_report_from'     => null,
+            'debug_report_to'       => null,
+        ),
 
-$bootstrap->dispatch();
+        // Autoloader Options
+        'autoloadernamespaces'  => array(
+            'Zend',
+            'BaseZF',
+            'MyProject',
+            'App',
+        ),
+    )
+);
 
-/*
-// displaying current used memory
-echo bytes_to_human_size(memory_get_usage());
-*/
+$application->bootstrap();
+$application->run();
+

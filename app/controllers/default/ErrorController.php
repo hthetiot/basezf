@@ -32,24 +32,6 @@ class ErrorController extends BaseZF_Framework_Controller_Action
         // Grab the error object from the request
         $this->_error_handler = $this->_getParam('error_handler');
 		$this->view->error_handler = $this->_error_handler;
-
-        // get current config
-        $config = MyProject::registry('config');
-
-        // throw Exception and do not display end user error if debug is enable
-		$errorFoward = $this->_getParam('error_foward');
-
-		if (
-			// has an error but no forward error
-			!empty($this->_error_handler) && $errorFoward !== true &&
-
-			// dev env and remote debug
-			($config->debug->enable || isset($_COOKIE[$config->debug->cookie_name]))
-		) {
-			$this->getRequest()->setParam('error_debug', true);
-
-			throw $this->_error_handler->exception;
-        }
     }
 
     /**
@@ -66,7 +48,6 @@ class ErrorController extends BaseZF_Framework_Controller_Action
      */
     public function errorAction()
     {
-
         // set header (disable json/ajax)
         $response = $this->getResponse();
 
@@ -111,18 +92,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
      */
     public function applicationerrorAction()
     {
-        // get current config
-        $config = MyProject::registry('config');
-
-		// if report is enable sent exception info by mail
-        if ($config->debug->report->enable) {
-
-            BaseZF_Error_Handler::sendExceptionByMail(
-                $this->_error_handler->exception,
-                $config->debug->report->from,
-                $config->debug->report->to
-            );
-        }
+        // do nothings for security
     }
 
     /**
@@ -132,7 +102,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
      */
     public function notfoundAction()
     {
-
+        // do nothings for security
     }
 }
 

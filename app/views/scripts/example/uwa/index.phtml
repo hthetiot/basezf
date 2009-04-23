@@ -55,7 +55,7 @@
 				tabs.setContent("tab7", 'current date is:' + json.time);
             }
 
-            UWA.Data.request('/example/uwa/jsoncallback', {
+            UWA.Data.request('http://<?php echo $_SERVER['HTTP_HOST']; ?>/example/uwa/jsoncallback', {
                 method: 'get',
                 type: 'json',
                 onComplete: onComplete.bind(this)
@@ -69,15 +69,15 @@
 				tabs.setContent("tab8", html);
             }
 
-            UWA.Data.request('/example/uwa/ajaxcallback', {
+            UWA.Data.request('http://<?php echo $_SERVER['HTTP_HOST']; ?>/example/uwa/ajaxcallback', {
                 method: 'get',
                 onComplete: onComplete.bind(this)
             });
 
         }
 
-      // Save active tab
-      widget.setValue("activeTab", name);
+        // Save active tab
+        widget.setValue("activeTab", name);
     }
 
 

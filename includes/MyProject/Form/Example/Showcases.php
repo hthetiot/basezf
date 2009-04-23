@@ -358,6 +358,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 		));
 
         // add synchron upload support
+        /*
         $this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
         $this->addElement('file', 'avatar_file', array(
             'label'         => __('Upload your Avatar:'),
@@ -366,7 +367,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 			// extras
 			'container_class'	=> 'wide',
         ));
-
+*/
         $this->addElement('checkbox', 'therms_file', array(
             'label'         => __('I certify that I have the right to distribute this picture and that it does not violate the Terms of Use'),
             'required'      => true,

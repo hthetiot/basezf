@@ -20,7 +20,7 @@ class BaseZF_Notify
     /**
      * Notifier namespace for storage
      */
-    const DEFAULT_SESSION_NAMESPACE = 'Notify';
+    const DEFAULT_NAMESPACE = 'Notify';
 
     /**
      * Link to Zend_Session_Namespace instance
@@ -54,7 +54,7 @@ class BaseZF_Notify
      *
      * @return object instance of Bahu_Notify
      */
-     static public function getInstance($nameSpace = self::DEFAULT_SESSION_NAMESPACE)
+     static public function getInstance($nameSpace = self::DEFAULT_NAMESPACE)
     {
         if (!isset(self::$_INSTANCES[$nameSpace])) {
             self::$_INSTANCES[$nameSpace] = new BaseZF_Notify($nameSpace);
