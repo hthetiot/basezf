@@ -10,25 +10,20 @@
 
 class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 {
-	protected function _render()
-	{
-?>
-arf
-<?php
-	}
-}
+    protected function _render()
+    {
 
+    }
 
-/*
-	static public function printExceptionSourceDetails(BaseZF_Error_Exception $e)
-	{
-		var_dump($e->getContext());
-	}
+    static public function printExceptionSourceDetails(BaseZF_Error_Exception $e)
+    {
+    	echo highlight_string($e->getSource());
+    }
 
-	static public function printExceptionContext(BaseZF_Error_Exception $e)
-	{
-		var_dump($e->getContext());
-	}
+    static public function printExceptionContext(BaseZF_Error_Exception $e)
+    {
+    	echo highlight_string($e->getContext);
+    }
 
 
     static public function debugException(Exception $e)

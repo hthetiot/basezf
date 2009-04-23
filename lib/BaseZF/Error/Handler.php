@@ -17,15 +17,15 @@ abstract class BaseZF_Error_Handler
         // prevent stack error
         Zend_Loader::loadClass('BaseZF_Error_Exception');
 
-		self::$_oldErrorhandler = set_error_handler(array(get_class(), 'handleError'));
+        self::$_oldErrorhandler = set_error_handler(array(get_class(), 'handleError'));
     }
 
-	static public function unregisterErrorHandler()
+    static public function unregisterErrorHandler()
     {
-		if (isset(self::$_oldErrorhandler)) {
-			set_error_handler(self::$_oldErrorhandler);
-		}
-	}
+        if (isset(self::$_oldErrorhandler)) {
+            set_error_handler(self::$_oldErrorhandler);
+        }
+    }
 
     static public function handleError($code, $message, $file, $line, array $context)
     {
@@ -38,9 +38,9 @@ abstract class BaseZF_Error_Handler
         }
     }
 
-	static public function getErrorType($errorNo)
+    static public function getErrorType($errorNo)
     {
-		$errortype = array (
+	$errortype = array (
             E_ERROR              => 'Error',
             E_WARNING            => 'Warning',
             E_PARSE              => 'Parsing Error',
@@ -56,16 +56,16 @@ abstract class BaseZF_Error_Handler
             E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
         );
 
-		return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
+	return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
     }
 
-	static public function debugException(Exception $e, $debuggerClass = 'BaseZF_Error_Debugger')
+    static public function debugException(Exception $e, $debuggerClass = 'BaseZF_Error_Debugger')
     {
-		// prevent loop stack error
+	// prevent loop stack error
         Zend_Loader::loadClass($debuggerClass);
 
-		return new $debuggerClass($e);
-	}
+        return new $debuggerClass($e);
+    }
 
     static public function sendExceptionByMail(Exception $e, $from, $to, $subjectPrefix = null)
     {
