@@ -67,10 +67,15 @@ abstract class BaseZF_Error_Handler
 		return new $debuggerClass($e);
 	}
 
-    static public function sendExceptionByMail(Exception $e, $from, $to)
+    static public function sendExceptionByMail(Exception $e, $from, $to, $subjectPrefix = null)
     {
+        // set default prefix as $SERVER['HTTP_HOST'] then $SERVER['SERVER_NAME'] then localhost
+        if (is_null($subjectPrefix)) {
+            $subjectPrefix = '[' . isset($SERVER['HTTP_HOST']) ? $SERVER['HTTP_HOST'] : (isset($SERVER['SERVER_NAME']) ? $SERVER['SERVER_NAME'] : 'localhost') . '] ';
+        }
+
         // generate mail datas
-        $subject = '[' . MAIN_URL . ':' . CONFIG_ENV . '] Exception Report: ' . wordlimit_bychar($e->getMessage(), 50);
+        $subject = $subjectPrefix . 'Exception Report: ' . wordlimit_bychar($e->getMessage(), 50);
         $body = $e->getMessage() . ' in ' . $e->getFile() . ' at line ' . $e->getLine();
 
         // send mail throw Zend_Mail
