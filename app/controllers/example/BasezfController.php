@@ -19,6 +19,13 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
     {
     }
 
+    public function errorAction()
+    {
+        $titi = time();
+
+        echo $toto;
+    }
+
     public function imageAction()
     {
     }
