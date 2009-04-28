@@ -23,8 +23,8 @@ abstract class BaseZF_Error_Debugger_Abstract
     {
         $source = false;
 
-        if (!is_callable(array($this->_exception, 'getSource'))) {
-            $source = highlight_string($this->_exception->getSource());
+        if (is_callable(array($this->_exception, 'getSource'))) {
+            $source = highlight_string($this->_exception->getSource(), true);
         }
 
         return $source;
@@ -33,7 +33,7 @@ abstract class BaseZF_Error_Debugger_Abstract
     public function getExceptionContext()
     {
         $context = false;
-        if (!is_callable(array($this->_exception, 'getContext'))) {
+        if (is_callable(array($this->_exception, 'getContext'))) {
             $context = $this->_exception->getContext();
         }
 

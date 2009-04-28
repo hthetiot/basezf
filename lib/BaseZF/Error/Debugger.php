@@ -46,6 +46,7 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 			<pre class="debug"><?php
 
                 if ($source = $this->getExceptionSourceDetails()) {
+					echo $source;
                 } else {
                     echo 'Unable to get Debugger.';
                 }
@@ -57,9 +58,7 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 			<h3>Context Variables Values:</h3>
 			<pre class="debug"><?php
 
-                $context = $this->getExceptionContext();
-
-                if ( $context = $this->getExceptionContext()) {
+                if ($context = $this->getExceptionContext()) {
                     var_dump($context);
                 } else{
                     echo 'Unable to get Context Variables Values.';
