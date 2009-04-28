@@ -19,6 +19,27 @@ abstract class BaseZF_Error_Debugger_Abstract
 		return $this->_render();
 	}
 
+    public function getExceptionSourceDetails()
+    {
+        $source = false;
+
+        if (!is_callable(array($this->_exception, 'getSource'))) {
+            $source = highlight_string($this->_exception->getSource());
+        }
+
+        return $source;
+    }
+
+    public function getExceptionContext()
+    {
+        $context = false;
+        if (!is_callable(array($this->_exception, 'getContext'))) {
+            $context = $this->_exception->getContext();
+        }
+
+        return $context;
+    }
+
 	abstract protected function _render();
 }
 

@@ -66,7 +66,7 @@ abstract class BaseZF_Error_Handler
         Zend_Loader::loadClass($debuggerClass);
 
         $debugger = new $debuggerClass($e);
-        $debugger->debugException();
+        $debugger->render();
     }
 
     static public function sendExceptionByMail(Exception $e, $from, $to, $subjectPrefix = null)
