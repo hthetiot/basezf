@@ -10,6 +10,9 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
+
+BaseZF_Error_Handler::registerErrorHandler();
+
 /**
  * Initialize Application Configuration and Environment
  */

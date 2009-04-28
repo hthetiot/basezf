@@ -56,15 +56,17 @@ abstract class BaseZF_Error_Handler
             E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
         );
 
-	return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
+	    return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
+
     }
 
     static public function debugException(Exception $e, $debuggerClass = 'BaseZF_Error_Debugger')
     {
-	// prevent loop stack error
+        // prevent loop stack error
         Zend_Loader::loadClass($debuggerClass);
 
-        return new $debuggerClass($e);
+        $debugger = new $debuggerClass($e);
+        $debugger->debugException();
     }
 
     static public function sendExceptionByMail(Exception $e, $from, $to, $subjectPrefix = null)

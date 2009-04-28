@@ -60,9 +60,17 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Base
 
     public function run()
     {
-        $frontController = Zend_Controller_Front::getInstance();
-        $frontController->dispatch();
+        try {
+
+            $frontController = Zend_Controller_Front::getInstance();
+            $frontController->dispatch();
+
+        } catch(Exception $e) {
+            BaseZF_Error_Handler::debugException($e);
+        }
     }
+
+
 
     /**
      * Get available routes

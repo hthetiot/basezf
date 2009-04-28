@@ -15,53 +15,53 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 
     }
 
-    static public function printExceptionSourceDetails(BaseZF_Error_Exception $e)
+    public function printExceptionSourceDetails()
     {
-    	echo highlight_string($e->getSource());
+    	highlight_string($this->_exception->getSource());
     }
 
-    static public function printExceptionContext(BaseZF_Error_Exception $e)
+    public function printExceptionContext()
     {
-    	echo highlight_string($e->getContext);
+    	var_dump($this->_exception->getContext());
     }
 
 
-    static public function debugException(Exception $e)
+    public function debugException()
     {
         ?>
 		<style>
 		pre.debug {
 			max-height: 100px;
 			overflow: auto;
-			background: grey;
+			background: #CCC;
 			padding: 5px;
 		}
 		</style>
         <h1>An error occurred</h1>
-        <h2><?php echo $e->getMessage(); ?></h2>
+        <h2><?php echo $this->_exception->getMessage(); ?></h2>
 
         <h3>Exception information: </h3>
 
 		<table>
 			<tr>
 				<th>Name:</th>
-				<td><?php echo get_class($e); ?></td>
+				<td><?php echo get_class($this->_exception); ?></td>
 			</tr>
 			<tr>
 				<th>Code:</th>
-				<td><?php echo $e->getCode(); ?></td>
+				<td><?php echo $this->_exception->getCode(); ?></td>
 			</tr>
 			<tr>
 				<th>Source:</th>
-				<td><?php echo $e->getFile(); ?> Line <?php echo $e->getLine() ?></td>
+				<td><?php echo $this->_exception->getFile(); ?> Line <?php echo $this->_exception->getLine() ?></td>
 			</tr>
 		</table>
 
 		<div>
 			<h3>Debugger:</h3>
 			<pre class="debug"><?php
-				if ($e instanceof BaseZF_Error_Exception) {
-					self::printExceptionSourceDetails($e);
+				if (is_callable(array($this->_exception, 'getSource'))) {
+					self::printExceptionSourceDetails();
 				} else {
 					echo 'Unable to use debuger.';
 				}
@@ -71,8 +71,8 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 		<div>
 			<h3>Context Variables Values:</h3>
 			<pre class="debug"><?php
-				if ($e instanceof BaseZF_Error_Exception) {
-					self::printExceptionContext($e);
+				if (is_callable(array($this->_exception, 'getContext'))) {
+					self::printExceptionContext();
 				} else {
 					echo 'Unable to use debuger.';
 				}
@@ -81,7 +81,7 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 
 		<div>
         	<h3>Stack trace:</h3>
-			<pre class="debug"><?php echo $e->getTraceAsString() ?></pre>
+			<pre class="debug"><?php echo $this->_exception->getTraceAsString() ?></pre>
 		</div>
 
 		<div>
@@ -107,4 +107,4 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 
         exit();
     }
-	*/
+}
