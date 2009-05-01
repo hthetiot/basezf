@@ -101,8 +101,8 @@ set_include_path(
 //---------------------------------------------------------------------------
 // Start Zend Loader
 
-require_once 'Zend/Loader.php';
+require_once 'Zend/Loader/Autoloader.php';
 
-Zend_Loader::registerAutoload();
-
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->setFallbackAutoloader(true);
 

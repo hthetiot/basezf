@@ -10,7 +10,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Base
+abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected $_options = array();
 
