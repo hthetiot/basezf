@@ -7,18 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-05-11 22:46+0200\n"
-"PO-Revision-Date: 2009-04-13 15:18+0200\n"
+"POT-Creation-Date: 2009-05-11 23:02+0200\n"
+"PO-Revision-Date: 2009-05-11 23:02+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: includes/MyProject/Form/Example/Showcases.php:58
 #: includes/MyProject/Form/Example/Showcases.php~:58
 msgid "Address:"
-msgstr "Addresse :"
+msgstr ""
 
 #: app/controllers/default/ErrorController.php:79
 msgid "Application error"
@@ -27,12 +27,14 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:388
 #: includes/MyProject/Form/Example/Showcases.php:389
 #: includes/MyProject/Form/Example/Showcases.php~:388
+#: includes/MyProject/Form/Example/Showcases.php:387
 msgid "Avatar"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:353
 #: includes/MyProject/Form/Example/Showcases.php~:353
 #: includes/MyProject/Form/Example/Showcases.php:352
+#: includes/MyProject/Form/Example/Showcases.php:351
 msgid "Avatar Information"
 msgstr ""
 
@@ -51,6 +53,7 @@ msgid "Birthday:"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:326
+#: includes/MyProject/Form/Example/Showcases.php:325
 #, php-format
 msgid ""
 "By checking this, you are indicating that you are agree with the %s Terms of "
@@ -60,6 +63,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:423
 #: includes/MyProject/Form/Example/Showcases.php:424
 #: includes/MyProject/Form/Example/Showcases.php~:423
+#: includes/MyProject/Form/Example/Showcases.php:422
 msgid "Cancel"
 msgstr ""
 
@@ -80,6 +84,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:133
 #: includes/MyProject/Form/Example/Showcases.php~:277
 #: includes/MyProject/Form/Example/Showcases.php:276
+#: includes/MyProject/Form/Example/Showcases.php:275
 msgid "Contact Information"
 msgstr ""
 
@@ -125,6 +130,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:356
 #: includes/MyProject/Form/Example/Showcases.php~:356
 #: includes/MyProject/Form/Example/Showcases.php:355
+#: includes/MyProject/Form/Example/Showcases.php:354
 msgid ""
 "File size limit 4 MB. If your upload does not work, try a smaller picture."
 msgstr ""
@@ -140,6 +146,8 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:255
 #: includes/MyProject/Form/Example/Showcases.php:242
 #: includes/MyProject/Form/Example/Showcases.php:254
+#: includes/MyProject/Form/Example/Showcases.php:241
+#: includes/MyProject/Form/Example/Showcases.php:253
 msgid "Full-time (Days)"
 msgstr ""
 
@@ -149,6 +157,8 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:257
 #: includes/MyProject/Form/Example/Showcases.php:244
 #: includes/MyProject/Form/Example/Showcases.php:256
+#: includes/MyProject/Form/Example/Showcases.php:243
+#: includes/MyProject/Form/Example/Showcases.php:255
 msgid "Full-time (Graveyard)"
 msgstr ""
 
@@ -158,6 +168,8 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:256
 #: includes/MyProject/Form/Example/Showcases.php:243
 #: includes/MyProject/Form/Example/Showcases.php:255
+#: includes/MyProject/Form/Example/Showcases.php:242
+#: includes/MyProject/Form/Example/Showcases.php:254
 msgid "Full-time (Swing)"
 msgstr ""
 
@@ -180,12 +192,14 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:204
 #: includes/MyProject/Form/Example/Showcases.php~:204
 #: includes/MyProject/Form/Example/Showcases.php:203
+#: includes/MyProject/Form/Example/Showcases.php:202
 msgid "How can I tell my father/mother, it's time for them to retire?"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:206
 #: includes/MyProject/Form/Example/Showcases.php~:206
 #: includes/MyProject/Form/Example/Showcases.php:205
+#: includes/MyProject/Form/Example/Showcases.php:204
 msgid "How do I stop my family members from interfering?"
 msgstr ""
 
@@ -198,12 +212,14 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:324
 #: includes/MyProject/Form/Example/Showcases.php~:324
 #: includes/MyProject/Form/Example/Showcases.php:323
+#: includes/MyProject/Form/Example/Showcases.php:322
 msgid "I agree to the bellow terms"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:371
 #: includes/MyProject/Form/Example/Showcases.php:372
 #: includes/MyProject/Form/Example/Showcases.php~:371
+#: includes/MyProject/Form/Example/Showcases.php:370
 msgid ""
 "I certify that I have the right to distribute this picture and that it does "
 "not violate the Terms of Use"
@@ -212,12 +228,14 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:205
 #: includes/MyProject/Form/Example/Showcases.php~:205
 #: includes/MyProject/Form/Example/Showcases.php:204
+#: includes/MyProject/Form/Example/Showcases.php:203
 msgid "I'm exasperated with an awkward partner!"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:320
 #: includes/MyProject/Form/Example/Showcases.php~:320
 #: includes/MyProject/Form/Example/Showcases.php:319
+#: includes/MyProject/Form/Example/Showcases.php:318
 msgid ""
 "If you don't want to bother with having to login every time you visit the "
 "site, then checking \"Remember Me\" will place a unique identifier only our "
@@ -235,6 +253,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:230
 #: includes/MyProject/Form/Example/Showcases.php~:230
 #: includes/MyProject/Form/Example/Showcases.php:229
+#: includes/MyProject/Form/Example/Showcases.php:228
 msgid "Keywords:"
 msgstr ""
 
@@ -249,6 +268,8 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:346
 #: includes/MyProject/Form/Example/Showcases.php:283
 #: includes/MyProject/Form/Example/Showcases.php:345
+#: includes/MyProject/Form/Example/Showcases.php:282
+#: includes/MyProject/Form/Example/Showcases.php:344
 msgid "Login Information"
 msgstr ""
 
@@ -260,6 +281,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:295
 #: includes/MyProject/Form/Example/Showcases.php~:295
 #: includes/MyProject/Form/Example/Showcases.php:294
+#: includes/MyProject/Form/Example/Showcases.php:293
 msgid ""
 "May only contain letters, numbers, and underscore (_) and 8-20 characters "
 "long."
@@ -274,12 +296,14 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:217
 #: includes/MyProject/Form/Example/Showcases.php~:217
 #: includes/MyProject/Form/Example/Showcases.php:216
+#: includes/MyProject/Form/Example/Showcases.php:215
 msgid "Must be 250 characters or less."
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:301
 #: includes/MyProject/Form/Example/Showcases.php~:301
 #: includes/MyProject/Form/Example/Showcases.php:300
+#: includes/MyProject/Form/Example/Showcases.php:299
 msgid "Must be 6-25 characters long."
 msgstr ""
 
@@ -292,6 +316,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:307
 #: includes/MyProject/Form/Example/Showcases.php~:307
 #: includes/MyProject/Form/Example/Showcases.php:306
+#: includes/MyProject/Form/Example/Showcases.php:305
 msgid "Must match the password you entered just above."
 msgstr ""
 
@@ -305,6 +330,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:207
 #: includes/MyProject/Form/Example/Showcases.php~:207
 #: includes/MyProject/Form/Example/Showcases.php:206
+#: includes/MyProject/Form/Example/Showcases.php:205
 msgid "Other:"
 msgstr ""
 
@@ -318,18 +344,22 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:254
 #: includes/MyProject/Form/Example/Showcases.php:241
 #: includes/MyProject/Form/Example/Showcases.php:253
+#: includes/MyProject/Form/Example/Showcases.php:240
+#: includes/MyProject/Form/Example/Showcases.php:252
 msgid "Part-time"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:299
 #: includes/MyProject/Form/Example/Showcases.php~:299
 #: includes/MyProject/Form/Example/Showcases.php:298
+#: includes/MyProject/Form/Example/Showcases.php:297
 msgid "Password:"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:314
 #: includes/MyProject/Form/Example/Showcases.php~:314
 #: includes/MyProject/Form/Example/Showcases.php:313
+#: includes/MyProject/Form/Example/Showcases.php:312
 msgid "Passwords don't match, please enter them again"
 msgstr ""
 
@@ -372,6 +402,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:305
 #: includes/MyProject/Form/Example/Showcases.php~:305
 #: includes/MyProject/Form/Example/Showcases.php:304
+#: includes/MyProject/Form/Example/Showcases.php:303
 msgid "Please re-enter your password:"
 msgstr ""
 
@@ -384,6 +415,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:319
 #: includes/MyProject/Form/Example/Showcases.php~:319
 #: includes/MyProject/Form/Example/Showcases.php:318
+#: includes/MyProject/Form/Example/Showcases.php:317
 msgid "Remember Me"
 msgstr ""
 
@@ -400,6 +432,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:424
 #: includes/MyProject/Form/Example/Showcases.php:425
 #: includes/MyProject/Form/Example/Showcases.php~:424
+#: includes/MyProject/Form/Example/Showcases.php:423
 msgid "Submit"
 msgstr ""
 
@@ -422,6 +455,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:397
 #: includes/MyProject/Form/Example/Showcases.php:398
 #: includes/MyProject/Form/Example/Showcases.php~:397
+#: includes/MyProject/Form/Example/Showcases.php:396
 msgid ""
 "Type the characters you see in this picture. This ensures that a person, not "
 "an automated program, is creating this account."
@@ -435,30 +469,35 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:240
 #: includes/MyProject/Form/Example/Showcases.php~:240
 #: includes/MyProject/Form/Example/Showcases.php:239
+#: includes/MyProject/Form/Example/Showcases.php:238
 msgid "Use the CTRL key to select more than one."
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:293
 #: includes/MyProject/Form/Example/Showcases.php~:293
 #: includes/MyProject/Form/Example/Showcases.php:292
+#: includes/MyProject/Form/Example/Showcases.php:291
 msgid "Username:"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:420
 #: includes/MyProject/Form/Example/Showcases.php:421
 #: includes/MyProject/Form/Example/Showcases.php~:420
+#: includes/MyProject/Form/Example/Showcases.php:419
 msgid "Verification"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:395
 #: includes/MyProject/Form/Example/Showcases.php:396
 #: includes/MyProject/Form/Example/Showcases.php~:395
+#: includes/MyProject/Form/Example/Showcases.php:394
 msgid "Verification Information"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:287
 #: includes/MyProject/Form/Example/Showcases.php~:287
 #: includes/MyProject/Form/Example/Showcases.php:286
+#: includes/MyProject/Form/Example/Showcases.php:285
 msgid ""
 "We recommend that your password is not a word you can find in the "
 "dictionary, includes both capital and lower case letters, and contains at "
@@ -476,6 +515,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:223
 #: includes/MyProject/Form/Example/Showcases.php~:223
 #: includes/MyProject/Form/Example/Showcases.php:222
+#: includes/MyProject/Form/Example/Showcases.php:221
 msgid ""
 "We'd love to get your feedback on any of the products or services we offer "
 "or on your experience with us."
@@ -487,6 +527,8 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:258
 #: includes/MyProject/Form/Example/Showcases.php:245
 #: includes/MyProject/Form/Example/Showcases.php:257
+#: includes/MyProject/Form/Example/Showcases.php:244
+#: includes/MyProject/Form/Example/Showcases.php:256
 msgid "Weekends Only"
 msgstr ""
 
@@ -501,12 +543,15 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:251
 #: includes/MyProject/Form/Example/Showcases.php:237
 #: includes/MyProject/Form/Example/Showcases.php:250
+#: includes/MyProject/Form/Example/Showcases.php:236
+#: includes/MyProject/Form/Example/Showcases.php:249
 msgid "What is your current availability?"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:355
 #: includes/MyProject/Form/Example/Showcases.php~:355
 #: includes/MyProject/Form/Example/Showcases.php:354
+#: includes/MyProject/Form/Example/Showcases.php:353
 msgid "You can upload a JPG, GIF or PNG file."
 msgstr ""
 
@@ -516,12 +561,15 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:221
 #: includes/MyProject/Form/Example/Showcases.php:214
 #: includes/MyProject/Form/Example/Showcases.php:220
+#: includes/MyProject/Form/Example/Showcases.php:213
+#: includes/MyProject/Form/Example/Showcases.php:219
 msgid "Your Message:"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:288
 #: includes/MyProject/Form/Example/Showcases.php~:288
 #: includes/MyProject/Form/Example/Showcases.php:287
+#: includes/MyProject/Form/Example/Showcases.php:286
 msgid ""
 "Your password will be encrypted and stored in our system. Due to the "
 "encryption, we cannot retrieve your password for you. If you lose or forget "
@@ -545,6 +593,7 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:286
 #: includes/MyProject/Form/Example/Showcases.php~:286
 #: includes/MyProject/Form/Example/Showcases.php:285
+#: includes/MyProject/Form/Example/Showcases.php:284
 msgid ""
 "Your username and password must both be at least 8 characters long and are "
 "case-sensitive. Please do not enter accented characters."
