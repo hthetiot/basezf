@@ -1,8 +1,8 @@
-# Language  translations for PACKAGE package.
-# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2009.
-#
+#  Language  translations for PACKAGE package.
+#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+#  This file is distributed under the same license as the PACKAGE package.
+#  Automatically generated, 2009.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -15,122 +15,154 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-# Singulars
+#, fuzzy
 msgid "%d year"
-msgstr ""
+msgstr "%d ans"
 
+#, fuzzy
 msgid "%d month"
-msgstr ""
+msgstr "%d mois"
 
+#, fuzzy
 msgid "%d week"
-msgstr ""
+msgstr "Semaine %d"
 
+#, fuzzy
 msgid "%d day"
-msgstr ""
+msgstr "%d jours"
 
+#, fuzzy
 msgid "%d hour"
-msgstr ""
+msgstr "%d heures"
 
+#, fuzzy
 msgid "%d minute"
-msgstr ""
+msgstr "%d minutes"
 
+#, fuzzy
 msgid "%d second"
-msgstr ""
+msgstr "%d seconde"
 
-# Plurals
+#, fuzzy
 msgid "%d years"
-msgstr ""
+msgstr "%d ans"
 
+#, fuzzy
 msgid "%d months"
-msgstr ""
+msgstr "%d mois"
 
+#, fuzzy
 msgid "%d weeks"
-msgstr ""
+msgstr "%d semaines"
 
+#, fuzzy
 msgid "%d days"
-msgstr ""
+msgstr "%d jours"
 
+#, fuzzy
 msgid "%d hours"
-msgstr ""
+msgstr "%d heures"
 
+#, fuzzy
 msgid "%d minutes"
-msgstr ""
+msgstr "%d minutes"
 
+#, fuzzy
 msgid "%d seconds"
-msgstr ""
+msgstr "%d secondes"
 
-# Double Singlular
+#, fuzzy
 msgid "%d year and %d month"
-msgstr ""
+msgstr "%d années et %d mois"
 
+#, fuzzy
 msgid "%d month and %d week"
-msgstr ""
+msgstr "%d mois et %d semaines"
 
+#, fuzzy
 msgid "%d week and %d day"
-msgstr ""
+msgstr "%d semaines et %d jours"
 
+#, fuzzy
 msgid "%d day and %d hour"
-msgstr ""
+msgstr "%d jours et %d heures"
 
+#, fuzzy
 msgid "%d hour and %d minute"
-msgstr ""
+msgstr "%d heures et %d minute"
 
+#, fuzzy
 msgid "%d minute and %d second"
-msgstr ""
+msgstr "%d minutes et %d secondes"
 
-# Double Plurals
+#, fuzzy
 msgid "%d years and %d months"
-msgstr ""
+msgstr "%d ans et %d mois"
 
+#, fuzzy
 msgid "%d months and %d weeks"
-msgstr ""
+msgstr "%d mois et %d semaines"
 
+#, fuzzy
 msgid "%d weeks and %d days"
-msgstr ""
+msgstr "%d semaines et %d jours"
 
+#, fuzzy
 msgid "%d days and %d hours"
-msgstr ""
+msgstr "%d jours et %d heures"
 
+#, fuzzy
 msgid "%d hours and %d minutes"
-msgstr ""
+msgstr "%d heures et %d minutes"
 
+#, fuzzy
 msgid "%d minutes and %d seconds"
-msgstr ""
+msgstr "%d minutes et %d secondes"
 
-# Double First Singlular and Second Plural
+#, fuzzy
 msgid "%d year and %d months"
-msgstr ""
+msgstr "%d années et %d mois"
 
+#, fuzzy
 msgid "%d month and %d weeks"
-msgstr ""
+msgstr "%d mois et %d semaines"
 
+#, fuzzy
 msgid "%d week and %d days"
-msgstr ""
+msgstr "%d semaines et %d jours"
 
+#, fuzzy
 msgid "%d day and %d hours"
-msgstr ""
+msgstr "%d jours et %d heures"
 
+#, fuzzy
 msgid "%d hour and %d minutes"
-msgstr ""
+msgstr "%d heures et %d minutes"
 
+#, fuzzy
 msgid "%d minute and %d seconds"
-msgstr ""
+msgstr "%d minute et %d secondes"
 
-# Double First Plurals and Second Singular
+#, fuzzy
 msgid "%d years and %d month"
-msgstr ""
+msgstr "%d ans et %d mois"
 
+#, fuzzy
 msgid "%d months and %d week"
-msgstr ""
+msgstr "%d mois et %d semaines"
 
+#, fuzzy
 msgid "%d weeks and %d day"
-msgstr ""
+msgstr "%d semaines et %d jours"
 
+#, fuzzy
 msgid "%d days and %d hour"
-msgstr ""
+msgstr "%d jours et %d heures"
 
+#, fuzzy
 msgid "%d hours and %d minute"
-msgstr ""
+msgstr "%d heures et %d minute"
 
+#, fuzzy
 msgid "%d minutes and %d second"
-msgstr ""
+msgstr "%d minutes et %d secondes"

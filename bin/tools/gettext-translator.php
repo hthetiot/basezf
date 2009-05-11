@@ -158,7 +158,7 @@ class gettextTranslator {
             foreach ($realMsgid as $msgid) {
                 if ($firstMsgid) {
                     $fileBuffer[] = 'msgid "' . $msgid . '"';
-                    $firstMsgstr = false;
+                    $firstMsgid = false;
                 } else {
                     $fileBuffer[] = '"' . $msgid . '"';
                 }
@@ -193,6 +193,10 @@ class gettextTranslator {
             throw new Exception(sprintf('Unable to use adapter %s, missing func %s', $adapter, $adapterFuncName));
         }
 
+		if ($inputLanguage == $outputLanguage) {
+			return;
+		}
+
         foreach ($this->_fileData as &$data) {
 
             if ((empty($data['msgstr']) || $translateAll == true) && !empty($data['msgid'])) {
@@ -224,6 +228,13 @@ class gettextTranslator {
      */
     static protected function _translateAdapterGoogle($string, $inputLanguage, $outputLanguage)
     {
+
+		// clean results
+        $search = array('%s', '%d');
+        $replace = array('<a>', '42');
+        $string = str_replace($search, $replace, $string);
+
+		// params
         $url = "http://translate.google.com/translate_t?langpair=" . urlencode($inputLanguage . '|' . $outputLanguage)."&amp;";
         $data = "text=" . urlencode($string);
         $results = '';
@@ -251,11 +262,11 @@ class gettextTranslator {
         $html = substr($html, 0, strpos($html, "</div>"));
 
         // clean results
-        $search = array('<br>', '&#39;');
-        $replace = array("\n", "'");
+        $search = array('<br>', '&#39;', '&lt;a&gt;', '42', '»', '\ &quot;');
+        $replace = array("\n", "'", '%s', '%d', '\"', '\"');
         $results = str_replace($search, $replace, $html);
 
-        return $results;
+        return utf8_encode($results);
     }
 }
 

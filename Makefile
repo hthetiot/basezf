@@ -141,6 +141,25 @@ locale-deploy:
 		msgfmt --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
     done
 
+# Generate all .mo files
+locale-deploy-fuzzy:
+	@echo "----------------"
+	@echo "Generate GetText MO files with Fuzzy translation:"
+	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po"`; \
+	for i in $$list;do \
+		echo "Compiling  $$i"; \
+		msgfmt -f --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
+    done
+
+# Generate all .mo files
+locale-translate-google:
+	@echo "----------------"
+	@echo "Translate GetText PO files with Google translate:"
+	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po"`; \
+	for i in $$list;do \
+		./bin/tools/gettext-translator.php en `echo "$$i" | cut -d / -f3 | cut -d _ -f1` $$i $$i; \
+    done
+
 # Remove all .mo and .po files
 locale-clean:
 	@echo "----------------"

@@ -1,14 +1,14 @@
-# Language  translations for PACKAGE package.
-# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2009.
-#
+#  Language  translations for PACKAGE package.
+#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+#  This file is distributed under the same license as the PACKAGE package.
+#  Automatically generated, 2009.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-05-11 23:02+0200\n"
-"PO-Revision-Date: 2009-05-11 23:02+0200\n"
+"POT-Creation-Date: 2009-05-11 23:15+0200\n"
+"PO-Revision-Date: 2009-05-11 23:15+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,6 @@ msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:326
 #: includes/MyProject/Form/Example/Showcases.php:325
-#, php-format
 msgid ""
 "By checking this, you are indicating that you are agree with the %s Terms of "
 "Use %s."
@@ -577,7 +576,6 @@ msgid ""
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:141
-#, php-format
 msgid ""
 "Your phone number will not be shared or used for telemarketing. Your "
 "information is protected by our %s Privacy Policy %s."

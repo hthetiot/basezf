@@ -1,83 +1,94 @@
-# Language  translations for PACKAGE package.
-# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2009.
+#  Language  translations for PACKAGE package.
+#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+#  This file is distributed under the same license as the PACKAGE package.
+#  Automatically generated, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-05-11 23:02+0200\n"
-"PO-Revision-Date: 2009-05-11 23:02+0200\n"
+"POT-Creation-Date: 2009-05-11 23:15+0200\n"
+"PO-Revision-Date: 2009-05-11 23:15+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: includes/MyProject/Form/Example/Showcases.php:58
 #: includes/MyProject/Form/Example/Showcases.php~:58
+#, fuzzy
 msgid "Address:"
-msgstr ""
+msgstr "Adresse:"
 
 #: app/controllers/default/ErrorController.php:79
+#, fuzzy
 msgid "Application error"
-msgstr ""
+msgstr "Erreur d'application"
 
 #: includes/MyProject/Form/Example/Showcases.php:388
 #: includes/MyProject/Form/Example/Showcases.php:389
 #: includes/MyProject/Form/Example/Showcases.php~:388
 #: includes/MyProject/Form/Example/Showcases.php:387
+#, fuzzy
 msgid "Avatar"
-msgstr ""
+msgstr "Avatar"
 
 #: includes/MyProject/Form/Example/Showcases.php:353
 #: includes/MyProject/Form/Example/Showcases.php~:353
 #: includes/MyProject/Form/Example/Showcases.php:352
 #: includes/MyProject/Form/Example/Showcases.php:351
+#, fuzzy
 msgid "Avatar Information"
-msgstr ""
+msgstr "Avatar information"
 
 #: app/views/layouts/example/layout.phtml:84
 #: app/views/layouts/example/layout.phtml~:84
+#, fuzzy
 msgid "BaseZF"
-msgstr ""
+msgstr "BaseZF"
 
 #: app/views/scripts/example/index/index.phtml:3
+#, fuzzy
 msgid "BaseZF Examples"
-msgstr ""
+msgstr "Exemples BaseZF"
 
 #: includes/MyProject/Form/Example/Showcases.php:53
 #: includes/MyProject/Form/Example/Showcases.php~:53
+#, fuzzy
 msgid "Birthday:"
-msgstr ""
+msgstr "Anniversaire:"
 
 #: includes/MyProject/Form/Example/Showcases.php:326
 #: includes/MyProject/Form/Example/Showcases.php:325
-#, php-format
+#, fuzzy
 msgid ""
 "By checking this, you are indicating that you are agree with the %s Terms of "
 "Use %s."
-msgstr ""
+msgstr "En vérifiant cela, vous indiquez que vous êtes d'accord avec les Conditions d'%s "
+" Utilisez %s."
 
 #: includes/MyProject/Form/Example/Showcases.php:423
 #: includes/MyProject/Form/Example/Showcases.php:424
 #: includes/MyProject/Form/Example/Showcases.php~:423
 #: includes/MyProject/Form/Example/Showcases.php:422
+#, fuzzy
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: includes/MyProject/Form/Example/Showcases.php:85
 #: includes/MyProject/Form/Example/Showcases.php:99
 #: includes/MyProject/Form/Example/Showcases.php~:85
 #: includes/MyProject/Form/Example/Showcases.php~:99
+#, fuzzy
 msgid "Choose from the list"
-msgstr ""
+msgstr "Choisissez dans la liste"
 
 #: includes/MyProject/Form/Example/Showcases.php:79
 #: includes/MyProject/Form/Example/Showcases.php~:79
+#, fuzzy
 msgid "City:"
-msgstr ""
+msgstr "Ville:"
 
 #: includes/MyProject/Form/Example/Showcases.php:133
 #: includes/MyProject/Form/Example/Showcases.php:277
@@ -85,60 +96,70 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:277
 #: includes/MyProject/Form/Example/Showcases.php:276
 #: includes/MyProject/Form/Example/Showcases.php:275
+#, fuzzy
 msgid "Contact Information"
-msgstr ""
+msgstr "Contact Information"
 
 #: includes/MyProject/Form/Example/Showcases.php:65
 #: includes/MyProject/Form/Example/Showcases.php~:65
+#, fuzzy
 msgid "Country:"
-msgstr ""
+msgstr "Pays:"
 
 #: includes/MyProject/Form/Example/Showcases.php:154
 #: includes/MyProject/Form/Example/Showcases.php~:154
 #: includes/MyProject/Form/Example/Showcases.php:153
+#, fuzzy
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: includes/MyProject/Form/Example/Showcases.php:162
 #: includes/MyProject/Form/Example/Showcases.php~:162
 #: includes/MyProject/Form/Example/Showcases.php:161
+#, fuzzy
 msgid "Email:"
-msgstr ""
+msgstr "Email:"
 
 #: includes/MyProject/Form/Example/Showcases.php:187
 #: includes/MyProject/Form/Example/Showcases.php~:187
 #: includes/MyProject/Form/Example/Showcases.php:186
+#, fuzzy
 msgid "Emails don't match, please enter them again"
-msgstr ""
+msgstr "Les e-mails ne correspondent pas, s'il vous plaît entrer à nouveau"
 
 #: app/views/layouts/example/layout.phtml:81
 #: app/views/layouts/example/layout.phtml~:81
+#, fuzzy
 msgid "Examples module"
-msgstr ""
+msgstr "Exemples de module"
 
 #: includes/MyProject/Form/Example/Showcases.php:196
 #: includes/MyProject/Form/Example/Showcases.php~:196
 #: includes/MyProject/Form/Example/Showcases.php:195
+#, fuzzy
 msgid "Fax:"
-msgstr ""
+msgstr "Fax:"
 
 #: includes/MyProject/Form/Example/Showcases.php:35
 #: includes/MyProject/Form/Example/Showcases.php~:35
+#, fuzzy
 msgid "Female"
-msgstr ""
+msgstr "Femelle"
 
 #: includes/MyProject/Form/Example/Showcases.php:356
 #: includes/MyProject/Form/Example/Showcases.php~:356
 #: includes/MyProject/Form/Example/Showcases.php:355
 #: includes/MyProject/Form/Example/Showcases.php:354
+#, fuzzy
 msgid ""
 "File size limit 4 MB. If your upload does not work, try a smaller picture."
-msgstr ""
+msgstr "Limite de taille de fichier de 4 Mo. Si votre téléchargement ne fonctionne pas, essayez avec une image plus petite."
 
 #: includes/MyProject/Form/Example/Showcases.php:42
 #: includes/MyProject/Form/Example/Showcases.php~:42
+#, fuzzy
 msgid "First Name:"
-msgstr ""
+msgstr "Prénom:"
 
 #: includes/MyProject/Form/Example/Showcases.php:243
 #: includes/MyProject/Form/Example/Showcases.php:255
@@ -148,8 +169,9 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:254
 #: includes/MyProject/Form/Example/Showcases.php:241
 #: includes/MyProject/Form/Example/Showcases.php:253
+#, fuzzy
 msgid "Full-time (Days)"
-msgstr ""
+msgstr "À plein temps (jours)"
 
 #: includes/MyProject/Form/Example/Showcases.php:245
 #: includes/MyProject/Form/Example/Showcases.php:257
@@ -159,8 +181,9 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:256
 #: includes/MyProject/Form/Example/Showcases.php:243
 #: includes/MyProject/Form/Example/Showcases.php:255
+#, fuzzy
 msgid "Full-time (Graveyard)"
-msgstr ""
+msgstr "Full-time (Cimetière)"
 
 #: includes/MyProject/Form/Example/Showcases.php:244
 #: includes/MyProject/Form/Example/Showcases.php:256
@@ -170,97 +193,116 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:255
 #: includes/MyProject/Form/Example/Showcases.php:242
 #: includes/MyProject/Form/Example/Showcases.php:254
+#, fuzzy
 msgid "Full-time (Swing)"
-msgstr ""
+msgstr "Full-time (Swing)"
 
 #: includes/MyProject/Form/Example/Showcases.php:31
 #: includes/MyProject/Form/Example/Showcases.php~:31
+#, fuzzy
 msgid "Gender:"
-msgstr ""
+msgstr "Sexe:"
 
 #: includes/MyProject/Form/Example/Showcases.php:203
 #: includes/MyProject/Form/Example/Showcases.php~:203
 #: includes/MyProject/Form/Example/Showcases.php:202
+#, fuzzy
 msgid "Help, my brother/sister is driving me crazy!"
-msgstr ""
+msgstr "Au secours, mon frère / sur est driving me crazy!"
 
 #: includes/MyProject/Form/Example/Showcases.php:96
 #: includes/MyProject/Form/Example/Showcases.php~:96
+#, fuzzy
 msgid "Her for:"
-msgstr ""
+msgstr "Son lieu de:"
 
 #: includes/MyProject/Form/Example/Showcases.php:204
 #: includes/MyProject/Form/Example/Showcases.php~:204
 #: includes/MyProject/Form/Example/Showcases.php:203
 #: includes/MyProject/Form/Example/Showcases.php:202
+#, fuzzy
 msgid "How can I tell my father/mother, it's time for them to retire?"
-msgstr ""
+msgstr "Comment puis-je dire à mon père / mère, il est temps pour eux de prendre leur retraite?"
 
 #: includes/MyProject/Form/Example/Showcases.php:206
 #: includes/MyProject/Form/Example/Showcases.php~:206
 #: includes/MyProject/Form/Example/Showcases.php:205
 #: includes/MyProject/Form/Example/Showcases.php:204
+#, fuzzy
 msgid "How do I stop my family members from interfering?"
-msgstr ""
+msgstr "Comment puis-je arrêter les membres de ma famille d'intervenir?"
 
 #: includes/MyProject/Form/Example/Showcases.php:150
 #: includes/MyProject/Form/Example/Showcases.php~:150
 #: includes/MyProject/Form/Example/Showcases.php:149
+#, fuzzy
 msgid "How to Contact You ?"
-msgstr ""
+msgstr "Comment vous contacter?"
 
 #: includes/MyProject/Form/Example/Showcases.php:324
 #: includes/MyProject/Form/Example/Showcases.php~:324
 #: includes/MyProject/Form/Example/Showcases.php:323
 #: includes/MyProject/Form/Example/Showcases.php:322
+#, fuzzy
 msgid "I agree to the bellow terms"
-msgstr ""
+msgstr "J'accepte les termes ci -"
 
 #: includes/MyProject/Form/Example/Showcases.php:371
 #: includes/MyProject/Form/Example/Showcases.php:372
 #: includes/MyProject/Form/Example/Showcases.php~:371
 #: includes/MyProject/Form/Example/Showcases.php:370
+#, fuzzy
 msgid ""
 "I certify that I have the right to distribute this picture and that it does "
 "not violate the Terms of Use"
-msgstr ""
+msgstr "Je certifie que j'ai le droit de diffuser cette image, et qu'il ne "
+" ne pas violer les Conditions d'utilisation"
 
 #: includes/MyProject/Form/Example/Showcases.php:205
 #: includes/MyProject/Form/Example/Showcases.php~:205
 #: includes/MyProject/Form/Example/Showcases.php:204
 #: includes/MyProject/Form/Example/Showcases.php:203
+#, fuzzy
 msgid "I'm exasperated with an awkward partner!"
-msgstr ""
+msgstr "Je suis exaspéré par un partenaire encombrant!"
 
 #: includes/MyProject/Form/Example/Showcases.php:320
 #: includes/MyProject/Form/Example/Showcases.php~:320
 #: includes/MyProject/Form/Example/Showcases.php:319
 #: includes/MyProject/Form/Example/Showcases.php:318
+#, fuzzy
 msgid ""
 "If you don't want to bother with having to login every time you visit the "
 "site, then checking \"Remember Me\" will place a unique identifier only our "
 "site can read that we'll use to identify you and log you in automatically "
 "each time you visit."
-msgstr ""
+msgstr "Si vous ne voulez pas la peine d'avoir à vous identifier à chaque fois que vous visitez le "
+" site, puis de vérifier \"Se souvenir de moi\" se place d'un identifiant unique que nos "
+" site peut lire que nous allons utiliser pour vous identifier et vous connecter automatiquement "
+" chaque fois que vous visitez."
 
 #: includes/MyProject/Form/Example/Showcases.php:136
 #: includes/MyProject/Form/Example/Showcases.php~:136
+#, fuzzy
 msgid ""
 "It is important that you provide a valid, working email address that you "
 "have access to as it must be verified before you can use your account."
-msgstr ""
+msgstr "Il est important que vous fournir un valide, l'adresse e-mail de travail que vous "
+" avoir accès à elle doit être vérifiée avant que vous puissiez utiliser votre compte."
 
 #: includes/MyProject/Form/Example/Showcases.php:230
 #: includes/MyProject/Form/Example/Showcases.php~:230
 #: includes/MyProject/Form/Example/Showcases.php:229
 #: includes/MyProject/Form/Example/Showcases.php:228
+#, fuzzy
 msgid "Keywords:"
-msgstr ""
+msgstr "Mots-clés:"
 
 #: includes/MyProject/Form/Example/Showcases.php:47
 #: includes/MyProject/Form/Example/Showcases.php~:47
+#, fuzzy
 msgid "Last Name:"
-msgstr ""
+msgstr "Nom:"
 
 #: includes/MyProject/Form/Example/Showcases.php:284
 #: includes/MyProject/Form/Example/Showcases.php:346
@@ -270,73 +312,85 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:345
 #: includes/MyProject/Form/Example/Showcases.php:282
 #: includes/MyProject/Form/Example/Showcases.php:344
+#, fuzzy
 msgid "Login Information"
-msgstr ""
+msgstr "Informations de connexion"
 
 #: includes/MyProject/Form/Example/Showcases.php:34
 #: includes/MyProject/Form/Example/Showcases.php~:34
+#, fuzzy
 msgid "Male"
-msgstr ""
+msgstr "Mâle"
 
 #: includes/MyProject/Form/Example/Showcases.php:295
 #: includes/MyProject/Form/Example/Showcases.php~:295
 #: includes/MyProject/Form/Example/Showcases.php:294
 #: includes/MyProject/Form/Example/Showcases.php:293
+#, fuzzy
 msgid ""
 "May only contain letters, numbers, and underscore (_) and 8-20 characters "
 "long."
-msgstr ""
+msgstr "Mai contenir seulement des lettres, de chiffres et de soulignement (_) et 8-20 caractères "
+" long."
 
 #: includes/MyProject/Form/Example/Showcases.php:201
 #: includes/MyProject/Form/Example/Showcases.php~:201
 #: includes/MyProject/Form/Example/Showcases.php:200
+#, fuzzy
 msgid "Message Subject:  "
-msgstr ""
+msgstr "Objet du message:"
 
 #: includes/MyProject/Form/Example/Showcases.php:217
 #: includes/MyProject/Form/Example/Showcases.php~:217
 #: includes/MyProject/Form/Example/Showcases.php:216
 #: includes/MyProject/Form/Example/Showcases.php:215
+#, fuzzy
 msgid "Must be 250 characters or less."
-msgstr ""
+msgstr "Doit être de 250 caractères ou moins."
 
 #: includes/MyProject/Form/Example/Showcases.php:301
 #: includes/MyProject/Form/Example/Showcases.php~:301
 #: includes/MyProject/Form/Example/Showcases.php:300
 #: includes/MyProject/Form/Example/Showcases.php:299
+#, fuzzy
 msgid "Must be 6-25 characters long."
-msgstr ""
+msgstr "Doit être 6-25 caractères."
 
 #: includes/MyProject/Form/Example/Showcases.php:180
 #: includes/MyProject/Form/Example/Showcases.php~:180
 #: includes/MyProject/Form/Example/Showcases.php:179
+#, fuzzy
 msgid "Must match the email address you just entered above."
-msgstr ""
+msgstr "Doit correspondre à l'adresse e-mail que vous venez de saisir ci-dessus."
 
 #: includes/MyProject/Form/Example/Showcases.php:307
 #: includes/MyProject/Form/Example/Showcases.php~:307
 #: includes/MyProject/Form/Example/Showcases.php:306
 #: includes/MyProject/Form/Example/Showcases.php:305
+#, fuzzy
 msgid "Must match the password you entered just above."
-msgstr ""
+msgstr "Doit correspondre au mot de passe que vous avez entré un peu plus."
 
 #: app/views/layouts/default/layout.phtml:31
 #: app/views/layouts/default/layout.phtml:58
 #: app/views/layouts/default/layout.phtml~:31
 #: app/views/layouts/default/layout.phtml~:58
+#, fuzzy
 msgid "MyProject"
-msgstr ""
+msgstr "MonProjet"
 
 #: includes/MyProject/Form/Example/Showcases.php:207
 #: includes/MyProject/Form/Example/Showcases.php~:207
 #: includes/MyProject/Form/Example/Showcases.php:206
 #: includes/MyProject/Form/Example/Showcases.php:205
+#, fuzzy
 msgid "Other:"
-msgstr ""
+msgstr "Autres:"
 
 #: app/controllers/default/ErrorController.php:70
+#, fuzzy
 msgid "Page not found"
-msgstr ""
+msgstr "Page not found"
 
 #: includes/MyProject/Form/Example/Showcases.php:242
 #: includes/MyProject/Form/Example/Showcases.php:254
@@ -346,95 +400,111 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:253
 #: includes/MyProject/Form/Example/Showcases.php:240
 #: includes/MyProject/Form/Example/Showcases.php:252
+#, fuzzy
 msgid "Part-time"
-msgstr ""
+msgstr "Part-time"
 
 #: includes/MyProject/Form/Example/Showcases.php:299
 #: includes/MyProject/Form/Example/Showcases.php~:299
 #: includes/MyProject/Form/Example/Showcases.php:298
 #: includes/MyProject/Form/Example/Showcases.php:297
+#, fuzzy
 msgid "Password:"
-msgstr ""
+msgstr "Mot de passe:"
 
 #: includes/MyProject/Form/Example/Showcases.php:314
 #: includes/MyProject/Form/Example/Showcases.php~:314
 #: includes/MyProject/Form/Example/Showcases.php:313
 #: includes/MyProject/Form/Example/Showcases.php:312
+#, fuzzy
 msgid "Passwords don't match, please enter them again"
-msgstr ""
+msgstr "Les mots de passe ne correspondent pas, s'il vous plaît entrer à nouveau"
 
 #: includes/MyProject/Form/Example/Showcases.php:24
 #: includes/MyProject/Form/Example/Showcases.php:126
 #: includes/MyProject/Form/Example/Showcases.php~:24
 #: includes/MyProject/Form/Example/Showcases.php~:126
+#, fuzzy
 msgid "Personal Information"
-msgstr ""
+msgstr "Renseignements personnels"
 
 #: includes/MyProject/Form/Example/Showcases.php:153
 #: includes/MyProject/Form/Example/Showcases.php~:153
 #: includes/MyProject/Form/Example/Showcases.php:152
+#, fuzzy
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
 #: includes/MyProject/Form/Example/Showcases.php:192
 #: includes/MyProject/Form/Example/Showcases.php~:192
 #: includes/MyProject/Form/Example/Showcases.php:191
+#, fuzzy
 msgid "Phone:"
-msgstr ""
+msgstr "Téléphone:"
 
 #: includes/MyProject/Form/Example/Showcases.php:137
 #: includes/MyProject/Form/Example/Showcases.php~:137
+#, fuzzy
 msgid "Please enter a land line number, not a mobile phone number."
-msgstr ""
+msgstr "S'il vous plaît, entrez un numéro de ligne terrestre, et non pas un numéro de téléphone portable."
 
 #: includes/MyProject/Form/Example/Showcases.php:135
 #: includes/MyProject/Form/Example/Showcases.php~:135
+#, fuzzy
 msgid "Please enter your full email address, for example, name@domain.com"
-msgstr ""
+msgstr "S'il vous plaît entrer votre adresse e-mail complète, par exemple, name@domain.com"
 
 #: includes/MyProject/Form/Example/Showcases.php:26
 #: includes/MyProject/Form/Example/Showcases.php~:26
+#, fuzzy
 msgid ""
 "Please enter your name and address as they are listed for your debit card, "
 "credit card, or bank account."
-msgstr ""
+msgstr "S'il vous plaît entrer votre nom et adresse tels qu'ils sont énumérés de votre carte de débit, "
+" carte de crédit ou de compte bancaire."
 
 #: includes/MyProject/Form/Example/Showcases.php:305
 #: includes/MyProject/Form/Example/Showcases.php~:305
 #: includes/MyProject/Form/Example/Showcases.php:304
 #: includes/MyProject/Form/Example/Showcases.php:303
+#, fuzzy
 msgid "Please re-enter your password:"
-msgstr ""
+msgstr "S'il vous plaît entrer de nouveau votre mot de passe:"
 
 #: includes/MyProject/Form/Example/Showcases.php:178
 #: includes/MyProject/Form/Example/Showcases.php~:178
 #: includes/MyProject/Form/Example/Showcases.php:177
+#, fuzzy
 msgid "Re-enter Email:"
-msgstr ""
+msgstr "Re-entrer Email:"
 
 #: includes/MyProject/Form/Example/Showcases.php:319
 #: includes/MyProject/Form/Example/Showcases.php~:319
 #: includes/MyProject/Form/Example/Showcases.php:318
 #: includes/MyProject/Form/Example/Showcases.php:317
+#, fuzzy
 msgid "Remember Me"
-msgstr ""
+msgstr "Se souvenir de moi"
 
 #: includes/MyProject/Form/Example/Showcases.php:84
 #: includes/MyProject/Form/Example/Showcases.php~:84
+#, fuzzy
 msgid "Sexuality:"
-msgstr ""
+msgstr "Sexualité:"
 
 #: includes/MyProject/Form/Example/Showcases.php:70
 #: includes/MyProject/Form/Example/Showcases.php~:70
+#, fuzzy
 msgid "State:"
-msgstr ""
+msgstr "État:"
 
 #: includes/MyProject/Form/Example/Showcases.php:424
 #: includes/MyProject/Form/Example/Showcases.php:425
 #: includes/MyProject/Form/Example/Showcases.php~:424
 #: includes/MyProject/Form/Example/Showcases.php:423
+#, fuzzy
 msgid "Submit"
-msgstr ""
+msgstr "Envoyer"
 
 #: includes/MyProject/Form/Example/Showcases.php:169
 #: includes/MyProject/Form/Example/Showcases.php:170
@@ -449,77 +519,92 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:173
 #: includes/MyProject/Form/Example/Showcases.php~:174
 #: includes/MyProject/Form/Example/Showcases.php:168
+#, fuzzy
 msgid "This does not appear to be a valid email address"
-msgstr ""
+msgstr "Cela ne semble pas être une adresse email valide"
 
 #: includes/MyProject/Form/Example/Showcases.php:397
 #: includes/MyProject/Form/Example/Showcases.php:398
 #: includes/MyProject/Form/Example/Showcases.php~:397
 #: includes/MyProject/Form/Example/Showcases.php:396
+#, fuzzy
 msgid ""
 "Type the characters you see in this picture. This ensures that a person, not "
 "an automated program, is creating this account."
-msgstr ""
+msgstr "Saisissez les caractères que vous voyez dans cette image. Cela garantit que personne, pas "
+" un programme automatisé, est la création de ce compte."
 
 #: includes/MyProject/Form/Example/Showcases.php:363
 #: includes/MyProject/Form/Example/Showcases.php~:363
+#, fuzzy
 msgid "Upload your Avatar:"
-msgstr ""
+msgstr "Envoyez votre Avatar:"
 
 #: includes/MyProject/Form/Example/Showcases.php:240
 #: includes/MyProject/Form/Example/Showcases.php~:240
 #: includes/MyProject/Form/Example/Showcases.php:239
 #: includes/MyProject/Form/Example/Showcases.php:238
+#, fuzzy
 msgid "Use the CTRL key to select more than one."
-msgstr ""
+msgstr "Utilisez la touche CTRL pour sélectionner plus d'un."
 
 #: includes/MyProject/Form/Example/Showcases.php:293
 #: includes/MyProject/Form/Example/Showcases.php~:293
 #: includes/MyProject/Form/Example/Showcases.php:292
 #: includes/MyProject/Form/Example/Showcases.php:291
+#, fuzzy
 msgid "Username:"
-msgstr ""
+msgstr "Nom d'utilisateur:"
 
 #: includes/MyProject/Form/Example/Showcases.php:420
 #: includes/MyProject/Form/Example/Showcases.php:421
 #: includes/MyProject/Form/Example/Showcases.php~:420
 #: includes/MyProject/Form/Example/Showcases.php:419
+#, fuzzy
 msgid "Verification"
-msgstr ""
+msgstr "Vérification"
 
 #: includes/MyProject/Form/Example/Showcases.php:395
 #: includes/MyProject/Form/Example/Showcases.php:396
 #: includes/MyProject/Form/Example/Showcases.php~:395
 #: includes/MyProject/Form/Example/Showcases.php:394
+#, fuzzy
 msgid "Verification Information"
-msgstr ""
+msgstr "Vérification des renseignements"
 
 #: includes/MyProject/Form/Example/Showcases.php:287
 #: includes/MyProject/Form/Example/Showcases.php~:287
 #: includes/MyProject/Form/Example/Showcases.php:286
 #: includes/MyProject/Form/Example/Showcases.php:285
+#, fuzzy
 msgid ""
 "We recommend that your password is not a word you can find in the "
 "dictionary, includes both capital and lower case letters, and contains at "
 "least one special character (1-9, !, *, _, etc.)."
-msgstr ""
+msgstr "Nous recommandons que votre mot de passe n'est pas un mot, vous pouvez trouver dans la "
+" dictionnaire, comprend à la fois le capital et les lettres minuscules, et contient au "
+" moins un caractère spécial (1-9,!, *, _, etc.)"
 
 #: includes/MyProject/Form/Example/Showcases.php:164
 #: includes/MyProject/Form/Example/Showcases.php~:164
 #: includes/MyProject/Form/Example/Showcases.php:163
+#, fuzzy
 msgid ""
 "We will never sell or disclose your email address to anyone. Once your "
 "account is setup, you may add additional email addresses."
-msgstr ""
+msgstr "Nous n'allons jamais vendre ou de divulguer votre adresse e-mail à n'importe qui. Une fois votre "
+" compte est configuré, vous mai ajouter des adresses e-mail."
 
 #: includes/MyProject/Form/Example/Showcases.php:223
 #: includes/MyProject/Form/Example/Showcases.php~:223
 #: includes/MyProject/Form/Example/Showcases.php:222
 #: includes/MyProject/Form/Example/Showcases.php:221
+#, fuzzy
 msgid ""
 "We'd love to get your feedback on any of the products or services we offer "
 "or on your experience with us."
-msgstr ""
+msgstr "Nous aimerions obtenir vos commentaires sur n'importe lequel des produits ou des services que nous offrons "
+" ou sur votre expérience avec nous."
 
 #: includes/MyProject/Form/Example/Showcases.php:246
 #: includes/MyProject/Form/Example/Showcases.php:258
@@ -529,13 +614,15 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:257
 #: includes/MyProject/Form/Example/Showcases.php:244
 #: includes/MyProject/Form/Example/Showcases.php:256
+#, fuzzy
 msgid "Weekends Only"
-msgstr ""
+msgstr "Fins de semaine seulement"
 
 #: app/views/layouts/default/layout.phtml:28
 #: app/views/layouts/default/layout.phtml~:28
+#, fuzzy
 msgid "Welcome to MyProject!"
-msgstr ""
+msgstr "Bienvenue à MonProjet!"
 
 #: includes/MyProject/Form/Example/Showcases.php:238
 #: includes/MyProject/Form/Example/Showcases.php:251
@@ -545,15 +632,17 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:250
 #: includes/MyProject/Form/Example/Showcases.php:236
 #: includes/MyProject/Form/Example/Showcases.php:249
+#, fuzzy
 msgid "What is your current availability?"
-msgstr ""
+msgstr "Quelle est votre disponibilité?"
 
 #: includes/MyProject/Form/Example/Showcases.php:355
 #: includes/MyProject/Form/Example/Showcases.php~:355
 #: includes/MyProject/Form/Example/Showcases.php:354
 #: includes/MyProject/Form/Example/Showcases.php:353
+#, fuzzy
 msgid "You can upload a JPG, GIF or PNG file."
-msgstr ""
+msgstr "Vous pouvez envoyer un fichier JPG, GIF ou PNG."
 
 #: includes/MyProject/Form/Example/Showcases.php:215
 #: includes/MyProject/Form/Example/Showcases.php:221
@@ -563,43 +652,53 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:220
 #: includes/MyProject/Form/Example/Showcases.php:213
 #: includes/MyProject/Form/Example/Showcases.php:219
+#, fuzzy
 msgid "Your Message:"
-msgstr ""
+msgstr "Votre message:"
 
 #: includes/MyProject/Form/Example/Showcases.php:288
 #: includes/MyProject/Form/Example/Showcases.php~:288
 #: includes/MyProject/Form/Example/Showcases.php:287
 #: includes/MyProject/Form/Example/Showcases.php:286
+#, fuzzy
 msgid ""
 "Your password will be encrypted and stored in our system. Due to the "
 "encryption, we cannot retrieve your password for you. If you lose or forget "
 "your password, we offer the ability to reset it."
-msgstr ""
+msgstr "Votre mot de passe sera crypté et stocké dans notre système. En raison de la "
+" le cryptage, on ne peut pas récupérer votre mot de passe pour vous. Si vous avez perdu ou oublié "
+" votre mot de passe, nous vous offrons la possibilité de le réinitialiser."
 
 #: includes/MyProject/Form/Example/Showcases.php:141
-#, php-format
+#, fuzzy
 msgid ""
 "Your phone number will not be shared or used for telemarketing. Your "
 "information is protected by our %s Privacy Policy %s."
-msgstr ""
+msgstr "Votre numéro de téléphone ne seront pas partagées ou utilisées pour le télémarketing. Ton "
+" l'information est protégée par notre politique de confidentialité %s %s."
 
 #: includes/MyProject/Form/Example/Showcases.php:143
 #: includes/MyProject/Form/Example/Showcases.php~:143
+#, fuzzy
 msgid ""
 "Your phone number will not be shared or used for telemarketing. Your "
 "information is protected by our [link]Privacy Policy[/link]."
-msgstr ""
+msgstr "Votre numéro de téléphone ne seront pas partagées ou utilisées pour le télémarketing. Ton "
+" l'information est protégée par notre [link] Politique de confidentialité [/ link]."
 
 #: includes/MyProject/Form/Example/Showcases.php:286
 #: includes/MyProject/Form/Example/Showcases.php~:286
 #: includes/MyProject/Form/Example/Showcases.php:285
 #: includes/MyProject/Form/Example/Showcases.php:284
+#, fuzzy
 msgid ""
 "Your username and password must both be at least 8 characters long and are "
 "case-sensitive. Please do not enter accented characters."
-msgstr ""
+msgstr "Votre nom d'utilisateur et mot de passe doivent être au moins 8 caractères de long et sont "
+" la casse. S'il vous plaît ne pas entrer des caractères accentués."
 
 #: includes/MyProject/Form/Example/Showcases.php:75
 #: includes/MyProject/Form/Example/Showcases.php~:75
+#, fuzzy
 msgid "Zip/Postal Code:"
-msgstr ""
+msgstr "Code postal:"
