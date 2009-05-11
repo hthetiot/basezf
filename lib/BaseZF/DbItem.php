@@ -1306,7 +1306,7 @@ abstract class BaseZF_DbItem
      */
     public function __toString()
     {
-        return get_class($this) . '::' . $this->getTable() . '::' . $this->getId();
+        return '[' . get_class($this) . '-' . spl_object_hash($this) . ']' . $this->getTable() . '::' . $this->getId();
     }
 
 	//
