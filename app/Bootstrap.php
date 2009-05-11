@@ -15,6 +15,12 @@
  */
 final class Bootstrap extends BaseZF_Bootstrap
 {
+	protected function _initMyProject()
+	{
+		MyProject::setEnvironment(CONFIG_ENV);
+		MyProject::setConfigFilePath(CONFIG_FILE);
+	}
+
 	/**
      * Get available routes
      */
