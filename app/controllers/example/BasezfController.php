@@ -67,7 +67,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		// add collection dependency
 
 		$examples = new MyProject_DbCollection('example');
-		$examples->filterWhere('example_id > ?', 1);
+		$examples->filterWhere('example_id > ? AND country_id = 1', 1);
 		$examples->filterOrderBy('example_id DESC');
 		$examples->filterLimit(10);
         //$examples->clearCache();
@@ -106,7 +106,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 		// select
 		echo '<hr />';
 		echo 'properties dbItem:' . "<br />";
-		$example = MyProject_DbItem_Example::getInstance('example', $id);
+		$example = MyProject_DbItem::getInstance('example', $id);
         $example->getId();
         echo $example->login;
 
