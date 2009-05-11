@@ -66,6 +66,10 @@ abstract class BaseZF_Framework_Controller_Action_Uwa extends BaseZF_Framework_C
     {
         $this->view->widget = (object) $this->_defaultWidgetValues;
 
+        // get current host
+        $this->currentHost = $this->getRequest()->getScheme() . '://' . $this->getRequest()->getHttpHost();
+        $this->view->currentHost = $this->currentHost;
+
         parent::init();
     }
 

@@ -18,7 +18,7 @@
     $this->headScript()->prependFile('http://www.netvibes.com/js/UWA/load.js.php?env=Standalone');
 
     // set favicon
-    $this->headLink(array('rel' => 'favicon', 'href' => BASE_URL . '/favicon.ico', 'type' => 'image/x-icon'));
+    $this->headLink(array('rel' => 'favicon', 'href' =>  $this->currentHost . '/favicon.ico', 'type' => 'image/x-icon'));
 
     // add default meta
     foreach($this->widget->metas as $name => $value) {
@@ -49,7 +49,7 @@
     <?php echo $this->headLink(); ?>
     <?php echo $this->headScript(); ?>
     <?php echo $this->headStyle(); ?>
-    <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="<?php echo $this->currentHost ?>/favicon.ico" />
 
     <widget:preferences>
     <?php
