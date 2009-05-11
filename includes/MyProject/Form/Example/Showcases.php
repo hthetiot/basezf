@@ -137,10 +137,9 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
                 __('Please enter a land line number, not a mobile phone number.'),
 
                 // example message with HTML
-                str_replace(
-                    array('[link]', '[/link]'),
-                    array('<a href="#todo">', '</a>'),
-                    __('Your phone number will not be shared or used for telemarketing. Your information is protected by our [link]Privacy Policy[/link].')
+                sprintf(
+                    __('Your phone number will not be shared or used for telemarketing. Your information is protected by our %s Privacy Policy %s.'),
+					'<a href="#todo">', '</a>'
                 ),
 			),
 		));
@@ -200,7 +199,6 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 			'helper'		=> 'formMultiRadio',
             'label'         => __('Message Subject:  '),
             'multioptions'  => array(
-				1 => __('Help, my brother/sister is driving me crazy!'),
 				1 => __("How can I tell my father/mother, it's time for them to retire?"),
 				2 => __("I'm exasperated with an awkward partner!"),
 				3 => __("How do I stop my family members from interfering?"),
@@ -324,7 +322,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'label'         => __('I agree to the bellow terms'),
             'required'      => true,
             'description'	 => sprintf(
-                __('By checking this, you are indicating that you are agree with the %sTerms of Use%s.'),
+                __('By checking this, you are indicating that you are agree with the %s Terms of Use %s.'),
                 '<a href="#">', '</a>'
             )
         ));

@@ -19,6 +19,9 @@ final class Bootstrap extends BaseZF_Bootstrap
 	{
 		MyProject::setEnvironment(CONFIG_ENV);
 		MyProject::setConfigFilePath(CONFIG_FILE);
+
+        MyProject::registry('locale');
+
 	}
 
 	/**
