@@ -1,6 +1,6 @@
 /* @group Main */
 body {
-	font-family:Arial,Helvetica,sans-serif;
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 	color: #313334;
 	background: #f9f9f9;
 	margin: 0;
@@ -53,8 +53,10 @@ ul li {
 }
 
 #footer {
+    border-top:1px solid #DDDDDD;
+    padding: 5px;
 	text-align: right;
-	margin-top: 30px;
+	margin-top: 10px;
 }
 
 #menu a, #main-menu a {
