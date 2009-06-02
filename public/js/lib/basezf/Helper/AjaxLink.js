@@ -99,7 +99,7 @@ BaseZF.Helper.AjaxAbstract = {
             onFailure: this.hideLoading,
             onRequest: this.showLoading,
             onSuccess: requestCallback,
-
+            noCache: true
         }
         , options);
 

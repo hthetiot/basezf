@@ -4,6 +4,8 @@
 
 var Calendar = new Class({
 
+    Implements: Options,
+
 	options: {
 		blocked: [], // blocked dates
 		classes: [], // ['calendar', 'prev', 'next', 'month', 'year', 'today', 'invalid', 'valid', 'inactive', 'active', 'hover', 'hilite']

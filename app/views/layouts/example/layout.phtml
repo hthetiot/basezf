@@ -14,9 +14,9 @@
     //
 
     // add blueprint stylesheet
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/screen.css', 'screen, projection');
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/print.css', 'print');
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/ie.css', 'screen, projection', 'IE');
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/blueprint/screen.css', 'screen, projection');
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/blueprint/print.css', 'print');
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/blueprint/ie.css', 'screen, projection', 'IE');
 
     // element files (include in lib.css)
     {
@@ -37,11 +37,11 @@
     // add motools JS framework
 	/*
     $this->headScript()->appendFile('http://www.google.com/jsapi');
-    $this->headScript()->appendScript('google.load("mootools", "1.2.1");');
+    $this->headScript()->appendScript('google.load("mootools", "1.2.2");');
     */
 
-	$this->headScript()->appendFile('/js/lib/mootools-1.2.1-core.js');
-    $this->headScript()->appendFile('/js/lib/mootools-1.2-more.js');
+	$this->headScript()->appendFile('/js/lib/mootools-core.js');
+    $this->headScript()->appendFile('/js/lib/mootools-more.js');
 
     // add BaseZF JS framework (include in main.js)
     {
@@ -118,10 +118,10 @@
         <?php echo $this->placeholder('Zend_Layout')->content; ?>
 
         <div id="footer" class="column clear span-24">
-            <p>
+
               This documentation is released under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike 3.0</a>
               License.
-            </p>
+
         </div>
     </div>
 

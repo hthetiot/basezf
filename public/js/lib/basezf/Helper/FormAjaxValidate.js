@@ -347,6 +347,12 @@ BaseZF.Helper.FormAjaxValidate = new Class({
             fieldErrors.each(function(errorsMsg, field) {
 
                 var field = this.elements.form.getElement('[name^=' + field + ']');
+
+                // ignore missing fields
+                if($type(field) == false) {
+                    return;
+                }
+
                 var container = field.retrieve('formContainer');
 
                 // add error is needed

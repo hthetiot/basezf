@@ -9,12 +9,9 @@
  */
 
     // add blueprint stylesheet
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/screen.css', 'screen, projection');
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/print.css', 'print');
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/ie.css', 'screen, projection', 'IE');
-
-    // add blueprint plugins stylesheet
-    $this->headLink()->appendStylesheet('/css/lib/blueprint/plugins/fancy-type/screen.css', 'screen, projection');
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/blueprint/screen.css', 'screen, projection');
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/blueprint/print.css', 'print');
+    $this->headLink()->appendStylesheet('/css/lib/blueprint/blueprint/ie.css', 'screen, projection', 'IE');
 
     // @todo remove
     $this->headLink()->appendStylesheet('/css/layouts/default/layout.css', 'screen, projection');
