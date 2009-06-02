@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-05-11 23:15+0200\n"
-"PO-Revision-Date: 2009-05-11 23:15+0200\n"
+"POT-Creation-Date: 2009-06-02 19:15+0200\n"
+"PO-Revision-Date: 2009-06-02 19:15+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,10 @@ msgstr ""
 msgid "BaseZF Examples"
 msgstr ""
 
+#: includes/MyProject/Form/Example/Showcases.php:89
+msgid "Bi"
+msgstr ""
+
 #: includes/MyProject/Form/Example/Showcases.php:53
 #: includes/MyProject/Form/Example/Showcases.php~:53
 msgid "Birthday:"
@@ -64,6 +68,10 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php~:423
 #: includes/MyProject/Form/Example/Showcases.php:422
 msgid "Cancel"
+msgstr ""
+
+#: includes/MyProject/Form/Example/Showcases.php:102
+msgid "Chatting"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:85
@@ -134,9 +142,17 @@ msgid ""
 "File size limit 4 MB. If your upload does not work, try a smaller picture."
 msgstr ""
 
+#: includes/MyProject/Form/Example/Showcases.php:106
+msgid "Find the true love"
+msgstr ""
+
 #: includes/MyProject/Form/Example/Showcases.php:42
 #: includes/MyProject/Form/Example/Showcases.php~:42
 msgid "First Name:"
+msgstr ""
+
+#: includes/MyProject/Form/Example/Showcases.php:105
+msgid "Flirting"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:243
@@ -172,6 +188,10 @@ msgstr ""
 msgid "Full-time (Swing)"
 msgstr ""
 
+#: includes/MyProject/Form/Example/Showcases.php:90
+msgid "Gay"
+msgstr ""
+
 #: includes/MyProject/Form/Example/Showcases.php:31
 #: includes/MyProject/Form/Example/Showcases.php~:31
 msgid "Gender:"
@@ -186,6 +206,10 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:96
 #: includes/MyProject/Form/Example/Showcases.php~:96
 msgid "Her for:"
+msgstr ""
+
+#: includes/MyProject/Form/Example/Showcases.php:88
+msgid "Hetero"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:204
@@ -286,6 +310,10 @@ msgid ""
 "long."
 msgstr ""
 
+#: includes/MyProject/Form/Example/Showcases.php:104
+msgid "Meeting new people"
+msgstr ""
+
 #: includes/MyProject/Form/Example/Showcases.php:201
 #: includes/MyProject/Form/Example/Showcases.php~:201
 #: includes/MyProject/Form/Example/Showcases.php:200
@@ -323,6 +351,8 @@ msgstr ""
 #: app/views/layouts/default/layout.phtml:58
 #: app/views/layouts/default/layout.phtml~:31
 #: app/views/layouts/default/layout.phtml~:58
+#: app/views/layouts/default/layout.phtml:28
+#: app/views/layouts/default/layout.phtml:55
 msgid "MyProject"
 msgstr ""
 
@@ -403,6 +433,10 @@ msgstr ""
 #: includes/MyProject/Form/Example/Showcases.php:304
 #: includes/MyProject/Form/Example/Showcases.php:303
 msgid "Please re-enter your password:"
+msgstr ""
+
+#: includes/MyProject/Form/Example/Showcases.php:103
+msgid "Promote Myself"
 msgstr ""
 
 #: includes/MyProject/Form/Example/Showcases.php:178
@@ -533,6 +567,7 @@ msgstr ""
 
 #: app/views/layouts/default/layout.phtml:28
 #: app/views/layouts/default/layout.phtml~:28
+#: app/views/layouts/default/layout.phtml:25
 msgid "Welcome to MyProject!"
 msgstr ""
 

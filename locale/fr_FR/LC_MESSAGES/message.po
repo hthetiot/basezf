@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-05-11 23:15+0200\n"
-"PO-Revision-Date: 2009-05-11 23:15+0200\n"
+"POT-Creation-Date: 2009-06-02 19:15+0200\n"
+"PO-Revision-Date: 2009-06-02 19:15+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,11 @@ msgstr "BaseZF"
 msgid "BaseZF Examples"
 msgstr "Exemples BaseZF"
 
+#: includes/MyProject/Form/Example/Showcases.php:89
+#, fuzzy
+msgid "Bi"
+msgstr "Bi"
+
 #: includes/MyProject/Form/Example/Showcases.php:53
 #: includes/MyProject/Form/Example/Showcases.php~:53
 #, fuzzy
@@ -75,6 +80,11 @@ msgstr "En vérifiant cela, vous indiquez que vous êtes d'accord avec les Condi
 #, fuzzy
 msgid "Cancel"
 msgstr "Annuler"
+
+#: includes/MyProject/Form/Example/Showcases.php:102
+#, fuzzy
+msgid "Chatting"
+msgstr "Chatting"
 
 #: includes/MyProject/Form/Example/Showcases.php:85
 #: includes/MyProject/Form/Example/Showcases.php:99
@@ -155,11 +165,21 @@ msgid ""
 "File size limit 4 MB. If your upload does not work, try a smaller picture."
 msgstr "Limite de taille de fichier de 4 Mo. Si votre téléchargement ne fonctionne pas, essayez avec une image plus petite."
 
+#: includes/MyProject/Form/Example/Showcases.php:106
+#, fuzzy
+msgid "Find the true love"
+msgstr "Trouver le vrai amour"
+
 #: includes/MyProject/Form/Example/Showcases.php:42
 #: includes/MyProject/Form/Example/Showcases.php~:42
 #, fuzzy
 msgid "First Name:"
 msgstr "Prénom:"
+
+#: includes/MyProject/Form/Example/Showcases.php:105
+#, fuzzy
+msgid "Flirting"
+msgstr "Flirting"
 
 #: includes/MyProject/Form/Example/Showcases.php:243
 #: includes/MyProject/Form/Example/Showcases.php:255
@@ -197,6 +217,11 @@ msgstr "Full-time (Cimetière)"
 msgid "Full-time (Swing)"
 msgstr "Full-time (Swing)"
 
+#: includes/MyProject/Form/Example/Showcases.php:90
+#, fuzzy
+msgid "Gay"
+msgstr "Gay"
+
 #: includes/MyProject/Form/Example/Showcases.php:31
 #: includes/MyProject/Form/Example/Showcases.php~:31
 #, fuzzy
@@ -215,6 +240,11 @@ msgstr "Au secours, mon frère / sur est driving me crazy!"
 #, fuzzy
 msgid "Her for:"
 msgstr "Son lieu de:"
+
+#: includes/MyProject/Form/Example/Showcases.php:88
+#, fuzzy
+msgid "Hetero"
+msgstr "Hétéro"
 
 #: includes/MyProject/Form/Example/Showcases.php:204
 #: includes/MyProject/Form/Example/Showcases.php~:204
@@ -333,6 +363,11 @@ msgid ""
 msgstr "Mai contenir seulement des lettres, de chiffres et de soulignement (_) et 8-20 caractères "
 " long."
 
+#: includes/MyProject/Form/Example/Showcases.php:104
+#, fuzzy
+msgid "Meeting new people"
+msgstr "Rencontrer de nouvelles personnes"
+
 #: includes/MyProject/Form/Example/Showcases.php:201
 #: includes/MyProject/Form/Example/Showcases.php~:201
 #: includes/MyProject/Form/Example/Showcases.php:200
@@ -375,6 +410,8 @@ msgstr "Doit correspondre au mot de passe que vous avez entré un peu plus."
 #: app/views/layouts/default/layout.phtml:58
 #: app/views/layouts/default/layout.phtml~:31
 #: app/views/layouts/default/layout.phtml~:58
+#: app/views/layouts/default/layout.phtml:28
+#: app/views/layouts/default/layout.phtml:55
 #, fuzzy
 msgid "MyProject"
 msgstr "MonProjet"
@@ -470,6 +507,11 @@ msgstr "S'il vous plaît entrer votre nom et adresse tels qu'ils sont énuméré
 #, fuzzy
 msgid "Please re-enter your password:"
 msgstr "S'il vous plaît entrer de nouveau votre mot de passe:"
+
+#: includes/MyProject/Form/Example/Showcases.php:103
+#, fuzzy
+msgid "Promote Myself"
+msgstr "Promouvoir Myself"
 
 #: includes/MyProject/Form/Example/Showcases.php:178
 #: includes/MyProject/Form/Example/Showcases.php~:178
@@ -620,6 +662,7 @@ msgstr "Fins de semaine seulement"
 
 #: app/views/layouts/default/layout.phtml:28
 #: app/views/layouts/default/layout.phtml~:28
+#: app/views/layouts/default/layout.phtml:25
 #, fuzzy
 msgid "Welcome to MyProject!"
 msgstr "Bienvenue à MonProjet!"
