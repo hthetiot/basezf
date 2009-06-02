@@ -50,9 +50,13 @@ if (!function_exists('__')) {
      * @param string $string no transalted string
      * @return string $string transalted string
      */
-    function __($string)
+    function __($string, $domain = null)
     {
-        return _($string);
+        if (!empty($domain)) {
+            return dgettext($domain, $string);
+        } else {
+            return _($string);
+        }
     }
 
 }

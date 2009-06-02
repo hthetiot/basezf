@@ -85,9 +85,9 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'notice'        => __('Choose from the list'),
             'required'      => true,
             'multioptions'  => array(
-                '1' => 'Hetero',
-                '2' => 'Bi',
-                '3' => 'Gay'
+                '1' => __('Hetero'),
+                '2' => __('Bi'),
+                '3' => __('Gay')
             ),
         ));
 
@@ -99,11 +99,11 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'notice'        => __('Choose from the list'),
             'required'      => true,
             'multioptions'  => array(
-                '1' => 'Chatting',
-                '2' => 'Promote Myself',
-                '3' => 'Meeting new people',
-                '4' => 'Flirting',
-                '5' => 'Find the true love',
+                '1' => __('Chatting'),
+                '2' => __('Promote Myself'),
+                '3' => __('Meeting new people'),
+                '4' => __('Flirting'),
+                '5' => __('Find the true love'),
             ),
         ));
 

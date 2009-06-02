@@ -41,6 +41,17 @@ abstract class BaseZF_Framework_Form extends Zend_Form
             $response = $this->getMessages();
         }
 
+        // translate it
+        foreach ($response as $params => $messages) {
+
+            $translatedMessages = array();
+            foreach ($messages as $error => $message) {
+                $translatedMessages[$error] = __($message, 'validate');
+            }
+
+            $response[$params] = $translatedMessages;
+        }
+
         $params = array_keys($formData);
         foreach ($params as $param) {
             if (!isset($response[$param])) {
