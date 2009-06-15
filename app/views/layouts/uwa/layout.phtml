@@ -44,57 +44,14 @@
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:widget="http://www.netvibes.com/ns/">
     <head>
-    <?php echo $this->headTitle(); ?>
     <?php echo $this->headMeta(); ?>
     <?php echo $this->headLink(); ?>
     <?php echo $this->headScript(); ?>
     <?php echo $this->headStyle(); ?>
+    <?php echo $this->headTitle(); ?>
     <link rel="icon" type="image/x-icon" href="<?php echo $this->currentHost ?>/favicon.ico" />
-
-    <widget:preferences>
-    <?php
-        // render Widget preferences
-        foreach($this->widget->preferences as $name => $data) {
-
-            $attribs = array(
-                'name'          => $name,
-                'type'          => $data->type,
-                'label'         => $data->label, // label will translated
-                'defaultValue'  => $data->value,
-            );
-
-            foreach ($data->options as $option => $value) {
-                $attribs[$option] = $value;
-            }
-
-            $XhtmlAttribs = array();
-            foreach ($attribs as $key => $value) {
-                if ($key != 'options') {
-
-                    if (is_array($value)) {
-                        $value = json_encode($value);
-                    }
-
-                    $XhtmlAttribs[] = $key . '="' . $this->escape($value) . '"';
-                }
-            }
-
-            if ($data->type == 'list' && !empty($data->options['options'])) {
-                echo '<preference ' . implode(' ', $XhtmlAttribs) . '>';
-
-                foreach ($data->options['options'] as $key => $label) {
-                    echo '<option value="' . $key . '" label="' . $this->escape(__($label)) . '" />';
-                }
-
-                echo '</preference>';
-            } else {
-                echo '<preference ' . implode(' ', $XhtmlAttribs) . ' />';
-            }
-        }
-    ?>
-    </widget:preferences>
+    <?php echo $this->headWidgetPreferences($this->widget->preferences); ?>
     <script type="text/javascript">
-        widget.setTitle('<?php echo $this->escape(__($this->widget->title)); ?>');
         <?php echo $widgetScript; ?>
     </script>
     <style>

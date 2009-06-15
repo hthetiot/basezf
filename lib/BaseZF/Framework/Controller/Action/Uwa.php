@@ -122,7 +122,7 @@ abstract class BaseZF_Framework_Controller_Action_Uwa extends BaseZF_Framework_C
      *
      * @return $this for more fluent interface
      */
-    protected function _addPreference($name, $type, $label, $value = null, array $options = array())
+    protected function _addPreference($name, $type, $label = null, $value = null, array $options = array())
     {
         $this->view->widget->preferences[$name] = (object) array(
             'type'      => $type,

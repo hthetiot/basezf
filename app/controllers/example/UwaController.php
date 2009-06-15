@@ -20,18 +20,18 @@ class Example_UwaController extends BaseZF_Framework_Controller_Action_Uwa
         $this->_setWidgetMetaValue('description', 'A simple Widget example');
 
         // set widget pref
-        $this->_addPreference('mytext', 'text', 'My text pref');
-        $this->_addPreference('myboolean', 'boolean', 'My boolean pref');
-        $this->_addPreference('myhidden', 'hidden', 'My hidden pref');
-        //$this->_addPreference('myrange', 'range', 'My range pref', array());
-        //$this->_addPreference('mylist', 'list', 'My list pref');
-        $this->_addPreference('mypassword', 'password', 'My password pref');
-
-        // enable debug
-        $this->_enableDebug();
+        $this->_addPreference('my_text', 'text', 'My text pref');
+        $this->_addPreference('my_password', 'password', 'My password pref');
+        $this->_addPreference('my_checkbox', 'checkbox', 'My checkbox pref');
+        $this->_addPreference('my_hidden', 'hidden');
+        $this->_addPreference('my_range', 'range', 'My range pref');
+        $this->_addPreference('my_list', 'list', 'My list pref', 1, array(
+            '1' => 'one',
+            '2' => 'two',
+        ));
 
         // disable debug
-        $this->_enableDebug(true);
+        $this->_enableDebug();
     }
 
 	public function jsoncallbackAction()
