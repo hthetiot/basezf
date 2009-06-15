@@ -1,4 +1,4 @@
-#!/usr/bin/php5
+#!/usr/bin/php
 <?php
 # config-generator.php - a simple config generator from config template
 #

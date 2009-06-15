@@ -3,7 +3,7 @@
 # gettext-translator.php - an automatic gettext translator power by google adapter by default
 #
 # Usage:
-# ./gettext-translator.php input_language output_language input_po_file output_po_file (adapter)
+# ./gettext-translator.php inputLanguage outputLanguage inputPoFile outputPoFile (adapter)
 #
 # @copyright  Copyright (c) 2008 BaseZF
 # @author     Harold Thétiot (hthetiot)
@@ -276,12 +276,12 @@ class gettextTranslator {
 function usage()
 {
     echo "Usage: \n";
-    echo "  {$_SERVER['argv'][0]} input_language output_language input_po_file output_po_file (adapter)\n";
+    echo "  {$_SERVER['argv'][0]} inputLanguage outputLanguage inputPoFile outputPoFile (adapter)\n";
     echo "where:\n";
-    echo "  input_language  - input language for translator (example: en, fr, it, ...)\n";
-    echo "  output_language - output language for translator (example: en, fr, it, ...)\n";
-    echo "  input_po_file   - intput po or pot file\n";
-    echo "  output_po_file  - output po file\n";
+    echo "  inputLanguage  - input language for translator (example: en, fr, it, ...)\n";
+    echo "  outputLanguage - output language for translator (example: en, fr, it, ...)\n";
+    echo "  inputPoFile   - intput po or pot file\n";
+    echo "  outputPoFile  - output po file\n";
     echo "  adapter         - translator adapter, currenlty only google is available\n";
     exit;
 }
@@ -293,10 +293,10 @@ if( count($_SERVER['argv']) < 3 ) {
 }
 
 // get args as vars
-$input_language = $_SERVER['argv'][1];
-$output_language = $_SERVER['argv'][2];
-$input_po_file = $_SERVER['argv'][3];
-$output_po_file = $_SERVER['argv'][4];
+$inputLanguage = $_SERVER['argv'][1];
+$outputLanguage = $_SERVER['argv'][2];
+$inputPoFile = $_SERVER['argv'][3];
+$outputPoFile = $_SERVER['argv'][4];
 $adapter = (empty($_SERVER['argv'][5]) ? 'google' : $_SERVER['argv'][5]);
 
 try {
@@ -304,27 +304,27 @@ try {
     // init class
     $gettextTranslator = new gettextTranslator();
 
-    echo '- Load gettext file "' . $input_po_file . '": ';
-    $gettextTranslator->loadFile($input_po_file);
+    echo '- Load gettext file "' . $inputPoFile . '": ';
+    $gettextTranslator->loadFile($inputPoFile);
     echo "done \n";
 
     // get stats
     $beforeTranslationStats = $gettextTranslator->getFileStats();
     $beforeTranslation = time();
 
-    echo '- Translate file from "' . $input_language . '" to "' . $output_language . '" with adapter "' . ucfirst($adapter) . '": ';
-    $gettextTranslator->translate($input_language, $output_language, $adapter);
+    echo '- Translate file from "' . $inputLanguage . '" to "' . $outputLanguage . '" with adapter "' . ucfirst($adapter) . '": ';
+    $gettextTranslator->translate($inputLanguage, $outputLanguage, $adapter);
     echo "done \n";
 
     // get stats
     $afterTranslation = time();
     $afterTranslationStats = $gettextTranslator->getFileStats();
 
-    echo '- Save Translated gettext file "' . $output_po_file . '": ';
-    $gettextTranslator->saveFile($output_po_file);
+    echo '- Save Translated gettext file "' . $outputPoFile . '": ';
+    $gettextTranslator->saveFile($outputPoFile);
     echo "done \n";
 
-    echo '- Translation Stats for "' . $output_po_file . '": ' . "\n";
+    echo '- Translation Stats for "' . $outputPoFile . '": ' . "\n";
     echo '  * Translation duration ' . ($afterTranslation - $beforeTranslation) . ' seconds' . "\n";
     foreach ($afterTranslationStats as $stats => $value) {
         echo '  * ' . ucfirst($stats) . ' = ' . $value . "\n";

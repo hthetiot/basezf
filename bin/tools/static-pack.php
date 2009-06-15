@@ -81,11 +81,8 @@ class staticPack {
 
             $realPack = self::$_workingPath . $pack;
 
-            // is writable pack file ?
-
-
             // notify
-            echo  '    Compiling: "'. $pack . '"' . "\n";
+            $this->_display(sprintf('Compiling: "%s"', $pack));
 
             // add file
             $realFiles = array();
@@ -95,7 +92,7 @@ class staticPack {
                 $realFiles[] = $realFile;
 
                 // notify
-                echo '        Added "' . $file . '"' . "\n";
+                $this->_display(sprintf('    Added "%s"', $file));
             }
 
             // process compression
@@ -120,10 +117,10 @@ class staticPack {
     {
         $adapterConfig = self::_getLanguageAdapter($language);
 
+        $this->_display(sprintf('    Processing: compilation using %s', $adapterConfig['name']));
+
         // create tmp buffer
         $bufferFile = self::_createBufferForFiles($files);
-
-        echo '    Processing: compilation using ' . $adapterConfig['name'] . "\n";
 
         $commandVars =  array(
             '{binPath}'         => realpath(dirname(__FILE__)),
@@ -142,10 +139,16 @@ class staticPack {
             throw new Exception(sprintf('compilation error "%s"', $results));
         }
 
+        // stats
+        $inputSize = filesize($bufferFile);
+        $outputSize = filesize($pack);
+        $compressionRatio = round(100-((100/$inputSize)*$outputSize),2) . "%";
+
         // delete tmp buffer
         unlink($bufferFile);
 
-        echo '    Done' . "\n";
+        $this->_display(sprintf('Done: Input size: %s Output size: %s Compression ratio: %s', self::_bytesToHumanSize($inputSize), self::_bytesToHumanSize($outputSize), $compressionRatio));
+        $this->_display('');
     }
 
     static function _getLanguageAdapter($language)
@@ -162,8 +165,39 @@ class staticPack {
 
         return self::$_adapterConfig[self::$_languageToAdapter[$language]];
     }
+
+    /**
+     * Display string on standart output
+     */
+    protected function _display($string)
+    {
+        print_r($string . "\n");
+    }
+
+    /**
+     * Convert bytes to human readable size
+     *
+     * @param int $size
+     * @param int $decimals
+     * @return string
+     */
+    static protected function _bytesToHumanSize($size, $decimals = 1)
+    {
+        $suffix = array('Bytes','KB','MB','GB','TB','PB','EB','ZB','YB','NB','DB');
+        $i = 0;
+
+        while ($size >= 1024 && ($i < count($suffix) - 1)){
+            $size /= 1024;
+            $i++;
+        }
+
+        return round($size, $decimals) . ' ' . $suffix[$i];
+    }
 }
 
+/**
+ * Display help
+ */
 function usage()
 {
     echo "Usage: \n";

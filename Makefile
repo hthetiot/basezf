@@ -40,10 +40,8 @@ LOCALE_PO_DIR = LC_MESSAGES
 LOCALE_DOMAINS = $(PROJECT_LOCALE_DOMAIN) time validate
 
 # Static
-CSS_SRC_PATH = $(ROOT)/etc/static/css
-CSS_PACK_PATH = $(ROOT)/public/css/pack
-JS_SRC_PATH = $(ROOT)/etc/static/js
-JS_PACK_PATH = $(ROOT)/public/js/pack
+CSS_PACK_CONFIG = $(ROOT)/etc/static/css.yml
+JS_PACK_CONFIG = $(ROOT)/etc/static/javascript.yml
 
 # Others
 RELEASE_NAME = $(PROJECT_NAME)-$(PROJECT_VERSION)
@@ -89,20 +87,10 @@ test:
 	@cd tests && phpunit AllTests
 	@echo "done"
 
-config: config-install config-show
-
-# initialise or update config files
-config-install:
+config:
 	@echo "----------------"
 	@echo "Configure config files:"
 	@$(PROJECT_BIN)/tools/config-generator.php configure $(PROJECT_CONFIG) $(PROJECT_CONFIG)/dist
-	@echo "done"
-
-# displaying config files variables values
-config-show:
-	@echo "----------------"
-	@echo "Current config files variables values is:"
-	@$(PROJECT_BIN)/tools/config-generator.php show $(PROJECT_CONFIG) $(PROJECT_CONFIG)/dist
 	@echo "done"
 
 locale: locale-template locale-update locale-deploy
@@ -176,11 +164,11 @@ static-pack: clean static-pack-css static-pack-js
 
 static-pack-css:
 	@echo "----------------"
-	@./bin/tools/static-pack.sh css $(CSS_SRC_PATH) $(CSS_PACK_PATH)
+	@./bin/tools/static-pack.php css $(CSS_PACK_CONFIG) public
 
 static-pack-js:
 	@echo "----------------"
-	@./bin/tools/static-pack.sh js $(JS_SRC_PATH) $(JS_PACK_PATH)
+	@./bin/tools/static-pack.php js $(JS_PACK_CONFIG) public
 
 # Remove the log files
 log-clean:
