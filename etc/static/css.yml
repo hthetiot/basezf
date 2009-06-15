@@ -1,0 +1,12 @@
+/css/pack/lib.css:
+ - /css/lib/blueprint/blueprint/screen.css
+ - /css/lib/basezf/elements/formLayout.css
+ - /css/lib/basezf/elements/formFancySelect.css
+ - /css/lib/basezf/elements/fancyMenu.css
+ - /css/lib/basezf/elements/fancyButton.css
+ - /js/lib/motools-plugins/Autocompleter/Autocompleter.css
+ - /js/lib/motools-plugins/SqueezeBox/SqueezeBox.css
+ - /js/lib/motools-plugins/Calendar/default/calendar.css
+
+/css/pack/example-layout.css:
+ - /css/layouts/example/layout.css

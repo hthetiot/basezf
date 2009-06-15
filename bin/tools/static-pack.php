@@ -64,9 +64,7 @@ class staticPack {
     protected function _readConfig($configPath)
     {
         if (!function_exists('syck_load_file')) {
-
             include(realpath(dirname(__FILE__)) . '/../../lib/Spyc.php');
-
         }
 
         return syck_load_file($configPath);
@@ -104,6 +102,11 @@ class staticPack {
     {
         $bufferData = array();
         foreach ($files as $file) {
+
+            if (!is_file($file)) {
+                throw new Exception(sprintf('Unable to read file %s', $file));
+            }
+
             $bufferData[]= file_get_contents($file);
         }
 

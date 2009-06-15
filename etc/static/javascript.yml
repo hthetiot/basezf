@@ -1,0 +1,13 @@
+/js/pack/lib.js:
+ - /js/lib/mootools-core.js
+ - /js/lib/mootools-more.js
+ - /js/lib/basezf/BaseZF.js
+ - /js/lib/basezf/Class/Helper.js
+ - /js/lib/basezf/Helper/AjaxLink.js
+ - /js/lib/basezf/Helper/FormFancySelect.js
+ - /js/lib/basezf/Helper/FormAjaxValidate.js
+ - /js/lib/motools-plugins/Autocompleter/Autocompleter.js
+ - /js/lib/motools-plugins/Autocompleter/Autocompleter.Request.js
+ - /js/lib/motools-plugins/Autocompleter/Observer.js
+ - /js/lib/motools-plugins/SqueezeBox/SqueezeBox.js
+ - /js/lib/motools-plugins/Calendar/calendar.js

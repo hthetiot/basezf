@@ -71,13 +71,13 @@ doc:
 syntax:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files:"
-	@for i in =`find . -type f -name *.ph* | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
+	@for i in `find . -type f -name *.ph* | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
 syntax-fast:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files updated:"
-	@for i in =`git-diff --name-only | grep '.ph' | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
+	@for i in `git-diff --name-only | grep '.ph' | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
 # Exec unitTest
@@ -195,7 +195,7 @@ log-archive:
 clean:
 	@echo "----------------"
 	@echo "Cleaning useless files:"
-	@find . -name "*~" -exec rm {} \;
+	@for i in `echo '*.DS_Store *~ *.svn ._* *Thumbs.db \#Untitled-*# *.marks .cache'`; do `rm -rf $$i`; done;
 	@echo "done"
 
 # Update from current GIT repository
