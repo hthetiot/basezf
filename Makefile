@@ -188,6 +188,7 @@ log-archive:
 	@list=`find $(PROJECT_LOG) -type f -not -name "README"`; \
 	for i in $$list;do \
 		echo "Archived $$i"; \
+        gzip $$i; \
     done
 	@echo "done"
 
@@ -195,7 +196,16 @@ log-archive:
 clean:
 	@echo "----------------"
 	@echo "Cleaning useless files:"
-	@for i in `echo '*.DS_Store *~ *.svn ._* *Thumbs.db \#Untitled-*# *.marks .cache'`; do `rm -rf $$i`; done;
+	@rm -f  `find . \( \
+		-iname '*.DS_Store' -o \
+		-iname '*~' -o \
+		-iname '*.~*' -o \
+		-iname '*.bak' -o \
+		-iname '#*#' -o \
+		-iname '*.marks' -o \
+		-iname '*.thumb' -o \
+		-iname '*Thumbs.db' \) \
+		-print`
 	@echo "done"
 
 # Update from current GIT repository
