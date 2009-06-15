@@ -1,4 +1,4 @@
-#!/usr/bin/php5
+#!/usr/bin/php
 <?php
 # static-pack.php - A simple compressor bash script for CSS and JS files
 #
@@ -18,20 +18,29 @@ ini_set('memory_limit', '256M');
  */
 class staticPack {
 
-    CONST ADAPTER_YUICOMPRESSOR = 'yuicompressor';
-
-    CONST ADAPTER_TIDYCSS = 'tidycss';
-
+    /**
+     * Language to adapter
+     */
     static protected $_languageToAdapter = array(
         'js'    => self::ADAPTER_YUICOMPRESSOR,
         'css'   => self::ADAPTER_TIDYCSS,
     );
 
+    /**
+     * Available Adapters
+     */
+    CONST ADAPTER_YUICOMPRESSOR = 'yuicompressor';
+
+    CONST ADAPTER_TIDYCSS = 'tidycss';
+
+    /**
+     * Adapter config
+     */
     static protected $_adapterConfig = array(
         self::ADAPTER_TIDYCSS => array(
             'name'      => 'TidyCss',
             'command'   => '{binPath}/csstidy {input} {params} {ouput}',
-            'params'    => '--template=high --silent=false --merge_selectors=4',
+            'params'    => '--template=high --silent=true --merge_selectors=4',
         ),
 
         self::ADAPTER_YUICOMPRESSOR => array(
@@ -41,22 +50,26 @@ class staticPack {
         ),
     );
 
-    static protected $_rootPath;
+    static protected $_workingPath;
 
-    public function __construct($rootPath = null) {
+    public function __construct($workingPath = null) {
 
-        if (is_null($rootPath)) {
-            $rootPath = realpath(dirname(__FILE__));
+        if (is_null($workingPath)) {
+            $workingPath = realpath(dirname(__FILE__));
         }
 
-        self::$_rootPath = $rootPath;
+        self::$_workingPath =  realpath($workingPath);
     }
 
     protected function _readConfig($configPath)
     {
-        include(realpath(dirname(__FILE__)) . '/../../lib/Spyc.php');
+        if (!function_exists('syck_load_file')) {
 
-        return spyc_load_file($configPath);
+            include(realpath(dirname(__FILE__)) . '/../../lib/Spyc.php');
+
+        }
+
+        return syck_load_file($configPath);
     }
 
     public function run($language, $configPath)
@@ -66,30 +79,39 @@ class staticPack {
 
         foreach ($config as $pack => $files) {
 
+            $realPack = self::$_workingPath . $pack;
+
             // is writable pack file ?
+
+
+            // notify
             echo  '    Compiling: "'. $pack . '"' . "\n";
 
             // add file
+            $realFiles = array();
             foreach ($files as $file) {
 
-                // is file ?
+                $realFile = self::$_workingPath . $file;
+                $realFiles[] = $realFile;
+
+                // notify
                 echo '        Added "' . $file . '"' . "\n";
             }
 
             // process compression
-            $this->process($language, $pack, $files);
+            $this->process($language, $realPack, $realFiles);
         }
     }
 
     static protected function _createBufferForFiles(array $files)
     {
-        $bufferData = '';
+        $bufferData = array();
         foreach ($files as $file) {
-            $buffer += file_get_contents(self::$_rootPath . $file);
+            $bufferData[]= file_get_contents($file);
         }
 
         $bufferFileName = tempnam(getcwd(), "static-pack-");
-        file_put_contents($bufferFileName, $bufferData);
+        file_put_contents($bufferFileName, implode("\n", $bufferData));
 
         return $bufferFileName;
     }
@@ -106,7 +128,7 @@ class staticPack {
         $commandVars =  array(
             '{binPath}'         => realpath(dirname(__FILE__)),
             '{input}'           => escapeshellarg($bufferFile),
-            '{ouput}'           => escapeshellarg(self::$_rootPath . $pack),
+            '{ouput}'           => escapeshellarg($pack),
             '{params}'          => $adapterConfig['params'],
         );
 
@@ -120,7 +142,7 @@ class staticPack {
             throw new Exception(sprintf('compilation error "%s"', $results));
         }
 
-        // create tmp buffer
+        // delete tmp buffer
         unlink($bufferFile);
 
         echo '    Done' . "\n";
@@ -145,11 +167,11 @@ class staticPack {
 function usage()
 {
     echo "Usage: \n";
-    echo "  {$_SERVER['argv'][0]} <language> <config_path> <root_path>\n";
+    echo "  {$_SERVER['argv'][0]} <language> <config_file> <working_path>\n";
     echo "where:\n";
-    echo "  language  - \n";
-    echo "  config_path  - \n";
-    echo "  root_path - \n";
+    echo "  language        - Language used by packed files (example: js)\n";
+    echo "  config_file     - YAML static config file (example: /etc/statit/css.yml)\n";
+    echo "  working_path    - Working directory containt source file for pack and root of all path in config  (example: /public)\n";
     exit;
 }
 
@@ -162,12 +184,12 @@ if( count($_SERVER['argv']) < 3 ) {
 // get args as vars
 $language = $_SERVER['argv'][1];
 $configPath = $_SERVER['argv'][2];
-$rootPath = $_SERVER['argv'][3];
+$workingPath = $_SERVER['argv'][3];
 
 try {
 
     // init class
-    $staticPack = new staticPack($rootPath);
+    $staticPack = new staticPack($workingPath);
     $staticPack->run($language, $configPath);
 
 } catch (Exception $e) {
