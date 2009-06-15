@@ -172,7 +172,7 @@ locale-clean:
 	@echo "done"
 
 # Static packing
-static-pack: static-pack-css static-pack-js
+static-pack: clean static-pack-css static-pack-js
 
 static-pack-css:
 	@echo "----------------"
