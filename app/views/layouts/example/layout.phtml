@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Example layout for MyProject
  *
@@ -8,6 +7,17 @@
  * @copyright  Copyright (c) 2008 MyProject
  * @author     Harold Thétiot (hthetiot)
  */
+    //
+    // Pack stuff
+    //
+
+    $headLinkPackConfig = new BaseZF_Framework_Config_Yaml(PATH_TO_CONFIG . '/static/css.yml');
+    $this->headLink()->setPacksConfig($headLinkPackConfig->toArray());
+    $this->headLink()->enablePacks();
+
+    $headScriptPackConfig = new BaseZF_Framework_Config_Yaml(PATH_TO_CONFIG . '/static/javascript.yml');
+    $this->headScript()->setPacksConfig($headScriptPackConfig->toArray());
+    $this->headScript()->enablePacks();
 
     //
     // CSS stuff
@@ -67,8 +77,10 @@
         // Calendar
         $this->headScript()->appendFile('/js/lib/motools-plugins/Calendar/calendar.js');
         $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/default/calendar.css', 'screen, projection');
+        /*
         $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/i-heart-ny/calendar.css', 'screen, projection');
         $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/dashboard/calendar.css', 'screen, projection');
+        */
     }
 
     //
@@ -92,6 +104,7 @@
 
     // display DocType
     echo $this->doctype() . "\n";
+
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
@@ -100,7 +113,6 @@
 <?php echo $this->headLink(); ?>
 <?php echo $this->headScript(); ?>
 <?php echo $this->headStyle(); ?>
-
 </head>
 <body>
     <div class="container">

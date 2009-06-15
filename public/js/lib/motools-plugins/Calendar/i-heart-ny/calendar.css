@@ -7,7 +7,7 @@ select.i-heart-ny {
 }
 
 button.i-heart-ny {
-	background: url(i-heart-ny-icon.gif);
+	background: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-icon.gif);
 	border: 0;
 	cursor: pointer;
 	float: left;
@@ -39,18 +39,18 @@ div.i-heart-ny {
 		position: relative;
 		width: 164px;
 	}
-	div.i-heart-ny.january div { background-image: url(i-heart-ny-jan.jpg); }
-	div.i-heart-ny.february div { background-image: url(i-heart-ny-feb.jpg); }
-	div.i-heart-ny.march div { background-image: url(i-heart-ny-mar.jpg); }
-	div.i-heart-ny.april div { background-image: url(i-heart-ny-apr.jpg); }
-	div.i-heart-ny.may div { background-image: url(i-heart-ny-may.jpg); }
-	div.i-heart-ny.june div { background-image: url(i-heart-ny-jun.jpg); }
-	div.i-heart-ny.july div { background-image: url(i-heart-ny-jul.jpg); }
-	div.i-heart-ny.august div { background-image: url(i-heart-ny-aug.jpg); }
-	div.i-heart-ny.september div { background-image: url(i-heart-ny-sep.jpg); }
-	div.i-heart-ny.october div { background-image: url(i-heart-ny-oct.jpg); }
-	div.i-heart-ny.november div { background-image: url(i-heart-ny-nov.jpg); }
-	div.i-heart-ny.december div { background-image: url(i-heart-ny-dec.jpg); }
+	div.i-heart-ny.january div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-jan.jpg); }
+	div.i-heart-ny.february div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-feb.jpg); }
+	div.i-heart-ny.march div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-mar.jpg); }
+	div.i-heart-ny.april div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-apr.jpg); }
+	div.i-heart-ny.may div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-may.jpg); }
+	div.i-heart-ny.june div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-jun.jpg); }
+	div.i-heart-ny.july div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-jul.jpg); }
+	div.i-heart-ny.august div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-aug.jpg); }
+	div.i-heart-ny.september div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-sep.jpg); }
+	div.i-heart-ny.october div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-oct.jpg); }
+	div.i-heart-ny.november div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-nov.jpg); }
+	div.i-heart-ny.december div { background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-dec.jpg); }
 
 	/*
 	We won't be using the caption element traditionally
@@ -76,11 +76,11 @@ div.i-heart-ny {
 		z-index: 200;
 	}
 	div.i-heart-ny caption a.prev {
-		background-image: url(i-heart-ny-prev.png);
+		background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-prev.png);
 		left: 0;
 	}
 	div.i-heart-ny caption a.next {
-		background-image: url(i-heart-ny-next.png);
+		background-image: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-next.png);
 		right: 0;
 	}
 	div.i-heart-ny caption a:hover {
@@ -125,12 +125,12 @@ div.i-heart-ny {
 	}
 	div.i-heart-ny td.active,
 	div.i-heart-ny td.hover {
-		background: url(i-heart-ny-active.gif);
+		background: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-active.gif);
 		color: #25A8C2;
 		cursor: pointer;
 	}
 	div.i-heart-ny td.invalid {
-		background: url(i-heart-ny-invalid.gif);
+		background: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-invalid.gif);
 		color: #DA2727;
 	}
 	div.i-heart-ny td.valid {
@@ -138,7 +138,7 @@ div.i-heart-ny {
 		cursor: pointer;
 	}
 	div.i-heart-ny td.inactive {
-		background: url(i-heart-ny-inactive.gif);
+		background: url(/js/lib/motools-plugins/Calendar/i-heart-ny/i-heart-ny-inactive.gif);
 		color: #808080;
 	}
 	div.i-heart-ny thead {

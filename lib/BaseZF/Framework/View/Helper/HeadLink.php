@@ -10,36 +10,41 @@
 
 class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
 {
+    /**
+     * Enable pack
+     */
     static $_packsEnable = false;
-    static $_prefixHref   = null;
+
+    /**
+     * Pack config
+     */
+    static $_packsConfig = array();
+
+    /**
+     * Href prefix to use CDN server or other host for static content
+     */
+    static $_prefixHref;
 
     //
     // Prefix functions
     //
 
-    static private function _isStylesheetItem(&$item)
-    {
-        return isset($item->href);
-    }
-
     private static function _addItemHrefPrefix(&$item)
     {
-        // check item has src
-        if (!self::_isStylesheetItem($item)) {
-            return false;
-        }
-
+        // add preffix for cdn if required
         if (
-            self::$_prefixHref !== null
-            && substr_count($item->attributes['href'], 'http://') == 0
-        ) {
-            $item->attributes['href'] = self::$_prefixHref . $item->attributes['src'];
+            isset($item->href) &&
+            isset(self::$_prefixHref) &&
+            substr_count($item->attributes['href'], 'http://') == 0
+        )
+        {
+            $item->attributes['href'] = self::$_prefixHref . $item->attributes['href'];
         }
     }
 
-    public function setPrefixHref($prefix)
+    public function setPrefixHref($prefixHref)
     {
-        self::$_prefixHref = $prefix;
+        self::$_prefixHref = $prefixHref;
 
         return $this;
     }
@@ -48,69 +53,44 @@ class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
     // Pack functions
     //
 
-    public function enablePacks($enable)
+    public function enablePacks($packsEnable = true)
     {
-        self::$_packsEnable = (boolean) $enable;
+        self::$_packsEnable = $packsEnable;
 
         return $this;
     }
 
-    static private function _getPacksFiles()
+    public function setPacksConfig(array $packsConfig)
     {
-        static $packFiles = array();
+        self::$_packsConfig = $packsConfig;
 
-        if (empty($packFiles)) {
-
-            $packFiles = array();
-            $configPackFiles = glob(CONFIG_STATIC_PACK_CSS_FILES . "*.css");
-
-            foreach ($configPackFiles as $configPackFile) {
-
-                $packPath = str_replace(CONFIG_STATIC_PACK_CSS_FILES, CONFIG_STATIC_PACK_CSS_PATH, $configPackFile);
-                $packedFiles = explode("\n", trim(file_get_contents($configPackFile)));
-
-                foreach ($packedFiles as $packedFile) {
-
-                    // ignore empty and comment
-                    if (
-                        mb_strlen($packedFile) == 0
-                        || substr($packedFile, 0, 1) == '#'
-                    ) {
-                        continue;
-                    }
-
-                    $packFiles[$packedFile] = $packPath;
-                }
-            }
-        }
-
-        return $packFiles;
+        return $this;
     }
 
     private function _getItemPack(&$item)
     {
         static $packsItems = array();
 
-        // check item has src
-        if (!self::_isStylesheetItem($item)) {
+        // check item has href then no pack possible
+        if (!isset($item->href)) {
             return false;
         }
 
         // search pack
-        $packFiles = self::_getPacksFiles();
+        foreach (self::$_packsConfig as $packPath => $items) {
+
+            if(in_array($item->href, $items)) {
+                $matchPackPath = $packPath;
+            }
+        }
 
         // no pack found
-        if (!isset($packFiles[$item->href])) {
-
+        if (!isset($matchPackPath)) {
             return $item;
-
-        // pack found
-        } else {
-            $packPath = $packFiles[$item->href];
         }
 
         // no duplicate pack
-        if (isset($packsItems[$packPath])) {
+        if (isset($packsItems[$matchPackPath])) {
             return false;
         }
 
@@ -119,11 +99,11 @@ class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
             'rel'   => 'stylesheet',
             'type'  => 'text/css',
             'media' => 'screen',
-            'href'  => $packPath
+            'href'  => $matchPackPath
         );
 
         $itemPack = $this->createData($attributes);
-        $packsItems[$packPath] = &$itemPack;
+        $packsItems[$matchPackPath] = &$itemPack;
 
         return $itemPack;
     }
@@ -134,21 +114,13 @@ class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
      * @param  string|int $indent
      * @return string
      */
-    public function toString($indent = null)
+    public function toStringPacked($indent = null)
     {
-        // if no static pack
-        if (self::$_packsEnable == false) {
-            return parent::toString($indent);
-        }
-
         // looking for packs
-        $container = array();
+        $items = array();
         foreach ($this as $item) {
-
-            $itemPack = $this->_getItemPack($item);
-
-            if (is_object($itemPack)) {
-                $container[] = $itemPack;
+            if($itemPack = $this->_getItemPack($item)) {
+                $items[] = $this->itemToString($itemPack);
             }
         }
 
@@ -156,16 +128,23 @@ class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();
 
-        $items = array();
-        foreach ($container as $item) {
-
-			// add prefix only if not contain "http://"
-            //self::_addItemHrefPrefix($item);
-
-            $items[] = $this->itemToString($item);
-        }
-
         return $indent . implode($this->_escape($this->getSeparator()) . $indent, $items);
+    }
+
+    /**
+     * Retrieve string representation
+     *
+     * @param  string|int $indent
+     * @return string
+     */
+    public function toString($indent = null)
+    {
+        // if static pack enable use toStringPacked instead of toString
+        if (self::$_packsEnable) {
+            return $this->toStringPacked($indent);
+        } else {
+            return parent::toString($indent);
+        }
     }
 }
 

@@ -7,7 +7,7 @@ select.dashboard {
 }
 
 button.dashboard {
-	background: url(dashboard-icon.gif);
+	background: url(/js/lib/motools-plugins/Calendar/dashboard/dashboard-icon.gif);
 	border: 0;
 	cursor: pointer;
 	float: left;
@@ -21,7 +21,7 @@ button.dashboard.active {
 }
 
 div.dashboard {
-	background: url(dashboard.png);
+	background: url(/js/lib/motools-plugins/Calendar/dashboard/dashboard.png);
 	height: 175px;
 	padding: 0 12px;
 	text-align: center;
@@ -60,11 +60,11 @@ div.dashboard {
 		width: 11px;
 	}
 	div.dashboard caption a.prev {
-		background-image: url(dashboard-prev.gif);
+		background-image: url(/js/lib/motools-plugins/Calendar/dashboard/dashboard-prev.gif);
 		left: 1px;
 	}
 	div.dashboard caption a.next {
-		background-image: url(dashboard-next.gif);
+		background-image: url(/js/lib/motools-plugins/Calendar/dashboard/dashboard-next.gif);
 		right: 1px;
 	}
 	div.dashboard caption a:hover {

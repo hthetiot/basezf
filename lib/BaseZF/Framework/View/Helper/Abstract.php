@@ -10,6 +10,9 @@
 
 abstract class BaseZF_Framework_View_Helper_Abstract extends Zend_View_Helper_Placeholder_Container_Standalone
 {
-
+    public function escape($string)
+    {
+        return $this->view->escape($string);
+    }
 }
 

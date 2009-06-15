@@ -16,7 +16,7 @@ select.calendar {
 }
 
 button.calendar {
-	background: url(calendar-icon.gif);
+	background: url(/js/lib/motools-plugins/Calendar/default/calendar-icon.gif);
 	border: 0;
 	cursor: pointer;
 	float: left;
@@ -30,7 +30,7 @@ button.calendar.active {
 }
 
 div.calendar {
-	background: url(calendar.png);
+	background: url(/js/lib/motools-plugins/Calendar/default/calendar.png);
 	height: 195px;
 	padding: 0 6px;
 	text-align: center;
@@ -69,11 +69,11 @@ div.calendar {
 		width: 11px;
 	}
 	div.calendar caption a.prev {
-		background-image: url(calendar-prev.gif);
+		background-image: url(/js/lib/motools-plugins/Calendar/default/calendar-prev.gif);
 		left: 0;
 	}
 	div.calendar caption a.next {
-		background-image: url(calendar-next.gif);
+		background-image: url(/js/lib/motools-plugins/Calendar/default/calendar-next.gif);
 		right: 0;
 	}
 	div.calendar caption a:hover {
@@ -112,7 +112,7 @@ div.calendar {
         background: none;
 	}
 	div.calendar td {
-		background: url(calendar-td.gif);
+		background: url(/js/lib/motools-plugins/Calendar/default/calendar-td.gif);
 		color: #FFF;
 		font-size: 11px;
 	}
@@ -120,20 +120,20 @@ div.calendar {
 		color: #999;
 	}
 	div.calendar td.valid {
-		background: url(calendar-valid.gif);
+		background: url(/js/lib/motools-plugins/Calendar/default/calendar-valid.gif);
 		color: #0597DB;
 		cursor: pointer;
 	}
 	div.calendar td.hilite {
-		background: url(calendar-hilite.gif);
+		background: url(/js/lib/motools-plugins/Calendar/default/calendar-hilite.gif);
 	}
 	div.calendar td.inactive {
-		background: url(calendar-td.gif) 0 100%;
+		background: url(/js/lib/motools-plugins/Calendar/default/calendar-td.gif) 0 100%;
 		color: #FFF;
 	}
 	div.calendar td.active,
 	div.calendar td.hover {
-		background: url(calendar-valid.gif) 0 100%;
+		background: url(/js/lib/motools-plugins/Calendar/default/calendar-valid.gif) 0 100%;
 		color: #FFF;
 		cursor: pointer;
 	}

@@ -10,29 +10,34 @@
 
 class BaseZF_Framework_View_Helper_HeadScript extends Zend_View_Helper_HeadScript
 {
+    /**
+     * Enable pack
+     */
     static $_packsEnable = false;
-    static $_prefixSrc   = null;
+
+    /**
+     * Pack config
+     */
+    static $_packsConfig = array();
+
+    /**
+     * Src prefix to use CDN server or other host for static content
+     */
+    static $_prefixSrc;
 
     //
     // Prefix functions
     //
 
-    static private function _itemHasAttributeSrc(&$item)
-    {
-        return isset($item->attributes['src']);
-    }
-
     private static function _addItemSrcPrefix(&$item)
     {
-        // check item has src
-        if (!self::_itemHasAttributeSrc($item)) {
-            return false;
-        }
-
+        // add preffix for cdn if required
         if (
-            self::$_prefixSrc !== null
-            && substr_count($item->attributes['src'], 'http://') == 0
-        ) {
+            isset($item->src) &&
+            isset(self::$_prefixSrc) &&
+            substr_count($item->attributes['src'], 'http://') == 0
+        )
+        {
             $item->attributes['src'] = self::$_prefixSrc . $item->attributes['src'];
         }
     }
@@ -48,74 +53,52 @@ class BaseZF_Framework_View_Helper_HeadScript extends Zend_View_Helper_HeadScrip
     // Pack functions
     //
 
-    public function enablePacks($enable)
+    public function enablePacks($packsEnable = true)
     {
-        self::$_packsEnable = (boolean) $enable;
+        self::$_packsEnable = $packsEnable;
 
         return $this;
     }
 
-    static private function _getPacksFiles()
+    public function setPacksConfig(array $packsConfig)
     {
-        static $packFiles = array();
+        self::$_packsConfig = $packsConfig;
 
-        if (empty($packFiles)) {
-
-            $configPackFiles = glob(CONFIG_STATIC_PACK_JS_FILES . "*.js");
-
-            foreach ($configPackFiles as $configPackFile) {
-
-                $packPath = str_replace(CONFIG_STATIC_PACK_JS_FILES, CONFIG_STATIC_PACK_JS_PATH, $configPackFile);
-                $packedFiles = explode("\n", trim(file_get_contents($configPackFile)));
-
-                foreach ($packedFiles as $packedFile) {
-
-                    // ignore empty and comment
-                    if (
-                        mb_strlen($packedFile) == 0
-                        || substr($packedFile, 0, 1) == '#'
-                    ) {
-                        continue;
-                    }
-
-                    $packFiles[$packedFile] = $packPath;
-                }
-            }
-        }
-
-        return $packFiles;
+        return $this;
     }
 
     private function _getItemPack(&$item)
     {
         static $packsItems = array();
 
-        // check item has src
-        if (!self::_itemHasAttributeSrc($item)) {
+        // check item has href then no pack possible
+        if (!isset($item->attributes['src'])) {
             return false;
         }
 
+
+
         // search pack
-        $packFiles = self::_getPacksFiles();
+        foreach (self::$_packsConfig as $packPath => $items) {
+
+            if(in_array($item->attributes['src'], $items)) {
+                $matchPackPath = $packPath;
+            }
+        }
 
         // no pack found
-        if (!isset($packFiles[$item->attributes['src']])) {
-
+        if (!isset($matchPackPath)) {
             return $item;
-
-        // pack found
-        } else {
-            $packPath = $packFiles[$item->attributes['src']];
         }
 
         // no duplicate pack
-        if (isset($packsItems[$packPath])) {
+        if (isset($packsItems[$matchPackPath])) {
             return false;
         }
 
         // build item pack
-        $itemPack = $this->createData('text/javascript', array('src' => $packPath));
-        $packsItems[$packPath] = &$itemPack;
+        $itemPack = $this->createData('text/javascript', array('src' => $matchPackPath));
+        $packsItems[$matchPackPath] = &$itemPack;
 
         return $itemPack;
     }
@@ -126,29 +109,9 @@ class BaseZF_Framework_View_Helper_HeadScript extends Zend_View_Helper_HeadScrip
      * @param  string|int $indent
      * @return string
      */
-    public function toString($indent = null)
+    public function toStringPacked($indent = null)
     {
-        // if no static pack
-        if (self::$_packsEnable == false) {
-            return parent::toString($indent);
-        }
-
-        // looking for packs
-        $container = array();
-        foreach ($this as $item) {
-
-            $itemPack = $this->_getItemPack($item);
-
-            if (is_object($itemPack)) {
-                $container[] = $itemPack;
-            }
-        }
-
-        // display items
-        $indent = (null !== $indent)
-                ? $this->getWhitespace($indent)
-                : $this->getIndent();
-
+        // escape options
         if ($this->view) {
             $useCdata = $this->view->doctype()->isXhtml() ? true : false;
         } else {
@@ -157,21 +120,36 @@ class BaseZF_Framework_View_Helper_HeadScript extends Zend_View_Helper_HeadScrip
         $escapeStart = ($useCdata) ? '//<![CDATA[' : '//<!--';
         $escapeEnd   = ($useCdata) ? '//]]>'       : '//-->';
 
+        // indent options
+        $indent = (null !== $indent)
+                ? $this->getWhitespace($indent)
+                : $this->getIndent();
+
+        // looking for packs
         $items = array();
-        foreach ($container as $item) {
-
-            if (!$this->_isValid($item)) {
-                continue;
+        foreach ($this as $item) {
+            if($itemPack = $this->_getItemPack($item)) {
+                $items[] = $this->itemToString($itemPack, $indent, $escapeStart, $escapeEnd);
             }
-
-            // add prefix only if not contain "http://"
-            self::_addItemSrcPrefix($item);
-
-            $items[] = $this->itemToString($item, $indent, $escapeStart, $escapeEnd);
         }
 
-        $return = implode($this->getSeparator(), $items);
-        return $return;
+        return implode($this->getSeparator(), $items);
+    }
+
+    /**
+     * Retrieve string representation
+     *
+     * @param  string|int $indent
+     * @return string
+     */
+    public function toString($indent = null)
+    {
+        // if static pack enable use toStringPacked instead of toString
+        if (self::$_packsEnable) {
+            return $this->toStringPacked($indent);
+        } else {
+            return parent::toString($indent);
+        }
     }
 }
 
