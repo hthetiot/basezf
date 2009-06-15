@@ -21,9 +21,12 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
     public function errorAction()
     {
-        $titi = time();
+        if ($this->_getParam('error') == 1) {
 
-        echo $toto;
+             $titi = time();
+
+             echo $toto;
+        }
     }
 
     public function imageAction()

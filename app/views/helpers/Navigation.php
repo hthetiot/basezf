@@ -55,6 +55,7 @@ class View_Helper_Navigation extends BaseZF_Framework_View_Helper_Abstract
             ),
 
             'Classes' => array(
+                '/example/BaseZF/error'         => 'Error Handler',
                 '/example/BaseZF/controller'    => 'Controller Abstract',
                 '/example/BaseZF/image'         => 'Image',
                 '/example/BaseZF/notify'        => 'Notify',

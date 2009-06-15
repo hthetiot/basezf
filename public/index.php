@@ -11,7 +11,10 @@
  */
 
 
+// Register Error Handler
 BaseZF_Error_Handler::registerErrorHandler();
+
+
 
 /**
  * Initialize Application Configuration and Environment
@@ -31,18 +34,17 @@ $application = new Zend_Application(
             'path' => PATH_TO_APPLICATION . '/Bootstrap.php',
 
             // Debug options
-            'debug_enable'          => false,
-            'debug_report'          => true,
-            'debug_report_from'     => null,
-            'debug_report_to'       => null,
+            'debug_enable'      => DEBUG_ENABLE,
+            'debug_report'      => DEBUG_REPORT,
+            'debug_report_from' => DEBUG_REPORT_FROM,
+            'debug_report_to'   => DEBUG_REPORT_TO,
         ),
 
         // Autoloader Options
         'autoloadernamespaces'  => array(
             'Zend',
             'BaseZF',
-            'MyProject',
-            'App',
+            'MyProject'
         ),
     )
 );

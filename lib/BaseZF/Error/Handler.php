@@ -12,10 +12,15 @@ abstract class BaseZF_Error_Handler
 {
     private static $_oldErrorhandler;
 
+    private static $_errorReporting;
+
     static public function registerErrorHandler()
     {
         // prevent stack error
         Zend_Loader::loadClass('BaseZF_Error_Exception');
+
+        // get  current error level
+        self::$_errorReporting = ini_get('error_reporting');
 
         self::$_oldErrorhandler = set_error_handler(array(get_class(), 'handleError'));
     }
@@ -27,20 +32,24 @@ abstract class BaseZF_Error_Handler
         }
     }
 
-    static public function handleError($code, $message, $file, $line, array $context)
+    static public function handleError($errno, $errstr, $file, $line, array $errcontext)
     {
-		// if error_reporting() == 0 then it was a
-		// suppressed error with the @-operator!
-		//(We don't want to handle that kind of errors!)
-        if (error_reporting() != 0) {
-			$message = '(' . self::getErrorType($code) . ') ' . $message;
-            throw new BaseZF_Error_Exception($message, $code, $file, $line, $context);
+   		// If error_reporting() == 0 then it was a suppressed error with
+        // the @-operator and we don't want to handle that kind of errors !
+
+        // Else it use error_reporting value from func or ini setting on handler start and
+        // compare (($errno & $error_reporting) == $errno) to check if it sould display
+
+        if (error_reporting() != 0 && ($errno & self::$_errorReporting) == $errno) {
+
+			$errstr = '(' . self::getErrorType($errno) . ') ' . $errstr;
+            throw new BaseZF_Error_Exception($errstr, $errno, $file, $line, $errcontext);
         }
     }
 
     static public function getErrorType($errorNo)
     {
-	$errortype = array (
+        $errortype = array (
             E_ERROR              => 'Error',
             E_WARNING            => 'Warning',
             E_PARSE              => 'Parsing Error',
@@ -87,7 +96,7 @@ abstract class BaseZF_Error_Handler
              ->setFrom($from)
              ->setBodyText($body);
 
-        $emails = explode(' ', $to);
+        $emails = explode(',', $to);
         foreach ($emails as $email) {
             $mail->addTo($email);
         }

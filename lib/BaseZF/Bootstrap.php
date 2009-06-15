@@ -66,6 +66,7 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $frontController->dispatch();
 
         } catch(Exception $e) {
+
             BaseZF_Error_Handler::debugException($e);
         }
     }
@@ -261,8 +262,8 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // set default params
         $frontController->setParam('env', $this->getOption('application_environment'));
 
-        // init error plugins
-        if (1) {
+        // use error handler
+        if ($this->getOption('debug_enable')) {
             $frontController->throwExceptions(true);
         }
 
