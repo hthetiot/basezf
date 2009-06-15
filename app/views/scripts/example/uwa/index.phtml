@@ -1,25 +1,250 @@
 <script type="text/javascript">
 
+    // update widget elements
     widget.setTitle('Test Title update');
     widget.setIcon("http://cdn.netvibes.com/modules/uwa/icon.png");
     widget.setUnreadCount(1);
     widget.setSearchResultCount(2);
+
+    var TabViewSample = {};
+
+    widget.onLoad = function() {
+
+      var tabs = new UWA.Controls.TabView();
+
+      TabViewSample.tabs = tabs;
+
+      // Create tab items
+      tabs.addTab("tab1", {text: "UWA Links", customInfo: "custom"});
+      tabs.addTab("tab2", {text: "Grid Data"});
+      tabs.addTab("tab3", {text: "E-Mail List"});
+      tabs.addTab("tab4", {text: "Rich list "});
+      tabs.addTab("tab5", {text: "Thumbnailed list"});
+      tabs.addTab("tab6", {text: "Json"});
+      tabs.addTab("tab7", {text: "Export Widget"});
+
+      // Put some content in tabs
+      tabs.setContent("tab1", $('hello-content').innerHTML);
+      tabs.setContent("tab2", $('griddata-content').innerHTML);
+      tabs.setContent("tab3", $('emaillist-content').innerHTML);
+      tabs.setContent("tab4", $('richlist-content').innerHTML);
+      tabs.setContent("tab5", $('thumbist-content').innerHTML);
+	  tabs.setContent("tab6", $('json-content').innerHTML);
+      tabs.setContent("tab7", $('export-content').innerHTML);
+
+      // Register to activeTabChange event
+      tabs.observe('activeTabChange', TabViewSample.onActiveTabChanged);
+
+      // Restore saved active tab
+      var activeTab = widget.getValue("activeTab");
+      if (activeTab) {
+          tabs.selectTab(activeTab);
+      }
+
+      widget.setBody('');
+
+      // Append tabview to widget body
+      tabs.appendTo(widget.body);
+    }
+
+    TabViewSample.onActiveTabChanged = function(name, data) {
+
+        var tabs = TabViewSample.tabs;
+
+        if (name == 'tab6') {
+
+            var onComplete = function(json) {
+                tabs.setContent(name, 'current date is:' + json.time);
+            }
+
+            UWA.Data.request('http://<?php echo MAIN_URL; ?>/example/uwa/jsoncallback', {
+                method: 'get',
+                type: 'json',
+                proxy: 'ajax',
+                onComplete: onComplete.bind(this)
+            });
+        }
+
+        // Save active tab
+        widget.setValue("activeTab", name);
+    }
 
     widget.onResize = function() {
         //alert('resize');
     }
 
 </script>
-<?php
 
-	$uwaServerUrl = 'http://uwa.service.japanim.fr';
-?>
+<div style="display:none">
+
+    <div id="hello-content" class="tab-content">
+        <ul>
+            <li><a href="http://netvibes.org/">UWA Website</a></li>
+            <li><a href="http://dev.netvibes.com/">Developer UWA Website</a></li>
+            <li><a href="http://netvibes.org/specs/uwa/current-work/">specs Universal Widget API (UWA) 1.2 </a></li>
+        </ul>
+    </div>
+
+    <div id="griddata-content" class="tab-content">
+
+        <table class="nv-datagrid">
+            <thead>
+                <tr>
+                    <th>col 0</th>
+                    <th>col 1</th>
+                    <th>column 2</th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <td>footer 1</td>
+                    <td>footer 2</td>
+                    <td>footer 3</td>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>line 1</td>
+                    <td>line number 1</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>line 2</td>
+                    <td>line number 2</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>col 1</td>
+                    <td>line number 3</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div id="emaillist-content" class="tab-content">
+
+        <dl class="nv-emailList">
+
+            <dt class="unread">
+                <a href="#" onclick="return false" title="Read e-mail">
+                <strong class="sender">Sender</strong> - My e-mail subject #1</a>
+            </dt>
+
+            <dd>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus condimentum. Phasellus auctor.</p>
+            </dd>
+
+            <dt class="read">
+                <a href="#" onclick="return false" title="Read e-mail">
+                <strong class="sender">Sender</strong> - My e-mail subject #2</a>
+            </dt>
+
+            <dd>
+                <p>Donec odio turpis, vulputate non, tristique a, placerat non, nunc.</p>
+            </dd>
+
+            <dt class="read">
+                <a href="#" onclick="return false" title="Read e-mail">
+                <span class="sender">Sender</span> - My e-mail subject #3</a>
+            </dt>
+
+            <dd>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus condimentum.</p>
+            </dd>
+        </dl>
+
+    </div>
+
+
+    <div id="richlist-content">
+
+        <div class="nv-richList">
+            <div class="item even">
+                <h3><a href="#">Item #1</a></h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    Phasellus condimentum.
+                </p>
+            </div>
+
+            <div class="item odd">
+                <h3><a href="#">Item #2</a></h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    Phasellus condimentum.
+                </p>
+            </div>
+
+            <div class="item even">
+                <h3><a href="#">Item #3</a></h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    Phasellus condimentum.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="thumbist-content">
+
+        <div class="nv-thumbnailedList">
+            <div class="item even">
+                <a href="#"><img src="http://www.google.fr/intl/fr_fr/images/logo.gif" alt="" class="thumbnail" /></a>
+                <h3><a href="#">Item #1</a></h3>
+                <p class="description">
+                Lorem ipsum dolor sit amet,
+                    consectetuer adipiscing elit. Phasellus
+                </p>
+            </div>
+
+            <div class="item odd">
+                <a href="#"><img src="http://www.google.fr/intl/fr_fr/images/logo.gif" alt="" class="thumbnail" /></a>
+                <h3><a href="#">Item #2</a></h3>
+                <p class="description">Short text to test flotting picture behaviour.</p>
+            </div>
+
+            <div class="item even">
+                <a href="#"><img src="http://www.google.fr/intl/fr_fr/images/logo.gif" alt="" class="thumbnail" /></a>
+                <h3><a href="#">Item #3</a></h3>
+                <p class="description">
+                    Lorem ipsum dolor sit amet, consectetuer
+                    adipiscing elit. Maecenas vitae elit at sem dapibus iaculis.
+                    Nullam nec ipsum. Fusce gravida, magna nec tincidunt laoreet,
+                    est lorem porttitor nunc, non suscipit mauris turpis non
+                    turpis. Class aptent taciti sociosqu ad litora torquent per
+                    conubia nostra, per inceptos hymenaeos. Duis nec metus. Lorem
+                    ipsum dolor sit amet, consectetuer adipiscing elit. Sed
+                    gravida aliquam pede.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="json-content">
+        Loading...
+    </div>
+
+    <div id="export-content">
+        <?php
+            $uwaServerUrl = 'http://uwa.service.japanim.fr';
+        ?>
+        <ul>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('netvibes', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Netvibes</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('google', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">iGoogle</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('dashboard', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Dashboard</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('opera', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Opera</a></li>
+        </ul>
+    </div>
+</div>
+
 <p>
-    <ul>
-		<li><a target="_blank" href="<?php echo $this->uwaExportLink('netvibes', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Netvibes</a></li>
-		<li><a target="_blank" href="<?php echo $this->uwaExportLink('google', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">iGoogle</a></li>
-		<li><a target="_blank" href="<?php echo $this->uwaExportLink('dashboard', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Dashboard</a></li>
-		<li><a target="_blank" href="<?php echo $this->uwaExportLink('opera', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Opera</a></li>
-	</ul>
+    Loading...
 </p>
-

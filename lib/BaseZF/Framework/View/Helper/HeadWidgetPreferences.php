@@ -33,7 +33,7 @@ class BaseZF_Framework_View_Helper_HeadWidgetPreferences extends BaseZF_Framewor
                     $xhtml[] = "\t" . '<preference ' . $this->_renderTagAttribs($tagAttribs) . '>';
 
                     foreach ((array) $data->options as $value => $label) {
-                        $xhtml[] = "\t\t" .'<option ' . $this->_renderTagAttribs(array('label' => $label, 'value' => $value)) . ' />' ;
+                        $xhtml[] = "\t\t" .'<option ' . $this->_renderTagAttribs(array('label' => $label, 'value' => $value)) . '/>';
                     }
 
                     $xhtml[] = "\t" . '</preference>';
@@ -44,8 +44,8 @@ class BaseZF_Framework_View_Helper_HeadWidgetPreferences extends BaseZF_Framewor
                 case 'range':
                 {
                     $tagAttribs['step'] =(isset($data->options['step']) ? $data->options['step'] : 1);
-                    $tagAttribs['min'] = (isset($data->options['min']) ? $data->options['step'] : 1);
-                    $tagAttribs['max'] = (isset($data->options['max']) ? $data->options['step'] : 99);
+                    $tagAttribs['min'] = (isset($data->options['min']) ? $data->options['min'] : 1);
+                    $tagAttribs['max'] = (isset($data->options['max']) ? $data->options['max'] : 99);
                 }
 
                 default:
@@ -55,7 +55,7 @@ class BaseZF_Framework_View_Helper_HeadWidgetPreferences extends BaseZF_Framewor
 
         $xhtml[] = '</widget:preferences>';
 
-        return implode("\n", $xhtml);
+        return implode("\n", $xhtml) . "\n";
      }
 
      /**

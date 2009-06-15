@@ -24,11 +24,18 @@ class Example_UwaController extends BaseZF_Framework_Controller_Action_Uwa
         $this->_addPreference('my_password', 'password', 'My password pref');
         $this->_addPreference('my_checkbox', 'checkbox', 'My checkbox pref');
         $this->_addPreference('my_hidden', 'hidden');
-        $this->_addPreference('my_range', 'range', 'My range pref');
+        $this->_addPreference('my_range', 'range', 'My range pref', 10, array(
+            'step' => '5',
+            'min' => '5',
+            'max' => '15',
+        ));
+
+        /*
         $this->_addPreference('my_list', 'list', 'My list pref', 1, array(
             '1' => 'one',
             '2' => 'two',
         ));
+        */
 
         // disable debug
         $this->_enableDebug();

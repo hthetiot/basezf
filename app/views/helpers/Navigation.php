@@ -47,6 +47,7 @@ class View_Helper_Navigation extends BaseZF_Framework_View_Helper_Abstract
                '/example/javascript/ajaxformvalidate'   => 'Ajax Form Validation',
                '/example/javascript/autocompleter'      => 'Auto Completer',
                '/example/javascript/lightbox'           => 'LightBox',
+               '/example/javascript/uwa'                => 'UWA Widget',
             ),
 
             'Helpers' => array(

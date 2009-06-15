@@ -64,6 +64,10 @@ class Example_JavascriptController extends BaseZF_Framework_Controller_Action
     {
     }
 
+    public function uwaAction()
+    {
+    }
+
     public function tooltipsAction()
     {
     }
