@@ -1,8 +1,8 @@
-#  Language  translations for PACKAGE package.
-#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-#  This file is distributed under the same license as the PACKAGE package.
-#  Automatically generated, 2009.
-# 
+# Language  translations for PACKAGE package.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2009.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -15,6 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+# Singulars
 msgid "%d year"
 msgstr ""
 
@@ -36,6 +37,7 @@ msgstr ""
 msgid "%d second"
 msgstr ""
 
+# Plurals
 msgid "%d years"
 msgstr ""
 
@@ -57,6 +59,7 @@ msgstr ""
 msgid "%d seconds"
 msgstr ""
 
+# Double Singlular
 msgid "%d year and %d month"
 msgstr ""
 
@@ -75,6 +78,7 @@ msgstr ""
 msgid "%d minute and %d second"
 msgstr ""
 
+# Double Plurals
 msgid "%d years and %d months"
 msgstr ""
 
@@ -93,6 +97,7 @@ msgstr ""
 msgid "%d minutes and %d seconds"
 msgstr ""
 
+# Double First Singlular and Second Plural
 msgid "%d year and %d months"
 msgstr ""
 
@@ -111,6 +116,7 @@ msgstr ""
 msgid "%d minute and %d seconds"
 msgstr ""
 
+# Double First Plurals and Second Singular
 msgid "%d years and %d month"
 msgstr ""
 

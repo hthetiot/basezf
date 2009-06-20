@@ -1,9 +1,9 @@
-#   Language  translations for PACKAGE package.
-#   Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-#   This file is distributed under the same license as the PACKAGE package.
-#   Automatically generated, 2009.
+#  Language  translations for PACKAGE package.
+#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+#  This file is distributed under the same license as the PACKAGE package.
+#  Automatically generated, 2009.
 #
-#  , fuzzy
+# , fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -16,173 +16,129 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#, fuzzy
 msgid "Value is required and can't be empty"
-msgstr "La valeur est nécessaire et ne peut pas être vide"
+msgstr ""
 
-#, fuzzy
 msgid "Value must be alphanumeric"
-msgstr "Cette valeur doit être alphanumérique"
+msgstr ""
 
-#, fuzzy
 msgid "Cannot be an empty string"
-msgstr "Ne peut pas être une chaîne vide"
+msgstr ""
 
-#, fuzzy
 msgid "Value must consist of only alphabetic characters"
-msgstr "Valeur doit être composé uniquement de caractères alphabétiques"
+msgstr ""
 
-#, fuzzy
 msgid "Value must be between \"%min%\" and \"%max%\", inclusively"
-msgstr "Cette valeur doit être comprise entre \"%min%\" et \"% max%\", inclusivement"
+msgstr ""
 
-#, fuzzy
 msgid "Value must be strictly between \"%min%\" and \"%max%\""
-msgstr "Cette valeur doit être strictement entre \"%min%\" et \"%max%\""
+msgstr ""
 
-#, fuzzy
 msgid "Value must contain between 13 and 19 digits"
-msgstr "Cette valeur doit contenir entre 13 et 19 chiffres"
+msgstr ""
 
-#, fuzzy
 msgid "Luhn algorithm (mod-10 checksum) failed"
-msgstr "Luhn algorithme (mod-10 de contrôle) n'a pas"
+msgstr ""
 
-#, fuzzy
 msgid "Date must be in YYYY-MM-DD format"
-msgstr "Date doit être AAAA-MM-DD format"
+msgstr ""
 
-#, fuzzy
 msgid "\"%value%\" does not appear to be a valid date"
-msgstr "\"% value%\" ne semble pas être une date valide"
+msgstr ""
 
-#, fuzzy
 msgid "\"%value%\" does not fit given date format"
-msgstr "\"% value%\" ne correspond pas à donner le format de la date"
+msgstr ""
 
-#, fuzzy
 msgid "Value must be a number"
-msgstr "Cette valeur doit être un nombre"
+msgstr ""
 
-#, fuzzy
 msgid "\"%value%\" does not appear to be a valid email address"
-msgstr "\"% value%\" ne semble pas être une adresse email valide"
+msgstr ""
 
-#, fuzzy
 msgid "\"%hostname%\" is not a valid hostname for email address \"%value%\""
-msgstr "\"% hostname%\" n'est pas un nom d'hôte pour l'adresse e-mail \"% value%\""
+msgstr ""
 
-#, fuzzy
 msgid ""
 "\"%hostname%\" does not appear to have a valid MX record for the email "
 "address \"%value%\""
-msgstr "\"% hostname%\" ne semble pas avoir un enregistrement MX pour le courrier électronique "
-" adresse de \"% value%\""
+msgstr ""
 
-#, fuzzy
 msgid "\"%localPart%\" does not match against the dot-atom format"
-msgstr "\"% localPart%\" ne correspond pas à la dot-atom format"
+msgstr ""
 
-#, fuzzy
 msgid "\"%localPart%\" does not match against the quoted-string format"
-msgstr "\"% localPart%\" ne correspond pas à l'encontre de la cité-string format"
+msgstr ""
 
-#, fuzzy
 msgid "\"%localPart%\" is not a valid local part for email address \"%value%\""
-msgstr "\"% localPart%\" n'est pas une partie locale de l'adresse e-mail \"% value%\""
+msgstr ""
 
-#, fuzzy
 msgid "Value must be a float or decimal"
-msgstr "Cette valeur doit être un flotteur ou décimale"
+msgstr ""
 
-#, fuzzy
 msgid "Value must be greater than \"%min%\""
-msgstr "Cette valeur doit être supérieure à \"% min%\""
+msgstr ""
 
-#, fuzzy
 msgid "Value must be hexadecimal"
-msgstr "Cette valeur doit être hexadécimale"
+msgstr ""
 
-#, fuzzy
 msgid "Value appears to be an IP address, but IP addresses are not allowed"
-msgstr "Valeur semble être une adresse IP, adresses IP, mais ne sont pas autorisés"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "\"%value%\" appears to be a DNS hostname but cannot match the TLD against "
 "our known list"
-msgstr "\"% value%\" semble être un nom d'hôte DNS, mais ne peut pas correspondre à l'égard des TLD "
-" connu notre liste"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "\"%value%\" appears to be a DNS hostname but contains a dash (-) in an "
 "invalid position"
-msgstr "\"% value%\" semble être un nom d'hôte DNS, mais contient un tiret (-) dans une "
-" invalide position"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "\"%value%\" appears to be a DNS hostname but cannot match against hostname "
 "schema for TLD \"%tld%\""
-msgstr "\"% value%\" semble être un nom d'hôte DNS, mais ne peut pas correspondre à l'encontre d'hôte "
-" schéma de TLD \"% tld%\""
+msgstr ""
 
-#, fuzzy
 msgid "\"%value%\" appears to be a DNS hostname but cannot extract TLD part"
-msgstr "\"% value%\" semble être un nom d'hôte DNS, mais ne peuvent pas extraire TLD partie"
+msgstr ""
 
-#, fuzzy
 msgid "\"%value%\" does not match the expected structure for a DNS hostname"
-msgstr "\"% value%\" ne correspond pas à la structure d'un nom d'hôte DNS"
+msgstr ""
 
-#, fuzzy
 msgid "Value does not appear to be a valid local network name"
-msgstr "Valeur ne semble pas être un nom de réseau local"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "\"%value%\" appears to be a local network name but local network names are "
 "not allowed"
-msgstr "\"% value%\" semble être un nom de réseau local mais les noms de réseau sont "
-" pas permis"
+msgstr ""
 
-#, fuzzy
 msgid "Values are not the same"
-msgstr "Les valeurs ne sont pas les mêmes"
+msgstr ""
 
-#, fuzzy
 msgid "No token was provided to match against"
-msgstr "Pas de jeton a été fournie au match contre"
+msgstr ""
 
-#, fuzzy
 msgid "\"%value%\" was not found in the collection"
-msgstr "\"% value%\" n'a pas été trouvé dans la collection"
+msgstr ""
 
-#, fuzzy
 msgid "Value must be an integer"
-msgstr "Cette valeur doit être un entier"
+msgstr ""
 
-#, fuzzy
 msgid "Value does not appear to be a valid IP address"
-msgstr "Valeur ne semble pas être une adresse IP valide"
+msgstr ""
 
-#, fuzzy
 msgid "Value must be less than \"%max%\""
-msgstr "Cette valeur doit être inférieure à \"% max%\""
+msgstr ""
 
-#, fuzzy
 msgid "Value cannot be empty"
-msgstr "Valeur ne peut pas être vide"
+msgstr ""
 
-#, fuzzy
 msgid "\"%value%\" does not match against pattern \"%pattern%\""
-msgstr "\"% value%\" ne correspond pas à l'encontre modèle \"pattern%%\""
+msgstr ""
 
-#, fuzzy
 msgid "Value must be more than %min% characters"
-msgstr "Cette valeur doit être de plus de% min% caractères"
+msgstr ""
 
-#, fuzzy
 msgid "Value must be shorter than %max% characters"
-msgstr "Cette valeur doit être inférieure à% max% caractères"
+msgstr ""
