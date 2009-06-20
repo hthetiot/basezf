@@ -60,17 +60,20 @@ define_if_not('CONFIG_FILE', PATH_TO_CONFIG . '/config.ini');
 //---------------------------------------------------------------------------
 // External variable env
 
-define_if_not('MAIN_URL', 'myproject.com');
-define_if_not('MAIL_DEFAULT_SENDER', 'noreply@' . MAIN_URL);
+define_if_not('BASE_URL', 'myproject.com');
+define_if_not('BASE_URL_SCHEME', ((isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on') ? 'https://' : 'http://'));
+define_if_not('MAIN_URL', BASE_URL_SCHEME . BASE_URL);
+
+define_if_not('MAIL_DEFAULT_SENDER', 'noreply@' . BASE_URL);
 define_if_not('MAIL_DEFAULT_SENDER_NAME', 'MyProject');
 
 //---------------------------------------------------------------------------
 // Debug
 
-define_if_not('DEBUG_ENABLE', false);
+define_if_not('DEBUG_ENABLE', true);
 define_if_not('DEBUG_REPORT', true);
-define_if_not('DEBUG_REPORT_FROM', 'debug@' . MAIN_URL);
-define_if_not('DEBUG_REPORT_TO', 'dev@' . MAIN_URL);
+define_if_not('DEBUG_REPORT_FROM', 'debug@' . BASE_URL);
+define_if_not('DEBUG_REPORT_TO', 'dev@' . BASE_URL);
 
 //---------------------------------------------------------------------------
 // Frameworks Path

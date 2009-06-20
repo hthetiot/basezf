@@ -34,7 +34,7 @@ define_if_not('CONFIG_ENV', 'development');
 //---------------------------------------------------------------------------
 // External variable env
 
-define_if_not('MAIN_URL', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost'));
+define_if_not('BASE_URL', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost'));
 
 //---------------------------------------------------------------------------
 // Frameworks Path
