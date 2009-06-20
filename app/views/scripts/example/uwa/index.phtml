@@ -21,7 +21,8 @@
       tabs.addTab("tab4", {text: "Rich list "});
       tabs.addTab("tab5", {text: "Thumbnailed list"});
       tabs.addTab("tab6", {text: "Json"});
-      tabs.addTab("tab7", {text: "Export Widget"});
+      tabs.addTab("tab7", {text: "Ajax"});
+      tabs.addTab("tab8", {text: "Export"});
 
       // Put some content in tabs
       tabs.setContent("tab1", $('hello-content').innerHTML);
@@ -30,7 +31,8 @@
       tabs.setContent("tab4", $('richlist-content').innerHTML);
       tabs.setContent("tab5", $('thumbist-content').innerHTML);
 	  tabs.setContent("tab6", $('json-content').innerHTML);
-      tabs.setContent("tab7", $('export-content').innerHTML);
+      tabs.setContent("tab7", $('ajax-content').innerHTML);
+      tabs.setContent("tab8", $('export-content').innerHTML);
 
       // Register to activeTabChange event
       tabs.observe('activeTabChange', TabViewSample.onActiveTabChanged);
@@ -51,22 +53,35 @@
 
         var tabs = TabViewSample.tabs;
 
+        // Save active tab
+        widget.setValue("activeTab", name);
+
         if (name == 'tab6') {
 
-            var onComplete = function(json) {
-                tabs.setContent(name, 'current date is:' + json.time);
+            var onCompleteJson = function(json) {
+                tabs.setContent(name, 'json date is:' + json.date);
             }
 
-            UWA.Data.request('http://<?php echo MAIN_URL; ?>/example/uwa/jsoncallback', {
+            UWA.Data.request('<?php echo MAIN_URL; ?>/example/uwa/jsoncallback', {
                 method: 'get',
                 type: 'json',
                 proxy: 'ajax',
-                onComplete: onComplete.bind(this)
+                onComplete: onCompleteJson.bind(this)
+            });
+
+        } else if (name == 'tab7') {
+
+            var onCompleteAjax = function(html) {
+                tabs.setContent(name, html);
+            }
+
+            UWA.Data.request('<?php echo MAIN_URL; ?>/example/uwa/ajaxcallback', {
+                method: 'get',
+                type: 'html',
+                proxy: 'ajax',
+                onComplete: onCompleteAjax.bind(this)
             });
         }
-
-        // Save active tab
-        widget.setValue("activeTab", name);
     }
 
     widget.onResize = function() {
@@ -196,7 +211,7 @@
 
         <div class="nv-thumbnailedList">
             <div class="item even">
-                <a href="#"><img src="http://www.google.fr/intl/fr_fr/images/logo.gif" alt="" class="thumbnail" /></a>
+                <a href="#"><img src="<?php echo MAIN_URL; ?>/images/layouts/uwa/uwa-screenshot.png" alt="" class="thumbnail" /></a>
                 <h3><a href="#">Item #1</a></h3>
                 <p class="description">
                 Lorem ipsum dolor sit amet,
@@ -205,13 +220,13 @@
             </div>
 
             <div class="item odd">
-                <a href="#"><img src="http://www.google.fr/intl/fr_fr/images/logo.gif" alt="" class="thumbnail" /></a>
+                <a href="#"><img src="<?php echo MAIN_URL; ?>/images/layouts/uwa/uwa-screenshot.png" alt="" class="thumbnail" /></a>
                 <h3><a href="#">Item #2</a></h3>
                 <p class="description">Short text to test flotting picture behaviour.</p>
             </div>
 
             <div class="item even">
-                <a href="#"><img src="http://www.google.fr/intl/fr_fr/images/logo.gif" alt="" class="thumbnail" /></a>
+                <a href="#"><img src="<?php echo MAIN_URL; ?>/images/layouts/uwa/uwa-screenshot.png" alt="" class="thumbnail" /></a>
                 <h3><a href="#">Item #3</a></h3>
                 <p class="description">
                     Lorem ipsum dolor sit amet, consectetuer
@@ -232,19 +247,31 @@
         Loading...
     </div>
 
+    <div id="ajax-content">
+        Loading...
+    </div>
+
     <div id="export-content">
         <?php
             $uwaServerUrl = 'http://uwa.service.japanim.fr';
         ?>
         <ul>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('netvibes', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Netvibes</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('google', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">iGoogle</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('dashboard', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Dashboard</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('opera', 'http://basezf.japanim.fr/example/uwa/', $uwaServerUrl); ?>">Opera</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('netvibes', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Netvibes</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('google', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">iGoogle</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('dashboard', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Dashboard</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('opera', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Opera</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('screenlets', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Screenlets</a></li>
+            <li>
+                <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()))); ?>">Iframe</a>
+                (
+                    <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1)); ?>">with header</a>
+                    - <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1, 'chromeColor' => 'orange')); ?>">with header color</a>
+                    - <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1, 'status' => 0)); ?>">without status</a>
+                )
+            </li>
         </ul>
     </div>
 </div>
-
 <p>
     Loading...
 </p>

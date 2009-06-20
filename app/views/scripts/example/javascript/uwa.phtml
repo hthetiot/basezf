@@ -4,6 +4,30 @@
 
     <h2 id="Features"><a href="#Features">Features</a></h2>
 
+    <h2 id="Examples"><a href="#Examples">PlateForm</a></h2>
+
+    <?php
+        $uwaServerUrl = 'http://uwa.service.japanim.fr';
+    ?>
+    <ul>
+        <li><a target="_blank" href="<?php echo $this->uwaExportLink('netvibes', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Netvibes</a></li>
+        <li><a target="_blank" href="<?php echo $this->uwaExportLink('google', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">iGoogle</a></li>
+        <li><a target="_blank" href="<?php echo $this->uwaExportLink('dashboard', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Dashboard</a></li>
+        <li><a target="_blank" href="<?php echo $this->uwaExportLink('opera', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Opera</a></li>
+        <li><a target="_blank" href="<?php echo $this->uwaExportLink('screenlets', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Ubtuntu Screenlets</a></li>
+        <li>Windows Vista/SEVEN (work in progress)</li>
+        <li>Android Apps (work in progress)</li>
+        <li>Iphone Apps (todo)</li>
+        <li>
+            <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()))); ?>">Iframe</a>
+            (
+                <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1)); ?>">with header</a>
+                - <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1, 'chromeColor' => 'orange')); ?>">with header color</a>
+                - <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1)); ?>">without status</a>
+            )
+        </li>
+    </ul>
+
     <h2 id="Examples"><a href="#Examples">Examples</a></h2>
 
     <iframe height="500" src="/example/uwa"></iframe>
@@ -15,4 +39,5 @@
     <div class="menu-item"><a href="#Features">Features</a></div>
     <div class="menu-item"><a href="#Examples">Examples</a></div>
 </div>
+
 

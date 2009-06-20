@@ -45,7 +45,7 @@ class Example_UwaController extends BaseZF_Framework_Controller_Action_Uwa
     {
         $this->_makeJson();
 
-		$this->_setJson(array('time' => time()));
+		$this->_setJson(array('date' => date('Y-m-d H:i:s')));
     }
 
     public function ajaxcallbackAction()
