@@ -15,13 +15,16 @@
  */
 final class Bootstrap extends BaseZF_Bootstrap
 {
+    /**
+     * Init MyProject Bean class
+     */
 	protected function _initMyProject()
 	{
-		MyProject::setEnvironment(CONFIG_ENV);
-		MyProject::setConfigFilePath(CONFIG_FILE);
+        // set MyProject config as application config
+        MyProject::setConfig($this->getOptions());
 
-        MyProject::registry('locale');
-
+        // init language support
+        MyProject::setCurrentLocale();
 	}
 
 	/**
@@ -32,3 +35,4 @@ final class Bootstrap extends BaseZF_Bootstrap
         return MyProject_Routes::fetch();
     }
 }
+

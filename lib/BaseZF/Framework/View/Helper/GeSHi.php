@@ -8,33 +8,31 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
+/** GeSHi Engine */
+require_once('geshi.php');
+
 class BaseZF_Framework_View_Helper_GeSHi extends BaseZF_Framework_View_Helper_Abstract
 {
-    static $_GESHI_STYLESHEET = array();
+    protected static $_geshiStylesheet = array();
 
-    static $_GESHi_INSTANCE = null;
+    protected static $_geshiInstance;
 
-    public function GeSHi($source = '', $language = '', $lineNumbers = false)
+    public function GeSHi($source, $language, $lineNumbers = false)
     {
         // little singleton pattern for GeSHi Class
-        if (self::$_GESHi_INSTANCE === null) {
+        if (!isset(self::$_geshiInstance)) {
 
-            require_once(PATH_TO_LIBRARY . '/geshi.php');
-            $geshi = self::$_GESHi_INSTANCE = new GeSHi();
-            $geshi->set_language_path(PATH_TO_LIBRARY . '/geshi');
+            require_once 'geshi.php';
+            $geshi = self::$_geshiInstance = new GeSHi();
             $geshi->enable_classes();
 
         } else {
-            $geshi = self::$_GESHi_INSTANCE;
+            $geshi = self::$_geshiInstance;
         }
 
-        if (!empty($source)) {
-            $geshi->set_source($source);
-        }
-
-        if (!empty($language)) {
-            $geshi->set_language($language);
-        }
+		// set data for geshi
+		$geshi->set_source($source);
+		$geshi->set_language($language);
 
         if ($lineNumbers) {
             $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS);
@@ -45,8 +43,8 @@ class BaseZF_Framework_View_Helper_GeSHi extends BaseZF_Framework_View_Helper_Ab
         $xhtml = array();
         $value = $geshi->parse_code();
 
-        if ($value !== false && in_array($language, self::$_GESHI_STYLESHEET) === false) {
-            self::$_GESHI_STYLESHEET[] = $language;
+        if ($value !== false && in_array($language, self::$_geshiStylesheet) === false) {
+            self::$_geshiStylesheet[] = $language;
             $xhtml[] = '<style>';
             $xhtml[] = $geshi->get_stylesheet();
             $xhtml[] = '</style>';

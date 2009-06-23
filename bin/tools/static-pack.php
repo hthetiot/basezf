@@ -18,6 +18,13 @@ ini_set('memory_limit', '256M');
  */
 class staticPack {
 
+	/**
+     * Available Adapters
+     */
+    CONST ADAPTER_YUICOMPRESSOR = 'yuicompressor';
+
+    CONST ADAPTER_TIDYCSS = 'tidycss';
+
     /**
      * Language to adapter
      */
@@ -25,13 +32,6 @@ class staticPack {
         'js'    => self::ADAPTER_YUICOMPRESSOR,
         'css'   => self::ADAPTER_TIDYCSS,
     );
-
-    /**
-     * Available Adapters
-     */
-    CONST ADAPTER_YUICOMPRESSOR = 'yuicompressor';
-
-    CONST ADAPTER_TIDYCSS = 'tidycss';
 
     /**
      * Adapter config

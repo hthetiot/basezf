@@ -8,18 +8,6 @@
  * @author     Harold Thétiot (hthetiot)
  */
     //
-    // Pack stuff
-    //
-
-    $headLinkPackConfig = new BaseZF_Framework_Config_Yaml(PATH_TO_CONFIG . '/static/css.yml');
-    $this->headLink()->setPacksConfig($headLinkPackConfig->toArray());
-    $this->headLink()->enablePacks();
-
-    $headScriptPackConfig = new BaseZF_Framework_Config_Yaml(PATH_TO_CONFIG . '/static/javascript.yml');
-    $this->headScript()->setPacksConfig($headScriptPackConfig->toArray());
-    $this->headScript()->enablePacks();
-
-    //
     // CSS stuff
     //
 
@@ -123,7 +111,7 @@
 
         <div id="main-menu" class="span-4">
             <?php
-                echo $this->navigation();
+                echo $this->exampleNavigation();
             ?>
         </div>
 

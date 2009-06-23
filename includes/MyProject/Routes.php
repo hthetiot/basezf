@@ -14,12 +14,8 @@ class MyProject_Routes extends BaseZF_Routes
     {
         static $routes;
 
-        if ($nameSpace === null) {
-            $nameSpace = MyProject_Routes::getCurrentNameSpace();
-        }
-
         // do not create multiple instance of routes
-        if (!isset($routes[$nameSpace])) {
+        if (!isset($routes)) {
 
             $routes = array(
 

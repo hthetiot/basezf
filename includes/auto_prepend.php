@@ -14,7 +14,7 @@ $t_start = microtime(true);
 // Set PHP Errors Reporting
 
 error_reporting(E_ALL | E_STRICT);
-ini_set('display_errors', 'on');
+ini_set('display_errors', 'off');
 
 //---------------------------------------------------------------------------
 // Locale settings
@@ -26,25 +26,25 @@ date_default_timezone_set('Europe/Paris');
 //---------------------------------------------------------------------------
 // Define usefull paths
 
-define('PATH_BASE',             realpath(dirname(__FILE__) . '/..'));
-define('PATH_TO_INCLUDES',      realpath(dirname(__FILE__)));
-define('PATH_TO_BIN',           PATH_BASE . '/bin');
-define('PATH_TO_LIBRARY',       PATH_BASE . '/lib');
-define('PATH_TO_DOCUMENT_ROOT', PATH_BASE . '/public');
-define('PATH_TO_APPLICATION',   PATH_BASE . '/app');
-define('PATH_TO_CONFIG',        PATH_BASE . '/etc');
-define('PATH_TO_LOCALES',       PATH_BASE . '/locale');
+define('BASE_PATH',          realpath(dirname(__FILE__) . '/..'));
+define('INCLUDE_PATH',       realpath(dirname(__FILE__)));
+define('BIN_PATH',           BASE_PATH . '/bin');
+define('LIBRARY_PATH',       BASE_PATH . '/lib');
+define('PUBLIC_PATH',        BASE_PATH . '/public');
+define('APPLICATION_PATH',   BASE_PATH . '/app');
+define('CONFIG_PATH',        BASE_PATH . '/etc');
+define('LOCALES_PATH',       BASE_PATH . '/locale');
 
 //---------------------------------------------------------------------------
 // Include missing functions from library path
 
-require_once PATH_TO_LIBRARY . '/missing_functions.php';
+require_once LIBRARY_PATH . '/missing_functions.php';
 
 //---------------------------------------------------------------------------
 // Include local_auto_prepend.php if available
 
-if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(PATH_TO_INCLUDES . '/auto_prepend_local.php')) {
-	require_once(PATH_TO_INCLUDES . '/auto_prepend_local.php');
+if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(INCLUDE_PATH . '/auto_prepend_local.php')) {
+	require_once(INCLUDE_PATH . '/auto_prepend_local.php');
 }
 
 //
@@ -52,25 +52,22 @@ if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(PATH_TO_INCLUDES . '/auto_p
 //
 
 //---------------------------------------------------------------------------
-// Config
+// Application options
 
-define_if_not('CONFIG_ENV', 'production'); // production || development || test
-define_if_not('CONFIG_FILE', PATH_TO_CONFIG . '/config.ini');
+define_if_not('APPLICATION_ENV',  'production');
+define_if_not('APPLICATION_CONFIG',   CONFIG_PATH . '/config.ini');
 
 //---------------------------------------------------------------------------
 // External variable env
 
 define_if_not('BASE_URL', 'myproject.com');
-define_if_not('BASE_URL_SCHEME', ((isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == 'on') ? 'https://' : 'http://'));
+define_if_not('BASE_URL_SCHEME', ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://'));
 define_if_not('MAIN_URL', BASE_URL_SCHEME . BASE_URL);
 
-define_if_not('MAIL_DEFAULT_SENDER', 'noreply@' . BASE_URL);
-define_if_not('MAIL_DEFAULT_SENDER_NAME', 'MyProject');
-
 //---------------------------------------------------------------------------
-// Debug
+// Debug options
 
-define_if_not('DEBUG_ENABLE', true);
+define_if_not('DEBUG_ENABLE', false);
 define_if_not('DEBUG_REPORT', true);
 define_if_not('DEBUG_REPORT_FROM', 'debug@' . BASE_URL);
 define_if_not('DEBUG_REPORT_TO', 'dev@' . BASE_URL);
@@ -78,9 +75,11 @@ define_if_not('DEBUG_REPORT_TO', 'dev@' . BASE_URL);
 //---------------------------------------------------------------------------
 // Frameworks Path
 
-define_if_not('PATH_TO_ZF', '/usr/share/php/ZendFrameWork/release-1.7.3/library');
-define_if_not('PATH_TO_BASEZF', PATH_TO_LIBRARY);
-define_if_not('PATH_TO_MYPROJECT', PATH_TO_INCLUDES);
+define_if_not('ZF_PATH', '/usr/share/php/ZendFrameWork/release-1.8.4');
+define_if_not('ZF_VERSION', '1.8.4');
+
+define_if_not('BASEZF_PATH', LIBRARY_PATH);
+define_if_not('MYPROJECT_PATH', INCLUDE_PATH);
 
 //---------------------------------------------------------------------------
 // file inclusion & autoload
@@ -88,14 +87,14 @@ define_if_not('PATH_TO_MYPROJECT', PATH_TO_INCLUDES);
 set_include_path(
 
     // load ZF lib
-    PATH_TO_ZF . '/library' . PATH_SEPARATOR .
-    PATH_TO_ZF . '/library/incubator' . PATH_SEPARATOR .
+    ZF_PATH . '/library' . PATH_SEPARATOR .
+    ZF_PATH . '/library/incubator' . PATH_SEPARATOR .
 
     // load others lib
-    PATH_TO_BASEZF . PATH_SEPARATOR .
-    PATH_TO_MYPROJECT . PATH_SEPARATOR .
-    PATH_TO_INCLUDES . PATH_SEPARATOR .
-    PATH_TO_LIBRARY . PATH_SEPARATOR .
+    BASEZF_PATH . PATH_SEPARATOR .
+    MYPROJECT_PATH . PATH_SEPARATOR .
+    INCLUDE_PATH . PATH_SEPARATOR .
+    LIBRARY_PATH . PATH_SEPARATOR .
 
     get_include_path()
 );

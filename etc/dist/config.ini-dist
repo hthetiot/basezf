@@ -7,12 +7,23 @@
 # $DB_NAME: Database name
 # $DB_USERNAME: Database username
 # $DB_PASSWORD: Database username password
-# $DEBUG_REPORT_TO: Error mail report recipients (separate by ",")
+# $DEBUG_REPORT_TO: Error mail report recipients
 # $DEBUG_REPORT_FROM: Error mail report email from
 #
 [app]
 
-#database
+# MVC
+bootstrap.path              = APPLICATION_PATH "/Bootstrap.php"
+controller.path             = APPLICATION_PATH "/controllers"
+view.path                   = APPLICATION_PATH "/views"
+layout.path                 = APPLICATION_PATH "/views/layouts"
+
+# Static-Pack
+static_pack.enable          = false
+static_pack.css_config		= CONFIG_PATH "/static/css.yml"
+static_pack.script_config	= CONFIG_PATH "/static/javascript.yml"
+
+# Database
 db.adapter                  = $DB_ADAPTER
 db.params.persistent        = true
 db.params.host              = $DB_HOST
@@ -22,7 +33,7 @@ db.params.password          = $DB_PASSWORD
 db.params.profiler.enabled  = false
 db.params.profiler.class    = Zend_Db_Profiler_Firebug
 
-#database cache
+# Database cache
 
 # To use file adapter
 #dbcache.adapter                             = File
@@ -49,11 +60,11 @@ log.components.dbitem        = false
 log.components.dbquery       = false
 
 #debug
-debug.cookie_name       = DEBUG_ME
-debug.enable            = true
-debug.report.enable     = false
-debug.report.to         = $DEBUG_REPORT_TO
-debug.report.from       = $DEBUG_REPORT_FROM
+#debug
+debug.enable            = DEBUG_ENABLE
+debug.report.enable     = DEBUG_REPORT
+debug.report.to         = DEBUG_REPORT_FROM
+debug.report.from       = DEBUG_REPORT_TO
 
 # test config mode extend app config mode
 [test: app]

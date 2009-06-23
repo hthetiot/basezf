@@ -15,7 +15,8 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
      */
     protected $_defaultLayout = 'example';
 
-    public function indexAction()
+
+	public function indexAction()
     {
         $form = new MyProject_Form_Example_Showcases();
         $form->setAction('/example/form/index');

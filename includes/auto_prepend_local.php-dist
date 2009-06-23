@@ -10,6 +10,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
+
 //---------------------------------------------------------------------------
 // Debug local value
 
@@ -27,16 +28,24 @@ if (extension_loaded('xdebug')) {
 }
 
 //---------------------------------------------------------------------------
-// Config  (can be defined before auto_prepend include)
-
-define_if_not('CONFIG_ENV', 'development');
-
-//---------------------------------------------------------------------------
 // External variable env
 
 define_if_not('BASE_URL', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost'));
 
 //---------------------------------------------------------------------------
+// Config  (can be defined before auto_prepend include)
+
+define_if_not('APPLICATION_ENV', 'development');
+
+//---------------------------------------------------------------------------
+// Debug options
+
+define_if_not('DEBUG_ENABLE', true);
+define_if_not('DEBUG_REPORT', false);
+define_if_not('DEBUG_REPORT_FROM', 'debug@' . BASE_URL);
+define_if_not('DEBUG_REPORT_TO', 'dev@' . BASE_URL);
+
+//---------------------------------------------------------------------------
 // Frameworks Path
 
-//define_if_not('PATH_TO_ZF', '/home/johndoe/ZendFramework-1.7.7-minimal/library');
+//define_if_not('ZF_PATH', '/home/johndoe/ZendFramework-1.7.7-minimal/library');

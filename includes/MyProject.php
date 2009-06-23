@@ -24,62 +24,57 @@
 final class MyProject
 {
     /**
-     * Environment
-     *
-     * @var string
-     */
-    protected static $_environment = 'production';
+	 *
+	 */
+    protected static $_registryNameSpace = __CLASS__;
 
 	/**
 	 *
 	 */
-    protected static $_configFilePath;
-
-	/**
-	 *
-	 */
-    private static function _createConfig()
+    public static function setConfig($config)
 	{
-		if(!isset(self::$_configFilePath)) {
-			throw new MyProject_Exception('Empty config file path, use setConfigFilePath to configure');
-		}
-
-        // check config
-        if(!file_exists(self::$_configFilePath)) {
-            throw new MyProject_Exception('Missing config file on path: "' . self::$_configFilePath . '"');
+        if (is_string($config)) {
+            $config = self::_loadConfig($config);
+        } elseif (is_array($config)) {
+            $config = new Zend_Config($config);
+        } elseif ($config instanceof Zend_Config) {
+           // nothing to do..
+        } else {
+            throw new MyProject_Exception('Invalid config provided; must be location of config file, a config object, or an array');
         }
 
-        $config = new Zend_Config_Ini(self::$_configFilePath, self::getEnvironment());
-
-        return $config;
+		return self::register('config', $config);
 	}
-
-	/**
-	 *
-	 */
-    public static function setConfigFilePath($configFilePath)
-	{
-		self::$_configFilePath = $configFilePath;
-	}
-
-	/**
-     * Set environment
-     *
-     * @param string $env
-     */
-    public static function setEnvironment($env)
-    {
-        self::$_environment = (string) $env;
-    }
 
     /**
-     * Get environment
-     *
-     * @return string
-     */
-    public static function getEnvironment()
-    {
-		return self::$_environment;
+	 * @todo add cache
+	 */
+    protected static function _loadConfig($file, $environment)
+	{
+        $suffix = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+
+        switch ($suffix) {
+            case 'ini':
+                $config = new Zend_Config_Ini($file, $environment);
+                break;
+
+            case 'xml':
+                $config = new Zend_Config_Xml($file, $environment);
+                break;
+
+            case 'php':
+            case 'inc':
+                $config = include $file;
+                if (!is_array($config)) {
+                    throw new MyProject_Exception('Invalid configuration file provided; PHP file does not return array value');
+                }
+                break;
+
+            default:
+                throw new MyProject_Exception('Invalid configuration file provided; unknown config type');
+        }
+
+        return self::setConfig($config);
 	}
 
 	/**
@@ -255,7 +250,7 @@ final class MyProject
      * @param string $locale iso code of locale, fr_FR for example
      * @return object Zend_Locale instance of current locale
      */
-    public static function setCurrentLocale($locale)
+    public static function setCurrentLocale($locale = null)
 	{
         $locale = self::_createLocale($locale);
 
@@ -281,7 +276,7 @@ final class MyProject
 
         // init available gettext domains
         foreach ($availableDomains as $domain) {
-            bindtextdomain($domain, PATH_TO_LOCALES);
+            bindtextdomain($domain, LOCALES_PATH);
             bind_textdomain_codeset($domain, 'UTF-8');
         }
 
@@ -329,7 +324,6 @@ final class MyProject
      */
 	public static function registry($registryKey = null, $refresh = false)
 	{
-		$registryNameSpace = __CLASS__;
 		$registryKey = strtolower($registryKey);
 
 		if (is_null($registryKey)) {
@@ -342,7 +336,7 @@ final class MyProject
 				throw new MyProject_Exception('Get fresh "' . $registryKey. '" from registry');
 			}
 
-			$object = Zend_Registry::get($registryNameSpace . $registryKey);
+			$object = Zend_Registry::get(self::$_registryNameSpace . ':' . $registryKey);
 
 			return $object;
 
@@ -358,13 +352,22 @@ final class MyProject
 			// call
 			$object = MyProject::$callbackFunc();
 
-			Zend_Registry::set($registryNameSpace . ':' . $registryKey, $object);
+            self::register($registryKey, $object);
 
 			return $object;
-
-			throw $e;
 		}
 	}
+
+    public static function register($registryKey, $object, $force = false)
+	{
+        $fullRegistryKey = self::$_registryNameSpace . ':' . $registryKey;
+
+        if (!$force && Zend_Registry::isRegistered($fullRegistryKey)) {
+            throw new MyProject_Exception('All ready registered key "' . $registryKey. '", use force param to overwrite all ready registered key in registry');
+        }
+
+        return Zend_Registry::set($fullRegistryKey, $object);
+    }
 
     //
     // Debug functions

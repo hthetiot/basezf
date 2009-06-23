@@ -43,7 +43,14 @@ abstract class BaseZF_Error_Handler
         if (error_reporting() != 0 && ($errno & self::$_errorReporting) == $errno) {
 
 			$errstr = '(' . self::getErrorType($errno) . ') ' . $errstr;
+
+            // strange Segmentation fault temporarily issue
+            if (E_STRICT == $errno) {
+                return;
+            }
+
             throw new BaseZF_Error_Exception($errstr, $errno, $file, $line, $errcontext);
+			exit();
         }
     }
 

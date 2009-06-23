@@ -8,7 +8,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-class View_Helper_Example
+class Zend_View_Helper_Example
 {
     /**
      * This is the main helper methods

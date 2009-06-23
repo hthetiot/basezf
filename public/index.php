@@ -10,45 +10,65 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
+// include auto_prepend if missing
+if (!defined('APPLICATION_PATH')) {
+	require_once('../includes/auto_prepend.php');
+}
 
 // Register Error Handler
 BaseZF_Error_Handler::registerErrorHandler();
 
+try {
 
+	// Test Zend Framework Version
+	if (Zend_Version::compareVersion(ZF_VERSION) > 0) {
+		trigger_error(sprintf('Please upgrade to a newer version of Zend Framework (require %s)', ZF_VERSION), E_USER_NOTICE);
+	}
 
-/**
- * Initialize Application Configuration and Environment
- */
-$application = new Zend_Application(
+    // Initialize Application Configuration and Environment
+    $application = new Zend_Application(APPLICATION_ENV, APPLICATION_CONFIG);
+    $application->bootstrap();
+	$application->run();
 
-    // Application environment
-    CONFIG_ENV,
+} catch (Exception $e) {
 
-    // Application Options
-    array(
+    // debug error enable ?
+    if (defined('DEBUG_ENABLE') && DEBUG_ENABLE) {
+        BaseZF_Error_Handler::debugException($e);
+        exit();
 
-        // Bootstrap Options
-        'bootstrap' => array(
+    // report error enable ?
+    } else if (defined('DEBUG_REPORT') && DEBUG_REPORT) {
+        BaseZF_Error_Handler::sendExceptionByMail($e, DEBUG_REPORT_FROM, DEBUG_REPORT_TO);
+    }
 
-            // Main bootstrap Class path
-            'path' => PATH_TO_APPLICATION . '/Bootstrap.php',
+    // then display Service Temporarily Unavailable
+	ob_start();
+	header("HTTP/1.1 503 Service Temporarily Unavailable");
+	header("Status: 503 Service Temporarily Unavailable");
+	header("Retry-After: 120");
+	header("Connection: Close");
 
-            // Debug options
-            'debug_enable'      => DEBUG_ENABLE,
-            'debug_report'      => DEBUG_REPORT,
-            'debug_report_from' => DEBUG_REPORT_FROM,
-            'debug_report_to'   => DEBUG_REPORT_TO,
-        ),
+echo <<<EOD
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html>
+<head>
+	<title>503 Service Temporarily Unavailable</title>
+</head>
+<body>
+	<h1>Service Temporarily Unavailable</h1>
+	<p>
+		The server is temporarily unable to service your
+		request due to maintenance downtime or capacity
+		problems. Please try again later.
+	</p>
+</body>
+</html>
+EOD;
 
-        // Autoloader Options
-        'autoloadernamespaces'  => array(
-            'Zend',
-            'BaseZF',
-            'MyProject'
-        ),
-    )
-);
+	echo ob_get_clean();
 
-$application->bootstrap();
-$application->run();
+	// Exit with error status
+	exit(1);
+}
 

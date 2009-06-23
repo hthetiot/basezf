@@ -18,7 +18,9 @@ class BaseZF_Exception extends Exception
 
     public function __construct($message = null, $code = 0, $file = null, $line = null, $context = array())
     {
+
         parent::__construct($message, $code);
+
 
         $this->file = $file;
         $this->line = $line;
@@ -31,6 +33,10 @@ class BaseZF_Exception extends Exception
      */
     public function getSource($nbLine = 6)
     {
+        if (!is_file($this->file)) {
+            return;
+        }
+
         $file = fopen($this->file, 'r');
         $beginLine = max(0, $this->line - $nbLine / 2);
         $endLine = $beginLine + $nbLine - 1;
