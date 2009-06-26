@@ -12,31 +12,31 @@ class BaseZF_Framework_View_Helper_UwaExportLink extends BaseZF_Framework_View_H
 {
 	public function UwaExportLink($environmentName, $widgetUrl, $uwaServerUrl, array $options = array())
 	{
-
         $optionsParams = (!empty($options) ? '&' . http_build_query($options) : null);
 
 		switch ($environmentName)
 		{
 			case 'netvibes':
-				return 'http://www.netvibes.com/subscribe.php?module=UWA&moduleUrl=' . urlencode($widgetUrl) . $optionsParams;
+				$url = 'http://www.netvibes.com/subscribe.php?module=UWA&moduleUrl=' . urlencode($widgetUrl) . $optionsParams;
+                break;
 
 			case 'google':
-				return 'http://www.google.com/ig/add?moduleurl=' . urlencode($uwaServerUrl . '/widget/gspec?uwaUrl=' . urlencode($widgetUrl) . $optionsParams);
+				$url = 'http://www.google.com/ig/add?moduleurl=' . urlencode($uwaServerUrl . '/widget/gspec?uwaUrl=' . urlencode($widgetUrl) . $optionsParams);
+                break;
 
-			case 'opera':
-				return $uwaServerUrl . '/widget/opera?uwaUrl=' . urlencode($widgetUrl) . $optionsParams;
-
-			case 'dashboard':
-				return $uwaServerUrl . '/widget/dashboard?uwaUrl=' . urlencode($widgetUrl) . $optionsParams;
-
-            case 'screenlets':
-				return $uwaServerUrl . '/widget/screenlets?uwaUrl=' . urlencode($widgetUrl) . $optionsParams;
-
+            case 'opera':
+            case 'dashboard':
             case 'frame':
-				return $uwaServerUrl . '/widget/frame?uwaUrl=' . urlencode($widgetUrl) . $optionsParams;
+            case 'screenlets':
+            case 'jil':
+            case 'vista':
+				$url = $uwaServerUrl . '/widget/' . $environmentName . '?uwaUrl=' . urlencode($widgetUrl) . $optionsParams;
+                break;
 
             default:
                 throw new Exception(sprintf('Unable to generate link for environment name %s', $environmentName));
 		}
+
+        return  preg_replace('/&/', '&amp;', $url);
 	}
 }
