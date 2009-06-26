@@ -34,7 +34,7 @@ abstract class BaseZF_Error_Handler
 
     static public function handleError($errno, $errstr, $file, $line, array $errcontext)
     {
-   		// If error_reporting() == 0 then it was a suppressed error with
+           // If error_reporting() == 0 then it was a suppressed error with
         // the @-operator and we don't want to handle that kind of errors !
 
         // Else it use error_reporting value from func or ini setting on handler start and
@@ -42,7 +42,7 @@ abstract class BaseZF_Error_Handler
 
         if (error_reporting() != 0 && ($errno & self::$_errorReporting) == $errno) {
 
-			$errstr = '(' . self::getErrorType($errno) . ') ' . $errstr;
+            $errstr = '(' . self::getErrorType($errno) . ') ' . $errstr;
 
             // strange Segmentation fault temporarily issue
             if (E_STRICT == $errno) {
@@ -50,7 +50,7 @@ abstract class BaseZF_Error_Handler
             }
 
             throw new BaseZF_Error_Exception($errstr, $errno, $file, $line, $errcontext);
-			exit();
+            exit();
         }
     }
 
@@ -72,7 +72,7 @@ abstract class BaseZF_Error_Handler
             E_RECOVERABLE_ERROR  => 'Catchable Fatal Error'
         );
 
-	    return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
+        return isset($errortype[$errorNo]) ? $errortype[$errorNo] : false;
 
     }
 

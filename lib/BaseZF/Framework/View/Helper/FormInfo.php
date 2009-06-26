@@ -10,16 +10,16 @@
 
 class BaseZF_Framework_View_Helper_FormInfo extends Zend_View_Helper_FormElement
 {
-	public function formInfo($name, $value = null, $attribs = array(), $options = null)
+    public function formInfo($name, $value = null, $attribs = array(), $options = null)
     {
-		$info = $this->_getInfo($name, $value, $attribs);
+        $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, id, value, attribs, options, listsep, disable
 
-		// get label
-		$label = isset($attribs['label']) ? $attribs['label'] : null;
-		unset($attribs['label']);
+        // get label
+        $label = isset($attribs['label']) ? $attribs['label'] : null;
+        unset($attribs['label']);
 
-		// retrieve attributes for labels (prefixed with 'label_' or 'label')
+        // retrieve attributes for labels (prefixed with 'label_' or 'label')
         $label_attribs = array();
         foreach ($attribs as $key => $val) {
             $tmp    = false;
@@ -38,7 +38,7 @@ class BaseZF_Framework_View_Helper_FormInfo extends Zend_View_Helper_FormElement
             }
         }
 
-		// build the element
+        // build the element
         $xhtml = array();
         $xhtml[] = '<div' . $this->_htmlAttribs($attribs) . '>';
 
@@ -67,7 +67,7 @@ class BaseZF_Framework_View_Helper_FormInfo extends Zend_View_Helper_FormElement
 
         $xhtml[] = '</div>';
 
-		return implode("\n", $xhtml);
-	}
+        return implode("\n", $xhtml);
+    }
 }
 

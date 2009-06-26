@@ -28,18 +28,18 @@ if (!function_exists('example')) {
 
 if (!function_exists('define_if_not')) {
 
-	/**
-	 * Define a constant only if not defined
-	 *
-	 * @param string $constant Constant name
-	 * @param void $value Constant value
-	 * @return defined with success return true then false
-	 */
-	function define_if_not($constant, $value)
+    /**
+     * Define a constant only if not defined
+     *
+     * @param string $constant Constant name
+     * @param void $value Constant value
+     * @return defined with success return true then false
+     */
+    function define_if_not($constant, $value)
     {
 
-		return defined($constant) or define($constant, $value);
-	}
+        return defined($constant) or define($constant, $value);
+    }
 }
 
 if (!function_exists('__')) {
@@ -86,46 +86,46 @@ if (!function_exists('bytes_to_human_size')) {
 
 if (!function_exists('array_set_current')) {
 
-	/**
-	 * Set current position of array
-	 *
-	 * @param array $array to update position by reference
-	 * @param void $key requested position of array
-	 * @return void new array potision
-	 */
-	function array_set_current(array &$array, $key)
+    /**
+     * Set current position of array
+     *
+     * @param array $array to update position by reference
+     * @param void $key requested position of array
+     * @return void new array potision
+     */
+    function array_set_current(array &$array, $key)
     {
-	   reset($array);
-	   while (current($array) !== false){
+       reset($array);
+       while (current($array) !== false){
 
-		   if (key($array) == $key) {
-			   break;
-		   }
+           if (key($array) == $key) {
+               break;
+           }
 
-		   next($array);
-	   }
-	   return current($array);
-	}
+           next($array);
+       }
+       return current($array);
+    }
 }
 
 if (!function_exists('hash_element_by_deep')) {
 
-	/**
-	 * Return a directory where element_id is store
-	 *
-	 * @param unknown_type $element_id
-	 * @param unknown_type $deep_dir
-	 * @param unknown_type $deep_dirs
-	 * @return unknown
-	 */
-	function hash_element_by_deep($element_id, $deep_dir, $deep_dirs)
+    /**
+     * Return a directory where element_id is store
+     *
+     * @param unknown_type $element_id
+     * @param unknown_type $deep_dir
+     * @param unknown_type $deep_dirs
+     * @return unknown
+     */
+    function hash_element_by_deep($element_id, $deep_dir, $deep_dirs)
     {
-		if (strlen($element_id) > ($deep_dir * ($deep_dirs + 1))) {
-			return false;
-		}
+        if (strlen($element_id) > ($deep_dir * ($deep_dirs + 1))) {
+            return false;
+        }
 
-		return wordwrap( str_pad( floor( $element_id / pow(10, $deep_dir) ), $deep_dir * $deep_dirs, '0', STR_PAD_LEFT ), $deep_dir, '/', true );
-	}
+        return wordwrap( str_pad( floor( $element_id / pow(10, $deep_dir) ), $deep_dir * $deep_dirs, '0', STR_PAD_LEFT ), $deep_dir, '/', true );
+    }
 }
 
 if (!function_exists('mb_ucfirst')) {
@@ -133,13 +133,13 @@ if (!function_exists('mb_ucfirst')) {
     /**
      * @todo doc
      */
-	function mb_ucfirst($string, $encoding = 'UTF-8') {
-    	if ($encoding) {
-			return mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, mb_strlen($string, $encoding) - 1, $encoding);
-		} else {
-			return mb_strtoupper(mb_substr($string, 0, 1)) . mb_substr($string, 1, mb_strlen($string) - 1);
-		}
-	}
+    function mb_ucfirst($string, $encoding = 'UTF-8') {
+        if ($encoding) {
+            return mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, mb_strlen($string, $encoding) - 1, $encoding);
+        } else {
+            return mb_strtoupper(mb_substr($string, 0, 1)) . mb_substr($string, 1, mb_strlen($string) - 1);
+        }
+    }
 }
 
 if (!function_exists('wordlimit')) {
@@ -164,11 +164,11 @@ if (!function_exists('wordlimit_bychar')) {
      */
     function wordlimit_bychar($string, $length = 50, $ellipsis = "...")
     {
-		if (mb_strlen($string) < $length) {
-			return $string;
-		}
+        if (mb_strlen($string) < $length) {
+            return $string;
+        }
 
-		return substr($string, 0, $length) . $ellipsis;
+        return substr($string, 0, $length) . $ellipsis;
     }
 }
 

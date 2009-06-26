@@ -11,49 +11,49 @@
 class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abstract
 {
     static $helperWithoutLabel = array(
-		'formInfo',
+        'formInfo',
         'formCheckbox',
-		'formMultiCheckbox',
-		'formMultiRadio',
+        'formMultiCheckbox',
+        'formMultiRadio',
         'formReset',
-		'formSubmit',
-	);
+        'formSubmit',
+    );
 
-	static $helperWithoutContainerClass = array(
-		'formInfo',
-	);
+    static $helperWithoutContainerClass = array(
+        'formInfo',
+    );
 
     static $helpersButton = array(
-		'formReset',
-		'formSubmit',
-	);
+        'formReset',
+        'formSubmit',
+    );
 
     public function buildField()
     {
         $element = $this->getElement();
-		$helper  = $element->helper;
+        $helper  = $element->helper;
 
-		// update attribs : remove helper attribute and merge helper name with class
-		$newAttribs = $element->getAttribs();
-		$newAttribs['class'] = $helper . ' ' . $element->getAttrib('class');
+        // update attribs : remove helper attribute and merge helper name with class
+        $newAttribs = $element->getAttribs();
+        $newAttribs['class'] = $helper . ' ' . $element->getAttrib('class');
 
-		// do not display useless label
-		if(in_array($helper, self::$helperWithoutLabel) ==! false) {
+        // do not display useless label
+        if(in_array($helper, self::$helperWithoutLabel) ==! false) {
 
-			$labelClass = 'formLabel' . ucfirst(str_replace('form', '', $helper));
+            $labelClass = 'formLabel' . ucfirst(str_replace('form', '', $helper));
 
-			$newAttribs['label'] = $element->getLabel();
-			$newAttribs['label_class'] = $labelClass . ' ' . $element->getAttrib('label_class');
-		}
+            $newAttribs['label'] = $element->getLabel();
+            $newAttribs['label_class'] = $labelClass . ' ' . $element->getAttrib('label_class');
+        }
 
         // set label has value for buttons
         if(in_array($helper, self::$helpersButton) ==! false) {
-			$element->setValue($element->getLabel());
-		}
+            $element->setValue($element->getLabel());
+        }
 
-		// clean attribs used by current decorator
-		unset($newAttribs['helper']);
-		unset($newAttribs['container_class']);
+        // clean attribs used by current decorator
+        unset($newAttribs['helper']);
+        unset($newAttribs['container_class']);
 
         if ($helper == 'formFile') {
 
@@ -87,14 +87,14 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
     public function buildLabel()
     {
         $element = $this->getElement();
-		$helper  = $element->helper;
+        $helper  = $element->helper;
         $label = $element->getLabel();
 
-		// do not display useless label
-		if(in_array($helper, self::$helperWithoutLabel) ==! false) {
-			$element->setAttrib('label', $label);
-			return '';
-		}
+        // do not display useless label
+        if(in_array($helper, self::$helperWithoutLabel) ==! false) {
+            $element->setAttrib('label', $label);
+            return '';
+        }
 
         // translate it ?
         if ($translator = $element->getTranslator()) {
@@ -127,12 +127,12 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
     public function getContainerClass()
     {
         $element = $this->getElement();
-		$helper  = $element->helper;
+        $helper  = $element->helper;
 
-		// do not display useless container
-		if(in_array($helper, self::$helperWithoutContainerClass) ==! false) {
-			return '';
-		}
+        // do not display useless container
+        if(in_array($helper, self::$helperWithoutContainerClass) ==! false) {
+            return '';
+        }
 
         // render containerClass
         $containerClass = array();
@@ -143,8 +143,8 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
 
         // add default class
         if(in_array($helper, self::$helpersButton) ==! false) {
-			$containerClass[] = 'inline';
-		} else {
+            $containerClass[] = 'inline';
+        } else {
             $containerClass[] = ($element->isRequired() ? 'required' : 'optional');
         }
 

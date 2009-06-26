@@ -130,7 +130,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
         // configure view render for new view file suffix
         $this->_helper->viewRenderer->setNoRender(false);
-	    $this->_helper->viewRenderer->setViewSuffix('phtml');
+        $this->_helper->viewRenderer->setViewSuffix('phtml');
 
         // set header
         $response = $this->getResponse();
@@ -209,7 +209,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
         // configure view render for new view file suffix
         $this->_helper->viewRenderer->setNoRender(false);
-		$this->_helper->viewRenderer->setViewSuffix('ajax.phtml');
+        $this->_helper->viewRenderer->setViewSuffix('ajax.phtml');
 
         // set controller properties
         $this->view->isAjax = $this->isAjax = true;

@@ -19,7 +19,7 @@ class Example_HelperController extends BaseZF_Framework_Controller_Action
     {
     }
 
-	public function googleanalyticsAction()
+    public function googleanalyticsAction()
     {
 
     }

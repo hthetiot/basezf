@@ -13,7 +13,7 @@ class IndexController extends BaseZF_Framework_Controller_Action
     public function indexAction()
     {
         /*
-		throw new BaseZF_Error_Exception('test');
+        throw new BaseZF_Error_Exception('test');
 
         $titi = time();
 

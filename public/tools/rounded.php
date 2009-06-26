@@ -46,9 +46,9 @@ function hex2rgb($hex)
 //output image from cached file
 function outputfromfile($filename)
 {
-	header("Content-Type: image/gif");
-	header("Expires: ".gmdate("D, d M Y H:i:s",time()+24*60*60));
-	include($filename);
+    header("Content-Type: image/gif");
+    header("Expires: ".gmdate("D, d M Y H:i:s",time()+24*60*60));
+    include($filename);
 }
 
 $defaultValues = array(
@@ -70,8 +70,8 @@ $cachefile = $cachedir.$mangledname;
 /*
 //first check to see if we've already generated this file.  If so, just return it
 if ($caching && file_exists($cachefile)) {
-	outputfromfile($cachefile);
-	exit();
+    outputfromfile($cachefile);
+    exit();
 }*/
 
 // set default values for size and color
@@ -81,11 +81,11 @@ if ( !$ci )
   $ci="ffffff";
 //echo "ci: $ci 1: " . $ci{0} . " co: $co 1: " . $co{0};
 if($ci{0} == '#')
-	$ci = substr($ci,1);
+    $ci = substr($ci,1);
 if ( !$co )
   $co="000000";
 if($co{0} == '#')
-	$co = substr($co,1);
+    $co = substr($co,1);
 
 //pick larger of inner and outer radius
 if ($h==0) {
@@ -108,7 +108,7 @@ $bthickness = $b*2;
 
 // cn ha de ser uno de estos valores
 if( !($cn=="tl" OR $cn=="tr" OR $cn=="bl" OR $cn=="br" OR $cn=="nt") )
-	exit();
+    exit();
 
 
 if ( $cn=="tl" ) {
@@ -172,22 +172,22 @@ imagecopyresampled($image_dest, $image_scratch, 0, 0, 0, 0, $w, $h, $width-1, $h
 
 //first, save a copy of the generated image if caching mode is set
 if ($caching) {
-	// Start buffering the output
-	ob_start();
+    // Start buffering the output
+    ob_start();
 
-	// Now output the image
-	imagegif($image_dest);
+    // Now output the image
+    imagegif($image_dest);
 
-	// Fetch output buffer
-	$buffer = ob_get_contents();
+    // Fetch output buffer
+    $buffer = ob_get_contents();
 
-	// Stop buffering and display the buffer
-	ob_end_flush();
+    // Stop buffering and display the buffer
+    ob_end_flush();
 
-	// Write a cache file from the contents
-	$fp = fopen($cachefile, 'wb');
-	fwrite($fp, $buffer);
-	fclose($fp);
+    // Write a cache file from the contents
+    $fp = fopen($cachefile, 'wb');
+    fwrite($fp, $buffer);
+    fclose($fp);
 }
 
 // Enviamos el content type apropiado

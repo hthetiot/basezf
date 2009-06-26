@@ -10,7 +10,7 @@
 
 class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
 {
-	public function formDate($name, $value = null, $attribs = null)
+    public function formDate($name, $value = null, $attribs = null)
     {
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, value, attribs, options, listsep, disable
@@ -96,7 +96,7 @@ class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
         $xhtml[] = '</div>';
 
         return implode("\n", $xhtml);
-	}
+    }
 
     protected function _buildSelect($attribs, $start, $end, $value = 0, $emptyValue = null, $disable = false)
     {

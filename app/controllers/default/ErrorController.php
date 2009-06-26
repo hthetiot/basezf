@@ -31,7 +31,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
     {
         // Grab the error object from the request
         $this->_error_handler = $this->_getParam('error_handler');
-		$this->view->error_handler = $this->_error_handler;
+        $this->view->error_handler = $this->_error_handler;
     }
 
     /**

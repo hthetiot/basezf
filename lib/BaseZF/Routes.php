@@ -16,28 +16,28 @@ abstract class BaseZF_Routes
      * @param  string $url
      * @return string
      */
-	static public function cleanUrl($url)
-	{
-		/* convert the string to a 7bits representation */
-		//
-		$url = stringToAscii($url);
+    static public function cleanUrl($url)
+    {
+        /* convert the string to a 7bits representation */
+        //
+        $url = stringToAscii($url);
 
-		$url = preg_replace(array('/&szlig;/',
-		'/&(..)lig;/',
-		'/&([aeiouAEIOU])uml;/',
-		'/&(.)[^;]*;/'),
-		array('ss',
-		"$1",
-		"$1",
-		"$1"),
-		$url);
+        $url = preg_replace(array('/&szlig;/',
+        '/&(..)lig;/',
+        '/&([aeiouAEIOU])uml;/',
+        '/&(.)[^;]*;/'),
+        array('ss',
+        "$1",
+        "$1",
+        "$1"),
+        $url);
 
-		/* strip non alpha characters */
-		$url = preg_replace(array('/[^[:alpha:]\d\.]/', '/-+/'), '-', $url);
+        /* strip non alpha characters */
+        $url = preg_replace(array('/[^[:alpha:]\d\.]/', '/-+/'), '-', $url);
 
-		// remove eventual leading/trailing hyphens due to leading/trailing non-alpha chars
-		return trim($url, '-');
-	}
+        // remove eventual leading/trailing hyphens due to leading/trailing non-alpha chars
+        return trim($url, '-');
+    }
 
     static public function getCurrentNameSpace()
     {
@@ -67,15 +67,15 @@ abstract class BaseZF_Routes
 
             $routes = array(
                 'error-404' => new Zend_Controller_Router_Route('404',
-                    array('module' 		=> 'default',
-                    'controller' 	=> 'error',
-                    'action'     	=> 'error404')
+                    array('module'         => 'default',
+                    'controller'     => 'error',
+                    'action'         => 'error404')
                 ),
 
                 'error-500' => new Zend_Controller_Router_Route('500',
-                    array('module' 		=> 'default',
-                    'controller' 	=> 'error',
-                    'action'     	=> 'error500')
+                    array('module'         => 'default',
+                    'controller'     => 'error',
+                    'action'         => 'error500')
                 ),
             );
         }

@@ -18,27 +18,27 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 
         $currentLocale = MyProject::registry('locale');
 
-		//
-		// Personal Information fields
-		//
+        //
+        // Personal Information fields
+        //
 
-		$this->addElement('info', 'info1', array(
-			'label'		=> __('Personal Information'),
-			'messages'	=> array(
-				__('Please enter your name and address as they are listed for your debit card, credit card, or bank account.'),
-			),
-		));
-
-		$this->addElement('radio', 'gender', array(
-            'label'         => __('Gender:'),
-		    'required'      => true,
-			'multioptions'  => array(
-				1 => __('Male'),
-				0 => __('Female'),
-			),
+        $this->addElement('info', 'info1', array(
+            'label'        => __('Personal Information'),
+            'messages'    => array(
+                __('Please enter your name and address as they are listed for your debit card, credit card, or bank account.'),
+            ),
         ));
 
-		$this->getElement('gender')->setAttrib('label_class', 'compact');
+        $this->addElement('radio', 'gender', array(
+            'label'         => __('Gender:'),
+            'required'      => true,
+            'multioptions'  => array(
+                1 => __('Male'),
+                0 => __('Female'),
+            ),
+        ));
+
+        $this->getElement('gender')->setAttrib('label_class', 'compact');
 
         $this->addElement('text', 'first_name', array(
             'label'         => __('First Name:'),
@@ -50,40 +50,40 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'required'      => true,
         ));
 
-		// @todo
-		$this->addElement('date', 'birthday', array(
-			'label'		    => __('Birthday:'),
+        // @todo
+        $this->addElement('date', 'birthday', array(
+            'label'            => __('Birthday:'),
             'required'      => true,
-		));
+        ));
 
-		$this->addElement('text', 'addr1', array(
+        $this->addElement('text', 'addr1', array(
             'label'         => __('Address:'),
         ));
 
-		$this->addElement('text', 'addr2', array(
+        $this->addElement('text', 'addr2', array(
         ));
 
-		$this->addElement('select', 'country_id', array(
-			'label'         => __('Country:'),
-			'multioptions'  => Zend_Locale::getTranslationList('territory', $currentLocale),
+        $this->addElement('select', 'country_id', array(
+            'label'         => __('Country:'),
+            'multioptions'  => Zend_Locale::getTranslationList('territory', $currentLocale),
         ));
 
         /*
-		$this->addElement('select', 'state_id', array(
-			'label'         => __('State:'),
-			'multioptions'  => Zend_Locale::getTranslationList('TerritoryToRegion', $currentLocale),
+        $this->addElement('select', 'state_id', array(
+            'label'         => __('State:'),
+            'multioptions'  => Zend_Locale::getTranslationList('TerritoryToRegion', $currentLocale),
         ));
         */
 
-		$this->addElement('text', 'zipcode', array(
+        $this->addElement('text', 'zipcode', array(
             'label'         => __('Zip/Postal Code:'),
         ));
 
-		$this->addElement('text', 'city', array(
+        $this->addElement('text', 'city', array(
             'label'         => __('City:'),
         ));
 
-		$this->addElement('select', 'sexuality_id', array(
+        $this->addElement('select', 'sexuality_id', array(
             'helper'        => 'FormFancySelect',
             'label'         => __('Sexuality:'),
             'notice'        => __('Choose from the list'),
@@ -95,8 +95,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             ),
         ));
 
-		$this->addElement('multiselect', 'lookingfor_id', array(
-			'helper'        => 'FormFancySelect',
+        $this->addElement('multiselect', 'lookingfor_id', array(
+            'helper'        => 'FormFancySelect',
             'label'         => __('Her for:'),
             'multiple'      => true,
             'show_choice'   => true,
@@ -111,31 +111,31 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             ),
         ));
 
-		$this->addDisplayGroup(array(
-			'info1',
-			'gender',
-			'first_name',
-			'last_name',
-			'birthday',
-			'addr1',
-			'addr2',
-			'country_id',
-			'state_id',
-			'zipcode',
-			'city',
-			'sexuality_id',
-			'lookingfor_id',
-		), 'personal_information');
+        $this->addDisplayGroup(array(
+            'info1',
+            'gender',
+            'first_name',
+            'last_name',
+            'birthday',
+            'addr1',
+            'addr2',
+            'country_id',
+            'state_id',
+            'zipcode',
+            'city',
+            'sexuality_id',
+            'lookingfor_id',
+        ), 'personal_information');
 
         $this->getDisplayGroup('personal_information')->setLegend(__('Personal Information'));
 
-		//
-		// Contact Information fields
-		//
+        //
+        // Contact Information fields
+        //
 
-		$this->addElement('info', 'info2', array(
-            'label'		=> __('Contact Information'),
-			'messages'	=> array(
+        $this->addElement('info', 'info2', array(
+            'label'        => __('Contact Information'),
+            'messages'    => array(
                 __('Please enter your full email address, for example, name@domain.com'),
                 __('It is important that you provide a valid, working email address that you have access to as it must be verified before you can use your account.'),
                 __('Please enter a land line number, not a mobile phone number.'),
@@ -143,28 +143,28 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
                 // example message with HTML
                 sprintf(
                     __('Your phone number will not be shared or used for telemarketing. Your information is protected by our %s Privacy Policy %s.'),
-					'<a href="#todo">', '</a>'
+                    '<a href="#todo">', '</a>'
                 ),
-			),
-		));
-
-		$this->addElement('radio', 'how_contact', array(
-			'helper'		=> 'formMultiRadio',
-            'label'         => __('How to Contact You ?'),
-            'required'      => true,
-			'multioptions'  => array(
-				1 => __('Phone'),
-				0 => __('Email'),
-			)
+            ),
         ));
 
-		$this->getElement('how_contact')->setAttrib('label_class', 'compact');
+        $this->addElement('radio', 'how_contact', array(
+            'helper'        => 'formMultiRadio',
+            'label'         => __('How to Contact You ?'),
+            'required'      => true,
+            'multioptions'  => array(
+                1 => __('Phone'),
+                0 => __('Email'),
+            )
+        ));
+
+        $this->getElement('how_contact')->setAttrib('label_class', 'compact');
 
 
-		$this->addElement('text', 'email', array(
+        $this->addElement('text', 'email', array(
             'label'         => __('Email:'),
             'required'      => true,
-			'description'	=> __('We will never sell or disclose your email address to anyone. Once your account is setup, you may add additional email addresses.'),
+            'description'    => __('We will never sell or disclose your email address to anyone. Once your account is setup, you may add additional email addresses.'),
         ));
 
         $this->getElement('email')->addValidator('EmailAddress', true, array(
@@ -177,10 +177,10 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
                 'emailAddressInvalidLocalPart'  => __('This does not appear to be a valid email address'),
         )));
 
-		$this->addElement('text', 'email_check', array(
+        $this->addElement('text', 'email_check', array(
             'label'         => __('Re-enter Email:'),
             'required'      => true,
-			'description'	=> __('Must match the email address you just entered above.'),
+            'description'    => __('Must match the email address you just entered above.'),
         ));
 
         $this->getElement('email_check')->addValidator('StringEquals', true, array(
@@ -191,117 +191,117 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             ),
         ));
 
-		$this->addElement('text', 'phone', array(
+        $this->addElement('text', 'phone', array(
             'label'         => __('Phone:'),
         ));
 
-		$this->addElement('text', 'fax', array(
+        $this->addElement('text', 'fax', array(
             'label'         => __('Fax:'),
         ));
 
-		$this->addElement('radio', 'subject', array(
-			'helper'		=> 'formMultiRadio',
+        $this->addElement('radio', 'subject', array(
+            'helper'        => 'formMultiRadio',
             'label'         => __('Message Subject:  '),
             'multioptions'  => array(
-				1 => __("How can I tell my father/mother, it's time for them to retire?"),
-				2 => __("I'm exasperated with an awkward partner!"),
-				3 => __("How do I stop my family members from interfering?"),
-				4 => __("Other:"),
-			),
+                1 => __("How can I tell my father/mother, it's time for them to retire?"),
+                2 => __("I'm exasperated with an awkward partner!"),
+                3 => __("How do I stop my family members from interfering?"),
+                4 => __("Other:"),
+            ),
 
-			// extras
-			'container_class'	=> 'wide',
+            // extras
+            'container_class'    => 'wide',
         ));
 
-		$this->addElement('textarea', 'message', array(
+        $this->addElement('textarea', 'message', array(
             'label'         => __('Your Message:'),
-			'required'      => true,
-			'description'	=> __('Must be 250 characters or less.'),
+            'required'      => true,
+            'description'    => __('Must be 250 characters or less.'),
         ));
 
         $this->getElement('message')
             ->addValidator('StringLength', true, array(5, 250));
 
-		$this->addElement('textarea', 'message_wide', array(
+        $this->addElement('textarea', 'message_wide', array(
             'label'         => __('Your Message:'),
-			'required'      => true,
-			'description'	=> __("We'd love to get your feedback on any of the products or services we offer or on your experience with us."),
+            'required'      => true,
+            'description'    => __("We'd love to get your feedback on any of the products or services we offer or on your experience with us."),
 
-			// extras
-			'container_class'	=> 'wide',
-		));
+            // extras
+            'container_class'    => 'wide',
+        ));
 
         $this->getElement('message_wide')
             ->addValidator('StringLength', true, array(5, 250));
 
-		$this->addElement('text', 'keywords', array(
-            'label'         	=> __('Keywords:'),
-			'required'      	=> true,
+        $this->addElement('text', 'keywords', array(
+            'label'             => __('Keywords:'),
+            'required'          => true,
 
-			// extra
-			'container_class'	=> 'wide',
+            // extra
+            'container_class'    => 'wide',
         ));
 
-		$this->addElement('multiselect', 'current_availability_id', array(
+        $this->addElement('multiselect', 'current_availability_id', array(
             'label'         => __('What is your current availability?'),
             'required'      => true,
-			'description'	=> __('Use the CTRL key to select more than one.'),
-			'multioptions'  => array(
-				1 => __('Part-time'),
-				2 => __('Full-time (Days)'),
-				3 => __('Full-time (Swing)'),
-				4 => __('Full-time (Graveyard)'),
-				5 => __('Weekends Only'),
-			)
+            'description'    => __('Use the CTRL key to select more than one.'),
+            'multioptions'  => array(
+                1 => __('Part-time'),
+                2 => __('Full-time (Days)'),
+                3 => __('Full-time (Swing)'),
+                4 => __('Full-time (Graveyard)'),
+                5 => __('Weekends Only'),
+            )
         ));
 
-		$this->addElement('multiCheckbox', 'availability_id', array(
+        $this->addElement('multiCheckbox', 'availability_id', array(
             'label'         => __('What is your current availability?'),
             'required'      => true,
-			'multioptions'  => array(
-				1 => __('Part-time'),
-				2 => __('Full-time (Days)'),
-				3 => __('Full-time (Swing)'),
-				4 => __('Full-time (Graveyard)'),
-				5 => __('Weekends Only'),
-			)
+            'multioptions'  => array(
+                1 => __('Part-time'),
+                2 => __('Full-time (Days)'),
+                3 => __('Full-time (Swing)'),
+                4 => __('Full-time (Graveyard)'),
+                5 => __('Weekends Only'),
+            )
         ));
 
-		$this->addDisplayGroup(array(
-			'info2',
-			'how_contact',
-			'email',
-			'email_check',
-			'phone',
-			'fax',
-			'subject',
-			'message',
-			'message_wide',
-			'keywords',
-			'current_availability_id',
-			'availability_id',
-		), 'contact_information');
+        $this->addDisplayGroup(array(
+            'info2',
+            'how_contact',
+            'email',
+            'email_check',
+            'phone',
+            'fax',
+            'subject',
+            'message',
+            'message_wide',
+            'keywords',
+            'current_availability_id',
+            'availability_id',
+        ), 'contact_information');
 
         $this->getDisplayGroup('contact_information')->setLegend(__('Contact Information'));
 
-		//
-		// Login Information fields
-		//
+        //
+        // Login Information fields
+        //
 
-		$this->addElement('info', 'info3', array(
-            'label'		=> __('Login Information'),
-			'messages'	=> array(
+        $this->addElement('info', 'info3', array(
+            'label'        => __('Login Information'),
+            'messages'    => array(
                 __('Your username and password must both be at least 8 characters long and are case-sensitive. Please do not enter accented characters.'),
                 __('We recommend that your password is not a word you can find in the dictionary, includes both capital and lower case letters, and contains at least one special character (1-9, !, *, _, etc.).'),
                 __('Your password will be encrypted and stored in our system. Due to the encryption, we cannot retrieve your password for you. If you lose or forget your password, we offer the ability to reset it.'),
             )
-		));
+        ));
 
         // login
-		$this->addElement('text', 'username', array(
+        $this->addElement('text', 'username', array(
             'label'         => __('Username:'),
             'required'      => true,
-			'description'	 => __('May only contain letters, numbers, and underscore (_) and 8-20 characters long.'),
+            'description'     => __('May only contain letters, numbers, and underscore (_) and 8-20 characters long.'),
         ));
 
         $this->getElement('username')
@@ -314,20 +314,20 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             ));
 
         // password
-		$this->addElement('password', 'password', array(
+        $this->addElement('password', 'password', array(
             'label'         => __('Password:'),
             'required'      => true,
-			'description'	 => __('Must be 6-25 characters long.'),
+            'description'     => __('Must be 6-25 characters long.'),
         ));
 
         $this->getElement('password')
             ->addValidator('StringLength', true, array(6, 25));
 
 
-		$this->addElement('password', 'password_check', array(
+        $this->addElement('password', 'password_check', array(
             'label'         => __('Please re-enter your password:'),
             'required'      => true,
-			'description'	 => __('Must match the password you entered just above.'),
+            'description'     => __('Must match the password you entered just above.'),
         ));
 
         $this->getElement('password_check')->addValidator('StringEquals', true, array(
@@ -338,15 +338,15 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             ),
         ));
 
-		$this->addElement('checkbox', 'remember_me', array(
+        $this->addElement('checkbox', 'remember_me', array(
             'label'         => __('Remember Me'),
-            'description'	=> __("If you don't want to bother with having to login every time you visit the site, then checking \"Remember Me\" will place a unique identifier only our site can read that we'll use to identify you and log you in automatically each time you visit."),
+            'description'    => __("If you don't want to bother with having to login every time you visit the site, then checking \"Remember Me\" will place a unique identifier only our site can read that we'll use to identify you and log you in automatically each time you visit."),
         ));
 
         $this->addElement('checkbox', 'therms', array(
             'label'         => __('I agree to the bellow terms'),
             'required'      => true,
-            'description'	 => sprintf(
+            'description'     => sprintf(
                 __('By checking this, you are indicating that you are agree with the %s Terms of Use %s.'),
                 '<a href="#">', '</a>'
             )
@@ -357,28 +357,28 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         $this->getElement('therms')->addValidator($thermsRequired);
 
 
-		$this->addDisplayGroup(array(
-			'info3',
-			'username',
-			'password',
-			'password_check',
-			'remember_me',
+        $this->addDisplayGroup(array(
+            'info3',
+            'username',
+            'password',
+            'password_check',
+            'remember_me',
             'therms',
-		), 'login_information');
+        ), 'login_information');
 
         $this->getDisplayGroup('login_information')->setLegend(__('Login Information'));
 
         //
-		// Avatar
-		//
+        // Avatar
+        //
 
         $this->addElement('info', 'info5', array(
-            'label'		=> __('Avatar Information'),
-			'messages'	=> array(
+            'label'        => __('Avatar Information'),
+            'messages'    => array(
                 __('You can upload a JPG, GIF or PNG file.'),
                 __('File size limit 4 MB. If your upload does not work, try a smaller picture.'),
             )
-		));
+        ));
 
         // add synchron upload support
         /*
@@ -387,8 +387,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'label'         => __('Upload your Avatar:'),
             'required'      => true,
 
-			// extras
-			'container_class'	=> 'wide',
+            // extras
+            'container_class'    => 'wide',
         ));
 */
         $this->addElement('checkbox', 'therms_file', array(
@@ -396,7 +396,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'required'      => true,
 
             // extras
-			'container_class'	=> 'wide',
+            'container_class'    => 'wide',
         ));
 
         $thermsRequired = new Zend_Validate_InArray(array(1));
@@ -404,23 +404,23 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         $this->getElement('therms_file')->addValidator($thermsRequired);
 
         $this->addDisplayGroup(array(
-			'info5',
+            'info5',
             'avatar_file',
             'therms_file',
-		), 'avatar');
+        ), 'avatar');
 
         $this->getDisplayGroup('avatar')->setLegend(__('Avatar'));
 
-		//
-		// Verification fields
-		//
+        //
+        // Verification fields
+        //
 
-		$this->addElement('info', 'info4', array(
-            'label'		=> __('Verification Information'),
-			'messages'	=> array(
+        $this->addElement('info', 'info4', array(
+            'label'        => __('Verification Information'),
+            'messages'    => array(
                 __('Type the characters you see in this picture. This ensures that a person, not an automated program, is creating this account.'),
             )
-		));
+        ));
 
         // init ReCaptcha service
         $pubKey = '6Lf59QQAAAAAANrLNTVbBEt4I1TgAIwuQuc22iuN';
@@ -428,18 +428,18 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         $recaptcha = new Zend_Service_ReCaptcha($pubKey, $privKey);
 
         // inir ReCaptcha adapter
-		$adapter = new Zend_Captcha_ReCaptcha();
-		$adapter->setService($recaptcha);
+        $adapter = new Zend_Captcha_ReCaptcha();
+        $adapter->setService($recaptcha);
 
         // build element
         $this->addElement('captcha', 'captcha', array(
             'captcha' => $adapter,
         ));
 
-		$this->addDisplayGroup(array(
-			'info4',
+        $this->addDisplayGroup(array(
+            'info4',
             'captcha',
-		), 'check_information');
+        ), 'check_information');
 
         $this->getDisplayGroup('check_information')->setLegend(__('Verification'));
 

@@ -47,8 +47,8 @@ class BaseZF_Framework_View_Helper_FormFancySelect extends Zend_View_Helper_Form
             }
         }
 
-		// add class formLabelRadio to label per default
-		$label_attribs['class'] = (isset($label_attribs['class']) ? $label_attribs['class'] . ' ' : '') . 'formLabelRadio';
+        // add class formLabelRadio to label per default
+        $label_attribs['class'] = (isset($label_attribs['class']) ? $label_attribs['class'] . ' ' : '') . 'formLabelRadio';
 
         $labelPlacement = 'append';
         foreach ($label_attribs as $key => $val) {

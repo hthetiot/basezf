@@ -307,8 +307,8 @@ class MyProject_StCollection_Country extends BaseZF_StCollection {
 */
     );
 
-	static public function getInstance()
-	{
-	    return parent::getInstance(__CLASS__);
-	}
+    static public function getInstance()
+    {
+        return parent::getInstance(__CLASS__);
+    }
 }

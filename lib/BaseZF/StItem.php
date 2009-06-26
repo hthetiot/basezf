@@ -20,7 +20,7 @@ class BaseZF_StItem extends ArrayObject {
      */
     private $_id;
 
-	/**
+    /**
      * Constructor fill array object from arra
      */
     public function __construct($id, $properties = array())
@@ -62,8 +62,8 @@ class BaseZF_StItem extends ArrayObject {
     final static public function getIdFromExtendedId($id)
     {
         if(is_numeric($id)) {
-			return $id;
-		}
+            return $id;
+        }
 
         // if id start with an x, it's an ASCII id, we have to decode it
         if(preg_match('/^x(.*)$/', $id, $m)) {

@@ -10,14 +10,14 @@
 
 abstract class BaseZF_Error_Debugger_Abstract
 {
-	protected $_exception;
+    protected $_exception;
 
-	public function __construct(Exception $exception)
-	{
-		$this->_exception = $exception;
+    public function __construct(Exception $exception)
+    {
+        $this->_exception = $exception;
 
-		return $this->_render();
-	}
+        return $this->_render();
+    }
 
     public function getExceptionSourceDetails()
     {
@@ -40,6 +40,6 @@ abstract class BaseZF_Error_Debugger_Abstract
         return $context;
     }
 
-	abstract protected function _render();
+    abstract protected function _render();
 }
 

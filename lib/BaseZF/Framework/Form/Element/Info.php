@@ -23,7 +23,7 @@ class BaseZF_Framework_Form_Element_Info extends Zend_Form_Element_Xhtml
      */
     public $helper = 'formInfo';
 
-	/**
+    /**
      * Constructor
      *
      * $spec may be:
@@ -37,6 +37,6 @@ class BaseZF_Framework_Form_Element_Info extends Zend_Form_Element_Xhtml
      */
     public function __construct($name, $options = null)
     {
-		parent::__construct($name, $options);
+        parent::__construct($name, $options);
     }
 }
