@@ -265,7 +265,7 @@ form.formLayout label.formLabelRadio {
 
 form.formLayout label.formLabelCheckbox input.formCheckbox,
 form.formLayout label.formLabelRadio input.formRadio {
-    margin: -2px 3px 0 0;
+    margin: -10px 3px 0 0;
 }
 
 form.formLayout div label.compact {
@@ -546,8 +546,14 @@ form.formLayout div.selectThumbnails input:checked+span>img
     opacity:0.8;
 }
 
+form.formLayout input.inputLoading,
 form.formLayout div.loading input {
     background: #FFF url(/images/lib/basezf/elements/formLayout/inputLoading.gif) no-repeat scroll 188px 2px;
+}
+
+form.formLayout input.inputSearch,
+form.formLayout div.search input {
+    background: #FFF url(/images/lib/basezf/elements/formLayout/inputSearch.gif) no-repeat scroll 190px 4px;
 }
 
 form.formLayout div.wide.loading input

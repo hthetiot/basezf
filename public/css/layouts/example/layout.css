@@ -204,11 +204,6 @@ form.formLayout textarea:focus
 	border:1px solid #555;
 }
 
-form.formLayout input.inputLoading
-{
-    background: #ffffff url('/images/lib/basezf/elements/formLayout/inputLoading.gif') no-repeat 99% 55%;;
-}
-
 /* formFancySelect */
 form.formLayout div.formFancySelectLabel
 {
