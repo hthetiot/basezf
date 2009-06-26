@@ -8,7 +8,7 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-class Zend_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abstract
+class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abstract
 {
     /**
      * This is the main helper methods

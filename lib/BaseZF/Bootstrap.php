@@ -45,9 +45,7 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             'path'			=> 'application/views',
             'script_suffix' => '.phtml',
             'inflector'     => ':module/:controller/:action.:suffix',
-            'helper_paths' 	=> array(
-                'BaseZF_Framework_View_Helper' 	=> 'BaseZF/Framework/View/Helper',
-            ),
+            'helper_paths' 	=> array(),
         ),
 
         // Static Pack Options
