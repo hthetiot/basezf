@@ -33,7 +33,7 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
 
                 // test asynchron validation
                 if (isset($formData['first_name'])) {
-                    sleep(5);
+                    sleep(3);
                 }
 
                 // set output mode for json only

@@ -21,13 +21,21 @@
 
     <script type="text/javascript">
 
-        // launch at domready
+        // add calendar
         window.addEvent('domready', function() {
             myCal2 = new Calendar({ birthday_d: { birthday_y: 'Y', birthday_m: 'm', birthday_d: 'd' }}, { direction: 2, tweak: { x: 6, y: 0 }});
         });
 
+        // add auto complete
+        window.addEvent('domready', function() {
+            new Autocompleter.Request.JSON('city', '/example/form/autocompletercallback', {
+                'postVar': 'search',
+                'indicatorClass': 'inputSearch'
+            });
+        });
     </script>
 	<?php
+
         echo $this->form;
 
 /*
@@ -118,14 +126,7 @@
                 <input type="text" value="" maxlength="50" size="10" class="formText" id="postal" name="postal"/>
             </div>
 
-            <script>
-                window.addEvent('domready', function() {
-                    new Autocompleter.Request.JSON('city', '/example/form/autocompletercallback', {
-                        'postVar': 'search',
-                        'indicatorClass': 'inputLoading'
-                    });
-                });
-            </script>
+
             <div class="optional">
                 <label for="city">City:</label>
                 <input type="text" value="" maxlength="100" size="10" class="formText" id="city" name="city"/>

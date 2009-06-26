@@ -16,6 +16,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
     {
         $this->setAttrib('class', 'formAjaxValidate');
 
+        $currentLocale = MyProject::registry('locale');
+
 		//
 		// Personal Information fields
 		//
@@ -63,13 +65,15 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 
 		$this->addElement('select', 'country_id', array(
 			'label'         => __('Country:'),
-			'multioptions'  => array(),
+			'multioptions'  => Zend_Locale::getTranslationList('territory', $currentLocale),
         ));
 
+        /*
 		$this->addElement('select', 'state_id', array(
 			'label'         => __('State:'),
-			'multioptions'  => array(),
+			'multioptions'  => Zend_Locale::getTranslationList('TerritoryToRegion', $currentLocale),
         ));
+        */
 
 		$this->addElement('text', 'zipcode', array(
             'label'         => __('Zip/Postal Code:'),
@@ -215,6 +219,9 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 			'description'	=> __('Must be 250 characters or less.'),
         ));
 
+        $this->getElement('message')
+            ->addValidator('StringLength', true, array(5, 250));
+
 		$this->addElement('textarea', 'message_wide', array(
             'label'         => __('Your Message:'),
 			'required'      => true,
@@ -223,6 +230,9 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 			// extras
 			'container_class'	=> 'wide',
 		));
+
+        $this->getElement('message_wide')
+            ->addValidator('StringLength', true, array(5, 250));
 
 		$this->addElement('text', 'keywords', array(
             'label'         	=> __('Keywords:'),
@@ -287,17 +297,32 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             )
 		));
 
+        // login
 		$this->addElement('text', 'username', array(
             'label'         => __('Username:'),
             'required'      => true,
 			'description'	 => __('May only contain letters, numbers, and underscore (_) and 8-20 characters long.'),
         ));
 
+        $this->getElement('username')
+            ->addValidator('StringLength', true, array(8, 20))
+            ->addValidator('Regex', false, array(
+                'pattern' => '/^[0-9A-Za-z+\_]*$/',
+                'messages' => array(
+                    'regexNotMatch'  => __('Invalide Username should only contain letters, numbers, and underscore (_).')
+                ),
+            ));
+
+        // password
 		$this->addElement('password', 'password', array(
             'label'         => __('Password:'),
             'required'      => true,
 			'description'	 => __('Must be 6-25 characters long.'),
         ));
+
+        $this->getElement('password')
+            ->addValidator('StringLength', true, array(6, 25));
+
 
 		$this->addElement('password', 'password_check', array(
             'label'         => __('Please re-enter your password:'),
