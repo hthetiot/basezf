@@ -1,0 +1,4 @@
+-- MyProject - example_type.sql
+--
+-- This file containt the default project table content
+--
