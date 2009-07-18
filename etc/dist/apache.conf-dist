@@ -105,7 +105,19 @@
         # php_value xdebug.profiler_output_dir $PROJECT_PATH/data/log/
         # php_value xdebug.profiler_output_name php_xdebug.out.%H.%R
 
+
+
+
+
     </IfModule>
+
+    ### File upload limit
+    # LimitRequestBody        136314880
+    #
+    # <IfModule mod_php5.c>
+    #     php_value upload_max_filesize 104857600
+    #     php_value post_max_size 104857600
+    # </IfModule>
 
     ### Mod rewrite configuration
     <IfModule mod_rewrite.c>
