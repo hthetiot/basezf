@@ -1,1 +1,42 @@
+<?xml version="1.0"?>
+<config>
+	<roles>
+        <role id="1" name="admin" title="Admin" almighty="yes" />
+        <role id="2" name="manager" title="Manager" />
+        <role id="2" name="member" title="Member" />
+        <role id="3" name="guest" title="Guest" />
+	</roles>
+    <permissions>
 
+	    <!-- Resource backoffice -->
+        <resource name="backoffice" allow="no">
+
+            <role name="admin" allow="yes" />
+
+            <privilege name="switchuser" allow="no">
+                <role name="admin" allow="yes" />
+            </privilege>
+
+            <!-- manageRole-->
+            <privilege name="manageRole" allow="no">
+                <role name="admin" allow="yes" />
+                <role name="manager" allow="yes" />
+            </privilege>
+
+            <!-- no one can do this -->
+            <privilege name="manageRole:Guest" allow="no">
+            </privilege>
+
+            <!-- only admin -->
+            <privilege name="manageRole:Admin" allow="no">
+                <role name="admin" allow="yes" />
+            </privilege>
+
+            <!-- only admin and test manager to be enable in future -->
+            <privilege name="manageRole:Manager" allow="no">
+                <role name="admin" allow="yes" />
+            </privilege>
+       </resource>
+
+	</permissions>
+</config>

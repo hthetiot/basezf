@@ -1,1 +1,21 @@
+<?xml version="1.0"?>
+<config>
+    <permissions>
+        <!-- Resource Config -->
 
+        <!-- Backoffice -->
+        <resource name="backoffice/*" allow="no">
+            <role name="admin" allow="yes" />
+            <role name="manager" allow="yes" />
+        </resource>
+
+        <!-- Profile -->
+        <resource name="member/home/*" allow="yes">
+            <role name="guest" allow="no" />
+        </resource>
+
+        <resource name="member/index/login" allow="yes" />
+        <resource name="member/index/logout" allow="yes" />
+
+    </permissions>
+</config>
