@@ -1,9 +1,9 @@
-#  Language  translations for PACKAGE package.
-#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-#  This file is distributed under the same license as the PACKAGE package.
-#  Automatically generated, 2009.
-#
-# , fuzzy
+#    Language  translations for PACKAGE package.
+#    Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+#    This file is distributed under the same license as the PACKAGE package.
+#    Automatically generated, 2009.
+#  
+#   , fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"

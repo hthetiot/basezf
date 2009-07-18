@@ -99,7 +99,7 @@ locale: locale-template locale-update locale-deploy
 locale-template:
 	@echo "----------------"
 	@echo "Build GetText POT files for $(PROJECT_NAME):"
-	@touch $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot
+	@echo "" > $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot
 	@find $(PROJECT_LOCALE_INCLUDE_PATH) -type f -iname "*.ph*" | xgettext -L PHP --keyword=__ -j -s -o $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot --msgid-bugs-address=$(PROJECT_MAINTAINER_COURRIEL) -f -
 	@msguniq $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot -o $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$(PROJECT_LOCALE_DOMAIN).pot
 	@echo "done"
@@ -188,7 +188,7 @@ log-archive:
 	@list=`find $(PROJECT_LOG) -type f -not -name "README"`; \
 	for i in $$list;do \
 		echo "Archived $$i"; \
-        gzip $$i; \
+	gzip $$i; \
     done
 	@echo "done"
 
@@ -200,6 +200,7 @@ clean:
 		-iname '*.DS_Store' -o \
 		-iname '*~' -o \
 		-iname '*.~*' -o \
+		-iname 'static-pack-*' -o \
 		-iname '*.bak' -o \
 		-iname '#*#' -o \
 		-iname '*.marks' -o \
