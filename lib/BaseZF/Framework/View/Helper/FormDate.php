@@ -10,122 +10,188 @@
 
 class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
 {
-	public function formDate($name, $value = null, $attribs = null)
+	public function formDate($name, $value = null, $attribs = null, $options = array())
     {
-        $info = $this->_getInfo($name, $value, $attribs);
+        $info = $this->_getInfo($name, $value, $attribs, $options);
         extract($info); // name, value, attribs, options, listsep, disable
 
         // force $value to array so we can compare multiple values
         // to multiple options.
         $value = (array) $value;
+        $options = (array) $options;
 
         // set config value
-        $options = array(
-            'year_start'    => date('Y')-70,
-            'year_end'      => date('Y'),
-            'year_empty'    => __('Year'),
-
-            'month_start'   => 1,
-            'month_end'     => 12,
-            'month_empty'   => __('Month'),
-
-            'day_start'     => 1,
-            'day_end'       => 31,
-            'day_empty'     => __('Day'),
+        $defaultOptions = array(
+            'years'      => range(date('Y')-70, date('Y')),
+            'days'       => range(1, 31),
+            'months'     => array(
+                1   => __('January', 'time'),
+                2   => __('February', 'time'),
+                3   => __('March', 'time'),
+                4   => __('April', 'time'),
+                5   => __('May', 'time'),
+                6   => __('June', 'time'),
+                7   => __('July', 'time'),
+                8   => __('August', 'time'),
+                9   => __('September', 'time'),
+                10  => __('October', 'time'),
+                11  => __('November', 'time'),
+                12  => __('December', 'time'),
+            ),
+            'format'    => array('Y', 'm', 'd'),
+            'calendar'  => array(
+                'direction' => 7,
+                'tweak'     => array(
+                    'x' => 6,
+                    'y' => 0,
+                ),
+            ),
         );
 
-        // merge options
-        foreach($options as $k => $v) {
-            if (isset($attribs[$k])) {
-                $options[$k] = $attribs[$k];
+        // populate options cause i whont overload any _Form_Element_Date
+        $optionsPossibleKeys = array_keys($defaultOptions);
+        $options = (is_array($options) ? $options : array());
+        foreach ($attribs as $k => $v) {
+            if (in_array($k, $optionsPossibleKeys)) {
+                $options[$k] = $v;
                 unset($attribs[$k]);
             }
         }
 
+        if (!empty($options) || !is_array($options)) {
+            $options = array_merge($defaultOptions, $options);
+        } else {
+            $options = $defaultOptions;
+        }
+
+        // build Xhtml
         $xhtml = array();
         $xhtml[] = '<div ' . $this->_htmlAttribs($attribs) . '>';
 
-        // build year
-        $valueYear = (isset($value['y']) ? $value['y'] : null);
-        $attribsYear = array(
-            'class' => 'formDateYear',
-            'id'    => $name . '_y',
-            'name'  => $name . '[y]',
-        );
+        var_dump($value);
 
-        $xhtml[] = $this->_buildSelect(
-            $attribsYear,
-            $options['year_start'],
-            $options['year_end'],
-            $valueYear,
-            $options['year_empty']
-        );
+        // set format
+        $elementsFormatByName = array();
+        foreach ($options['format'] as $formatName) {
+            $xhtml[] = $this->_buildElementDateFormat($formatName, $value, $name, $options);
+            $elementsFormatByName[$name . '_' . $formatName] = $formatName;
+        }
 
-
-        // build month
-        $valueMonth = (isset($value['m']) ? $value['m'] : null);
-        $attribsMonth = array(
-            'class' => 'formDateMonth',
-            'id'    => $name . '_m',
-            'name'  => $name . '[m]',
-        );
-
-        $xhtml[] = $this->_buildSelect(
-            $attribsMonth,
-            $options['month_start'],
-            $options['month_end'],
-            $valueMonth,
-            $options['month_empty']
-        );
-
-        // build day
-        $valueDay = (isset($value['d']) ? $value['d'] : null);
-        $attribsDay = array(
-            'class' => 'formDateDay',
-            'id'    => $name . '_d',
-            'name'  => $name . '[d]',
-        );
-
-        $xhtml[] = $this->_buildSelect(
-            $attribsDay,
-            $options['day_start'],
-            $options['day_end'],
-            $valueDay,
-            $options['day_empty']
-        );
         $xhtml[] = '</div>';
+
+        $xhtml[] = '<script type="text/javascript">';
+        $xhtml[] = 'if (typeof CalendarInstance == "undefined") var CalendarInstance = {};';
+        $xhtml[] = "CalendarInstance." . $name . " = new Calendar({ " . $name . "_" . $formatName . " : " . json_encode($elementsFormatByName) . "}, " . json_encode($options['calendar']) . ");";
+        $xhtml[] = '</script>';
 
         return implode("\n", $xhtml);
 	}
 
-    protected function _buildSelect($attribs, $start, $end, $value = 0, $emptyValue = null, $disable = false)
+    protected function _buildElementDateFormat($formatName, $value, $name, $options)
     {
-        // is it disabled?
-        if (true === $disable) {
-            $attribs['disabled'] = 'disabled';
-        }
+        switch ($formatName) {
 
+            // build year: Y
+            case 'Y':
+            {
+                $yearValue = (isset($value[$formatName]) ? $value[$formatName] : null);
+                $yearOptions = $options['years'];
+
+                return $this->_buildSelect(
+                    $yearValue,
+                    $yearOptions,
+                    array(
+                        'class' => 'formDateYear',
+                        'id'    => $name . '_' . $formatName,
+                        'name'  => $name . '[' . $formatName . ']',
+                    )
+                );
+            }
+
+            // build year: y
+            case 'y':
+            {
+                $yearValue = (isset($value[$formatName]) ? $value[$formatName] : null);
+                $yearOptions = array();
+                foreach ($options['years'] as $key => $value) {
+                    $yearOptions[$key] = substr($value, 2 , 2);
+                }
+
+                return $this->_buildSelect(
+                    $yearValue,
+                    $yearOptions,
+                    array(
+                        'class' => 'formDateYear',
+                        'id'    => $name . '_' . $formatName,
+                        'name'  => $name . '[' . $formatName . ']',
+                    )
+                );
+            }
+
+            // build day
+            case 'd':
+            {
+                $dayValue= (isset($value[$formatName]) ? $value[$formatName] : null);
+                $dayOptions = $options['days'];
+
+                return $this->_buildSelect(
+                    $dayValue,
+                    $dayOptions,
+                    array(
+                        'class' => 'formDateDay',
+                        'id'    => $name . '_' . $formatName,
+                        'name'  => $name . '[' . $formatName . ']',
+                    )
+                );
+            }
+
+            // build month
+            case 'm':
+            {
+                $monthValue = (isset($value[$formatName]) ? $value[$formatName] : null);
+                $monthOptions = $options['months'];
+
+                return $this->_buildSelect(
+                    $monthValue,
+                    $monthOptions,
+                    array(
+                        'class' => 'formDateMonth',
+                        'id'    => $name . '_' . $formatName,
+                        'name'  => $name . '[' . $formatName . ']',
+                    )
+                );
+            }
+
+            default:
+                throw new Exception(sprintf('Bad element format value "%s" for helper class %s', $formatName, __CLASS__));
+        }
+    }
+
+    protected function _buildSelect($currentValue = 0, $options, $attribs)
+    {
         $xhtml = array();
         $xhtml[] = '<select ' . $this->_htmlAttribs($attribs) . '>';
 
-        if (!is_null($emptyValue)) {
+        $isAssoc = (current(array_keys($options)) == '0');
 
-            $xhtml[] = '<option>' . $emptyValue .  '</option>';
-        }
+        foreach ($options as $value => $label) {
 
-        for ($i = $start; $i <= $end; $i++) {
+            if (is_numeric($value)) {
+                $value = str_pad($value, 2, '0', STR_PAD_LEFT);
+            }
 
             // is it selected?
             $selected = '';
-            if ($i == $value) {
+            if ($value == $currentValue) {
                 $selected = ' selected="selected"';
             }
 
-            $xhtml[] = '<option'
-                     . $selected
-                     . ' value="' . str_pad($i, 2, '0', STR_PAD_LEFT) . '">'
-                     . str_pad($i, 2, '0', STR_PAD_LEFT)
-                     . '</option>';
+            if ($isAssoc) {
+                $xhtml[] = '<option' . $selected . ' value="' . str_pad($label, 2, '0', STR_PAD_LEFT) . '">' . str_pad($label, 2, '0', STR_PAD_LEFT) . '</option>';
+            } else {
+
+                $xhtml[] = '<option' . $selected . ' value="' . $value . '">' . $this->view->escape($label) . '</option>';
+            }
         }
 
         $xhtml[] = '</select>';

@@ -1,0 +1,35 @@
+<?php
+
+    // add calendar skin
+    $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/i-heart-ny/calendar.css', 'screen, projection');
+    $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/dashboard/calendar.css', 'screen, projection');
+?>
+<div id="main" class="l-border r-border span-15">
+
+    <h1 id="intro"><a href="#intro">Date Select</a></h1>
+
+    <h2 id="Features"><a href="#Features">Features</a></h2>
+
+    <h2 id="Examples"><a href="#Examples">Examples</a></h2>
+
+    <script type="text/javascript">
+/*
+        // add calendar
+        window.addEvent('domready', function() {
+            myCal2 = new Calendar({ date1_d: { date1_Y: 'Y', date1_m: 'm', date1_d: 'd' }}, { direction: 2, tweak: { x: 6, y: 0 }});
+
+            myCal2 = new Calendar({ date2_d: { date2_Y: 'Y', date2_m: 'm', date2_d: 'd' }}, { classes: ['i-heart-ny'], direction: 2, tweak: { x: 6, y: 0 }});
+
+            myCal2 = new Calendar({ date3_d: { date3_Y: 'Y', date3_m: 'm', date3_d: 'd' }}, { classes: ['dashboard'], direction: 2, tweak: { x: 6, y: 0 }});
+        });
+        */
+    </script>
+    <?php echo $this->form; ?>
+
+</div>
+
+<div id="menu" class="span-2 last">
+    <h4 class="menu-item"><a href="#Title">Date Select</a></h4>
+    <div class="menu-item"><a href="#Features">Features</a></div>
+    <div class="menu-item"><a href="#Examples">Examples</a></div>
+</div>

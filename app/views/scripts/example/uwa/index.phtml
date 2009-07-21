@@ -1,6 +1,6 @@
 <script type="text/javascript">
 
-    // update widget elements
+// update widget elements
     widget.setTitle('Test Title update');
     widget.setIcon("http://cdn.netvibes.com/modules/uwa/icon.png");
     widget.setUnreadCount(1);
@@ -38,15 +38,14 @@
       tabs.observe('activeTabChange', TabViewSample.onActiveTabChanged);
 
       // Restore saved active tab
-      var activeTab = widget.getValue("activeTab");
+      var activeTab = widget.getValue('activeTab');
       if (activeTab) {
           tabs.selectTab(activeTab);
+      } else {
+          tabs.selectTab('tab1');
       }
 
-      widget.setBody('');
-
-      // Append tabview to widget body
-      tabs.appendTo(widget.body);
+      widget.setBody(tabs.tabSet);
     }
 
     TabViewSample.onActiveTabChanged = function(name, data) {
@@ -254,23 +253,32 @@
     <div id="export-content">
         <?php
             $uwaServerUrl = 'http://uwa.service.japanim.fr';
+            $uwaWidgetUrl = MAIN_URL . $_SERVER['REQUEST_URI'];
         ?>
+
+        <h2>Stable</h2>
         <ul>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('netvibes', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Netvibes</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('google', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">iGoogle</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('dashboard', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Dashboard</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('opera', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Opera</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('screenlets', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Screenlets</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('jil', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Jil/Ophone</a></li>
-            <li><a target="_blank" href="<?php echo $this->uwaExportLink('vista', MAIN_URL . '/example/uwa/', $uwaServerUrl); ?>">Windows Vista/SEVEN</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('netvibes', $uwaWidgetUrl, $uwaServerUrl); ?>">Netvibes</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('google', $uwaWidgetUrl, $uwaServerUrl); ?>">iGoogle</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('dashboard', $uwaWidgetUrl, $uwaServerUrl); ?>">Dashboard</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('screenlets', $uwaWidgetUrl, $uwaServerUrl); ?>">Screenlets</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('blogger', $uwaWidgetUrl, $uwaServerUrl); ?>">Blogger</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('live', $uwaWidgetUrl, $uwaServerUrl); ?>">Live</a></li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('opera', $uwaWidgetUrl, $uwaServerUrl); ?>">Opera</a></li>
             <li>
-                <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()))); ?>">Iframe</a>
+                <a target="_blank" href="<?php echo $this->uwaExportLink('frame', $uwaWidgetUrl, $uwaServerUrl, array('id' => md5($this->url()))); ?>">Iframe</a>
                 (
-                    <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1)); ?>">with header</a>
-                    - <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1, 'chromeColor' => 'orange')); ?>">with header color</a>
-                    - <a target="_blank" href="<?php echo $this->uwaExportLink('frame', MAIN_URL . '/example/uwa/', $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1, 'status' => 0)); ?>">without status</a>
+                    <a target="_blank" href="<?php echo $this->uwaExportLink('frame', $uwaWidgetUrl, $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1)); ?>">with header</a>
+                    - <a target="_blank" href="<?php echo $this->uwaExportLink('frame', $uwaWidgetUrl, $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1, 'chromeColor' => 'orange')); ?>">with header color</a>
+                    - <a target="_blank" href="<?php echo $this->uwaExportLink('frame', $uwaWidgetUrl, $uwaServerUrl, array('id' => md5($this->url()), 'header' => 1, 'status' => 0)); ?>">without status</a>
                 )
             </li>
+        </ul>
+
+        <h2>Unstable</h2>
+        <ul>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('jil', $uwaWidgetUrl, $uwaServerUrl); ?>">Jil/Ophone</a> (Work in progress)</li>
+            <li><a target="_blank" href="<?php echo $this->uwaExportLink('vista', $uwaWidgetUrl, $uwaServerUrl); ?>">Windows Vista/SEVEN</a> (Work in progress)</li>
         </ul>
     </div>
 </div>

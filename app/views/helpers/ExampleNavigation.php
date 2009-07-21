@@ -30,24 +30,24 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
 
             'Form Elements' => array(
                 '/example/form/index'           => 'Showcases',
-                '/example/form/multipleselect'  => 'Multiple Select',
-                '/example/form/rangeselect'     => 'Range Select',
-                '/example/form/dateselect'      => 'Date Select',
-                '/example/form/contactselect'   => 'Contact List',
+                '/example/form/fancyselect'     => 'Fancy Select Element',
+                '/example/form/dateselect'      => 'Date Element',
+                //'/example/form/rangeselect'   => 'Range Select Element',
+                //'/example/form/contactselect' => 'Contact List Element',
+                '/example/form/elements'        => 'Elements Extras',
             ),
 
             'CSS Elements' => array(
-               '/example/css/menus'         => 'Menus',
-               '/example/css/buttons'       => 'Fancy Buttons',
-               '/example/css/box'           => 'Round Box',
+               '/example/css/menus'             => 'Menus',
+               '/example/css/buttons'           => 'Fancy Buttons',
+               '/example/css/box'               => 'Round Box',
             ),
 
-            'JS Elements' => array(
-               '/example/javascript/ajaxlink'           => 'Ajax Link',
-               '/example/javascript/ajaxformvalidate'   => 'Ajax Form Validation',
-               '/example/javascript/autocompleter'      => 'Auto Completer',
-               '/example/javascript/lightbox'           => 'LightBox',
-               '/example/javascript/uwa'                => 'UWA Widget',
+            'JS Tools' => array(
+               '/example/form/autocompleter'    => 'Auto Completer',
+               '/example/javascript/ajaxlink'   => 'Ajax Link',
+               '/example/javascript/lightbox'   => 'LightBox',
+               '/example/javascript/uwa'        => 'UWA Widget',
             ),
 
             'Helpers' => array(

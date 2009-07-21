@@ -21,9 +21,7 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
         $form = new MyProject_Form_Example_Showcases();
         $form->setAction('/example/form/index');
 
-        $request = $this->getRequest();
-
-        if ($request->isPost()) {
+        if ($this->getRequest()->isPost()) {
 
             // get form data
             $formData = $_POST;
@@ -99,6 +97,35 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
     {
         $this->_makeJson();
         $this->_setJson(array('Paris', 'Nantes'));
+    }
+
+    public function fancyselectAction()
+    {
+        $form = new MyProject_Form_Example_FancySelect();
+        $form->setAction('/example/form/fancyelect');
+
+        $this->view->form = $form;
+    }
+
+    public function dateselectAction()
+    {
+        $form = new MyProject_Form_Example_DateSelect();
+        $form->setAction('/example/form/dateselect');
+
+        if ($this->getRequest()->isPost()) {
+
+            // get form data
+            $formData = $_POST;
+
+            // set form data
+            $form->populate($formData);
+
+            // check if all form is valid
+            if ($form->isValid($formData)) {
+            }
+        }
+
+        $this->view->form = $form;
     }
 }
 
