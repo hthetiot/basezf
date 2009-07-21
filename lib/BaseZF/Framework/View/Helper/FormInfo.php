@@ -12,7 +12,7 @@ class BaseZF_Framework_View_Helper_FormInfo extends Zend_View_Helper_FormElement
 {
 	public function formInfo($name, $value = null, $attribs = array(), $options = null)
     {
-		$info = $this->_getInfo($name, $value, $attribs);
+		$info = $this->_getInfo($name, $value, $attribs, $options);
         extract($info); // name, id, value, attribs, options, listsep, disable
 
 		// get label
@@ -48,9 +48,9 @@ class BaseZF_Framework_View_Helper_FormInfo extends Zend_View_Helper_FormElement
         }
 
         // build messages
-        if (isset($attribs['messages'])) {
+        if (isset($options['messages'])) {
 
-            $messages = $attribs['messages'];
+            $messages = $options['messages'];
 
             // set has array
             if (!is_array($messages)) {

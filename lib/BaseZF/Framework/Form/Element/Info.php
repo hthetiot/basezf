@@ -23,20 +23,14 @@ class BaseZF_Framework_Form_Element_Info extends Zend_Form_Element_Xhtml
      */
     public $helper = 'formInfo';
 
-	/**
-     * Constructor
-     *
-     * $spec may be:
-     * - string: name of element
-     * - array: options with which to configure element
-     * - Zend_Config: Zend_Config with options for configuring element
-     *
-     * @param  string|array|Zend_Config $spec
-     * @return void
-     * @throws Zend_Form_Exception if no element name after initialization
+    /**
+     * Array of options
+     * @var array options
      */
-    public function __construct($name, $options = null)
+    public $options = array();
+
+    public function setMessages(array $messages)
     {
-		parent::__construct($name, $options);
+        $this->options['messages'] = $messages;
     }
 }
