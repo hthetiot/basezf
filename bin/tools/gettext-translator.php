@@ -262,8 +262,8 @@ class gettextTranslator {
         $html = substr($html, 0, strpos($html, "</div>"));
 
         // clean results
-        $search = array('<br>', '&#39;', '&lt;a&gt;', '42', '»', '\ &quot;');
-        $replace = array("\n", "'", '%s', '%d', '\"', '\"');
+        $search = array('<br>', '&#39;', '&lt;a&gt;', '42', '»', '\ &quot;', '\"% ', '% \&quot;');
+        $replace = array("\n", "'", '%s', '%d', '\"', '\"', '\"%', '%\"');
         $results = str_replace($search, $replace, $html);
 
         return utf8_encode($results);
