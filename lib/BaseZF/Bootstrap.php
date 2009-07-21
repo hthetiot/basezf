@@ -245,8 +245,8 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 		$controllerOptions = $this->getOption('controller');
 
-        foreach ($controllerOptions['plugins'] as $controllerPlugin => $options) {
-             $plugin = new $controllerPlugin($options);
+        foreach ($controllerOptions['plugins'] as $controllerPlugin) {
+             $plugin = new $controllerPlugin();
              $frontController->registerPlugin($plugin);
         }
 
