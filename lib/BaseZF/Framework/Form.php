@@ -65,7 +65,7 @@ abstract class BaseZF_Framework_Form extends Zend_Form
     /**
      * Set default render
      */
-	public function render($content = null)
+	public function render(Zend_View_Interface $view = null)
 	{
         $this->setAttrib('class', $this->getAttrib('class') . ' formLayout');
 
@@ -84,7 +84,7 @@ abstract class BaseZF_Framework_Form extends Zend_Form
 		$this->setSubFormDecorators($defaultDecorators);
 		$this->setDecorators($defaultDecorators);
 
-        return parent::render($content);
+        return parent::render($view);
 	}
 }
 
