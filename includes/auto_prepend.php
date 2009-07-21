@@ -78,8 +78,9 @@ define_if_not('DEBUG_REPORT_TO', 'dev@' . BASE_URL);
 define_if_not('ZF_PATH', '/usr/share/php/ZendFrameWork/release-1.8.4');
 define_if_not('ZF_VERSION', '1.8.4');
 
-define_if_not('BASEZF_PATH', LIBRARY_PATH);
+define_if_not('BASEZF_PATH', LIBRARY_PATH . '/BaseZF');
 define_if_not('MYPROJECT_PATH', INCLUDE_PATH);
+
 
 //---------------------------------------------------------------------------
 // file inclusion & autoload
@@ -91,7 +92,7 @@ set_include_path(
     ZF_PATH . '/library/incubator' . PATH_SEPARATOR .
 
     // load others lib
-    BASEZF_PATH . PATH_SEPARATOR .
+    BASEZF_PATH . '/library' . PATH_SEPARATOR .
     MYPROJECT_PATH . PATH_SEPARATOR .
     INCLUDE_PATH . PATH_SEPARATOR .
     LIBRARY_PATH . PATH_SEPARATOR .
