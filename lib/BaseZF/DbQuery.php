@@ -10,18 +10,18 @@
 
 class BaseZF_DbQuery
 {
-	/**
-	 * Define the zend log priority
-	 */
-	const LOG_PRIORITY = 11;
+    /**
+     * Define the zend log priority
+     */
+    const LOG_PRIORITY = 11;
 
-    const EXPIRE_NONE 	= false;
-    const EXPIRE_NEVER 	= null;
+    const EXPIRE_NONE     = false;
+    const EXPIRE_NEVER     = null;
     const EXPIRE_MINUTE = 60;
-    const EXPIRE_HOUR 	= 3600;
-    const EXPIRE_DAY 	= 86400;
-    const EXPIRE_WEEK 	= 604800;
-    const EXPIRE_MONTH 	= 2592000;
+    const EXPIRE_HOUR     = 3600;
+    const EXPIRE_DAY     = 86400;
+    const EXPIRE_WEEK     = 604800;
+    const EXPIRE_MONTH     = 2592000;
 
     /**
      * Instance of Cache
@@ -268,7 +268,7 @@ class BaseZF_DbQuery
      */
     static protected function _getLoggerInstance()
     {
-	   return self::$_LOGGER;
+       return self::$_LOGGER;
     }
 
     static public function setLoggerInstance($logger)
@@ -525,7 +525,7 @@ class BaseZF_DbQuery
     public function _executeCacheKeysByRows()
     {
 
-		$queryFields = $this->_getQueryFields();
+        $queryFields = $this->_getQueryFields();
         $cacheKey = $this->getCacheKey();
         $cacheKeysByRows = $this->_buildCacheKeysByRowsFromValues();
 
@@ -884,7 +884,7 @@ class BaseZF_DbQuery
      */
     public function log($msg)
     {
-		if ($logger = $this->_getLoggerInstance()) {
+        if ($logger = $this->_getLoggerInstance()) {
             $logger->log('DbQuery -> ' . $msg, self::LOG_PRIORITY);
         }
     }

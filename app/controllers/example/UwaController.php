@@ -12,7 +12,7 @@ class Example_UwaController extends BaseZF_Framework_Controller_Action_Uwa
 {
     public function indexAction()
     {
-		// se widget title (it will translate)
+        // se widget title (it will translate)
         $this->_setTitle('My Sample Widget');
 
         // set widget metas
@@ -41,11 +41,11 @@ class Example_UwaController extends BaseZF_Framework_Controller_Action_Uwa
         $this->_enableDebug();
     }
 
-	public function jsoncallbackAction()
+    public function jsoncallbackAction()
     {
         $this->_makeJson();
 
-		$this->_setJson(array('date' => date('Y-m-d H:i:s')));
+        $this->_setJson(array('date' => date('Y-m-d H:i:s')));
     }
 
     public function ajaxcallbackAction()

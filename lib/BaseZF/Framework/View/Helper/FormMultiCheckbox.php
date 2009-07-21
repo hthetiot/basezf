@@ -10,7 +10,7 @@
 
 class BaseZF_Framework_View_Helper_FormMultiCheckbox extends Zend_View_Helper_FormRadio
 {
-	/**
+    /**
      * Input type to use
      * @var string
      */
@@ -22,7 +22,7 @@ class BaseZF_Framework_View_Helper_FormMultiCheckbox extends Zend_View_Helper_Fo
      */
     protected $_isArray = true;
 
-	/**
+    /**
      * Generates a set of checkbox button elements.
      *
      * @access public
@@ -43,24 +43,24 @@ class BaseZF_Framework_View_Helper_FormMultiCheckbox extends Zend_View_Helper_Fo
     public function formMultiCheckbox($name, $value = null, $attribs = null,
         $options = null, $listsep = "\n")
     {
-		// get label
-		$label = isset($attribs['label']) ? $attribs['label'] : null;
-		unset($attribs['label']);
+        // get label
+        $label = isset($attribs['label']) ? $attribs['label'] : null;
+        unset($attribs['label']);
 
-		// update classnames
-		if(isset($attribs['class'])) {
-			$attribs['class'] = str_replace('Multi', '', $attribs['class']);
-		}
+        // update classnames
+        if(isset($attribs['class'])) {
+            $attribs['class'] = str_replace('Multi', '', $attribs['class']);
+        }
 
-		if(isset($attribs['label_class'])) {
-			$attribs['label_class'] = str_replace('Multi', '', $attribs['label_class']);
-		}
+        if(isset($attribs['label_class'])) {
+            $attribs['label_class'] = str_replace('Multi', '', $attribs['label_class']);
+        }
 
-		$xhtml = '<fieldset>'
-			   . ($label ==! null ? '<legend>' . $this->view->escape(trim($label)) . '</legend>' : null)
-			   . $this->formRadio($name, $value, $attribs, $options, $listsep)
-			   . '</fieldset>';
+        $xhtml = '<fieldset>'
+               . ($label ==! null ? '<legend>' . $this->view->escape(trim($label)) . '</legend>' : null)
+               . $this->formRadio($name, $value, $attribs, $options, $listsep)
+               . '</fieldset>';
 
-		return $xhtml;
+        return $xhtml;
     }
 }

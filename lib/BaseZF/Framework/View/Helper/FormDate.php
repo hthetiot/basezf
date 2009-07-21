@@ -10,6 +10,7 @@
 
 class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
 {
+
 	public function formDate($name, $value = null, $attribs = null, $options = array())
     {
         $info = $this->_getInfo($name, $value, $attribs, $options);
@@ -85,7 +86,7 @@ class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
         $xhtml[] = '</script>';
 
         return implode("\n", $xhtml);
-	}
+    }
 
     protected function _buildElementDateFormat($formatName, $value, $name, $options)
     {

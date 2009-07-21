@@ -427,7 +427,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
         elements.each(function(el) {
 
-			if (!el.name || el.disabled) return;
+            if (!el.name || el.disabled) return;
 
             var value = '';
             var type = el.type;
@@ -459,7 +459,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
             elementsValues.set(name, values);
 
-		}, this);
+        }, this);
 
         var queryString = [];
         elementsValues.each(function(values, name) {
@@ -474,6 +474,6 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         });
 
         return queryString.join('&');
-	},
+    },
 });
 

@@ -28,7 +28,7 @@ abstract class BaseZF_Framework_Form extends Zend_Form
 
         parent::__construct($options);
 
-	}
+    }
 
     /**
      * Return a json array or partial validation restults
@@ -69,20 +69,20 @@ abstract class BaseZF_Framework_Form extends Zend_Form
 	{
         $this->setAttrib('class', $this->getAttrib('class') . ' formLayout');
 
-		$defaultDecorators = array(
-			'FormElements',
-			'Form'
-		);
+        $defaultDecorators = array(
+            'FormElements',
+            'Form'
+        );
 
-		$defaultGroupDecorators = array(
-			'FormElements',
-			'Fieldset',
-		);
+        $defaultGroupDecorators = array(
+            'FormElements',
+            'Fieldset',
+        );
 
-		$this->setElementDecorators(array('Composite'));
-		$this->setDisplayGroupDecorators($defaultGroupDecorators);
-		$this->setSubFormDecorators($defaultDecorators);
-		$this->setDecorators($defaultDecorators);
+        $this->setElementDecorators(array('Composite'));
+        $this->setDisplayGroupDecorators($defaultGroupDecorators);
+        $this->setSubFormDecorators($defaultDecorators);
+        $this->setDecorators($defaultDecorators);
 
         return parent::render($view);
 	}

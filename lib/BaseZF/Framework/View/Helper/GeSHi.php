@@ -30,9 +30,9 @@ class BaseZF_Framework_View_Helper_GeSHi extends BaseZF_Framework_View_Helper_Ab
             $geshi = self::$_geshiInstance;
         }
 
-		// set data for geshi
-		$geshi->set_source($source);
-		$geshi->set_language($language);
+        // set data for geshi
+        $geshi->set_source($source);
+        $geshi->set_language($language);
 
         if ($lineNumbers) {
             $geshi->enable_line_numbers(GESHI_FANCY_LINE_NUMBERS);

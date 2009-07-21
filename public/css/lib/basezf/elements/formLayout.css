@@ -312,11 +312,11 @@ form.formLayout div div.formFileContainer
 
 form.formLayout div.formFileContainer input.formFile {
     position: relative;
-	text-align: right;
-	-moz-opacity:0 ;
-	filter:alpha(opacity: 0);
-	opacity: 0;
-	z-index: 2;
+    text-align: right;
+    -moz-opacity:0 ;
+    filter:alpha(opacity: 0);
+    opacity: 0;
+    z-index: 2;
 }
 
 form.formLayout div div.formFileContainer input.formFileFake

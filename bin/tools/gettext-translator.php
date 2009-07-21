@@ -193,9 +193,9 @@ class gettextTranslator {
             throw new Exception(sprintf('Unable to use adapter %s, missing func %s', $adapter, $adapterFuncName));
         }
 
-		if ($inputLanguage == $outputLanguage) {
-			return;
-		}
+        if ($inputLanguage == $outputLanguage) {
+            return;
+        }
 
         foreach ($this->_fileData as &$data) {
 
@@ -229,12 +229,12 @@ class gettextTranslator {
     static protected function _translateAdapterGoogle($string, $inputLanguage, $outputLanguage)
     {
 
-		// clean results
+        // clean results
         $search = array('%s', '%d');
         $replace = array('<a>', '42');
         $string = str_replace($search, $replace, $string);
 
-		// params
+        // params
         $url = "http://translate.google.com/translate_t?langpair=" . urlencode($inputLanguage . '|' . $outputLanguage)."&amp;";
         $data = "text=" . urlencode($string);
         $results = '';

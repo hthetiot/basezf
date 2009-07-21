@@ -122,5 +122,5 @@ BaseZF.Class.Helper.run = new Class({
 
 // launch at domready
 window.addEvent('domready', function() {
-	new BaseZF.Class.Helper.run();
+    new BaseZF.Class.Helper.run();
 });

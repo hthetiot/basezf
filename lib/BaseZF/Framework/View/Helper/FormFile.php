@@ -10,7 +10,7 @@
 
 class BaseZF_Framework_View_Helper_FormFile extends Zend_View_Helper_FormFile
 {
-	/**
+    /**
      * Generates a 'file' element.
      *
      * @access public

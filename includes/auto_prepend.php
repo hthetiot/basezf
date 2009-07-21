@@ -44,7 +44,7 @@ require_once LIBRARY_PATH . '/missing_functions.php';
 // Include local_auto_prepend.php if available
 
 if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(INCLUDE_PATH . '/auto_prepend_local.php')) {
-	require_once(INCLUDE_PATH . '/auto_prepend_local.php');
+    require_once(INCLUDE_PATH . '/auto_prepend_local.php');
 }
 
 //

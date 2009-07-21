@@ -17,11 +17,11 @@ abstract class BaseZF_StCollection extends ArrayObject
     protected $_data = array();
 
     /**
-	 * Static instance cache
-	 */
-	protected static $_STATIC_INSTANCES = array();
+     * Static instance cache
+     */
+    protected static $_STATIC_INSTANCES = array();
 
-	/**
+    /**
      * Constructor fill array object from array
      */
     public function __construct($itemClassName = null)
@@ -44,22 +44,22 @@ abstract class BaseZF_StCollection extends ArrayObject
     }
 
     /**
-	 * Get instance of allready contructed object
-	 *
-	 * @return object instance of StCollection
-	 */
-	static protected function getInstance($className, $itemClassName = null)
-	{
+     * Get instance of allready contructed object
+     *
+     * @return object instance of StCollection
+     */
+    static protected function getInstance($className, $itemClassName = null)
+    {
         if(!isset(self::$_STATIC_INSTANCES[$className])) {
             self::$_STATIC_INSTANCES = &new $className($itemClassName);
         }
 
         return self::$_STATIC_INSTANCES;
-	}
+    }
 
     //
-	// StItem manager
-	//
+    // StItem manager
+    //
 
     /**
      * Get stItem class name
@@ -91,10 +91,10 @@ abstract class BaseZF_StCollection extends ArrayObject
     }
 
     //
-	// DbItem data
-	//
+    // DbItem data
+    //
 
-	/**
+    /**
      * Retrieve property items values has array
      *
      * @param string property item name

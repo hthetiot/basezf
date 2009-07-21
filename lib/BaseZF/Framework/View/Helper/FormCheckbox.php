@@ -27,11 +27,11 @@ class BaseZF_Framework_View_Helper_FormCheckbox extends Zend_View_Helper_FormChe
         $info = $this->_getInfo($name, $value, $attribs);
         extract($info); // name, id, value, attribs, options, listsep, disable
 
-		// get label
-		$label = isset($attribs['label']) ? $attribs['label'] : null;
-		unset($attribs['label']);
+        // get label
+        $label = isset($attribs['label']) ? $attribs['label'] : null;
+        unset($attribs['label']);
 
-		// retrieve attributes for labels (prefixed with 'label_' or 'label')
+        // retrieve attributes for labels (prefixed with 'label_' or 'label')
         $label_attribs = array('class' => '');
         foreach ($attribs as $key => $val) {
             $tmp    = false;
@@ -46,11 +46,11 @@ class BaseZF_Framework_View_Helper_FormCheckbox extends Zend_View_Helper_FormChe
                 // make sure first char is lowercase
                 $tmp[0] = strtolower($tmp[0]);
 
-				if ($tmp == 'class') {
-					$label_attribs[$tmp] = $val . ' ' . $label_attribs[$tmp];
-				} else {
-					$label_attribs[$tmp] = $val;
-				}
+                if ($tmp == 'class') {
+                    $label_attribs[$tmp] = $val . ' ' . $label_attribs[$tmp];
+                } else {
+                    $label_attribs[$tmp] = $val;
+                }
 
                 unset($attribs[$key]);
             }
@@ -85,9 +85,9 @@ class BaseZF_Framework_View_Helper_FormCheckbox extends Zend_View_Helper_FormChe
             //$xhtml = $this->_hidden($name, $checkedOptions['unCheckedValue']);
         }
         $xhtml .= '<label'
-		        . $this->_htmlAttribs($label_attribs)
-			    . ' for="' . $this->view->escape($name) . '">'
-			    . '<input type="checkbox"'
+                . $this->_htmlAttribs($label_attribs)
+                . ' for="' . $this->view->escape($name) . '">'
+                . '<input type="checkbox"'
                 . ' name="' . $this->view->escape($name) . '"'
                 . ' id="' . $this->view->escape($id) . '"'
                 . ' value="' . $this->view->escape($checkedOptions['checkedValue']) . '"'
@@ -95,8 +95,8 @@ class BaseZF_Framework_View_Helper_FormCheckbox extends Zend_View_Helper_FormChe
                 . $disabled
                 . $this->_htmlAttribs($attribs)
                 . $endTag
-				. $this->view->escape($label)
-				. '</label>';
+                . $this->view->escape($label)
+                . '</label>';
 
         return $xhtml;
     }

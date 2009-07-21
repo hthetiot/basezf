@@ -10,58 +10,58 @@
 
 abstract class BaseZF_DbCollection implements Iterator, Countable
 {
-	/**
-	 * Define the zend log priority
-	 */
-	const LOG_PRIORITY = 9;
+    /**
+     * Define the zend log priority
+     */
+    const LOG_PRIORITY = 9;
 
-	/**
+    /**
      * Unique Id
      */
     protected $_ids = array();
 
-	/**
+    /**
      * Db table associate to this item
      */
     protected $_table;
 
-	/**
+    /**
      * Reference or array with field types and other information about current table
      */
     protected $_structure;
 
-	/**
+    /**
      * Reference or array with Schema of database
      */
     protected static $_STATIC_SCHEMA;
 
-	/**
+    /**
      * Bool for realtime data
      */
     protected $_realtime = false;
 
-	protected $_cacheExpire = BaseZF_DbQuery::EXPIRE_NEVER;
+    protected $_cacheExpire = BaseZF_DbQuery::EXPIRE_NEVER;
 
-	/**
+    /**
      * Cache Key Template used by DbQuery Class
-	 */
-	const _CACHE_KEY_TEMPLATE = '__id__';
+     */
+    const _CACHE_KEY_TEMPLATE = '__id__';
 
     /**
      * Saved position f iterator
      */
     protected $_iteratorSavedPosition = array();
 
-	/**
-	 * Max DbItem extract perQuery
-	 */
-	const MAX_ITEM_BY_REQUEST = 100;
+    /**
+     * Max DbItem extract perQuery
+     */
+    const MAX_ITEM_BY_REQUEST = 100;
 
-	//
-	// Constructor
-	//
+    //
+    // Constructor
+    //
 
-	/**
+    /**
      * Constructor
      *
      * @param array $ids array of unique id
@@ -75,21 +75,21 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $this->setRealTime($realtime);
         $this->setIds($ids);
 
-		// init default filter
-		$this->filterReset();
+        // init default filter
+        $this->filterReset();
 
         $this->log('Create DbCollection Instance : ' . $this);
     }
 
-	/**
+    /**
      * Destroy instance of object
      */
     public function __destruct()
     {
 
-	}
+    }
 
-	//
+    //
     // Cache and Db instance getter
     //
 
@@ -113,25 +113,25 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     abstract protected function &_getDbSchema();
 
-	/**
+    /**
      * Retrieve the Db Select instance
      */
     protected function _getDbSelectInstance()
-	{
-		static $select;
+    {
+        static $select;
 
-		if (!isset($select)) {
-			$select = $this->_getDbInstance()->select();
-		}
+        if (!isset($select)) {
+            $select = $this->_getDbInstance()->select();
+        }
 
-		return $select;
-	}
+        return $select;
+    }
 
-	//
-	// Data mapping
-	//
+    //
+    // Data mapping
+    //
 
-	final protected function loadStructure($table)
+    final protected function loadStructure($table)
     {
         $schema = $this->_getDbSchema();
 
@@ -149,14 +149,14 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             }
         }
 
-		return $this;
+        return $this;
     }
 
-	//
-	// Some getter and setter
-	//
+    //
+    // Some getter and setter
+    //
 
-	/**
+    /**
      * Setter for DbItem ids of DbCollections
      *
      * @param void $ids unique DbObject id
@@ -219,7 +219,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $this;
     }
 
-	/**
+    /**
      * Getter for random id of DbItem
      *
      * @return integer $this->_ids value
@@ -246,7 +246,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $result;
     }
 
-	/**
+    /**
      * Define if object use cache or not
      *
      * @param bool $realtime set if realtime is enable or not
@@ -270,7 +270,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $this->_realtime;
     }
 
-	/**
+    /**
      * Get table name
      *
      * @return string table name
@@ -290,50 +290,50 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $this->_structure['primary'];
     }
 
-	//
-	// Filters
-	//
+    //
+    // Filters
+    //
 
-	public function filterReset()
+    public function filterReset()
     {
-		// set default query
-		$select = $this->_getDbSelectInstance();
+        // set default query
+        $select = $this->_getDbSelectInstance();
 
-		$select->reset();
+        $select->reset();
 
-		// build default query
-		$select->from($this->getTable())
-			   ->reset(Zend_Db_Select::COLUMNS)
-			   ->columns($this->getPrimaryKey());
+        // build default query
+        $select->from($this->getTable())
+               ->reset(Zend_Db_Select::COLUMNS)
+               ->columns($this->getPrimaryKey());
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
+    /**
      * Set the table name or expression with INNER JOIN parts and so on
      *
      * @param string $table - table name or expression
      */
     public function filterTable($table)
     {
-		$this->_getDbSelectInstance()->from($table);
+        $this->_getDbSelectInstance()->from($table);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
+    /**
      * Set filter WHERE expression
      *
      * @param string $where
      */
     public function filterWhere($where, $value = null)
     {
-		$this->_getDbSelectInstance()->where($where, $value);
+        $this->_getDbSelectInstance()->where($where, $value);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
+    /**
      * Set filter ORDER BY column list
      *
      * @param string $orderBy
@@ -342,12 +342,12 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     public function filterOrderBy($orderBy)
     {
-		$this->_getDbSelectInstance()->order($orderBy);
+        $this->_getDbSelectInstance()->order($orderBy);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
+    /**
      * Set filter GROUP BY column list
      *
      * @param string $groupBy
@@ -356,12 +356,12 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     public function filterGroupBy($groupBy)
     {
-		$this->_getDbSelectInstance()->group($groupBy);
+        $this->_getDbSelectInstance()->group($groupBy);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
+    /**
      * Set filter LIMIT and OFFSET range
      *
      * @param integer $limit
@@ -371,12 +371,12 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     public function filterLimit($limit, $offset = null)
     {
-		$this->_getDbSelectInstance()->limit($limit, $offset);
+        $this->_getDbSelectInstance()->limit($limit, $offset);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
+    /**
      * Set expire period for cache
      *
      * @return string SQL query
@@ -388,143 +388,143 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $this;
     }
 
-	/**
+    /**
      * Execute filter
      *
      * @return $this for more fluent interface
      */
     public function filterExecute($cacheKey = null)
     {
-		// get query
-		$select = $this->_getDbSelectInstance();
+        // get query
+        $select = $this->_getDbSelectInstance();
 
-		if (is_null($cacheKey)) {
-			$cacheKey = self::_buildQueryCacheKey($select);
+        if (is_null($cacheKey)) {
+            $cacheKey = self::_buildQueryCacheKey($select);
 
-			$this->_updatePerPageCache($select);
-		}
+            $this->_updatePerPageCache($select);
+        }
 
-		try {
+        try {
 
-			$fields = array($this->getPrimaryKey());
-			$dbQuery = $this->_getDbQuery($select->assemble(), $cacheKey, $fields);
+            $fields = array($this->getPrimaryKey());
+            $dbQuery = $this->_getDbQuery($select->assemble(), $cacheKey, $fields);
 
-			// exec query throw dbQuery
-			$dbQuery->execute();
+            // exec query throw dbQuery
+            $dbQuery->execute();
 
-			// add ids to collection
-			$ids = array();
+            // add ids to collection
+            $ids = array();
             while ($row = $dbQuery->fetch()) {
                 $ids[] = $row[$this->getPrimaryKey()];
             }
 
-			$this->setIds($ids);
+            $this->setIds($ids);
 
-		// if no results found
-		} catch (BaseZF_DbQuery_Exception_NoResults $e) {
+        // if no results found
+        } catch (BaseZF_DbQuery_Exception_NoResults $e) {
             $this->setIds(array());
         }
 
-		// free dbQuery Instance
-		unset($dbQuery);
+        // free dbQuery Instance
+        unset($dbQuery);
 
-		return $this;
-	}
+        return $this;
+    }
 
     protected function _getDbSelectCountInstance()
     {
         $selectCount = clone($this->_getDbSelectInstance());
 
-		$selectCount->reset(Zend_Db_Select::COLUMNS)
-					->reset(Zend_Db_Select::LIMIT_COUNT)
-					->reset(Zend_Db_Select::LIMIT_OFFSET)
-					->reset(Zend_Db_Select::ORDER)
-					->columns('count(*) as nb');
+        $selectCount->reset(Zend_Db_Select::COLUMNS)
+                    ->reset(Zend_Db_Select::LIMIT_COUNT)
+                    ->reset(Zend_Db_Select::LIMIT_OFFSET)
+                    ->reset(Zend_Db_Select::ORDER)
+                    ->columns('count(*) as nb');
 
         return $selectCount;
     }
 
-	/**
+    /**
      * Get rocords count for filter
      *
      * @return int nb results for current filters
      */
     public function filterCount($cacheKey = null)
     {
-		// clone main query and build count one
+        // clone main query and build count one
         $selectCount = $this->_getDbSelectCountInstance();
 
-		if (is_null($cacheKey)) {
-			$cacheKey = self::_buildQueryCacheKey($selectCount);
-		}
+        if (is_null($cacheKey)) {
+            $cacheKey = self::_buildQueryCacheKey($selectCount);
+        }
 
-		try {
+        try {
 
-			$fields = array('nb');
-			$dbQuery = $this->_getDbQuery($selectCount->assemble(), $cacheKey, $fields);
+            $fields = array('nb');
+            $dbQuery = $this->_getDbQuery($selectCount->assemble(), $cacheKey, $fields);
 
-			// exec query throw dbQuery
-			$dbQuery->execute();
-			$data = $dbQuery->fetch();
+            // exec query throw dbQuery
+            $dbQuery->execute();
+            $data = $dbQuery->fetch();
 
-			$results = (isset($data['nb']) ? $data['nb'] : 0);
+            $results = (isset($data['nb']) ? $data['nb'] : 0);
 
-		} catch (BaseZF_DbQuery_Exception_NoResults $e) {
+        } catch (BaseZF_DbQuery_Exception_NoResults $e) {
 
-			$results = 0;
-		}
+            $results = 0;
+        }
 
-		// free dbQuery Instance
-		unset($dbQuery);
+        // free dbQuery Instance
+        unset($dbQuery);
 
-		return $results;
-	}
+        return $results;
+    }
 
-	final protected static function _buildQueryCacheKey(Zend_Db_Select $select)
-	{
-		$cacheKey = sha1(serialize(array(
-			$select->getPart(Zend_Db_Select::COLUMNS),
-			$select->getPart(Zend_Db_Select::FROM),
-			$select->getPart(Zend_Db_Select::WHERE),
-			$select->getPart(Zend_Db_Select::GROUP),
-			$select->getPart(Zend_Db_Select::HAVING),
-			$select->getPart(Zend_Db_Select::ORDER),
-			$select->getPart(Zend_Db_Select::LIMIT_COUNT),
-			$select->getPart(Zend_Db_Select::LIMIT_OFFSET),
-		)));
-
-		return $cacheKey;
-	}
-
-	final public function _getDbQuery($query, $cacheKey = null, array $fields = array())
+    final protected static function _buildQueryCacheKey(Zend_Db_Select $select)
     {
-		$db = $this->_getDbInstance();
-		$cache = $this->_getCacheInstance();
-		$logger = $this->_getLoggerInstance();
+        $cacheKey = sha1(serialize(array(
+            $select->getPart(Zend_Db_Select::COLUMNS),
+            $select->getPart(Zend_Db_Select::FROM),
+            $select->getPart(Zend_Db_Select::WHERE),
+            $select->getPart(Zend_Db_Select::GROUP),
+            $select->getPart(Zend_Db_Select::HAVING),
+            $select->getPart(Zend_Db_Select::ORDER),
+            $select->getPart(Zend_Db_Select::LIMIT_COUNT),
+            $select->getPart(Zend_Db_Select::LIMIT_OFFSET),
+        )));
 
-		// new dbQuery
+        return $cacheKey;
+    }
+
+    final public function _getDbQuery($query, $cacheKey = null, array $fields = array())
+    {
+        $db = $this->_getDbInstance();
+        $cache = $this->_getCacheInstance();
+        $logger = $this->_getLoggerInstance();
+
+        // new dbQuery
         $dbQuery = new BaseZF_DbQuery($query, $cacheKey, $db, $cache, $logger);
-		$dbQuery->setQueryFields($fields);
+        $dbQuery->setQueryFields($fields);
         $dbQuery->setCacheExpire($this->_cacheExpire);
         $dbQuery->setRealTime($this->isRealTime());
 
-		return $dbQuery;
-	}
+        return $dbQuery;
+    }
 
-	/**
+    /**
      * Clear filterCache
      *
      * @return string SQL query
      */
     final public function clearCache($cacheKey = null)
     {
-		$cache = $this->_getCacheInstance();
+        $cache = $this->_getCacheInstance();
 
-		if (is_null($cacheKey)) {
+        if (is_null($cacheKey)) {
 
             // flush cache for filter
-			$select = $this->_getDbSelectInstance();
-			$cacheKey = $this->_buildQueryCacheKey($select);
+            $select = $this->_getDbSelectInstance();
+            $cacheKey = $this->_buildQueryCacheKey($select);
             $cache->remove($cacheKey);
 
             // flush cache for filterCount
@@ -532,16 +532,16 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             $cacheKeyCount = $this->_buildQueryCacheKey($selectCount);
             $cache->remove($cacheKeyCount);
 
-		} else {
+        } else {
 
             // flush cache from param
             $cache->remove($cacheKey);
         }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
+    /**
      * Clear cache for query which uses paging
      *
      * @param interger $perPage
@@ -551,108 +551,108 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     {
         return;
 
-		$select = $this->_getDbSelectInstance();
-		$cache = $this->_getCacheInstance();
+        $select = $this->_getDbSelectInstance();
+        $cache = $this->_getCacheInstance();
 
-		// build main cachekey
-		$cacheKey = self::_buildPerPageCacheKey($select);
+        // build main cachekey
+        $cacheKey = self::_buildPerPageCacheKey($select);
 
-		if($cacheKeys = $cache->load($cacheKey)) {
+        if($cacheKeys = $cache->load($cacheKey)) {
 
-			// clear main cachekey
-			$cache->remove($cacheKey);
+            // clear main cachekey
+            $cache->remove($cacheKey);
 
-			// clear sub cachekeys
-			foreach ($cacheKeys as $cacheKey) {
-				$cache->remove($cacheKey);
-			}
-		}
+            // clear sub cachekeys
+            foreach ($cacheKeys as $cacheKey) {
+                $cache->remove($cacheKey);
+            }
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function _updatePerPageCache(Zend_Db_Select $select)
-	{
+    public function _updatePerPageCache(Zend_Db_Select $select)
+    {
         return;
 
-		$select = $this->_getDbSelectInstance();
-		$cache = $this->_getCacheInstance();
+        $select = $this->_getDbSelectInstance();
+        $cache = $this->_getCacheInstance();
 
-		// build main cachekey
-		$cacheKey = self::_buildPerPageCacheKey($select);
+        // build main cachekey
+        $cacheKey = self::_buildPerPageCacheKey($select);
 
-		// get data from cache
-		if(!$cacheKeys = $cache->load($cacheKey)) {
-			$cacheKeys = array();
-		}
+        // get data from cache
+        if(!$cacheKeys = $cache->load($cacheKey)) {
+            $cacheKeys = array();
+        }
 
-		$currentCacheKey = $this->_buildQueryCacheKey($select);
+        $currentCacheKey = $this->_buildQueryCacheKey($select);
 
-		if (in_array($currentCacheKey, $cacheKeys) === false) {
+        if (in_array($currentCacheKey, $cacheKeys) === false) {
 
-			// add data entry
-			$cacheKeys[] = $currentCacheKey;
+            // add data entry
+            $cacheKeys[] = $currentCacheKey;
 
-			// save to cache
-			$cache->save($cacheKeys, $cacheKey);
-		}
+            // save to cache
+            $cache->save($cacheKeys, $cacheKey);
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 
-	final protected static function _buildPerPageCacheKey(Zend_Db_Select $select)
-	{
-		$cacheKey = sha1(serialize(array(
-			$select->getPart(Zend_Db_Select::COLUMNS),
-			$select->getPart(Zend_Db_Select::FROM),
-			$select->getPart(Zend_Db_Select::WHERE),
-			$select->getPart(Zend_Db_Select::GROUP),
-			$select->getPart(Zend_Db_Select::HAVING),
-			$select->getPart(Zend_Db_Select::ORDER),
-		)));
+    final protected static function _buildPerPageCacheKey(Zend_Db_Select $select)
+    {
+        $cacheKey = sha1(serialize(array(
+            $select->getPart(Zend_Db_Select::COLUMNS),
+            $select->getPart(Zend_Db_Select::FROM),
+            $select->getPart(Zend_Db_Select::WHERE),
+            $select->getPart(Zend_Db_Select::GROUP),
+            $select->getPart(Zend_Db_Select::HAVING),
+            $select->getPart(Zend_Db_Select::ORDER),
+        )));
 
-		return $cacheKey;
-	}
+        return $cacheKey;
+    }
 
-	//
-	// Filter Delete
-	//
+    //
+    // Filter Delete
+    //
 
-	/**
+    /**
      * Delete records using filter params
      *
      * @return this
      */
     public function filterDelete()
     {
-		// exec filter
-		$this->filterExecute();
+        // exec filter
+        $this->filterExecute();
 
-		// delete item
-		foreach ($this as $id => $item) {
-			$item->delete();
-		}
+        // delete item
+        foreach ($this as $id => $item) {
+            $item->delete();
+        }
 
-		// clear cache
-		$this->clearCache();
+        // clear cache
+        $this->clearCache();
 
-		// clear ids
-		$this->setIds(array());
+        // clear ids
+        $this->setIds(array());
 
-		return $this;
-	}
+        return $this;
+    }
 
-	//
-	// Paginator manager
-	//
+    //
+    // Paginator manager
+    //
 
-	//
-	// DbItem manager
-	//
+    //
+    // DbItem manager
+    //
 
-	protected function _getDbItemClassName($collClassName = null)
-	{
-		if (is_null($collClassName)) {
+    protected function _getDbItemClassName($collClassName = null)
+    {
+        if (is_null($collClassName)) {
             $collClassName = get_class($this);
         }
 
@@ -668,9 +668,9 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         }
 
         return $itemClassName;
-	}
+    }
 
-	/**
+    /**
      * Retreive item object by id if exist
      *
      * @return BaseZF_DbItem object instance
@@ -681,8 +681,8 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             throw new BaseZF_DbCollection_Exception('item with id "' . $id . '" not found in this collection');
         }
 
-		$itemClassName = $this->_getDbItemClassName();
-		$item = call_user_func(array($itemClassName, 'getInstance'), $this->_table, $id, $this->isRealTime());
+        $itemClassName = $this->_getDbItemClassName();
+        $item = call_user_func(array($itemClassName, 'getInstance'), $this->_table, $id, $this->isRealTime());
 
         // add collection dependency
         $item->addCollection($this);
@@ -700,8 +700,8 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         // filter data
         $data = array_map('trim', $data);
 
-		$itemClassName = $this->_getDbItemClassName();
-		$newItem = call_user_func(array($itemClassName, 'getInstance'), $this->_table, null, $this->isRealTime());
+        $itemClassName = $this->_getDbItemClassName();
+        $newItem = call_user_func(array($itemClassName, 'getInstance'), $this->_table, null, $this->isRealTime());
 
         $newItem->setProperties($data);
         $newItem->insert();
@@ -712,11 +712,11 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $newItem;
     }
 
-	//
-	// DbItem data
-	//
+    //
+    // DbItem data
+    //
 
-	/**
+    /**
      * Retrieve property items values has array
      *
      * @param string property item name
@@ -828,12 +828,12 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             BaseZF_DbItem::massDelete($items);
         }
 
-		$this->setIds(array());
+        $this->setIds(array());
 
         return $this;
     }
 
-	//
+    //
     // Implement Countable
     //
 
@@ -842,7 +842,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return count($this->_ids);
     }
 
-	//
+    //
     // Implement Iterator
     //
 
@@ -877,11 +877,11 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $var;
     }
 
-	//
-	// Iterator position management
-	//
+    //
+    // Iterator position management
+    //
 
-	/**
+    /**
      * Save iterator position of $this->_dbobjects array
      *
      * @return $this for more fluent interface
@@ -916,11 +916,11 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $this;
     }
 
-	//
-	// Serialize
-	//
+    //
+    // Serialize
+    //
 
-	/**
+    /**
      * Callback fo serialize oject
      * @note: we serialize only usefull properties, id and if realtime instance
      */
@@ -941,11 +941,11 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $this->__construct($this->_table, $this->_ids, $this->_realtime);
     }
 
-	//
-	// Tools
-	//
+    //
+    // Tools
+    //
 
-	/**
+    /**
      * string builder called to display object has string
      */
     public function __toString()
@@ -953,7 +953,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return 'table: "' . $this->_table . '" :: ' . get_class($this) . '::' . implode(':', $this->getIds());
     }
 
-	//
+    //
     // Logger tools
     //
 

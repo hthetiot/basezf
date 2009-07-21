@@ -12,8 +12,8 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
 {
     /**
      * This is the main helper methods
-	 *
-	 */
+     *
+     */
     public function exampleNavigation()
     {
         $menus = array(

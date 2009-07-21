@@ -64,77 +64,77 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
     }
 
     public function dbitemAction()
-	{
+    {
 
         // clear count cache /cache/perpage
-		// add collection dependency
+        // add collection dependency
 
-		$examples = new MyProject_DbCollection('example');
-		$examples->filterWhere('example_id > ? AND country_id = 1', 1);
-		$examples->filterOrderBy('example_id DESC');
-		$examples->filterLimit(10);
+        $examples = new MyProject_DbCollection('example');
+        $examples->filterWhere('example_id > ? AND country_id = 1', 1);
+        $examples->filterOrderBy('example_id DESC');
+        $examples->filterLimit(10);
         //$examples->clearCache();
 
-		//
-		echo '<hr />';
-		echo 'filterCount dbColl:';
-		echo $examples->filterCount();
+        //
+        echo '<hr />';
+        echo 'filterCount dbColl:';
+        echo $examples->filterCount();
 
-		//
-		echo '<hr />';
-		echo 'filter dbColl:' . "<br />";
-		$examples->filterExecute();
+        //
+        echo '<hr />';
+        echo 'filter dbColl:' . "<br />";
+        $examples->filterExecute();
         foreach($examples as $example) {
             echo $example->getId() . '/' . date('Y-m-d', $example->creation) . "<br />";
         }
 
-		// create
-		echo '<hr />';
-		echo 'insert dbItem:' . "<br />";
+        // create
+        echo '<hr />';
+        echo 'insert dbItem:' . "<br />";
 
-		$data = array(
-			'country_id'	=> '1',
-			'language_id'	=> '1',
-			'login'			=> time(),
-			'email'			=> 'w',
-			'display_name'	=> 'w',
-			'creation'		=> '2008-10-10',
-		);
+        $data = array(
+            'country_id'    => '1',
+            'language_id'    => '1',
+            'login'            => time(),
+            'email'            => 'w',
+            'display_name'    => 'w',
+            'creation'        => '2008-10-10',
+        );
 
-		$example = $examples->newItem($data);
+        $example = $examples->newItem($data);
 
-		$id = $example->getId();
-		echo $id;
+        $id = $example->getId();
+        echo $id;
 
-		// select
-		echo '<hr />';
-		echo 'properties dbItem:' . "<br />";
-		$example = MyProject_DbItem::getInstance('example', $id);
+        // select
+        echo '<hr />';
+        echo 'properties dbItem:' . "<br />";
+        $example = MyProject_DbItem::getInstance('example', $id);
         $example->getId();
         echo $example->login;
 
-		// update
-		echo '<hr />';
-		echo 'update dbItem:' . "<br />";
-		$example->login = 'titi' . time();
+        // update
+        echo '<hr />';
+        echo 'update dbItem:' . "<br />";
         $example->login = 'titi' . time();
-		$example->update();
-		echo 'done';
+        $example->login = 'titi' . time();
+        $example->update();
+        echo 'done';
 
         echo '<hr />';
-		echo 'list update dbItem:' . "<br />";
+        echo 'list update dbItem:' . "<br />";
         foreach($examples as $example) {
             echo $example->getId() . '/' . $example->login . "<br />";
         }
 
-		// delete
-		echo '<hr />';
-		echo 'delete dbItem:' . "<br />";
-		$example->delete();
-		echo 'done';
+        // delete
+        echo '<hr />';
+        echo 'delete dbItem:' . "<br />";
+        $example->delete();
+        echo 'done';
 
         echo '<hr />';
-		echo 'list deleted dbItem:' . "<br />";
+        echo 'list deleted dbItem:' . "<br />";
         foreach($examples as $example) {
             echo $example->getId() . '/' . $example->login . "<br />";
         }

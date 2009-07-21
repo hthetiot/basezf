@@ -11,15 +11,15 @@
 class MyProject_DbItem extends BaseZF_DbItem
 {
     /**
-	 * Get instance of allready contructed object
-	 *
-	 * @param void $id unique object id
-	 * @param string $class item className
-	 *
-	 * @return BaseZF_DbItem object instance
-	 */
-	public static function getInstance($table, $id = null, $realtime = false, $class = __CLASS__)
-	{
+     * Get instance of allready contructed object
+     *
+     * @param void $id unique object id
+     * @param string $class item className
+     *
+     * @return BaseZF_DbItem object instance
+     */
+    public static function getInstance($table, $id = null, $realtime = false, $class = __CLASS__)
+    {
         return parent::getInstance($table, $id, $realtime, $class);
     }
 

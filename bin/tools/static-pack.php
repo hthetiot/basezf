@@ -18,7 +18,7 @@ ini_set('memory_limit', '256M');
  */
 class staticPack {
 
-	/**
+    /**
      * Available Adapters
      */
     CONST ADAPTER_YUICOMPRESSOR = 'yuicompressor';

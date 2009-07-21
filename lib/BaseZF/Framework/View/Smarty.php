@@ -10,7 +10,7 @@
 
 class BaseZF_Framework_View_Smarty extends Zend_View_Abstract
 {
-	/**
+    /**
      * Smarty object
      * @var Smarty
      */

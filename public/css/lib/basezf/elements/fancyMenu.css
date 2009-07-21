@@ -28,7 +28,7 @@ ul.menu li a
 ul.menu li.selected a,
 ul.menu li a:hover
 {
-	color: red;
+    color: red;
 }
 
 /**
@@ -49,7 +49,7 @@ ul.menu-inline li.first
 ul.menu-inline li.selected a,
 ul.menu-inline li a:hover
 {
-	color: red;
+    color: red;
 }
 
 ul.menu-inline li a
@@ -90,7 +90,7 @@ ul.menu-vertical li a
 ul.menu-vertical li.selected a,
 ul.menu-vertical li a:hover
 {
-	color: red;
+    color: red;
 }
 
 /**

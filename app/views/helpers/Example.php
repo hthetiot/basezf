@@ -12,9 +12,9 @@ class App_View_Helper_Example
 {
     /**
      * This is the main helper methods
-	 *
-	 * @param string $value Value of tag
-	 * @param array $attribs Attributes added main tag
+     *
+     * @param string $value Value of tag
+     * @param array $attribs Attributes added main tag
      */
     public function example($value = null, array $attribs = array())
     {
