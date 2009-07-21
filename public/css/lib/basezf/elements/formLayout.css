@@ -385,12 +385,12 @@ form.formLayout div.formDate select.formDateYear
 
 form.formLayout div.formDate select.formDateMonth
 {
-    width:67px;
+    width:75px;
 }
 
 form.formLayout div.formDate select.formDateDay
 {
-    width:50px;
+    width:45px;
 }
 
 form.formLayout div.formDate button

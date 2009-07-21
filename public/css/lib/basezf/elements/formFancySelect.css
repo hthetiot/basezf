@@ -65,7 +65,7 @@ div.formFancySelect div.formFancySelectOptions label:hover
 
 div.formFancySelect div.formFancySelectOptions label input
 {
-    margin:4px;
+    margin:-7px 4px 0 4px;
     vertical-align:middle;
 }
 
