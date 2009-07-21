@@ -26,3 +26,6 @@ data/upload/*
 # static packs
 public/css/pack/*.css
 public/js/pack/*.js
+
+# sql current upgrade 
+sql/schema/upgrade/current

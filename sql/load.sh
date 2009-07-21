@@ -1,7 +1,7 @@
 #!/bin/sh
 # load.sh - A simple bash database loader
 #
-# Usage: load.sh (struct|default|sample|index|test|clean|update|upgrade|optimize|backup|restore|install|help) <db_name> [host_name] [option]
+# Usage: load.sh (struct|default|sample|index|test|clean|update|upgrade|optimize|backup|restore|install|help) <db_name> <db_username> [host_name] [option]
 #
 # @copyright  Copyright (c) 2008 BaseZF
 # @author     Harold Thétiot (hthetiot)
@@ -19,7 +19,7 @@ else
 fi
 
 #
-# Path
+# Paths
 #
 SCHEMA_DIR=$ROOT_DIR/schema
 UPGRADE_DIR=$SCHEMA_DIR/upgrade
@@ -55,11 +55,11 @@ shift
 check_params()
 {
     if [ -z "${db_name}" ]; then
-	err 1 "No database name specified"
+        err 1 "No database name specified"
     fi
 
     if [ -z "${db_username}" ]; then
-	err 1 "No database username specified"
+        err 1 "No database username specified"
     fi
 }
 
@@ -86,11 +86,11 @@ default_action()
 
     notice "Load Default data:"
 
-    FILE_LIST="`ls $DEFAULT_DIR/*.sql`"
+    FILE_LIST="`ls $DEFAULT_DIR | grep \"\.sql$\"`"
 
     for file in ${FILE_LIST}
     do
-	import_file ${file} "- Load \"${file}\"" "Can't load default data"
+    import_file ${DEFAULT_DIR}/${file} "- Load \"${DEFAULT_DIR}/${file}\"" "Can't load default data"
     done
 
     notice "Done"
@@ -106,11 +106,11 @@ sample_action()
 
     notice "Load Sample data:"
 
-    FILE_LIST="`ls $SAMPLE_DIR/*.sql`"
+    FILE_LIST="`ls $SAMPLE_DIR | grep \"\.sql$\"`"
 
     for file in ${FILE_LIST}
     do
-	import_file ${file} "- Load \"${file}\"" "Can't load sample data"
+        import_file ${SAMPLE_DIR}/${file} "- Load \"${SAMPLE_DIR}/${file}\"" "Can't load sample data"
     done
 
     notice "Done"
@@ -158,31 +158,39 @@ upgrade_action()
 {
     check_params
 
-     if [ -f $UPGRADE_DIR/current ]; then
-       CURRENT_VERSION=`more $UPGRADE_DIR/current`
-    else
-       CURRENT_VERSION=0
-       mkdir -p $UPGRADE_DIR
-    fi
+    if [ -z "${options}" ]; then
 
-    # get next version
-    NEW_VERSION=$(($CURRENT_VERSION + 1))
+        # get next version
+        if [ -f $UPGRADE_DIR/current ]; then
+            CURRENT_VERSION=`more $UPGRADE_DIR/current`
+        else
+            CURRENT_VERSION=0
+            mkdir -p $UPGRADE_DIR
+        fi
+
+        NEW_VERSION=$(($CURRENT_VERSION + 1))
+    else
+
+        # get has params
+        NEW_VERSION=$options
+    fi
 
     if [ -f $UPGRADE_DIR/upgrade-$NEW_VERSION.sql ]; then
 
-	# load upgrade
-	import_file $UPGRADE_DIR/upgrade-$NEW_VERSION.sql "Upgrade database to version: $NEW_VERSION" "Unable to upgrade database to version $NEW_VERSION"
+        # load upgrade
+        import_file $UPGRADE_DIR/upgrade-$NEW_VERSION.sql "Upgrade database to version: $NEW_VERSION" "Unable to upgrade database to version $NEW_VERSION"
 
-	# update version
-	echo $NEW_VERSION > $UPGRADE_DIR/current
+        # update version
+        mkdir -p $UPGRADE_DIR
+        echo $NEW_VERSION > $UPGRADE_DIR/current
 
-	# next upgrade available
-	if [ -f $UPGRADE_DIR/upgrade-$(($NEW_VERSION + 1)).sql ]; then
-	    upgrade_action
-	fi
+        # next upgrade available
+        if [ -f $UPGRADE_DIR/upgrade-$(($NEW_VERSION + 1)).sql ]; then
+            upgrade_action
+        fi
 
     else
-	warn "No new upgrade available, current version is $CURRENT_VERSION"
+        warn "No new upgrade available, current version is $CURRENT_VERSION"
     fi
 }
 
@@ -196,30 +204,30 @@ update_action()
 
     if [ -f ${SCHEMA_DIR}/struct.sql ]; then
 
-	echo -n "Overide existing database struct? [Y/n]"
-	read confirm
+        echo -n "Overide existing database struct? [Y/n]"
+        read confirm
 
-	# default
-	if [ -z "${confirm}" ]; then
-	    confirm=y
-	fi
+        # default
+        if [ -z "${confirm}" ]; then
+            confirm=y
+        fi
 
-	if [ ${confirm} != 'y' ]; then
-	    warn "Update aborded by user"
-	    exit
-	fi
+        if [ ${confirm} != 'y' ]; then
+            warn "Update aborded by user"
+            exit
+        fi
     fi
 
     notice "Generate database schema:"
 
     set +e
-    update_results="`pg_dump -h ${db_hostname} -U ${db_username} --no-acl -s ${db_name} -f ${SCHEMA_DIR}/struct.sql 2>&1 | grep 'pg_dump'`"
+    update_results="`pg_dump -i -h ${db_hostname} -U ${db_username} -o --no-acl -s -c ${db_name} -f ${SCHEMA_DIR}/struct.sql 2>&1 | grep 'pg_dump'`"
     set -e
 
     if [ -z "${update_results}" ]; then
-	notice "done"
+        notice "done"
     else
-	err 1 "Unable to generate database schema cause: \n\t${update_results}"
+        err 1 "Unable to generate database schema cause: \n\t${update_results}"
     fi
 }
 
@@ -234,17 +242,20 @@ install_action()
     mkdir -p $DATA_DIR
     mkdir -p $SAMPLE_DIR
     mkdir -p $DEFAULT_DIR
+
+    # create clean
+    touch $SCHEMA_DIR/clean.sql
+
+    # create indexes
     touch $SCHEMA_DIR/indexes.sql
 
     if [ -f $UPGRADE_DIR/current ]; then
-
-	CURRENT_VERSION=`more $UPGRADE_DIR/current`
-
-	warn "Reset current upgrade version $CURRENT_VERSION to 0!"
+        warn "Not overide current upgrade version!"
+    else
+        echo "0" > $UPGRADE_DIR/current
     fi
 
-     echo "0" > $UPGRADE_DIR/current
-
+    # create struct
     update_action
 }
 
@@ -266,7 +277,7 @@ backup_action()
     check_params
 
     if [ -z "${options}" ]; then
-	err 1 "No file specified"
+        err 1 "No file specified"
     fi
 
     echo -n "Backup database into \"${options}\" file ? [Y/n]"
@@ -274,23 +285,23 @@ backup_action()
 
     # default
     if [ -z "${confirm}" ]; then
-	confirm=y
+        confirm=y
     fi
 
     if [ ${confirm} == 'y' ]; then
-	notice "Processing backup database into \"${options}\":"
+        notice "Processing backup database into \"${options}\":"
 
-	set +e
-	backup_results="`pg_dump -h ${db_hostname} -U ${db_username} -Fc ${db_name} -f ${options} 2>&1 | grep 'pg_dump'`"
-	set -e
+        set +e
+        backup_results="`pg_dump -i -h ${db_hostname} -U ${db_username} -Fc ${db_name} -f ${options} 2>&1 | grep 'pg_dump'`"
+        set -e
 
-	if [ -z "${backup_results}" ]; then
-	    notice "done"
-	else
-	    err 1 "Unable to backup database cause: \n\t${backup_results}"
-	fi
+        if [ -z "${backup_results}" ]; then
+            notice "done"
+        else
+            err 1 "Unable to backup database cause: \n\t${backup_results}"
+        fi
     else
-	warn "Backup aborded by user"
+        warn "Backup aborded by user"
     fi
 }
 
@@ -302,7 +313,7 @@ restore_action()
     check_params
 
     if [ -z "${options}" ]; then
-	err 1 "No file specified"
+        err 1 "No file specified"
     fi
 
     echo -n "Restore database from \"${options}\" file ? [y/N]"
@@ -310,28 +321,28 @@ restore_action()
 
     # default
     if [ -z "${confirm}" ]; then
-	confirm=n
+        confirm=n
     fi
 
     if [ ${confirm} == 'y' ]; then
 
-	# remove struct
-	import_file $SCHEMA_DIR/clean.sql "Empty db: created" "Can't create empty db"
+        # remove struct
+        import_file $SCHEMA_DIR/clean.sql "Empty db: created" "Can't create empty db"
 
-	notice "Processing restore database from \"${options}\":"
+        notice "Processing restore database from \"${options}\":"
 
-	set +e
-	restore_results="`pg_restore -h ${db_hostname} -U ${db_username} -C -d ${db_name} ${options} 2>&1 | grep 'pg_restore'`"
-	set -e
+        set +e
+        restore_results="`pg_restore -h ${db_hostname} -U ${db_username} -d ${db_name} ${options} 2>&1 | grep 'pg_restore'`"
+        set -e
 
-	if [ -z "${restore_results}" ]; then
-	    notice "done"
-	else
-	    err 1 "Unable to restore database cause: \n\t${restore_results}"
-	fi
+        if [ -z "${restore_results}" ]; then
+            notice "done"
+        else
+            err 1 "Unable to restore database cause: \n\t${restore_results}"
+        fi
 
     else
-	warn "Restore aborded by user"
+        warn "Restore aborded by user"
     fi
 }
 
@@ -355,9 +366,9 @@ import_file()
     set -e
 
     if [ -z "${import_results}" ]; then
-	notice $success_msg
+        notice $success_msg
     else
-	err 1 "${error_msg} cause: \n\t${import_results}"
+        err 1 "${error_msg} cause: \n\t${import_results}"
     fi
 }
 
@@ -381,9 +392,9 @@ exec_query()
     set -e
 
     if [ -z "${query_results}" ]; then
-	notice $success_msg
+        notice $success_msg
     else
-	err 1 "${error_msg} cause: \n\t${query_results}"
+        err 1 "${error_msg} cause: \n\t${query_results}"
     fi
 }
 
@@ -393,7 +404,7 @@ exec_query()
 usage()
 {
     echo "Usage:"
-    echo "  load.sh (struct|default|sample|index|test|clean|update|upgrade|optimize|backup|restore|install|help) <db_name> [host_name] [option]"
+    echo "  load.sh (struct|default|sample|index|test|clean|update|upgrade|optimize|backup|restore|install|help) <db_name> <db_username> [host_name] [option]"
     echo "where:"
     echo "  struct      - create tables"
     echo "  default     - load default data to database"
@@ -402,7 +413,7 @@ usage()
     echo "  test        - struct, default, sample, index commands together"
     echo "  clean       - struct, default, index commands together"
     echo "  update      - update schema file"
-    echo "  upgrade     - upgrade to next db patch"
+    echo "  upgrade     - upgrade to next db patch or set path number with <option> param"
     echo "  optimize    - optimize database data and indexes"
     echo "  backup      - backup database as <option> file"
     echo "  restore     - restore database from <option> file"
@@ -416,11 +427,11 @@ usage()
 #
 err()
 {
-	exitval=$1
-	shift
-	#echo -e 1>&2 "*** ERROR  : $*"
-	echo -e 1>&2 '\E[31m'"\033[1m$*\033[0m"
-	exit $exitval
+        exitval=$1
+        shift
+        #echo -e 1>&2 "*** ERROR  : $*"
+        echo -e 1>&2 '\E[31m'"\033[1m$*\033[0m"
+        exit $exitval
 }
 
 #
@@ -429,8 +440,8 @@ err()
 #
 warn()
 {
-	#echo 1>&2 "*** WARNING: $*"
-	echo -e 1>&2 '\E[33m'"\033[1m$*\033[0m"
+        #echo 1>&2 "*** WARNING: $*"
+        echo -e 1>&2 '\E[33m'"\033[1m$*\033[0m"
 }
 
 #

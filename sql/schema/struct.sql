@@ -8,6 +8,22 @@ SET client_min_messages = warning;
 
 SET search_path = public, pg_catalog;
 
+DROP INDEX public.example_unique_idx;
+DROP INDEX public.example__string__idx;
+ALTER TABLE ONLY public.example_type DROP CONSTRAINT example_type_example_type_id_key;
+ALTER TABLE ONLY public.example DROP CONSTRAINT example_example_id_key;
+DROP TABLE public.example_type;
+DROP TABLE public.example;
+DROP SCHEMA public;
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: dev
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO dev;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
