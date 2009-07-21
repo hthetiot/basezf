@@ -12,10 +12,15 @@
     $this->headTitle()->set($this->widget->title);
 
     // add default styleSheet
-    $this->headLink()->prependStylesheet('http://www.netvibes.com/themes/uwa/style.css');
+    $this->headLink()->appendStylesheet('http://uwa.service.japanim.fr/css/uwa-standalone.css');
 
     // add default scripts
-    $this->headScript()->prependFile('http://www.netvibes.com/js/UWA/load.js.php?env=Standalone');
+    //$this->headScript()->appendFile('http://www.netvibes.com/js/UWA/load.js.php?env=Standalone');
+    //$this->headScript()->appendFile('http://uwa.service.japanim.fr/js/c/UWA_Standalone.js');
+    $this->headScript()->appendFile('http://uwa.service.japanim.fr/js/c/UWA_Standalone_Mootools.js');
+
+    // add tools
+    $this->headScript()->appendFile('http://cdn.netvibes.com/js/c/UWA_Controls_TabView.js?v=preview3');
 
     // set favicon
     $this->headLink(array('rel' => 'favicon', 'href' =>  $this->currentHost . '/favicon.ico', 'type' => 'image/x-icon'));
@@ -54,11 +59,6 @@
     <script type="text/javascript">
         <?php echo $widgetScript; ?>
     </script>
-    <style>
-        #moduleIcon {
-            padding: 2px 5px 0 3px !important;
-        }
-    </style>
     </head>
     <body>
         <?php echo $widgetBody; ?>

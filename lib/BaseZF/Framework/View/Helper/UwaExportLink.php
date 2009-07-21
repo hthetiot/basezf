@@ -24,12 +24,19 @@ class BaseZF_Framework_View_Helper_UwaExportLink extends BaseZF_Framework_View_H
 				$url = 'http://www.google.com/ig/add?moduleurl=' . urlencode($uwaServerUrl . '/widget/gspec?uwaUrl=' . urlencode($widgetUrl) . $optionsParams);
                 break;
 
+            case 'live':
+                $url = 'http://my.live.com/?s=1&add=' . urlencode($uwaServerUrl . '/widget/live?'. urlencode($widgetUrl . '?') . $optionsParams);
+                //$url = 'http://spaces.live.com/spacesapi.aspx?wx_action=create&wx_url=' . urlencode($uwaServerUrl . '/widget/live?'. urlencode($widgetUrl) . $optionsParams);
+                break;
+
+
             case 'opera':
             case 'dashboard':
             case 'frame':
             case 'screenlets':
             case 'jil':
             case 'vista':
+            case 'blogger':
 				$url = $uwaServerUrl . '/widget/' . $environmentName . '?uwaUrl=' . urlencode($widgetUrl) . $optionsParams;
                 break;
 
