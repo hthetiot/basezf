@@ -3,6 +3,7 @@
  - /js/lib/mootools-more.js
  - /js/lib/basezf/BaseZF.js
  - /js/lib/basezf/Class/Helper.js
+ - /js/lib/basezf/Helper/AjaxAbstract.js
  - /js/lib/basezf/Helper/AjaxLink.js
  - /js/lib/basezf/Helper/FormFancySelect.js
  - /js/lib/basezf/Helper/FormAjaxValidate.js
