@@ -16,7 +16,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
     {
         $this->setAttrib('class', 'formAjaxValidate');
 
-        $currentLocale = MyProject::registry('locale');
+        $registry = MyProject_Registry::getInstance();
+        $currentLocale = $registry->registry('locale');
 
         //
         // Personal Information fields
