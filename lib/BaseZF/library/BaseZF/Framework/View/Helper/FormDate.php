@@ -69,8 +69,6 @@ class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
         $xhtml = array();
         $xhtml[] = '<div ' . $this->_htmlAttribs($attribs) . '>';
 
-        var_dump($value);
-
         // set format
         $elementsFormatByName = array();
         foreach ($options['format'] as $formatName) {
@@ -173,12 +171,12 @@ class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
         $xhtml = array();
         $xhtml[] = '<select ' . $this->_htmlAttribs($attribs) . '>';
 
-        $isAssoc = (current(array_keys($options)) == '0');
+        $isAssoc = !(current(array_keys($options)) == '0');
 
         foreach ($options as $value => $label) {
 
-            if (is_numeric($value)) {
-                $value = str_pad($value, 2, '0', STR_PAD_LEFT);
+            if (!$isAssoc) {
+                $label = $value = str_pad($label, 2, '0', STR_PAD_LEFT);
             }
 
             // is it selected?
@@ -187,12 +185,8 @@ class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
                 $selected = ' selected="selected"';
             }
 
-            if ($isAssoc) {
-                $xhtml[] = '<option' . $selected . ' value="' . str_pad($label, 2, '0', STR_PAD_LEFT) . '">' . str_pad($label, 2, '0', STR_PAD_LEFT) . '</option>';
-            } else {
+            $xhtml[] = '<option' . $selected . ' value="' . $value . '">' . $this->view->escape($label) . '</option>';
 
-                $xhtml[] = '<option' . $selected . ' value="' . $value . '">' . $this->view->escape($label) . '</option>';
-            }
         }
 
         $xhtml[] = '</select>';
