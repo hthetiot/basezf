@@ -1,4 +1,6 @@
 # This directory contain used config files
-apache.conf: Config for apache virtual host
-config.init: Config for application MyProject
-crontab:     Scheduled Cron Jobs
+apache.conf     : Config for apache virtual host
+config.ini      : Config for application MyProject
+crontab         : Scheduled Cron Jobs
+doxygen.cnf     : Config for Doxygen doc generator
+debug.htpasswd  : public/debug user and password

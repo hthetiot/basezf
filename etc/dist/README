@@ -1,4 +1,6 @@
 # This directory contain example config files
-apache.conf-dist: Config for apache virtual host
-config.init-dist: Config for application MyProject
-crontab-dist:     Scheduled Cron Jobs
+apache.conf-dist     : Config for apache virtual host
+config.ini-dist      : Config for application MyProject
+crontab-dist         : Scheduled Cron Jobs
+doxygen.cnf-dist     : Config for Doxygen doc generator
+

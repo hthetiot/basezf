@@ -62,10 +62,11 @@ log.writers.stream.enable   = false
 log.writers.stream.path     = php://output
 log.writers.firebug.enable  = false
 
-#log components
-log.components.dbcollection  = false
-log.components.dbitem        = false
-log.components.dbquery       = false
+#log components - start components priority to 9
+log.components.enable                  = dbcollection dbitem dbquery
+log.components.available.dbcollection  = 9
+log.components.available.dbitem        = 10
+log.components.available.dbquery       = 11
 
 #debug
 #debug
