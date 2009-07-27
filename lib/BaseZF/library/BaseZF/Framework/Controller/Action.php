@@ -51,7 +51,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
      *
      * Called from {@link __construct()} as final step of object instantiation.
      *
-     * @return void
+     * @return $this for more fluent interface
      */
     public function init()
     {
@@ -64,6 +64,7 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
         $this->_initLayout();
 
+        return $this;
     }
 
     /**
@@ -79,8 +80,22 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
         // set defaultLayout
         if (!is_null($this->_defaultLayout)) {
-            $this->layout->setLayout($this->_defaultLayout);
+            $this->_setLayout($this->_defaultLayout);
         }
+
+        return $this->layout;
+    }
+
+    /**
+     * Change Layout
+     *
+     * @return $this for more fluent interface
+     */
+    protected function _setLayout($layout)
+    {
+        $this->layout->setLayout($layout);
+
+        return $this;
     }
 
     //
