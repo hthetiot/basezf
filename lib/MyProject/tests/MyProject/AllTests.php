@@ -23,8 +23,14 @@ class MyProject_AllTests
     {
         $suite = new PHPUnit_Framework_TestSuite('MyProject Framework');
 
-        $suite->addTestSuite('MyProject_ExampleTest');
-        // ...
+        $testClasses = glob(dirname(__FILE__) . '/*Test.php');
+
+        // get all *Test.php file in current directory and add them as Test
+        foreach ($testClasses as $testClass) {
+            require_once($testClass);
+            $testClassName = basename(dirname($testClass)) . '_' . basename($testClass, '.php');
+            $suite->addTestSuite($testClassName);
+        }
 
         return $suite;
     }

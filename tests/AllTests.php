@@ -29,8 +29,12 @@ class AllTests
     {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit');
 
-        $suite->addTest(BaseZF_AllTests::suite());
-        $suite->addTest(MyProject_AllTests::suite());
+        // get all AllTests.php file in subdirectories and add them as Test suite
+        $allTestsSuites = glob(dirname(__FILE__) . '/*/AllTests.php');
+        foreach ($allTestsSuites as $allTestsSuite) {
+            $allTestsClassName = basename(dirname($allTestsSuite)) . '_' . basename($allTestsSuite, '.php');
+            $suite->addTest(call_user_func($allTestsClassName . '::suite'));
+        }
 
         return $suite;
     }
