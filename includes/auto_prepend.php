@@ -79,7 +79,7 @@ define_if_not('ZF_PATH', '/usr/share/php/ZendFrameWork/release-1.8.4');
 define_if_not('ZF_VERSION', '1.8.4');
 
 define_if_not('BASEZF_PATH', LIBRARY_PATH . '/BaseZF');
-define_if_not('MYPROJECT_PATH', INCLUDE_PATH . '/MyProject');
+define_if_not('MYPROJECT_PATH', LIBRARY_PATH . '/MyProject');
 
 
 //---------------------------------------------------------------------------
