@@ -28,7 +28,7 @@ class MyProject_DbItem extends BaseZF_DbItem
      */
     protected function _getDbInstance()
     {
-        return MyProject::registry('db');
+        return MyProject_Registry::getInstance()->registry('db');
     }
 
     /**
@@ -36,7 +36,7 @@ class MyProject_DbItem extends BaseZF_DbItem
      */
     protected function _getCacheInstance()
     {
-        return MyProject::registry('dbcache');
+        return MyProject_Registry::getInstance()->registry('cache');
     }
 
     /**
@@ -44,7 +44,7 @@ class MyProject_DbItem extends BaseZF_DbItem
      */
     protected function _getLoggerInstance()
     {
-        return MyProject::registry('logger');
+        return MyProject_Registry::getInstance()->registry('log');
     }
 
     /**
