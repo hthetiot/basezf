@@ -8,9 +8,9 @@
  * @author     Harold Thétiot (hthetiot)
  */
 
-class BaseZF_Framework_View_Helper_HeadWidgetPreferences extends BaseZF_Framework_View_Helper_Abstract
+class BaseZF_Framework_View_Helper_UwaWidgetPreferences extends BaseZF_Framework_View_Helper_Abstract
 {
-     public function headWidgetPreferences(array $widgetPreferences)
+     public function uwaWidgetPreferences(array $widgetPreferences)
      {
         $xhtml = array();
         $xhtml[] = '<widget:preferences>';
@@ -65,7 +65,7 @@ class BaseZF_Framework_View_Helper_HeadWidgetPreferences extends BaseZF_Framewor
      {
         $xhtml = array();
         foreach ($tagAttribs as $key => $value) {
-            $xhtml[] = $key . '="' . (is_array($value) ? json_encode($value) : $this->escape($value)) . '"';
+            $xhtml[] = $key . '="' . (is_array($value) ? Zend_Json::encode($value) : $this->escape($value)) . '"';
         }
 
         return implode(' ', $xhtml);
