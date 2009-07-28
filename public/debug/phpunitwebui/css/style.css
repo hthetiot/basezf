@@ -1,0 +1,276 @@
+body {
+    font-size: 10pt;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+a:link {
+    color: #666666;
+    text-decoration: none;
+}
+a:visited {
+    color: #666666;
+    text-decoration: none;
+}
+a:hover {
+    color: #999999;
+    text-decoration: none;
+}
+a:active {
+    color: #999999;
+    text-decoration: none;
+}
+a.testcase {
+    color: #000000;
+}
+a.testcase:hover {
+    color: #666666;
+}
+div#menu {
+    background-color: #f9f9f9;
+}
+div.groupName {
+    background-color: #fcfcfc;
+    border: 1px solid #dedede;
+}
+div.groupName:hover {
+/*     background-color: #eeeedd; */
+    background-color: #bdcfef;
+}
+.icon {
+    color: #888888;
+    text-decoration: none;
+    cursor: pointer;
+}
+.button {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    font-weight: normal;
+    border: 1px solid rgb(198, 199, 202);
+    background: rgb(228, 228, 228) url('../images/style1_btn_bg.gif') repeat-x scroll center top;
+    color: rgb(51, 51, 51);
+}
+.button:hover {
+    color: rgb(90, 90, 90);
+}
+.button#submitForm {
+    border: 1px solid #7B9EBD;
+}
+.checkbox {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    display: block;
+    width: 10px;
+    height: 10px;
+    float: left;
+    display: none;
+}
+.checkboxFrontUnset,
+.checkboxFrontSet {
+    display: block;
+    width: 15px;
+    height: 15px;
+    float: left;
+    vertical-align: bottom;
+    margin: 0px;
+    padding: 0px;
+}
+.checkboxFrontUnset {
+    background: url(../images/checkbox.png) no-repeat top;
+}
+.checkboxFrontSet {
+    background: url(../images/checkbox.png) no-repeat bottom;
+}
+div.groupName {
+    text-align: left;
+    font-weight: bold;
+    padding: 3px;
+    cursor: default;
+    margin: 0px;
+}
+div.groupName .arrow {
+    font-weight: normal;
+    font-size: 12px;
+}
+div.group {
+    padding-left: 3px;
+}
+div.suiteSelect {
+    padding: 0px 0px 5px 5px;
+    text-align: left;
+    cursor: default;
+}
+div.suiteSelect:hover {
+    background-color: #bdcfef;
+}
+div.suiteSelect span {
+    padding-left: 3px;
+}
+div.testSelect {
+    text-align: left;
+    cursor: default;
+}
+div.testSelect:hover {
+    background-color: #bdcfef;
+}
+div.testSelectClosed, div.testSelectOpened {
+    border: solid 1px #bbbbbb;
+    text-align: left;
+    position: absolute;
+    top: 50px; left: 400px;
+    padding-left: 5px;
+    padding-top: 3px;
+    background-color: #f9f9f9;
+    opacity: 0.9;
+}
+div.testSelectClosed {
+    display: none;
+}
+div.testSelectOpened {
+    display: block;
+}
+.arrow_suite {
+    float: right;
+    padding: 4px 3px 4px 4px;
+    width: 13px;
+    height: 13px;
+}
+.pass {
+    font-weight: bold;
+    color: green;
+}
+.fail {
+    font-weight: bold;
+    color: red;
+}
+.skip {
+    font-weight: bold;
+    color: #3399CC;
+}
+div#suites {
+    margin-left: 215px;
+    padding-top: 1px;
+}
+div#status {
+    width: 600px;
+    height: 80px;
+    position: absolute;
+    top: 50%;
+    margin-top: -50px;
+    left: 50%;
+    margin-left: -300px;
+    border: 1px solid #999999;
+    background-color: #DCDEDD;
+    color: #333333;
+    display: none;
+    text-align: center;
+}
+div#loaderContainer {
+    height: 15px;
+    width: 590px;
+    margin-left: 3px;
+    margin-top: 3px;
+    padding: 0px;
+    border: 1px solid black;
+    background-color: #888888;
+}
+div#loader {
+    font-size: 8pt;
+    font-weight: bold;
+    width: 0px;
+    height: 15px;
+    background-color: #9E9E9E;
+    color: #292929;
+    background-image: url(../images/blue_gradient.png);
+    text-align: left;
+}
+div#runnedTest {
+    height: 18px;
+    font-size: 8pt;
+    padding: 5px 0px 5px 3px;
+    width: 555px;
+    overflow: hidden;
+    text-align: left;
+}
+div#testResult {
+    font-size: 8pt;
+    height: 18px;
+    text-align: left;
+    padding: 5px 0px 5px 0px;
+}
+div#menu {
+    padding: 3px;
+    position: absolute;
+    left: 9px;
+    top: 9px;
+    width: 190px;
+    text-align: center;
+    vertical-align: top;
+    border: solid 1px #999999;
+}
+div.suite {
+    border: solid 1px #999999;
+    padding: 6pt;
+}
+div.suite_title {
+    padding-bottom: 6pt;
+    font-weight: bold;
+    font-size: 9pt;
+    background-color: #ffffff;
+    cursor: default;
+}
+div.suite_title:hover {
+    background-color: #eeeedd;
+}
+div.suite_tests {
+    margin-left: 15px;
+    border-top: solid 1px #999999;
+    display: none;
+}
+span.suite_controls {
+    font-weight: normal;
+    font-size: 8pt;
+    right: 0pt;
+}
+.case { 
+    font-weight: bold;
+}
+.exception {
+    font-family: monospace;
+    color: #777777;
+}
+.exception table {
+    color: black;
+    font-size: 8pt;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    white-space: normal;
+    margin-right: 10px;
+}
+p.testcase_pass {
+    margin: 0pt;
+    padding: 0pt;
+    padding-left: 8pt;
+    text-indent: -6pt;
+    border-left: solid 2pt green;
+    border-right: solid 2pt green;
+    border-bottom: solid 1pt #999999;
+}
+p.testcase_fail {
+    margin: 0pt;
+    padding: 0pt;
+    padding-left: 8pt;
+    text-indent: -6pt;
+    border-left: solid 2pt red;
+    border-right: solid 2pt red;
+    border-bottom: solid 1pt #999999;
+}
+div#codeCoverage{
+	background-color:#FAEAAD;
+	overflow:auto;
+	display:none;
+	height:90%;
+	left:236px;
+	position:absolute;
+	top:20px;
+	width:78%;
+	z-index:19999;
+	sopacity: 0.9;
+}

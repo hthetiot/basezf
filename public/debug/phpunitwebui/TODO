@@ -1,0 +1,9 @@
+
+TO DO list
+
+* make possible to continue stopped tests
+* find a way to generate code coverage only for some tests
+* make the status window movable and minimize/maximize
+* find a more suitable solution for displaying the select and clear all buttons
+* update the css of the left tests selector to fit the width of the display
+* add metrics reports

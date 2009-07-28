@@ -16,7 +16,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 define('CONFIG_ENV', 'test');
 
 // Init Environement
-require_once '../includes/auto_prepend.php';
+require_once realpath(dirname(__FILE__) . '/..') . '/includes/auto_prepend.php';
 
 class AllTests
 {
@@ -32,6 +32,11 @@ class AllTests
         // get all AllTests.php file in subdirectories and add them as Test suite
         $allTestsSuites = glob(dirname(__FILE__) . '/*/AllTests.php');
         foreach ($allTestsSuites as $allTestsSuite) {
+
+            // include AllTests Class
+            require_once($allTestsSuite);
+
+            // add has test suite
             $allTestsClassName = basename(dirname($allTestsSuite)) . '_' . basename($allTestsSuite, '.php');
             $suite->addTest(call_user_func($allTestsClassName . '::suite'));
         }

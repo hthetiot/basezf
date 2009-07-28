@@ -311,34 +311,6 @@ if (!function_exists('implode_assoc')) {
      *   - key    ->  display the key and NOT the value; inner_glue will not display except with prepend/append
      *   - value  ->  display the value and NOT the key; inner_glue will not display except with prepend/append
      *
-     * @example:
-     *
-     *  -1-
-     *  $titleParts = array('Type'=>'Image', 'Size'=>'16 Meg', 'Description'=>'',
-     *                      'Author'=>'Sean P. O. MacCath-Moran', 'Site'=>'www.emanaton.com');
-     *
-     *  echo implode_assoc($titleParts, array('inner_glue'=>': ', 'outer_glue'=>' || ',
-     *                    'skip_empty'=>true));
-     *
-     *  display: Type: Image || Size: 16 Meg || Arther: Sean P. O. MacCath-Moran || Site: www.emanaton.com
-     *
-     *  -2-
-     *  $htmlArgs = array('href'=>'http://www.emanaton.com/', 'title'=>'emanaton dot com', 'style'=>'',
-     *                   'class'=>'promote siteLink');
-     *
-     *  echo implode_assoc($htmlArgs, array('inner_glue'=>'="', 'outer_glue'=>'" ', 'skip_empty'=>true,
-     *                     'append_outer_glue'=>true, 'prepend'=>'<a ', 'append'=>'>'));
-     *
-     *  display: <a href="http://www.emanaton.com/" title="emanaton dot com" class="promote siteLink" >
-     *
-     *  -3-
-     *  $getArgs = array('page'=>'2', 'id'=>'alpha1', 'module'=>'acl', 'controller'=>'role', 'action'=>'',
-     *                  'homepage'=>'http://www.emanaton.com/');
-     *
-     *  echo implode_assoc($getArgs, array('skip_empty'=>true, 'urlencode'=>true));
-     *
-     *  display: page=2&id=alpha1&module=acl&controller=role&template=default&value=http%3A%2F%2Fwww.emanaton.com%2F
-     *
      * @return string of the imploded key-value pairs
     */
     function implode_assoc($array, array $overrideOptions = array())
@@ -389,6 +361,43 @@ if (!function_exists('implode_assoc')) {
         }
 
         return $prepend. ($prepend_outer_glue ? $outer_glue : '') . implode($outer_glue, $output) . ($append_outer_glue ? $outer_glue : '') . $append;
+    }
+}
+
+if (!function_exists('common_words')) {
+
+    /**
+     * Extract common word from string and exclude stop words
+     *
+     */
+    function common_words($string, $stopWords)
+    {
+        $string = preg_replace('/ss+/i', '', $string);
+        $string = trim($string); // trim the string
+        $string = preg_replace('/[^a-zA-Z0-9 -]/', '', $string); // only take alphanumerical characters, but keep the spaces and dashes too...
+        $string = strtolower($string); // make it lowercase
+
+        preg_match_all('/([a-z]*?)(?=s)/i', $string, $matchWords);
+        $matchWords = $matchWords[0];
+        foreach ( $matchWords as $key=>$item ) {
+            if ( $item == '' || in_array(strtolower($item), $stopWords) || strlen($item) <= 3 ) {
+                unset($matchWords[$key]);
+            }
+        }
+        $wordCountArr = array();
+        if ( is_array($matchWords) ) {
+            foreach ( $matchWords as $key => $val ) {
+                $val = strtolower($val);
+                if ( isset($wordCountArr[$val]) ) {
+                    $wordCountArr[$val]++;
+                } else {
+                    $wordCountArr[$val] = 1;
+                }
+            }
+        }
+        arsort($wordCountArr);
+        $wordCountArr = array_slice($wordCountArr, 0, 10);
+        return $wordCountArr;
     }
 }
 

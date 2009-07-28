@@ -87,13 +87,20 @@ test:
 	@cd tests && phpunit AllTests
 	@echo "done"
 
+# Exec unitTest and coverage report
+test-report:
+	@echo "----------------"
+	@echo "Exec Units test coverage report:"
+	@cd tests && phpunit --report ../public/debug/phpunitreport/ AllTests
+	@echo "done"
+
 config:
 	@echo "----------------"
 	@echo "Configure config files:"
 	@$(PROJECT_BIN)/tools/config-generator.php configure $(PROJECT_CONFIG) $(PROJECT_CONFIG)/dist
 	@echo "done"
 
-locale: locale-template locale-update locale-deploy
+locale: clean locale-template locale-update locale-deploy
 
 # Generate .pot file for current project domain
 locale-template:

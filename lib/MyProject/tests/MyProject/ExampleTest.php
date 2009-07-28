@@ -36,7 +36,39 @@ class MyProject_ExampleTest extends PHPUnit_Framework_TestCase
         $example->updateProperty($value);
 
         // compare waiting results with results
-        $this->assertEquals($value, $example->getProperty());
+        $this->assertEquals($value+1, $example->getProperty());
+
+        /*
+        assertArrayHasKey()
+        assertClassHasAttribute()
+        assertClassHasStaticAttribute()
+        assertContains()
+        assertContainsOnly()
+        assertEqualXMLStructure()
+        assertEquals()
+        assertFalse()
+        assertFileEquals()
+        assertFileExists()
+        assertGreaterThan()
+        assertGreaterThanOrEqual()
+        assertLessThan()
+        assertLessThanOrEqual()
+        assertNotNull()
+        assertObjectHasAttribute()
+        assertRegExp()
+        assertSame()
+        assertSelectCount()
+        assertSelectEquals()
+        assertSelectRegExp()
+        assertStringEqualsFile()
+        assertTag()
+        assertThat()
+        assertTrue()
+        assertType()
+        assertXmlFileEqualsXmlFile()
+        assertXmlStringEqualsXmlFile()
+        assertXmlStringEqualsXmlString()
+        */
     }
 
     /**

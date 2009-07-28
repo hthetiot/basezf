@@ -27,7 +27,11 @@ class BaseZF_AllTests
 
         // get all *Test.php file in current directory and add them as Test
         foreach ($testClasses as $testClass) {
+
+            // include Test Class
             require_once($testClass);
+
+            // add has test suite
             $testClassName = basename(dirname($testClass)) . '_' . basename($testClass, '.php');
             $suite->addTestSuite($testClassName);
         }

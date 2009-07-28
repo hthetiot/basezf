@@ -1,0 +1,13 @@
+
+PHPUnit WUI is a Web User Interface Test Runner for PHPUnit
+
+1. Configuration
+
+ * Copy the configuration sample to config.php and make the necessary changes into the config file.
+   The sample configuratin options are brief commented.
+
+2. Requirements
+
+ * Firefox >= 3.0
+ * PHPUnit >= 3.2
+ * Perl    >= 5.8
