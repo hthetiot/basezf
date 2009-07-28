@@ -41,14 +41,15 @@ BaseZF.Helper.AjaxLink = new Class({
         {
             new Event(e).stop();
 
-            var myRequestParams = [{url: this.href}, 'HTML', element];
-            var myRequest = that.getRequest.run(myRequestParams, that);
+            var myRequest = that.getRequest({
+                url: this.href
+            }, 'HTML', this);
 
             myRequest.send();
 
             return false;
 
-        }, element);
+        });
 
         element.retrieve('ajaxlink:semaphore', true);
     },
@@ -69,8 +70,6 @@ BaseZF.Helper.AjaxLink = new Class({
         } catch (e) {
             throw e;
         }
-
-        this.hideLoading();
     }
 });
 

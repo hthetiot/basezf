@@ -91,9 +91,6 @@ BaseZF.Helper.AjaxAbstract = {
         options = $merge({
             method: 'get',
             evalScripts: false,
-            onCancel: this.hideLoading,
-            onFailure: this.hideLoading,
-            onRequest: this.showLoading,
             onSuccess: requestCallback,
             noCache: true
         }
@@ -112,6 +109,12 @@ BaseZF.Helper.AjaxAbstract = {
                 this.myRequest = new Request(options);
                 break;
         }
+
+        // add event
+        this.myRequest.addEvent('request', this.showLoading);
+        this.myRequest.addEvent('exception', this.showLoading);
+        this.myRequest.addEvent('failure', this.hideLoading);
+        this.myRequest.addEvent('success', this.hideLoading);
 
         return this.myRequest;
     }

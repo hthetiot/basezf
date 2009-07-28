@@ -56,14 +56,18 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
                     $upload = new Zend_File_Transfer_Adapter_Http();
                     $upload->setDestination('/tmp/');
                     $upload->receive();
-                    */
-
                     die('cool');
+                    */
                 }
             }
         }
 
         $this->view->form = $form;
+    }
+
+    public function indexvalidateAction()
+    {
+
     }
 
     public function uploadAction()

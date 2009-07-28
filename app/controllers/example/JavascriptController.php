@@ -52,6 +52,53 @@ class Example_JavascriptController extends BaseZF_Framework_Controller_Action
         }
     }
 
+    public function ajaxformAction()
+    {
+        $form = new MyProject_Form_Example_AjaxForm();
+        $form->setAction('/example/javascript/ajaxform');
+
+        if ($this->getRequest()->isPost()) {
+
+            // get form data
+            $formData = $_POST;
+
+            // ajax validation
+            if ($this->isJson) {
+
+                // set output mode for json only
+                $this->_makeJson();
+
+                $response = $form->processJson($formData);
+                $this->_setJson($response);
+
+            // check if all form is valid before normal process
+            } else {
+
+                // set form data
+                $form->populate($formData);
+
+                // check if all form is valid
+                if ($form->isValid($formData)) {
+
+                    // success, do stuff with your data here!
+                    // i'll just do a lame redirect here
+
+                    // if it is ajax it will redirect anyway cause _redirect handle isAjax
+                    $this->_redirect('/example/javascript/ajaxformvalidate');
+
+                // ajax submit display form with error
+                } else if ($this->isAjax) {
+
+                    //  use ajaxform.ajax.phtml view file is it is ajax
+                    $this->_makeAjaxHTML();
+                    $this->_addAjax("originElement.set('html', responseHTML);");
+                }
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
     public function ajaxformvalidateAction()
     {
     }
@@ -65,30 +112,6 @@ class Example_JavascriptController extends BaseZF_Framework_Controller_Action
     }
 
     public function uwaAction()
-    {
-    }
-
-    public function tooltipsAction()
-    {
-    }
-
-    public function notifyAction()
-    {
-    }
-
-    public function flashAction()
-    {
-    }
-
-    public function sortablesAction()
-    {
-    }
-
-    public function slidelistAction()
-    {
-    }
-
-    public function starratingsAction()
     {
     }
 }

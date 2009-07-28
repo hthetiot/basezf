@@ -332,11 +332,6 @@ BaseZF.Helper.FormAjaxValidate = new Class({
         }
     },
 
-    processValidation: function(formSubmit)
-    {
-        // @todo
-    },
-
     requestCallback: function(json, b)
     {
         try {
@@ -371,13 +366,7 @@ BaseZF.Helper.FormAjaxValidate = new Class({
 
             }, this);
 
-            // hide loading
-            this.hideLoading();
-
         } catch (e) {
-
-            // force hide loading
-            this.hideLoading(true);
 
             throw e;
         }

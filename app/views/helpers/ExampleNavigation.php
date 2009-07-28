@@ -26,6 +26,7 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
             'Tools' => array(
                '/example/index/blueprint'       => 'Blueprint',
                '/example/index/mootools'        => 'Mootools',
+               '/example/index/makefile'        => 'MakeFile',
             ),
 
             'Form Elements' => array(
@@ -46,6 +47,7 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
             'JS Tools' => array(
                '/example/form/autocompleter'    => 'Auto Completer',
                '/example/javascript/ajaxlink'   => 'Ajax Link',
+               '/example/javascript/ajaxform'   => 'Ajax Form',
                '/example/javascript/lightbox'   => 'LightBox',
                '/example/javascript/uwa'        => 'UWA Widget',
             ),

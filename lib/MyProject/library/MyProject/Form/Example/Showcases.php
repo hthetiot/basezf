@@ -35,7 +35,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             'required'      => true,
             'multioptions'  => array(
                 1 => __('Male'),
-                0 => __('Female'),
+                2 => __('Female'),
             ),
         ));
 
