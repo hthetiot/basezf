@@ -8,6 +8,7 @@
     <ul>
         <li><a href="apc.php">APC</a></li>
         <li><a href="memcache.php">memCache</a></li>
+        <li><a href="server-status/">Apache Server Status</a></li>
     </ul>
 
     <h2>Debuging Tools</h2>
