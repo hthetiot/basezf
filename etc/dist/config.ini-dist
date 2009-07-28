@@ -27,7 +27,7 @@ view.helper_paths.App_View_Helper = APPLICATION_PATH "/views/helpers"
 view.helper_paths.BaseZF_Framework_View_Helper = "BaseZF/Framework/View/Helper"
 
 # Static-Pack
-static_pack.enable          = false
+static_pack.enable              = false
 static_pack.css_config		= CONFIG_PATH "/static/css.yml"
 static_pack.script_config	= CONFIG_PATH "/static/javascript.yml"
 
