@@ -22,6 +22,7 @@ includes/auto_prepend_local.php
 data/log/*
 data/cache/*
 data/upload/*
+public/debug/phpunitreport/*
 
 # static packs
 public/css/pack/*.css
