@@ -20,9 +20,9 @@
         AuthName "Debugging tools"
 
         ### (Following line optional)
-        AuthBasicProvider file
-        AuthUserFile $PROJECT_PATH/etc/debug.htpasswd
-        Require valid-user
+        # AuthBasicProvider file
+        # AuthUserFile $PROJECT_PATH/etc/debug.htpasswd
+        # Require valid-user
     </Location>
 
     <Location /debug/server-status>
@@ -104,10 +104,6 @@
         # php_value xdebug.profiler_append 1
         # php_value xdebug.profiler_output_dir $PROJECT_PATH/data/log/
         # php_value xdebug.profiler_output_name php_xdebug.out.%H.%R
-
-
-
-
 
     </IfModule>
 
