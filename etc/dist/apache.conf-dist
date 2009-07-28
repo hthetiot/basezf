@@ -36,7 +36,7 @@
     # CustomLog  $PROJECT_PATH/data/log/apache_access.log common
     # ErrorLog   $PROJECT_PATH/data/log/apache_error.log
     # RewriteLog $PROJECT_PATH/data/log/apache_rewrite.log
-    # RewriteLogLevel 0
+    # RewriteLogLevel 5
 
     ### Urchin logs
     # LogFormat "%h %v %u %t \"%r\" %>s %b \"%{Referer}i\"\"%{User-Agent}i\"\"%{Cookie}i\"" special
