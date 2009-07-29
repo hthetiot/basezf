@@ -20,24 +20,24 @@ BaseZF.Class.Helper = new Class({
     Implements: [Options],
 
     options: {
-        debug: true
+	debug: true
     },
 
     initialize: function(launcherName, launcherArgs, options) {
 
-        // init helper
-        this.initHelper();
+	// init helper
+	this.initHelper();
 
-        var launcherArgs = $A(arguments).erase(launcherName);
-        var launcherFunc = 'launcher-' + launcherName;
+	var launcherArgs = $A(arguments).erase(launcherName);
+	var launcherFunc = 'launcher-' + launcherName;
 
-        try {
-            eval('this.' + launcherFunc.camelCase() + '.run(launcherArgs, this);');
-        } catch (e) {
-            if (this.options.debug) {
-                alert('Helper Error : ' + launcherFunc.camelCase() + '/' + e.message);
-            }
-        }
+	try {
+	    eval('this.' + launcherFunc.camelCase() + '.run(launcherArgs, this);');
+	} catch (e) {
+	    if (this.options.debug) {
+		alert('Helper Error : ' + launcherFunc.camelCase() + '/' + e.message);
+	    }
+	}
     },
 
     initHelper: function() {
@@ -45,40 +45,40 @@ BaseZF.Class.Helper = new Class({
 
     getOptionFromElement: function(element, nameSpace) {
 
-        if (!element.getProperty('data')) {
-            if (!element.getProperty('rel')) {
-                return $H();
-            } else {
-                var data = element.getProperty('rel');
-            }
-        } else {
-            var data = element.getProperty('data');
-        }
+	if (!element.getProperty('data')) {
+	    if (!element.getProperty('rel')) {
+		return $H();
+	    } else {
+		var data = element.getProperty('rel');
+	    }
+	} else {
+	    var data = element.getProperty('data');
+	}
 
-        eval('var options = $H(' + data.toString() + ');');
+	eval('var options = $H(' + data.toString() + ');');
 
-        if ($type(nameSpace)) {
-            if (options.has(nameSpace)) {
-                return options.get(nameSpace);
-            } else {
-                return $H();
-            }
-        }
+	if ($type(nameSpace)) {
+	    if (options.has(nameSpace)) {
+		return options.get(nameSpace);
+	    } else {
+		return $H();
+	    }
+	}
 
-        return options;
+	return options;
     },
 
     getOptionFromElementClass: function(element, classOptions)
     {
-        var newOptions = $H();
+	var newOptions = $H();
 
-        $H(classOptions).each(function(value, key){
-            if(element.hasClass(key)) {
-                newOptions = $merge(newOptions, value);
-            }
-        });
+	$H(classOptions).each(function(value, key){
+	    if(element.hasClass(key)) {
+		newOptions = $merge(newOptions, value);
+	    }
+	});
 
-        return newOptions;
+	return newOptions;
     }
 });
 
@@ -94,29 +94,31 @@ BaseZF.Class.Helper.run = new Class({
 
     initialize: function(root) {
 
-        if ($type(root)) {
-            this.setRootElement(root);
-        }
+	if ($type(root)) {
+	    this.setRootElement(root);
+	}
 
-        $H(BaseZF.Helper).each( function (helper, name) {
-            if (typeof(helper) == 'function') {
+	$H(BaseZF.Helper).each( function (helper, name) {
 
-                helperClass = new helper('selector');
-                delete(helperClass);
-            }
-        });
+	    // exclude abstract className
+	    if (typeof(helper) == 'function' && !name.test('Abstract')) {
 
-        this.setDefaultRootElement();
+		helperClass = new helper('selector');
+		delete(helperClass);
+	    }
+	});
+
+	this.setDefaultRootElement();
     },
 
     setDefaultRootElement: function()
     {
-        BaseZF.Class.Helper.Root = document;
+	BaseZF.Class.Helper.Root = document;
     },
 
     setRootElement: function(root)
     {
-        BaseZF.Class.Helper.Root = root;
+	BaseZF.Class.Helper.Root = root;
     }
 });
 

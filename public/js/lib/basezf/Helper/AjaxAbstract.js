@@ -13,73 +13,77 @@ if (typeof BaseZF.Helper == "undefined") BaseZF.Helper = {};
 BaseZF.Helper.AjaxAbstract = {
 
     loadingElement: $empty,
-    initialized: false,
-    nbActiveRequest: 0,
 
     Extends: BaseZF.Class.Helper,
 
     initHelper: function() {
 
-        // get abtract layer
-        that = BaseZF.Helper.AjaxAbstract;
-
-        if (!$type($('loading')) || that.initialized) {
+        // has loading element
+        if (!$type($('loading'))) {
             return;
         }
 
-        // init loading div
-        that.loadingElement = $('loading');
-        that.loadingElement.setStyles({
+        // store loading element
+        this.loadingElement = $('loading');
+
+        // init loading if needed
+        if (!$('loading').retrieve('ajaxAbstract:semaphore')) {
+            this.initLoading();
+        }
+    },
+
+    initLoading: function()
+    {
+        this.loadingElement.setStyles({
             'position': 'fixed',
             'top': '0px',
             'left': '0px'
         });
 
-        that.initialized = true;
-        that.hideLoading(true);
+        this.loadingElement.store('ajaxAbstract:semaphore', true);
+        this.loadingElement.store('ajaxAbstract:nbActiveRequest', 0);
+
+        this.hideLoading(true);
     },
 
     hideLoading: function(force) {
 
-        // get abtract layer
-        that = BaseZF.Helper.AjaxAbstract;
-
-        that.nbActiveRequest--;
+        // get current transation level
+        var nbActiveRequest = this.loadingElement.store(
+            'ajaxAbstract:nbActiveRequest',
+            this.loadingElement.retrieve('ajaxAbstract:nbActiveRequest', 0) - 1
+        );
 
         if (
-           that.loadingElement &&
+           this.loadingElement &&
             (
-                $type(force) ||
-                (that.nbActiveRequest <= 0 && that.loadingElement.hasClass('loading'))
+            $type(force) ||
+            (nbActiveRequest <= 0 && this.loadingElement.hasClass('loading'))
             )
         ) {
 
             // hide loading
-            that.loadingElement.removeClass('loading');
-            that.loadingElement.fade(0);
-            that.nbActiveRequest = 0;
+            this.loadingElement.removeClass('loading');
+            this.loadingElement.fade(0);
+
+            this.loadingElement.store('ajaxAbstract:nbActiveRequest', 0);
         }
     },
 
     showLoading: function() {
 
-        // get abtract layer
-        that = BaseZF.Helper.AjaxAbstract;
+        var nbActiveRequest = this.loadingElement.store(
+            'ajaxAbstract:nbActiveRequest',
+            this.loadingElement.retrieve('ajaxAbstract:nbActiveRequest', 0) + 1
+        );
 
-        that.nbActiveRequest++;
-
-        if (that.loadingElement && !that.loadingElement.hasClass('loading')) {
-            that.loadingElement.addClass('loading');
-            that.loadingElement.fade(1);
+        if (this.loadingElement && !this.loadingElement.hasClass('loading')) {
+            this.loadingElement.addClass('loading');
+            this.loadingElement.fade(1);
         }
     },
 
-    getRequest: function(options, type, origin, singleton) {
-
-        // one request per helper
-        if ($type(singleton) && $type(this.myRequest)) {
-            this.myRequest.cancel();
-        }
+    getRequest: function(options, type, origin) {
 
         // set callback origin
         if (typeof(origin) != 'undefined') {
@@ -88,33 +92,40 @@ BaseZF.Helper.AjaxAbstract = {
            requestCallback = this.requestCallback.bind(this)
         }
 
-        options = $merge({
+        var options = $merge({
             method: 'get',
             evalScripts: false,
             onSuccess: requestCallback,
-            noCache: true
+            noCache: true,
+            link: 'cancel'
         }
         , options);
 
+        // one request per helper
+        if ($type(this.myRequest)) {
+            this.myRequest.setOptions(options);
+            return this.myRequest;
+        }
+
         switch (type) {
             case 'JSON':
-                this.myRequest = new Request.JSON(options);
-                break;
+            this.myRequest = new Request.JSON(options);
+            break;
 
             case 'HTML':
-                this.myRequest = new Request.HTML(options);
-                break;
+            this.myRequest = new Request.HTML(options);
+            break;
 
             default:
-                this.myRequest = new Request(options);
-                break;
+            this.myRequest = new Request(options);
+            break;
         }
 
         // add event
-        this.myRequest.addEvent('request', this.showLoading);
-        this.myRequest.addEvent('exception', this.showLoading);
-        this.myRequest.addEvent('failure', this.hideLoading);
-        this.myRequest.addEvent('success', this.hideLoading);
+        this.myRequest.addEvent('request', this.showLoading.bind(this));
+        this.myRequest.addEvent('exception', this.showLoading.bind(this));
+        this.myRequest.addEvent('failure', this.hideLoading.bind(this));
+        this.myRequest.addEvent('success', this.hideLoading.bind(this));
 
         return this.myRequest;
     }
