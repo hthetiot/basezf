@@ -7,8 +7,6 @@
 # $DB_NAME: Database name
 # $DB_USERNAME: Database username
 # $DB_PASSWORD: Database username password
-# $DEBUG_REPORT_TO: Error mail report recipients
-# $DEBUG_REPORT_FROM: Error mail report email from
 #
 [app]
 
@@ -16,13 +14,13 @@
 autoloaderNamespaces.myproject  = "MyProject_"
 autoloaderNamespaces.basezf     = "BaseZF_"
 
-# MVC: common paths
+# MVC > common paths
 bootstrap.path              = APPLICATION_PATH "/Bootstrap.php"
 controller.path             = APPLICATION_PATH "/controllers"
 view.path                   = APPLICATION_PATH "/views"
 layout.path                 = APPLICATION_PATH "/views/layouts"
 
-# MVC: view helpers class paths
+# MVC > view helpers class paths
 view.helper_paths.App_View_Helper = APPLICATION_PATH "/views/helpers"
 view.helper_paths.BaseZF_Framework_View_Helper = "BaseZF/Framework/View/Helper"
 
@@ -34,6 +32,7 @@ static_pack.script_config	= CONFIG_PATH "/static/javascript.yml"
 # Database
 db.adapter                  = $DB_ADAPTER
 db.params.persistent        = true
+db.params.charset           = utf8
 db.params.host              = $DB_HOST
 db.params.dbname            = $DB_NAME
 db.params.username          = $DB_USERNAME
