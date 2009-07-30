@@ -10,7 +10,7 @@
 #  - update: 	Update from current GIT repository
 #
 # @copyright  Copyright (c) 2008 BaseZF
-# @author     Harold Thétiot (hthetiot)
+# @author     Harold Thetiot (hthetiot)
 # @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
 # Binary
@@ -40,8 +40,8 @@ LOCALE_PO_DIR = LC_MESSAGES
 LOCALE_DOMAINS = $(PROJECT_LOCALE_DOMAIN) time validate
 
 # Static
-CSS_PACK_CONFIG = $(ROOT)/etc/static/css.yml
-JS_PACK_CONFIG = $(ROOT)/etc/static/javascript.yml
+CSS_PACK_CONFIG = $(PROJECT_CONFIG)/static/css.yml
+JS_PACK_CONFIG = $(PROJECT_CONFIG)/static/javascript.yml
 
 # Others
 RELEASE_NAME = $(PROJECT_NAME)-$(PROJECT_VERSION)
@@ -64,7 +64,7 @@ all: clean syntax locale
 doc:
 	@echo "----------------"
 	@echo "Generate doxygen doc :"
-	@$(DOXYGEN) ./etc/doxygen.cnf > $(PROJECT_LOG)/doc.log
+	@$(DOXYGEN) $(PROJECT_CONFIG)/doxygen.cnf > $(PROJECT_LOG)/doc.log
 	@echo "done"
 
 # Check syntax of PHP files
@@ -152,7 +152,7 @@ locale-translate-google:
 	@echo "Translate GetText PO files with Google translate:"
 	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po"`; \
 	for i in $$list;do \
-		./bin/tools/gettext-translator.php en `echo "$$i" | cut -d / -f3 | cut -d _ -f1` $$i $$i; \
+		$(PROJECT_BIN)/tools/gettext-translator.php en `echo "$$i" | cut -d / -f3 | cut -d _ -f1` $$i $$i; \
     done
 
 # Remove all .mo and .po files
@@ -171,11 +171,11 @@ static-pack: clean static-pack-css static-pack-js
 
 static-pack-css:
 	@echo "----------------"
-	@./bin/tools/static-pack.php css $(CSS_PACK_CONFIG) public
+	@$(PROJECT_BIN)/tools/static-pack.php css $(CSS_PACK_CONFIG) public
 
 static-pack-js:
 	@echo "----------------"
-	@./bin/tools/static-pack.php js $(JS_PACK_CONFIG) public
+	@$(PROJECT_BIN)/tools/static-pack.php js $(JS_PACK_CONFIG) public
 
 # Remove the log files
 log-clean:
