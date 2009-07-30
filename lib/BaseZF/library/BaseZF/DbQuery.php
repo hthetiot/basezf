@@ -26,17 +26,17 @@ class BaseZF_DbQuery
     /**
      * Instance of Cache
      */
-    protected static $_CACHE;
+    protected $_cacheInstance;
 
     /**
      * Instance of Db connexion
      */
-    protected static $_DB;
+    protected $_dbInstance;
 
     /**
      * Instance of Logger
      */
-    protected static $_LOGGER;
+    protected $_loggerInstance;
 
     /**
      * SQL Query
@@ -234,46 +234,61 @@ class BaseZF_DbQuery
     /**
      * Retrieve the Db instance
      *
-     * @return object instance db class value of self::$_DB
+     * @return object instance Zend_Db_Adapter
      */
-    static protected function _getDbInstance()
+    protected function _getDbInstance()
     {
-        return self::$_DB;
+        return $this->_dbInstance;
     }
 
-    static public function setDbInstance($db)
+    /**
+     * @return $this for more fluent interface
+     */
+    public function setDbInstance(Zend_Db_Adapter $db)
     {
-        self::$_DB = $db;
+        $this->_dbInstance = $db;
+
+        return $this;
     }
 
     /**
      * Retrieve the Cache instance
      *
-     * @return object instance of BaseZF_Cache_Interface value of self::$_CACHE
+     * @return object instance of Zend_Cache_Core
      */
-    static protected function _getCacheInstance()
+    protected function _getCacheInstance()
     {
-        return self::$_CACHE;
+        return $this->_cacheInstance;
     }
 
-    static public function setCacheInstance($cache)
+    /**
+     * @return $this for more fluent interface
+     */
+    public function setCacheInstance(Zend_Cache_Core $cache)
     {
-        self::$_CACHE = $cache;
+        $this->_cacheInstance = $cache;
+
+        return $this;
     }
 
     /**
      * Retrieve the Logger instance
      *
-     * @return object instance of BaseZF_Cache_Interface value of self::$_LOGGER
+     * @return object instance of Zend_Log
      */
-    static protected function _getLoggerInstance()
+    protected function _getLoggerInstance()
     {
-       return self::$_LOGGER;
+       return $this->_loggerInstance;
     }
 
-    static public function setLoggerInstance($logger)
+    /**
+     * @return $this for more fluent interface
+     */
+    public function setLoggerInstance(Zend_Log $logger)
     {
-        self::$_LOGGER = $logger;
+        $this->_loggerInstance = $logger;
+
+        return $this;
     }
 
     //
