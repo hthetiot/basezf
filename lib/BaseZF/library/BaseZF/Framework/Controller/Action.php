@@ -263,26 +263,6 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
     }
 
     /**
-     * Redirect to another URL
-     *
-     * Proxies to {@link Zend_Controller_Action_Helper_Redirector::gotoUrl()}.
-     *
-     * @param string $url
-     * @param array $options Options to be used when redirecting
-     * @return void
-     */
-    protected function _redirect($url, array $options = array())
-    {
-        if ($this->isJson) {
-            $this->_addJson(array('js' => array('document.location.replace("' . $url . '");')));
-        } elseif ($this->isAjax) {
-            $this->_addAjax('document.location.replace("' . $url . '");');
-        } else {
-            $this->_helper->redirector->gotoUrl($url, $options);
-        }
-    }
-
-    /**
      * Configure the view for ajax rendering
      *
      * @return $this for more fluent interface
@@ -305,5 +285,26 @@ abstract class BaseZF_Framework_Controller_Action extends Zend_Controller_Action
 
         return $this;
     }
+
+    /**
+     * Redirect to another URL
+     *
+     * Proxies to {@link Zend_Controller_Action_Helper_Redirector::gotoUrl()}.
+     *
+     * @param string $url
+     * @param array $options Options to be used when redirecting
+     * @return void
+     */
+    protected function _redirect($url, array $options = array())
+    {
+        if ($this->isJson) {
+            $this->_addJson(array('js' => array('document.location.replace("' . $url . '");')));
+        } elseif ($this->isAjax) {
+            $this->_addAjax('document.location.replace("' . $url . '");');
+        } else {
+            $this->_helper->redirector->gotoUrl($url, $options);
+        }
+    }
+
 }
 
