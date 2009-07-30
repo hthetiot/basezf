@@ -24,6 +24,10 @@ layout.path                 = APPLICATION_PATH "/views/layouts"
 view.helper_paths.App_View_Helper = APPLICATION_PATH "/views/helpers"
 view.helper_paths.BaseZF_Framework_View_Helper = "BaseZF/Framework/View/Helper"
 
+# MVC > enable module
+controller.modules.default	= default
+controller.modules.example	= example
+
 # Static-Pack
 static_pack.enable              = false
 static_pack.css_config		= CONFIG_PATH "/static/css.yml"
