@@ -116,7 +116,7 @@ abstract class BaseZF_Registry
                 throw new BaseZF_Exception('Invalid configuration file provided; unknown config type');
         }
 
-        return $this->setConfig($config);
+        return $config;
     }
 
     /**
