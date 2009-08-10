@@ -41,6 +41,10 @@ p {
 ul li {
     list-style: square;
 }
+.container
+{
+    width: 1015px;
+}
 
 #loading
 {

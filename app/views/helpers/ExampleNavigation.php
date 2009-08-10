@@ -75,9 +75,11 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
                 $xhtml[] = '<h4>' . $this->view->escape($menu) . '</h4>';
             }
 
+            $xhtml[] = '<ul>';
             foreach ($links as $link => $label) {
-                $xhtml[] = '<div><a href="' . $link . '">' . $this->view->escape($label) . '</a></div>';
+                $xhtml[] = '<li><a href="' . $link . '">' . $this->view->escape($label) . '</a></li>';
             }
+            $xhtml[] = '</ul>';
         }
 
         return implode("\n", $xhtml);
