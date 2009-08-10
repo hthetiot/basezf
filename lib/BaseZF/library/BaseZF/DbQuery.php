@@ -162,8 +162,9 @@ class BaseZF_DbQuery
      */
     public function getCacheKey()
     {
+        // build auto cache key
         if (is_null($this->_cacheKey)) {
-            throw new BaseZF_DbQuery_Exception('Fatal: empty cachekey');
+            $this->_cacheKey = sha1($this->_query . ':' .  serialize($this->_queryFields) . ':' . serialize($this->_bindValues));
         }
 
         return $this->_cacheKey;
@@ -244,7 +245,7 @@ class BaseZF_DbQuery
     /**
      * @return $this for more fluent interface
      */
-    public function setDbInstance(Zend_Db_Adapter $db)
+    public function setDbInstance(Zend_Db_Adapter_Abstract $db)
     {
         $this->_dbInstance = $db;
 

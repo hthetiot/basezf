@@ -492,7 +492,7 @@ abstract class BaseZF_DbItem
         $this->_flushDependency($property);
 
         // clean property by types
-        $this->_propertyCleanType($property, $this->_modified);
+        $this->_propertyToDbItemFormat($property, $this->_modified);
 
         return $this;
     }
@@ -786,7 +786,7 @@ abstract class BaseZF_DbItem
 
         // clean property by types
         foreach ($data as $property => $value) {
-            $this->_propertyCleanType($property, $data);
+            $this->_propertyToDbItemFormat($property, $data);
         }
 
         $this->_data = array_merge($this->_data, $data);
@@ -798,7 +798,7 @@ abstract class BaseZF_DbItem
         return $this;
     }
 
-    protected function _propertyCleanType($property, &$data)
+    protected function _propertyToDbItemFormat($property, &$data)
     {
         if(
             !($type = $this->getFieldType($property)) ||
@@ -818,6 +818,31 @@ abstract class BaseZF_DbItem
         // clean timestamp
         if (($type == 'TIMESTAMP' || $type == 'DATE') && !is_numeric($value)) {
             $data[$property] = strtotime($value);
+        }
+
+        return $this;
+    }
+
+    protected function _propertyToDbFormat($property, &$data)
+    {
+        if(
+            !($type = $this->getFieldType($property)) ||
+            !isset($data[$property]) ||
+            mb_strlen($data[$property]) == 0
+        ) {
+            return $this;
+        }
+
+        $value = $data[$property];
+
+        // clean array
+        if (strstr($type,'[]') == '[]' && is_array($value)) {
+            $data[$property] = self::arr2str($value);
+        }
+
+        // clean timestamp
+        if (($type == 'TIMESTAMP' || $type == 'DATE') && is_numeric($value)) {
+            $data[$property] = date('Y-m-d H:i:s', $value);
         }
 
         return $this;
@@ -891,6 +916,11 @@ abstract class BaseZF_DbItem
         $primaryKey = $this->getPrimaryKey();
 
         try {
+
+            // clean property by types
+            foreach ($properties as $property => $value) {
+                $this->_propertyToDbFormat($property, $properties);
+            }
 
             // add row
             $db->insert($this->getTable(), $properties);
@@ -984,6 +1014,11 @@ abstract class BaseZF_DbItem
         $primaryKey = $this->getPrimaryKey();
 
         try {
+
+            // clean property by types
+            foreach ($properties as $property => $value) {
+                $this->_propertyToDbFormat($property, $properties);
+            }
 
             // update row
             $db->update($this->getTable(), $properties,  $primaryKey . ' = ' . $db->quote($id));
