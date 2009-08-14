@@ -8,7 +8,7 @@
  * @author     Harold Thétiot (hthetiot)
 
 /**
- * Desktop Compiler.
+ * Zbstract Archive Builder for format.
  */
 abstract class BaseZF_Archive_Abstract
 {

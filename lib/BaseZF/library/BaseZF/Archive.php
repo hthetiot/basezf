@@ -22,4 +22,9 @@ class BaseZF_Archive
 
         return new $className($fileName);
     }
+
+    static public function extractArchive($fileName, $format = null)
+    {
+        // @todo
+    }
 }
