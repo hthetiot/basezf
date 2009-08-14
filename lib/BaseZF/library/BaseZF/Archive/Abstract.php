@@ -15,7 +15,7 @@ abstract class BaseZF_Archive_Abstract
     protected $_options = array(
         'name'          => null,
         'inmemory'      => true,
-        'overwrite'     => false,
+        'overwrite'     => true,
         'recurse'       => true,
         'followlinks'   => false,
         'level'         => 3,
@@ -148,7 +148,7 @@ abstract class BaseZF_Archive_Abstract
         $this->_buildArchive();
 
         if (!$this->_options['inmemory']) {
-            fclose($this->_archive);
+            //fclose($this->_archive);
         }
 
         return $this;
@@ -235,23 +235,36 @@ abstract class BaseZF_Archive_Abstract
      */
     public function downloadFile()
     {
-        if (!$this->_options['inmemory']) {
-            throw new BaseZF_Archive_Exception('Can only use downloadFile() if archive is in memory. Redirect to file otherwise, it is faster.');
+        // attachment
+        header('Content-Disposition: attachment; filename="' . basename($this->_options['name']) . '"');
+
+        // archive format
+        header('Content-Type: ' . $this->getFileMimeType());
+
+        // standart header
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+
+        // archive length
+        if ($this->_options['inmemory']) {
+            header('Content-Length: ' . mb_strlen($this->_archive));
+        } else {
+            header('Content-Length: ' . filesize($this->_options['name']));
         }
 
-        header("Content-Type: " . $this->getFileMimeType());
+        ob_clean();
+        flush();
 
-        // attachment
-        $header = "Content-Disposition: attachment; filename=\"";
-        $header .= strstr($this->_options['name'], "/") ? substr($this->_options['name'], strrpos($this->_options['name'], "/") + 1) : $this->_options['name'];
-        $header .= "\"";
-        header($header);
-
-        header("Content-Length: " . mb_strlen($this->_archive));
-        header("Content-Transfer-Encoding: binary");
-        header("Cache-Control: no-cache, must-revalidate, max-age=60");
-        header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
-        print($this->_archive);
+        // display archive content on standart output
+        if ($this->_options['inmemory']) {
+            print($this->_archive);
+        } else {
+            readfile($this->_options['name']);
+        }
     }
 
     //
