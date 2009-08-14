@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Bzip class in /BazeZF/Archive
  *
  * @category   BazeZF_Core
  * @package    BazeZF
@@ -22,7 +22,7 @@ class BaseZF_Archive_Bzip extends BaseZF_Archive_Tar
     /**
      * Build archive for current format
      */
-    protected function buildArchive()
+    protected function _buildArchive()
     {
         throw new Exception(sprintf('%s::%s function is not yet implemented', __CLASS__, __FUNCTION__));
     }

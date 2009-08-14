@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Tar class in /BazeZF/Archive
  *
  * @category   BazeZF_Core
  * @package    BazeZF
@@ -22,12 +22,12 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
     /**
      * Build archive for current format
      */
-    protected function buildArchive()
+    protected function _buildArchive()
     {
-        foreach ($this->files as $current)
+        foreach ($this->_files as $current)
         {
             // useless ?
-            if ($current['name'] == $this->options['name']) {
+            if ($current['name'] == $this->_options['name']) {
                 continue;
             }
 
@@ -61,7 +61,7 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
 
             // add dir or empty file
             if ($current['type'] == 2 || $current['stat'][7] == 0) {
-                $this->addArchiveData($block);
+                $this->_addArchiveData($block);
 
             // add file with content from file or string
             } else {
@@ -75,14 +75,14 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                     $temp = fread($fp, $current['stat'][7]);
                     fclose($fp);
                 } else {
-                    throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s" for reading."', $this->options['name']));
+                    throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s" for reading."', $this->_options['name']));
                 }
 
                 // add index
-                $this->addArchiveData($block);
+                $this->_addArchiveData($block);
 
                 // add file content
-                $this->addArchiveData($temp);
+                $this->_addArchiveData($temp);
 
                 // add file end token
                 if ($current['stat'][7] % 512 > 0) {
@@ -91,13 +91,13 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                         $temp .= "\0";
                     }
 
-                    $this->addArchiveData($temp);
+                    $this->_addArchiveData($temp);
                 }
             }
         }
 
         // add archive end token
-        $this->addArchiveData(pack("a1024", ""));
+        $this->_addArchiveData(pack("a1024", ""));
     }
 
     public function getFileMimeType()
@@ -115,10 +115,10 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
         chdir($outputDir);
 
         // open file for writing
-        if (is_readable($this->options['name'])) {
-            $fp = fopen($this->options['name'], 'rb');
+        if (is_readable($this->_options['name'])) {
+            $fp = fopen($this->_options['name'], 'rb');
         } else {
-            throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s"', $this->options['name']));
+            throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s"', $this->_options['name']));
         }
 
         while ($block = fread($fp, 512)) {
@@ -151,10 +151,10 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
             }
 
             if ($file['checksum'] != $checksum) {
-                throw new BaseZF_Archive_Exception(sprintf('Could not extract from "%s", this file is corrupted.', $this->options['name']));
+                throw new BaseZF_Archive_Exception(sprintf('Could not extract from "%s", this file is corrupted.', $this->_options['name']));
             }
 
-            if ($this->options['inmemory'] == 1) {
+            if ($this->_options['inmemory'] == 1) {
 
                 $file['data'] = fread($fp, $file['stat'][7]);
                 fread($fp, (512 - $file['stat'][7] % 512) == 512 ? 0 : (512 - $file['stat'][7] % 512));
@@ -167,7 +167,7 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                     mkdir($file['name'], $file['stat'][2]);
                 }
 
-            } else if ($this->options['overwrite'] == 0 && file_exists($file['name'])) {
+            } else if ($this->_options['overwrite'] == 0 && file_exists($file['name'])) {
 
                 throw new BaseZF_Archive_Exception(sprintf('%s already exists', $file['name']));
 

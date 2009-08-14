@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Abstract class in /BazeZF/Archive
  *
  * @category   BazeZF_Core
  * @package    BazeZF
@@ -8,11 +8,11 @@
  * @author     Harold Thétiot (hthetiot)
 
 /**
- * Zbstract Archive Builder for format.
+ * Abstract Archive Builder for format.
  */
 abstract class BaseZF_Archive_Abstract
 {
-    protected $options = array(
+    protected $_options = array(
         'name'          => null,
         'inmemory'      => true,
         'overwrite'     => false,
@@ -24,10 +24,10 @@ abstract class BaseZF_Archive_Abstract
         'comment'       => null
     );
 
-    protected $files = array();
-    protected $exclude = array();
-    protected $storeonly = array();
-    protected $archive;
+    protected $_files = array();
+    protected $_exclude = array();
+    protected $_storeonly = array();
+    protected $_archive;
 
     public function __construct($name, array $options = array())
     {
@@ -39,7 +39,7 @@ abstract class BaseZF_Archive_Abstract
 
     public function setOption($option, $value)
     {
-        $this->options[$option] = $value;
+        $this->_options[$option] = $value;
 
         $this->cleanOptions();
 
@@ -50,7 +50,7 @@ abstract class BaseZF_Archive_Abstract
     {
         // set options
         foreach ($options as $key => $value) {
-            $this->options[$key] = $value;
+            $this->_options[$key] = $value;
         }
 
         $this->cleanOptions();
@@ -60,47 +60,139 @@ abstract class BaseZF_Archive_Abstract
 
     protected function cleanOptions()
     {
-        if (!empty($this->options['name'])) {
-            $this->options['name'] = str_replace("\\", "/", $this->options['name']);
-            $this->options['name'] = preg_replace("/\/+/", "/", $this->options['name']);
+        if (!empty($this->_options['name'])) {
+            $this->_options['name'] = str_replace("\\", "/", $this->_options['name']);
+            $this->_options['name'] = preg_replace("/\/+/", "/", $this->_options['name']);
         }
 
         return $this;
     }
 
+    //
+    // Abstract functions
+    //
+
+    abstract protected function _buildArchive();
+
+    abstract public function extractArchive($outputDir);
+
+    abstract public function getFileMimeType();
+
+    //
+    // Public API functions
+    //
+
     public function createArchive()
     {
-        $this->makeList();
+        $this->_makeList();
 
-        if (!$this->options['inmemory']) {
+        if (!$this->_options['inmemory']) {
 
             $pwd = getcwd();
-            if (!$this->options['overwrite'] && file_exists($this->options['name'])) {
+            if (!$this->_options['overwrite'] && file_exists($this->_options['name'])) {
                 chdir($pwd);
-                throw new Exception(sprintf('File %s already exists.', $this->options['name']));
-            } else if ($this->archive = fopen($this->options['name'], "wb+")) {
+                throw new BaseZF_Archive_Exception(sprintf('File %s already exists.', $this->_options['name']));
+            } else if ($this->archive = fopen($this->_options['name'], "wb+")) {
                 chdir($pwd);
             } else {
                 chdir($pwd);
-                throw new Exception(sprintf('Could not open %s for writing.', $this->options['name']));
+                throw new BaseZF_Archive_Exception(sprintf('Could not open %s for writing.', $this->_options['name']));
             }
 
         } else {
             $this->archive = null;
         }
 
-        $this->buildArchive();
+        $this->_buildArchive();
 
-        if (!$this->options['inmemory']) {
+        if (!$this->_options['inmemory']) {
             fclose($this->archive);
         }
 
-        return true;
+        return $this;
     }
 
-    public function addArchiveData($data)
+    public function addFiles($list, $root = '')
     {
-        if ($this->options['inmemory']) {
+        $temp = $this->_listFiles($list);
+
+        foreach ($temp as $current) {
+
+            // update root
+            $current['path'] = $root . $current['path'];
+
+            $this->_files[] = $current;
+        }
+
+        return $this;
+    }
+
+    public function excludeFiles($list)
+    {
+        $temp = $this->_listFiles($list);
+
+        foreach ($temp as $current) {
+            $this->_exclude[] = $current;
+        }
+
+        return $this;
+    }
+
+    public function addFileFromString($fileName, $fileContents)
+    {
+        $this->_files[] = $this->_buildFileEntry($fileName, $fileName, $fileContents);
+
+        return $this;
+    }
+
+    public function addFile($filePath, $archiveFilePath = null)
+    {
+        if (file_exists($filePath)) {
+            $this->_files[] = $this->_buildFileEntry($filePath, $archiveFilePath);
+        } else {
+            throw new BaseZF_Archive_Exception(sprintf('Could not open file %s for reading."', $filePath));
+        }
+
+        return $this;
+    }
+
+    public function getArchiveContent()
+    {
+        if (!$this->_options['inmemory']) {
+            throw new BaseZF_Archive_Exception('Can only use getArchiveContent() if archive is in memory. Redirect to file otherwise, it is faster.');
+        }
+
+        return $this->archive;
+    }
+
+    public function downloadFile()
+    {
+        if (!$this->_options['inmemory']) {
+            throw new BaseZF_Archive_Exception('Can only use downloadFile() if archive is in memory. Redirect to file otherwise, it is faster.');
+        }
+
+        header("Content-Type: " . $this->getFileMimeType());
+
+        // attachment
+        $header = "Content-Disposition: attachment; filename=\"";
+        $header .= strstr($this->_options['name'], "/") ? substr($this->_options['name'], strrpos($this->_options['name'], "/") + 1) : $this->_options['name'];
+        $header .= "\"";
+        header($header);
+
+        header("Content-Length: " . mb_strlen($this->archive));
+        header("Content-Transfer-Encoding: binary");
+        header("Cache-Control: no-cache, must-revalidate, max-age=60");
+        header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
+        print($this->archive);
+    }
+
+    //
+    // Core Private Functions
+    //
+
+    protected function _addArchiveData($data)
+    {
+        if ($this->_options['inmemory']) {
             $this->archive .= $data;
         } else {
             fwrite($this->archive, $data);
@@ -109,61 +201,35 @@ abstract class BaseZF_Archive_Abstract
         return $this;
     }
 
-    public function makeList()
+    protected function _makeList()
     {
-        if (!empty ($this->exclude))
-            foreach ($this->files as $key => $value)
-                foreach ($this->exclude as $current)
+        if (!empty ($this->_exclude))
+            foreach ($this->_files as $key => $value)
+                foreach ($this->_exclude as $current)
                     if ($value['name'] == $current['name'])
-                        unset ($this->files[$key]);
-        if (!empty ($this->storeonly))
-            foreach ($this->files as $key => $value)
-                foreach ($this->storeonly as $current)
+                        unset ($this->_files[$key]);
+        if (!empty ($this->_storeonly))
+            foreach ($this->_files as $key => $value)
+                foreach ($this->_storeonly as $current)
                     if ($value['name'] == $current['name'])
-                        $this->files[$key]['method'] = 0;
-        unset ($this->exclude, $this->storeonly);
+                        $this->_files[$key]['method'] = 0;
+        unset ($this->_exclude, $this->_storeonly);
 
         return $this;
     }
 
-    public function addFiles($list, $root = '')
+    protected function _storeFiles($list)
     {
-        $temp = $this->listFiles($list);
+        $temp = $this->_listFiles($list);
 
         foreach ($temp as $current) {
-
-            // update root
-            $current['path'] = $root . $current['path'];
-
-            $this->files[] = $current;
+            $this->_storeonly[] = $current;
         }
 
         return $this;
     }
 
-    public function excludeFiles($list)
-    {
-        $temp = $this->listFiles($list);
-
-        foreach ($temp as $current) {
-            $this->exclude[] = $current;
-        }
-
-        return $this;
-    }
-
-    public function storeFiles($list)
-    {
-        $temp = $this->listFiles($list);
-
-        foreach ($temp as $current) {
-            $this->storeonly[] = $current;
-        }
-
-        return $this;
-    }
-
-    public function listFiles($list)
+    protected function _listFiles($list)
     {
         // require array
         if (!is_array($list)) {
@@ -185,7 +251,7 @@ abstract class BaseZF_Archive_Abstract
                 $regex = preg_replace("/([\\\^\$\.\[\]\|\(\)\?\+\{\}\/])/", "\\\\\\1", $current);
                 $regex = str_replace("*", ".*", $regex);
                 $dir = strstr($current, "/") ? substr($current, 0, strrpos($current, "/")) : ".";
-                $temp = $this->parseDir($dir);
+                $temp = $this->_parseDir($dir);
 
                 foreach ($temp as $current2) {
                     if (preg_match("/^{$regex}$/i", $current2['name'])) {
@@ -198,7 +264,7 @@ abstract class BaseZF_Archive_Abstract
             // include a dir
             } else if (is_dir($current)) {
 
-                $temp = $this->parseDir($current);
+                $temp = $this->_parseDir($current);
                 foreach ($temp as $file) {
                     $files[] = $file;
                 }
@@ -208,7 +274,7 @@ abstract class BaseZF_Archive_Abstract
             // include simple file
             } else if (file_exists($current)) {
 
-                $files[] = $this->buildFileEntry($current);
+                $files[] = $this->_buildFileEntry($current);
             }
         }
 
@@ -221,30 +287,12 @@ abstract class BaseZF_Archive_Abstract
         return $files;
     }
 
-    public function addFileFromString($fileName, $fileContents)
-    {
-        $this->files[] = $this->buildFileEntry($fileName, $fileName, $fileContents);
-
-        return $this;
-    }
-
-    public function addFile($filePath, $archiveFilePath = null)
-    {
-        if (file_exists($filePath)) {
-            $this->files[] = $this->buildFileEntry($filePath, $archiveFilePath);
-        } else {
-            throw new Exception(sprintf('Could not open file %s for reading."', $filePath));
-        }
-
-        return $this;
-    }
-
-    protected function buildFileEntry($filePath, $archiveFilePath = null, $fileContents = null)
+    protected function _buildFileEntry($filePath, $archiveFilePath = null, $fileContents = null)
     {
         $fileEntry = array(
             'name'  => $filePath,
             'path'  => (is_null($archiveFilePath) ? $filePath : $archiveFilePath),
-            'type'  => (is_link($filePath) && !$this->options['followlinks'] ? 2 : 0),
+            'type'  => (is_link($filePath) && !$this->_options['followlinks'] ? 2 : 0),
             'ext'   => substr($filePath, strrpos($filePath, ".")),
         );
 
@@ -265,7 +313,7 @@ abstract class BaseZF_Archive_Abstract
         return $fileEntry;
     }
 
-    public function parseDir($dirname, $archivePathRoot = null)
+    protected function _parseDir($dirname, $archivePathRoot = null)
     {
         if (!preg_match("/^(\.+\/*)+$/", $dirname) && !is_null($archivePathRoot)) {
 
@@ -294,18 +342,18 @@ abstract class BaseZF_Archive_Abstract
 
             } else if (is_dir($fullname)) {
 
-                if (!$this->options['recurse']) {
+                if (!$this->_options['recurse']) {
                     continue;
                 }
 
-                $temp = $this->parseDir($fullname, $archivePath);
+                $temp = $this->_parseDir($fullname, $archivePath);
 
                 foreach ($temp as $file2) {
                     $files[] = $file2;
                 }
 
             } else if (file_exists($fullname)) {
-                $files[] = $this->buildFileEntry($fullname, $archivePath . basename($fullname));
+                $files[] = $this->_buildFileEntry($fullname, $archivePath . basename($fullname));
             }
         }
 
@@ -314,7 +362,7 @@ abstract class BaseZF_Archive_Abstract
         return $files;
     }
 
-    public function sortFiles($a, $b)
+    protected function _sortFiles($a, $b)
     {
         if ($a['type'] != $b['type'])
             if ($a['type'] == 5 || $b['type'] == 2)
@@ -331,43 +379,5 @@ abstract class BaseZF_Archive_Abstract
             return strcmp(strtolower($a['name']), strtolower($b['name']));
         return 0;
     }
-
-    public function getArchiveContent()
-    {
-        if (!$this->options['inmemory']) {
-            throw new Exception('Can only use getArchiveContent() if archive is in memory. Redirect to file otherwise, it is faster.');
-        }
-
-        return $this->archive;
-    }
-
-    public function downloadFile()
-    {
-        if (!$this->options['inmemory']) {
-            throw new Exception('Can only use downloadFile() if archive is in memory. Redirect to file otherwise, it is faster.');
-        }
-
-        header("Content-Type: " . $this->getFileMimeType());
-
-        // attachment
-        $header = "Content-Disposition: attachment; filename=\"";
-        $header .= strstr($this->options['name'], "/") ? substr($this->options['name'], strrpos($this->options['name'], "/") + 1) : $this->options['name'];
-        $header .= "\"";
-        header($header);
-
-        header("Content-Length: " . mb_strlen($this->archive));
-        header("Content-Transfer-Encoding: binary");
-        header("Cache-Control: no-cache, must-revalidate, max-age=60");
-        header("Expires: Sat, 01 Jan 2000 12:00:00 GMT");
-        print($this->archive);
-    }
-
-    /*** ABSTRACT FUNCTIONS ***/
-
-    abstract protected function buildArchive();
-
-    abstract public function extractArchive($outputDir);
-
-    abstract public function getFileMimeType();
 }
 

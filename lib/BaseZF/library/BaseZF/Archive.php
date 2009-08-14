@@ -1,6 +1,6 @@
 <?php
 /**
- * DbSearch class in /BazeZF/
+ * Archive class in /BazeZF/
  *
  * @category   BazeZF_Core
  * @package    BazeZF

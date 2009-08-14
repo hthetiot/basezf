@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Zip class in /BazeZF/Archive
  *
  * @category   BazeZF_Core
  * @package    BazeZF
@@ -22,29 +22,29 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
     /**
      * Build archive for current format
      */
-    protected function buildArchive()
+    protected function _buildArchive()
     {
         $files = 0;
         $offset = 0;
         $central = '';
 
-        if (!empty ($this->options['sfx']))
-            if ($fp = fopen($this->options['sfx'], "rb"))
+        if (!empty ($this->_options['sfx']))
+            if ($fp = fopen($this->_options['sfx'], "rb"))
             {
-                $temp = fread($fp, filesize($this->options['sfx']));
+                $temp = fread($fp, filesize($this->_options['sfx']));
                 fclose($fp);
-                $this->addArchiveData($temp);
+                $this->_addArchiveData($temp);
                 $offset += strlen($temp);
                 unset ($temp);
             } else {
-                throw new Exception(sprintf('Could not open sfx module from %s."', $this->options['sfx']));
+                throw new BaseZF_Archive_Exception(sprintf('Could not open sfx module from %s."', $this->_options['sfx']));
             }
 
         $pwd = getcwd();
 
-        foreach ($this->files as $current) {
+        foreach ($this->_files as $current) {
 
-            if ($current['name'] == $this->options['name']) {
+            if ($current['name'] == $this->_options['name']) {
                 continue;
             }
 
@@ -52,16 +52,16 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
             $timedate = ($timedate[0] - 1980 << 25) | ($timedate[1] << 21) | ($timedate[2] << 16) |
                 ($timedate[3] << 11) | ($timedate[4] << 5) | ($timedate[5]);
 
-            $block = pack("VvvvV", 0x04034b50, 0x000A, 0x0000, (isset($current['method']) || $this->options['method'] == 0) ? 0x0000 : 0x0008, $timedate);
+            $block = pack("VvvvV", 0x04034b50, 0x000A, 0x0000, (isset($current['method']) || $this->_options['method'] == 0) ? 0x0000 : 0x0008, $timedate);
 
             // directory
             if ($current['type'] == 5) {
 
                 $block .= pack("VVVvv", 0x00000000, 0x00000000, 0x00000000, strlen($current['path']) + 1, 0x0000);
                 $block .= $current['path'] . "/";
-                $this->addArchiveData($block);
-                $central .= pack("VvvvvVVVVvvvvvVV", 0x02014b50, 0x0014, $this->options['method'] == 0 ? 0x0000 : 0x000A, 0x0000,
-                    (isset($current['method']) || $this->options['method'] == 0) ? 0x0000 : 0x0008, $timedate,
+                $this->_addArchiveData($block);
+                $central .= pack("VvvvvVVVVvvvvvVV", 0x02014b50, 0x0014, $this->_options['method'] == 0 ? 0x0000 : 0x000A, 0x0000,
+                    (isset($current['method']) || $this->_options['method'] == 0) ? 0x0000 : 0x0008, $timedate,
                     0x00000000, 0x00000000, 0x00000000, strlen($current['path']) + 1, 0x0000, 0x0000, 0x0000, 0x0000, $current['type'] == 5 ? 0x00000010 : 0x00000000, $offset);
                 $central .= $current['path'] . "/";
                 $files++;
@@ -72,9 +72,9 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
 
                 $block .= pack("VVVvv", 0x00000000, 0x00000000, 0x00000000, strlen($current['path']), 0x0000);
                 $block .= $current['path'];
-                $this->addArchiveData($block);
-                $central .= pack("VvvvvVVVVvvvvvVV", 0x02014b50, 0x0014, $this->options['method'] == 0 ? 0x0000 : 0x000A, 0x0000,
-                    (isset($current['method']) || $this->options['method'] == 0) ? 0x0000 : 0x0008, $timedate,
+                $this->_addArchiveData($block);
+                $central .= pack("VvvvvVVVVvvvvvVV", 0x02014b50, 0x0014, $this->_options['method'] == 0 ? 0x0000 : 0x000A, 0x0000,
+                    (isset($current['method']) || $this->_options['method'] == 0) ? 0x0000 : 0x0008, $timedate,
                     0x00000000, 0x00000000, 0x00000000, strlen($current['path']), 0x0000, 0x0000, 0x0000, 0x0000, $current['type'] == 5 ? 0x00000010 : 0x00000000, $offset);
                 $central .= $current['path'];
                 $files++;
@@ -89,12 +89,12 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
                     $temp = fread($fp, $current['stat'][7]);
                     fclose($fp);
                 } else {
-                    throw new Exception(sprintf('Could not open file %s for reading. It was not added."', $this->options['name']));
+                    throw new BaseZF_Archive_Exception(sprintf('Could not open file %s for reading. It was not added."', $this->_options['name']));
                 }
 
                 $crc32 = crc32($temp);
-                if (!isset($current['method']) && $this->options['method'] == 1) {
-                    $temp = gzcompress($temp, $this->options['level']);
+                if (!isset($current['method']) && $this->_options['method'] == 1) {
+                    $temp = gzcompress($temp, $this->_options['level']);
                     $size = strlen($temp) - 6;
                     $temp = substr($temp, 2, $size);
                 } else {
@@ -103,11 +103,11 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
 
                 $block .= pack("VVVvv", $crc32, $size, $current['stat'][7], strlen($current['path']), 0x0000);
                 $block .= $current['path'];
-                $this->addArchiveData($block);
-                $this->addArchiveData($temp);
+                $this->_addArchiveData($block);
+                $this->_addArchiveData($temp);
                 unset ($temp);
-                $central .= pack("VvvvvVVVVvvvvvVV", 0x02014b50, 0x0014, $this->options['method'] == 0 ? 0x0000 : 0x000A, 0x0000,
-                    (isset($current['method']) || $this->options['method'] == 0) ? 0x0000 : 0x0008, $timedate,
+                $central .= pack("VvvvvVVVVvvvvvVV", 0x02014b50, 0x0014, $this->_options['method'] == 0 ? 0x0000 : 0x000A, 0x0000,
+                    (isset($current['method']) || $this->_options['method'] == 0) ? 0x0000 : 0x0008, $timedate,
                     $crc32, $size, $current['stat'][7], strlen($current['path']), 0x0000, 0x0000, 0x0000, 0x0000, 0x00000000, $offset);
                 $central .= $current['path'];
                 $files++;
@@ -115,15 +115,15 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
             }
         }
 
-        $this->addArchiveData($central);
-        $this->addArchiveData(
+        $this->_addArchiveData($central);
+        $this->_addArchiveData(
             pack("VvvvvVVv", 0x06054b50, 0x0000, 0x0000, $files, $files, strlen($central),
             $offset,
-            !empty ($this->options['comment']) ? strlen($this->options['comment']) : 0x0000)
+            !empty ($this->_options['comment']) ? strlen($this->_options['comment']) : 0x0000)
         );
 
-        if (!empty ($this->options['comment'])) {
-            $this->addArchiveData($this->options['comment']);
+        if (!empty ($this->_options['comment'])) {
+            $this->_addArchiveData($this->_options['comment']);
         }
 
         chdir($pwd);
@@ -141,7 +141,7 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
      */
     public function extractArchive($outputDir)
     {
-        throw new Exception(sprintf('%s::%s function is not yet implemented', __CLASS__, __FUNCTION__));
+        throw new BaseZF_Archive_Exception(sprintf('%s::%s function is not yet implemented', __CLASS__, __FUNCTION__));
     }
 }
 
