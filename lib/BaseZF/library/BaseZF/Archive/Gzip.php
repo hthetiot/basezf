@@ -24,7 +24,10 @@ class BaseZF_Archive_Gzip extends BaseZF_Archive_Tar
      */
     protected function _buildArchive()
     {
-        throw new Exception(sprintf('%s::%s function is not yet implemented', __CLASS__, __FUNCTION__));
+        // compress as Tar archive
+        parent::_buildArchive();
+
+        $this->_archive = gzencode($this->_archive, $this->_options['level']);
     }
 
     /**

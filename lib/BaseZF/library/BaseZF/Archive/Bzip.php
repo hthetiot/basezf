@@ -24,7 +24,10 @@ class BaseZF_Archive_Bzip extends BaseZF_Archive_Tar
      */
     protected function _buildArchive()
     {
-        throw new Exception(sprintf('%s::%s function is not yet implemented', __CLASS__, __FUNCTION__));
+        // compress as Tar archive
+        parent::_buildArchive();
+
+        $this->_archive = bzcompress($this->_archive, $this->_options['level']);
     }
 
     /**
@@ -32,7 +35,7 @@ class BaseZF_Archive_Bzip extends BaseZF_Archive_Tar
      */
     public function extractArchive($outputDir)
     {
-        throw new Exception(sprintf('%s::%s function is not yet implemented', __CLASS__, __FUNCTION__));
+        return @bzopen($this->_options['name'], "rb");
     }
 }
 
