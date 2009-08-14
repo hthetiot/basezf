@@ -12,7 +12,7 @@
 
 // include auto_prepend if missing
 if (!defined('APPLICATION_PATH')) {
-    require_once('../includes/auto_prepend.php');
+    require_once(realpath(dirname(__FILE__)) . '/../includes/auto_prepend.php');
 }
 
 // Register Error Handler
