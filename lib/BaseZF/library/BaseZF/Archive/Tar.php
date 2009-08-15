@@ -17,7 +17,17 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
      *
      * @var string
      */
-    protected $_mimeType = 'application/x-tar';
+    protected static $_mimeType = 'application/x-tar';
+
+    /**
+     * Get archive format mime type
+     *
+     * @return string archive mime type
+     */
+    public static function getFileMimeType()
+    {
+        return self::$_mimeType;
+    }
 
     /**
      * Build archive for current format
@@ -27,7 +37,7 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
         foreach ($this->_files as $current)
         {
             // useless ?
-            if ($current['name'] == $this->_options['name']) {
+            if ($current['name'] == $this->_options['path']) {
                 continue;
             }
 
@@ -75,7 +85,7 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                     $temp = fread($fp, $current['stat'][7]);
                     fclose($fp);
                 } else {
-                    throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s" for reading."', $this->_options['name']));
+                    throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s" for reading."', $this->_options['path']));
                 }
 
                 // add index
@@ -98,37 +108,23 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
 
         // add archive end token
         $this->_addArchiveData(pack("a1024", ""));
-    }
 
-    public function getFileMimeType()
-    {
-        return $this->_mimeType;
     }
 
     /**
      * Extract archive for current format
      */
-    public function extractArchive($outputDir)
+    protected function _extractArchive($outputPath)
     {
-        // set current path to output dir
-        $pwd = getcwd();
-        chdir($outputDir);
-
-        // open file for writing
-        if (is_readable($this->_options['name'])) {
-            $fp = fopen($this->_options['name'], 'rb');
-        } else {
-            throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s"', $this->_options['name']));
-        }
-
+        $fp = fopen($this->_options['path'], 'rb');
         while ($block = fread($fp, 512)) {
 
-            $temp = unpack("a100name/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1type/a100symlink/a6magic/a2temp/a32temp/a32temp/a8temp/a8temp/a155prefix/a12temp", $block);
+            $temp = unpack('a100name/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/a1type/a100symlink/a6magic/a2temp/a32temp/a32temp/a8temp/a8temp/a155prefix/a12temp', $block);
             $file = array (
                 'checksum'  => octdec($temp['checksum']),
                 'type'      => $temp['type'],
                 'magic'     => $temp['magic'],
-                'name'      => $temp['prefix'] . $temp['name'],
+                'name'      => $outputPath . $temp['prefix'] . $temp['name'],
                 'stat'      => array(
                     2   => $temp['mode'],
                     4   => octdec($temp['uid']),
@@ -144,14 +140,14 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                 throw new BaseZF_Archive_Exception(sprintf('This script does not support extracting this type of tar file.'));
             }
 
-            $block = substr_replace($block, "        ", 148, 8);
+            $block = substr_replace($block, '        ', 148, 8);
             $checksum = 0;
             for ($i = 0; $i < 512; $i++) {
                 $checksum += ord(substr($block, $i, 1));
             }
 
             if ($file['checksum'] != $checksum) {
-                throw new BaseZF_Archive_Exception(sprintf('Could not extract from "%s", this file is corrupted.', $this->_options['name']));
+                throw new BaseZF_Archive_Exception(sprintf('Could not extract from "%s", this file is corrupted.', $this->_options['path']));
             }
 
             if ($this->_options['inmemory'] == 1) {
@@ -174,26 +170,31 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
             } else if ($file['type'] == 2) {
 
                 symlink($temp['symlink'], $file['name']);
-                chmod($file['name'], $file['stat'][2]);
-
-            } else if ($new = @fopen($file['name'], "wb")) {
-
-                fwrite($new, fread($fp, $file['stat'][7]));
-                fread($fp, (512 - $file['stat'][7] % 512) == 512 ? 0 : (512 - $file['stat'][7] % 512));
-                fclose($new);
-                chmod($file['name'], $file['stat'][2]);
+                //chmod($file['name'], $file['stat'][2]);
 
             } else {
-                throw new BaseZF_Archive_Exception(sprintf('Could not open "%s" for writing.', $file['name']));
+
+                if (!is_dir(dirname($file['name']))) {
+                    mkdir(dirname($file['name']), 0777);
+                }
+
+                if ($new = @fopen($file['name'], 'wb')) {
+
+                    fwrite($new, fread($fp, $file['stat'][7]));
+                    fread($fp, (512 - $file['stat'][7] % 512) == 512 ? 0 : (512 - $file['stat'][7] % 512));
+                    fclose($new);
+                    //chmod($file['name'], $file['stat'][2]);
+
+                } else {
+                    throw new BaseZF_Archive_Exception(sprintf('Could not open "%s" for writing.', $file['name']));
+                }
             }
 
-            chown($file['name'], $file['stat'][4]);
-            chgrp($file['name'], $file['stat'][5]);
-            touch($file['name'], $file['stat'][9]);
-            unset ($file);
+            //chown($file['name'], $file['stat'][4]);
+            //chgrp($file['name'], $file['stat'][5]);
+            //touch($file['name'], $file['stat'][9]);
+            unset($file);
         }
-
-        chdir($pwd);
     }
 }
 

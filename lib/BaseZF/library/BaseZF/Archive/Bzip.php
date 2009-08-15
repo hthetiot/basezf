@@ -17,7 +17,17 @@ class BaseZF_Archive_Bzip extends BaseZF_Archive_Tar
      *
      * @var string
      */
-    protected $_mimeType = 'application/x-bzip2';
+    protected static $_mimeType = 'application/x-bzip2';
+
+    /**
+     * Get archive format mime type
+     *
+     * @return string archive mime type
+     */
+    public static function getFileMimeType()
+    {
+        return self::$_mimeType;
+    }
 
     /**
      * Build archive for current format
@@ -33,9 +43,10 @@ class BaseZF_Archive_Bzip extends BaseZF_Archive_Tar
     /**
      * Extract archive for current format
      */
-    public function extractArchive($outputDir)
+    protected function _extractArchive($outputPath)
     {
-        return @bzopen($this->_options['name'], "rb");
+        //return @bzopen($this->_options['path'], "rb");
+        throw new BaseZF_Archive_Exception(sprintf('%s::%s function is not yet implemented', __CLASS__, __FUNCTION__));
     }
 }
 

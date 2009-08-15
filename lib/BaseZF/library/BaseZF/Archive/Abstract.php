@@ -12,9 +12,14 @@
  */
 abstract class BaseZF_Archive_Abstract
 {
+    /**
+     * Archive options
+     *
+     * @var array
+     */
     protected $_options = array(
-        'name'          => null,
-        'inmemory'      => true,
+        'path'          => null,
+        'inmemory'      => false,
         'overwrite'     => true,
         'recurse'       => true,
         'followlinks'   => false,
@@ -24,21 +29,48 @@ abstract class BaseZF_Archive_Abstract
         'comment'       => null
     );
 
-    protected $_files = array();
-    protected $_exclude = array();
-    protected $_storeonly = array();
-    protected $_archive;
+    /**
+     * Archive files infos
+     *
+     * @var array
+     */
+    protected $_files       = array();
+
+    /**
+     * Archive excluded files paths
+     *
+     * @var array
+     */
+    protected $_exclude     = array();
+
+    /**
+     * Archive files stored
+     *
+     * @var array
+     */
+    protected $_storeonly   = array();
+
+    /**
+     * Archive content or archive file ressource
+     *
+     * @var void
+     */
+    protected $_archive     = null;
 
     /**
      * Create a new archive instance
      *
-     * @param string $name
-     * @param array $options
+     * @param string $filePath archive file path
+     * @param array $options archive option
      */
-    public function __construct($name, array $options = array())
+    public function __construct($filePath = null, array $options = array())
     {
-        // set name option
-        $options['name'] = $name;
+        // set path option
+        if (!is_null($filePath)) {
+            $options['path'] = $filePath;
+        } else {
+            $options['inmemory'] = true;
+        }
 
         $this->setOptions($options);
     }
@@ -86,9 +118,9 @@ abstract class BaseZF_Archive_Abstract
      */
     protected function cleanOptions()
     {
-        if (!empty($this->_options['name'])) {
-            $this->_options['name'] = str_replace("\\", "/", $this->_options['name']);
-            $this->_options['name'] = preg_replace("/\/+/", "/", $this->_options['name']);
+        if (!empty($this->_options['path'])) {
+            $this->_options['path'] = str_replace("\\", "/", $this->_options['path']);
+            $this->_options['path'] = preg_replace("/\/+/", "/", $this->_options['path']);
         }
 
         return $this;
@@ -106,14 +138,14 @@ abstract class BaseZF_Archive_Abstract
     /**
      *
      */
-    abstract public function extractArchive($outputDir);
+    abstract protected function _extractArchive($outputDir);
 
     /**
      * Get archive file mine type
      *
      * @return string header for file mine type
      */
-    abstract public function getFileMimeType();
+    abstract public static function getFileMimeType();
 
     //
     // Public API functions
@@ -131,14 +163,14 @@ abstract class BaseZF_Archive_Abstract
         if (!$this->_options['inmemory']) {
 
             $pwd = getcwd();
-            if (!$this->_options['overwrite'] && file_exists($this->_options['name'])) {
+            if (!$this->_options['overwrite'] && file_exists($this->_options['path'])) {
                 chdir($pwd);
-                throw new BaseZF_Archive_Exception(sprintf('File %s already exists.', $this->_options['name']));
-            } else if ($this->_archive = fopen($this->_options['name'], "wb+")) {
+                throw new BaseZF_Archive_Exception(sprintf('File %s already exists.', $this->_options['path']));
+            } else if ($this->_archive = fopen($this->_options['path'], 'wb+')) {
                 chdir($pwd);
             } else {
                 chdir($pwd);
-                throw new BaseZF_Archive_Exception(sprintf('Could not open %s for writing.', $this->_options['name']));
+                throw new BaseZF_Archive_Exception(sprintf('Could not open %s for writing.', $this->_options['path']));
             }
 
         } else {
@@ -148,8 +180,45 @@ abstract class BaseZF_Archive_Abstract
         $this->_buildArchive();
 
         if (!$this->_options['inmemory']) {
-            //fclose($this->_archive);
+            fclose($this->_archive);
         }
+
+        return $this;
+    }
+
+    /**
+     *
+     *
+     * @return return $this for more fluent interface
+     */
+    public function extractArchive($outputDir)
+    {
+
+        // add possible missing DIRECTORY_SEPARATOR at the end of string
+        $outputDirLength = mb_strlen($outputDir) - 1;
+        $outputDir = strpos($outputDir, DIRECTORY_SEPARATOR, $outputDirLength) == $outputDirLength ? $outputDir : $outputDir . DIRECTORY_SEPARATOR;
+
+        if (!is_dir($outputDir)) {
+            mkdir($outputDir);
+        }
+
+        if (!is_writable($outputDir)) {
+            throw new BaseZF_Archive_Exception(sprintf('Could not write on path "%s"', $outputDir));
+        }
+
+        // open file for reading
+        if (!is_readable($this->_options['path'])) {
+            throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s"', $this->_options['path']));
+        }
+
+        // set current path to output dir
+        $pwd = getcwd();
+        chdir($outputDir);
+
+        $this->_extractArchive($outputDir);
+
+        // set previous path to current
+        chdir($pwd);
 
         return $this;
     }
@@ -212,7 +281,7 @@ abstract class BaseZF_Archive_Abstract
         if (file_exists($filePath)) {
             $this->_files[] = $this->_buildFileEntry($filePath, $archiveFilePath);
         } else {
-            throw new BaseZF_Archive_Exception(sprintf('Could not open file %s for reading."', $filePath));
+            throw new BaseZF_Archive_Exception(sprintf('Could not open file %s for reading.', $filePath));
         }
 
         return $this;
@@ -231,12 +300,12 @@ abstract class BaseZF_Archive_Abstract
     }
 
     /**
-     *
+     * Download archive
      */
     public function downloadFile()
     {
         // attachment
-        header('Content-Disposition: attachment; filename="' . basename($this->_options['name']) . '"');
+        header('Content-Disposition: attachment; filename="' . basename($this->_options['path']) . '"');
 
         // archive format
         header('Content-Type: ' . $this->getFileMimeType());
@@ -253,7 +322,7 @@ abstract class BaseZF_Archive_Abstract
         if ($this->_options['inmemory']) {
             header('Content-Length: ' . mb_strlen($this->_archive));
         } else {
-            header('Content-Length: ' . filesize($this->_options['name']));
+            header('Content-Length: ' . filesize($this->_options['path']));
         }
 
         ob_clean();
@@ -263,7 +332,7 @@ abstract class BaseZF_Archive_Abstract
         if ($this->_options['inmemory']) {
             print($this->_archive);
         } else {
-            readfile($this->_options['name']);
+            readfile($this->_options['path']);
         }
     }
 
@@ -294,16 +363,26 @@ abstract class BaseZF_Archive_Abstract
      */
     protected function _makeList()
     {
-        if (!empty ($this->_exclude))
-            foreach ($this->_files as $key => $value)
-                foreach ($this->_exclude as $current)
-                    if ($value['name'] == $current['name'])
+        if (!empty ($this->_exclude)) {
+            foreach ($this->_files as $key => $value) {
+                foreach ($this->_exclude as $current) {
+                    if ($value['name'] == $current['name']) {
                         unset ($this->_files[$key]);
-        if (!empty ($this->_storeonly))
-            foreach ($this->_files as $key => $value)
-                foreach ($this->_storeonly as $current)
-                    if ($value['name'] == $current['name'])
+                    }
+                }
+            }
+        }
+
+        if (!empty ($this->_storeonly)) {
+            foreach ($this->_files as $key => $value) {
+                foreach ($this->_storeonly as $current) {
+                    if ($value['name'] == $current['name']) {
                         $this->_files[$key]['method'] = 0;
+                    }
+                }
+            }
+        }
+
         unset ($this->_exclude, $this->_storeonly);
 
         return $this;
@@ -398,12 +477,18 @@ abstract class BaseZF_Archive_Abstract
             'ext'   => substr($filePath, strrpos($filePath, ".")),
         );
 
+        // clean fileEntry path to remove first char if is a DIRECTORY_SEPARATOR
+        if (substr($fileEntry['path'], 0, 1) == DIRECTORY_SEPARATOR) {
+            $fileEntry['path'] = substr($fileEntry['path'], 1, mb_strlen($fileEntry['path']));
+        }
+
         if (!is_null($fileContents)) {
 
             $tempHandle = fopen('php://temp', 'r+');
             fwrite($tempHandle, $fileContents);
 
             $fileEntry['stat'] = fstat($tempHandle);
+            $fileEntry['stat'][9] = time(); // overwrite file creation to now
             $fileEntry['content'] = $fileContents;
 
             fclose($tempHandle);

@@ -17,7 +17,17 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
      *
      * @var string
      */
-    protected $_mimeType = 'application/zip';
+    protected static $_mimeType = 'application/zip';
+
+    /**
+     * Get archive format mime type
+     *
+     * @return string archive mime type
+     */
+    public static function getFileMimeType()
+    {
+        return self::$_mimeType;
+    }
 
     /**
      * Build archive for current format
@@ -44,7 +54,7 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
 
         foreach ($this->_files as $current) {
 
-            if ($current['name'] == $this->_options['name']) {
+            if ($current['name'] == $this->_options['path']) {
                 continue;
             }
 
@@ -89,7 +99,7 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
                     $temp = fread($fp, $current['stat'][7]);
                     fclose($fp);
                 } else {
-                    throw new BaseZF_Archive_Exception(sprintf('Could not open file %s for reading. It was not added."', $this->_options['name']));
+                    throw new BaseZF_Archive_Exception(sprintf('Could not open file %s for reading. It was not added."', $this->_options['path']));
                 }
 
                 $crc32 = crc32($temp);
@@ -131,17 +141,48 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
         return true;
     }
 
-    public function getFileMimeType()
-    {
-        return $this->_mimeType;
-    }
-
     /**
      * Extract archive for current format
      */
-    public function extractArchive($outputDir)
+    public function _extractArchive($outputDir)
     {
-        throw new BaseZF_Archive_Exception(sprintf('%s::%s function is not yet implemented', __CLASS__, __FUNCTION__));
+        $zip = zip_open($this->_options['path']);
+
+        while ($zipEntry = zip_read($zip)) {
+
+            $completePath = $outputDir . dirname(zip_entry_name($zipEntry));
+            $completeName = $outputDir . zip_entry_name($zipEntry);
+
+            // Walk through path to create non existing directories
+            // This won't apply to empty directories ! They are created further below
+
+            $fullPath = '';
+            foreach(explode(DIRECTORY_SEPARATOR ,$completePath) as $path) {
+
+                $fullPath .= $path . DIRECTORY_SEPARATOR;
+
+                if(!is_dir($fullPath)) {
+                    mkdir($fullPath, 0777);
+                }
+            }
+
+            if (zip_entry_open($zip, $zipEntry, 'r')) {
+
+                if ($this->_options['inmemory'] == 1) {
+
+                    // @todo
+
+                } else if ($fd = fopen($completeName, 'w+')) {
+                    fwrite($fd, zip_entry_read($zipEntry, zip_entry_filesize($zipEntry)));
+                    fclose($fd);
+                }
+
+                zip_entry_close($zipEntry);
+            }
+        }
+
+        zip_close($zip);
+
     }
 }
 
