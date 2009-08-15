@@ -93,13 +93,13 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
             // files
             } else {
 
-                if (isset($current['content'])) {
-                    $temp = $current['content'];
+                if (isset($current['data'])) {
+                    $temp = $current['data'];
                 } else if ($fp = fopen($current['name'], 'rb')) {
                     $temp = fread($fp, $current['stat'][7]);
                     fclose($fp);
                 } else {
-                    throw new BaseZF_Archive_Exception(sprintf('Could not open file %s for reading. It was not added."', $this->_options['path']));
+                    throw new BaseZF_Archive_Exception(sprintf('Could not open file %s for reading. It was not added.', $this->_options['path']));
                 }
 
                 $crc32 = crc32($temp);
@@ -155,23 +155,65 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
 
             // Walk through path to create non existing directories
             // This won't apply to empty directories ! They are created further below
+            if (!$this->_options['inmemory']) {
 
-            $fullPath = '';
-            foreach(explode(DIRECTORY_SEPARATOR ,$completePath) as $path) {
+                $fullPath = '';
+                foreach(explode(DIRECTORY_SEPARATOR ,$completePath) as $path) {
 
-                $fullPath .= $path . DIRECTORY_SEPARATOR;
+                    $fullPath .= $path . DIRECTORY_SEPARATOR;
 
-                if(!is_dir($fullPath)) {
-                    mkdir($fullPath, 0777);
+                    if(!is_dir($fullPath)) {
+                        mkdir($fullPath, 0777);
+                    }
                 }
             }
 
             if (zip_entry_open($zip, $zipEntry, 'r')) {
 
-                if ($this->_options['inmemory'] == 1) {
+                // memory storage only
+                if ($this->_options['inmemory']) {
 
-                    // @todo
+                    $zipEntrySize = zip_entry_filesize($zipEntry);
 
+                    // check if memory is available before set file content in php var
+                    $availableMemory = memory_get_usage() - ini_get('memory_limit');
+                    if ($availableMemory < $zipEntrySize) {
+                        throw new BaseZF_Archive_Exception(sprintf(
+                            'Unable to extract archive in memory cause require %d byts in memory and %d byts is available.',
+                            $zipEntrySize,
+                            $availableMemory
+                        ));
+                    }
+
+                    $this->_files[] = array(
+                        'name' => $completeName,
+                        'path' => $completeName,
+                        'type' => 0,
+                        'ext'  => pathinfo($completeName, PATHINFO_EXTENSION),
+                        'data' => zip_entry_read($zipEntry, $zipEntrySize),
+
+                        // unknow value have 0 or -1 look http://php.net/stat for details
+                        'stat' => array(
+                            0   => 0,               // 0  	dev  	device number
+                            1   => 0,               // 1 	ino 	inode number *
+                            2   => 0,               // 2 	mode 	inode protection mode
+                            3   => 0,               // 3 	nlink 	number of links
+                            4   => 0,               // 4 	uid 	userid of owner *
+                            5   => 0,               // 5 	gid 	groupid of owner *
+                            6   => 0,               // 6 	rdev 	device type, if inode device
+                            7   => $zipEntrySize,   // 7 	size 	size in bytes
+                            8   => time(),          // 8 	atime 	time of last access (Unix timestamp)
+                            9   => time(),          // 9 	mtime 	time of last modification (Unix timestamp)
+                            10  => time(),          // 10 	ctime 	time of last inode change (Unix timestamp)
+                            11  => -1,              // 11 	blksize blocksize of filesystem IO **
+                            12  => -1,              // 12 	blocks 	number of blocks allocated **
+                        ),
+                    );
+                } else if (!$this->_options['overwrite'] && file_exists($completeName)) {
+
+                    throw new BaseZF_Archive_Exception(sprintf('Unable to overwrite existing %s file cause overwrite options is disable', $completeName));
+
+                // physical storage
                 } else if ($fd = fopen($completeName, 'w+')) {
                     fwrite($fd, zip_entry_read($zipEntry, zip_entry_filesize($zipEntry)));
                     fclose($fd);

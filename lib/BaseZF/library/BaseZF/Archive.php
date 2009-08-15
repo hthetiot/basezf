@@ -43,7 +43,7 @@ class BaseZF_Archive
     /**
      *
      */
-    static public function extractArchive($filePath, $outputPath, $format = null, array $options = array())
+    static public function extractArchive($filePath, $outputPath = null, $format = null, array $options = array())
     {
         // detect format
         if (is_null($format)) {

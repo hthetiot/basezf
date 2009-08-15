@@ -77,8 +77,8 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
             } else {
 
                 // add content from string
-                if (isset($current['content'])) {
-                    $temp = $current['content'];
+                if (isset($current['data'])) {
+                    $temp = $current['data'];
 
                 // add content from file
                 } else if ($fp = fopen($current['name'], 'rb')) {
@@ -125,12 +125,23 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                 'type'      => $temp['type'],
                 'magic'     => $temp['magic'],
                 'name'      => $outputPath . $temp['prefix'] . $temp['name'],
+                'ext'       => pathinfo($temp['name'], PATHINFO_EXTENSION),
+
+                // unknow value have 0 or -1 look http://php.net/stat for details
                 'stat'      => array(
-                    2   => $temp['mode'],
-                    4   => octdec($temp['uid']),
-                    5   => octdec($temp['gid']),
-                    7   => octdec($temp['size']),
-                    9   => octdec($temp['mtime']),
+                    0   => 0,                        // 0  	dev  	device number
+                    1   => 0,                        // 1 	ino 	inode number *
+                    2   => $temp['mode'],            // 2 	mode 	inode protection mode
+                    3   => 0,                        // 3 	nlink 	number of links
+                    4   => octdec($temp['uid']),     // 4 	uid 	userid of owner *
+                    5   => octdec($temp['gid']),     // 5 	gid 	groupid of owner *
+                    6   => 0,                        // 6 	rdev 	device type, if inode device
+                    7   => octdec($temp['size']),    // 7 	size 	size in bytes
+                    8   => time(),                   // 8 	atime 	time of last access (Unix timestamp)
+                    9   => octdec($temp['mtime']),   // 9 	mtime 	time of last modification (Unix timestamp)
+                    10  => octdec($temp['mtime']),   // 10 	ctime 	time of last inode change (Unix timestamp)
+                    11  => -1,                       // 11 	blksize blocksize of filesystem IO **
+                    12  => -1,                       // 12 	blocks 	number of blocks allocated **
                 ),
             );
 
@@ -150,12 +161,23 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                 throw new BaseZF_Archive_Exception(sprintf('Could not extract from "%s", this file is corrupted.', $this->_options['path']));
             }
 
-            if ($this->_options['inmemory'] == 1) {
+            // memory storage only
+            if ($this->_options['inmemory']) {
+
+                // check if memory is available before set file content in php var
+                $availableMemory = memory_get_usage() - ini_get('memory_limit');
+                if ($availableMemory < $file['stat'][7]) {
+                    throw new BaseZF_Archive_Exception(sprintf(
+                        'Unable to extract archive in memory cause require %d byts in memory and %d byts is available.',
+                        $zipEntrySize,
+                        $availableMemory
+                    ));
+                }
 
                 $file['data'] = fread($fp, $file['stat'][7]);
                 fread($fp, (512 - $file['stat'][7] % 512) == 512 ? 0 : (512 - $file['stat'][7] % 512));
                 unset ($file['checksum'], $file['magic']);
-                $this->files[] = $file;
+                $this->_files[] = $file;
 
             } else if ($file['type'] == 5) {
 
@@ -163,19 +185,18 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                     mkdir($file['name'], $file['stat'][2]);
                 }
 
-            } else if ($this->_options['overwrite'] == 0 && file_exists($file['name'])) {
+            } else if (!$this->_options['overwrite'] && file_exists($file['name'])) {
 
-                throw new BaseZF_Archive_Exception(sprintf('%s already exists', $file['name']));
+                throw new BaseZF_Archive_Exception(sprintf('Unable to overwrite existing %s file cause overwrite options is disable', $file['name']));
 
             } else if ($file['type'] == 2) {
 
                 symlink($temp['symlink'], $file['name']);
-                //chmod($file['name'], $file['stat'][2]);
 
             } else {
 
                 if (!is_dir(dirname($file['name']))) {
-                    mkdir(dirname($file['name']), 0777);
+                    mkdir(dirname($file['name']));
                 }
 
                 if ($new = @fopen($file['name'], 'wb')) {
@@ -183,16 +204,14 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
                     fwrite($new, fread($fp, $file['stat'][7]));
                     fread($fp, (512 - $file['stat'][7] % 512) == 512 ? 0 : (512 - $file['stat'][7] % 512));
                     fclose($new);
-                    //chmod($file['name'], $file['stat'][2]);
+
+                    touch($file['name'], $file['stat'][9]);
 
                 } else {
                     throw new BaseZF_Archive_Exception(sprintf('Could not open "%s" for writing.', $file['name']));
                 }
             }
 
-            //chown($file['name'], $file['stat'][4]);
-            //chgrp($file['name'], $file['stat'][5]);
-            //touch($file['name'], $file['stat'][9]);
             unset($file);
         }
     }

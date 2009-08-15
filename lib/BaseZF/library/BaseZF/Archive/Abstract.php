@@ -191,13 +191,39 @@ abstract class BaseZF_Archive_Abstract
      *
      * @return return $this for more fluent interface
      */
-    public function extractArchive($outputDir)
+    public function extractArchive($outputDir = null)
     {
+        if (is_null($outputDir)) {
+            $this->_options['inmemory'] = true;
 
         // add possible missing DIRECTORY_SEPARATOR at the end of string
-        $outputDirLength = mb_strlen($outputDir) - 1;
-        $outputDir = strpos($outputDir, DIRECTORY_SEPARATOR, $outputDirLength) == $outputDirLength ? $outputDir : $outputDir . DIRECTORY_SEPARATOR;
+        } else {
+            $outputDirLength = mb_strlen($outputDir) - 1;
+            $outputDir = strpos($outputDir, DIRECTORY_SEPARATOR, $outputDirLength) == $outputDirLength ? $outputDir : $outputDir . DIRECTORY_SEPARATOR;
+        }
 
+        // open file for reading
+        if (!is_readable($this->_options['path'])) {
+            throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s"', $this->_options['path']));
+        }
+
+        //
+        if (!$this->_options['inmemory']) {
+            $this->_extractArchiveToPath($outputDir);
+        } else {
+            $this->_extractArchive(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     *
+     *
+     * @return return $this for more fluent interface
+     */
+    protected function _extractArchiveToPath($outputDir)
+    {
         if (!is_dir($outputDir)) {
             mkdir($outputDir);
         }
@@ -206,19 +232,14 @@ abstract class BaseZF_Archive_Abstract
             throw new BaseZF_Archive_Exception(sprintf('Could not write on path "%s"', $outputDir));
         }
 
-        // open file for reading
-        if (!is_readable($this->_options['path'])) {
-            throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s"', $this->_options['path']));
-        }
-
         // set current path to output dir
-        $pwd = getcwd();
+        $cwd = getcwd();
         chdir($outputDir);
 
         $this->_extractArchive($outputDir);
 
         // set previous path to current
-        chdir($pwd);
+        chdir($cwd);
 
         return $this;
     }
@@ -474,7 +495,7 @@ abstract class BaseZF_Archive_Abstract
             'name'  => $filePath,
             'path'  => (is_null($archiveFilePath) ? $filePath : $archiveFilePath),
             'type'  => (is_link($filePath) && !$this->_options['followlinks'] ? 2 : 0),
-            'ext'   => substr($filePath, strrpos($filePath, ".")),
+            'ext'   => pathinfo($filePath, PATHINFO_EXTENSION),
         );
 
         // clean fileEntry path to remove first char if is a DIRECTORY_SEPARATOR
@@ -489,7 +510,7 @@ abstract class BaseZF_Archive_Abstract
 
             $fileEntry['stat'] = fstat($tempHandle);
             $fileEntry['stat'][9] = time(); // overwrite file creation to now
-            $fileEntry['content'] = $fileContents;
+            $fileEntry['data'] = $fileContents;
 
             fclose($tempHandle);
 
