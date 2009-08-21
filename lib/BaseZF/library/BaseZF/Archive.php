@@ -13,6 +13,11 @@
  */
 class BaseZF_Archive
 {
+    /**
+     * Available archive formats
+     *
+     * @var array
+     */
     protected static $_availableFormats = array(
         'bzip',
         'zip',
@@ -21,27 +26,30 @@ class BaseZF_Archive
     );
 
     /**
+     * Create a new archive
      *
+     * @param string $format archive format see $_availableFormats property values
+     * @param string $filePath archive file path, if null it create archive in memory
+     * @param array $options archive builder options
+     *
+     * @return object instance of BaseZF_Archive_Abstract extended class
      */
-    static public function newArchive($format, $filePath, array $options = array())
+    static public function newArchive($format, $filePath = null, array $options = array())
     {
         $className = self::_getClassNameByFormat($format);
 
         return new $className($filePath, $options);
     }
 
-    static private function _getClassNameByFormat($format) {
-
-        $className = __CLASS__ . '_' . ucfirst(strtolower($format));
-
-        // prevent stack error
-        Zend_Loader::loadClass($className);
-
-        return $className;
-    }
-
     /**
+     * Extract an archive
      *
+     * @param string $filePath archive file path
+     * @param string $outputPath output archive path, if null it extract archive in memory
+     * @param string $format archive format see $_availableFormats property values
+     * @param array $options archive builder options
+     *
+     * @return object instance of BaseZF_Archive_Abstract extended class
      */
     static public function extractArchive($filePath, $outputPath = null, $format = null, array $options = array())
     {
@@ -57,7 +65,11 @@ class BaseZF_Archive
     }
 
     /**
+     * Detect archive format
      *
+     * @param string $filePath archive file path
+     *
+     * @return string archive format see $_availableFormats property values
      */
     static public function getArchiveFormat($filePath)
     {
@@ -65,7 +77,13 @@ class BaseZF_Archive
             throw new BaseZF_Archive_Exception(sprintf('Could not open file "%s"', $filePath));
         }
 
-        $mimeType = trim(mime_content_type($filePath));
+        $extention = pathinfo($filePath, PATHINFO_EXTENSION);
+        $mimeType = null;
+
+        // use $minType only if mime_content_type is available
+        if (function_exists('mime_content_type')) {
+            $mimeType = trim(mime_content_type($filePath));
+        }
 
         // compare mine types
         foreach(self::$_availableFormats as $format) {
@@ -73,7 +91,9 @@ class BaseZF_Archive
             $className = self::_getClassNameByFormat($format);
             $formatMimeType = call_user_func($className .'::getFileMimeType');
 
-            if ($formatMimeType == $mimeType) {
+            if (!is_null($mimeType) && $formatMimeType == $mimeType) {
+                return $format;
+            } else if ($extention == $format) {
                 return $format;
             }
         }
@@ -81,4 +101,34 @@ class BaseZF_Archive
         // no mine types match
         throw new BaseZF_Archive_Exception(sprintf('Could not detect archive format with mine type "%s"', $mimeType));
     }
+
+    /**
+     *
+     */
+     static public function getAvailableFormats()
+     {
+         return self::$_availableFormats;
+     }
+
+    /**
+     * Get class name and load class from archive format name
+     *
+     * @param string $format archive format see $_availableFormats property values
+     *
+     * @return string class name of BaseZF_Archive_Abstract extended class
+     */
+    static private function _getClassNameByFormat($format) {
+
+        if (in_array($format, self::$_availableFormats) === false) {
+            throw new BaseZF_Archive_Exception(sprintf('Invalid archive format "%s", see %s::$_availableFormats value for available form', $format, __CLASS__));
+        }
+
+        $className = __CLASS__ . '_' . ucfirst(strtolower($format));
+
+        // prevent stack error
+        Zend_Loader::loadClass($className);
+
+        return $className;
+    }
 }
+

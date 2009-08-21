@@ -146,6 +146,10 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
      */
     public function _extractArchive($outputDir)
     {
+        if (!function_exists('zip_open')) {
+            throw new BaseZF_Archive_Exception('Unable to extract archive cause "zip_open" function is not available.');
+        }
+
         $zip = zip_open($this->_options['path']);
 
         while ($zipEntry = zip_read($zip)) {

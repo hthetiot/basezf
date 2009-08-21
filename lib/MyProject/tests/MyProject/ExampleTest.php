@@ -36,7 +36,7 @@ class MyProject_ExampleTest extends PHPUnit_Framework_TestCase
         $example->updateProperty($value);
 
         // compare waiting results with results
-        $this->assertEquals($value+1, $example->getProperty());
+        $this->assertEquals($value, $example->getProperty());
 
         /*
         assertArrayHasKey()

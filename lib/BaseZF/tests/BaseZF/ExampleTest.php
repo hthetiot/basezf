@@ -1,6 +1,6 @@
 <?php
 /**
- * ExampleTest.php for Bahu in tests/
+ * ExampleTest.php for BaseZF in tests/
  *
  * @category   Test
  * @package    Test_Example

@@ -145,7 +145,10 @@ abstract class BaseZF_Archive_Abstract
      *
      * @return string header for file mine type
      */
-    abstract public static function getFileMimeType();
+    public static function getFileMimeType()
+    {
+         throw new BaseZF_Archive_Exception(sprintf('Function "%s" should overwrited by class %s', __FUNC__, __CLASS__));
+    }
 
     //
     // Public API functions
@@ -262,6 +265,16 @@ abstract class BaseZF_Archive_Abstract
         }
 
         return $this;
+    }
+
+    /**
+     * Get archive files description
+     *
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->_files;
     }
 
     /**
