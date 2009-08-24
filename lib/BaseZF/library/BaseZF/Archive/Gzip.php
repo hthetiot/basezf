@@ -37,7 +37,11 @@ class BaseZF_Archive_Gzip extends BaseZF_Archive_Tar
         // compress as Tar archive
         parent::_buildArchive();
 
-        $this->_archive = gzencode($this->_archive, $this->_options['level']);
+        if ($this->_options['inmemory']) {
+            $this->_setArchiveData(gzencode($this->_archive, $this->_options['level']));
+        } else {
+            $this->_setArchiveData(stream_get_contents($this->_archive));
+        }
     }
 
     /**

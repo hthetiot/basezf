@@ -14,15 +14,15 @@
 class BaseZF_Archive
 {
     /**
-     * Available archive formats
+     * Available archive formats indexed by default extentions
      *
      * @var array
      */
     protected static $_availableFormats = array(
-        'bzip',
-        'zip',
-        'tar',
-        'gzip',
+        'bz'    => 'bzip',
+        'zip'   => 'zip',
+        'tar'   => 'tar',
+        'gz'    => 'gzip',
     );
 
     /**
@@ -86,20 +86,24 @@ class BaseZF_Archive
         }
 
         // compare mine types
-        foreach(self::$_availableFormats as $format) {
+        foreach(self::$_availableFormats as $formatExtention => $format) {
 
             $className = self::_getClassNameByFormat($format);
             $formatMimeType = call_user_func($className .'::getFileMimeType');
 
             if (!is_null($mimeType) && $formatMimeType == $mimeType) {
                 return $format;
-            } else if ($extention == $format) {
+            } else if ($extention == $formatExtention) {
                 return $format;
             }
         }
 
         // no mine types match
-        throw new BaseZF_Archive_Exception(sprintf('Could not detect archive format with mine type "%s"', $mimeType));
+        if (!is_null($mimeType)) {
+            throw new BaseZF_Archive_Exception(sprintf('Could not detect archive format for file "%s", with mine type "%s"', $filePath, $mimeType));
+        } else {
+            throw new BaseZF_Archive_Exception(sprintf('Could not detect archive format for file "%s"', $filePath));
+        }
     }
 
     /**

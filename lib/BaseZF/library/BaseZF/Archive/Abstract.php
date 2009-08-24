@@ -141,7 +141,7 @@ abstract class BaseZF_Archive_Abstract
     abstract protected function _extractArchive($outputDir);
 
     /**
-     * Get archive file mine type
+     * Get archive file mine type abstract (static could not be static)
      *
      * @return string header for file mine type
      */
@@ -182,7 +182,7 @@ abstract class BaseZF_Archive_Abstract
 
         $this->_buildArchive();
 
-        if (!$this->_options['inmemory']) {
+        if (!$this->_options['inmemory'] && is_resource($this->_archive)) {
             fclose($this->_archive);
         }
 
@@ -388,6 +388,52 @@ abstract class BaseZF_Archive_Abstract
         }
 
         return $this;
+    }
+
+    /**
+     *
+     *
+     * @return return $this for more fluent interface
+     */
+    protected function _setArchiveData($data)
+    {
+        if ($this->_options['inmemory']) {
+            $this->_archive .= $data;
+        } else {
+
+            $this->_archive = fopen($this->_options['path'], 'wb+');
+            fwrite($this->_archive, $data);
+            fclose($this->_archive);
+        }
+
+        return $this;
+    }
+
+    /**
+     *
+     *
+     */
+    protected function _getArchiveData($display = false)
+    {
+        if ($this->_options['inmemory']) {
+
+            return $this->_archive;
+
+        } else if ($display) {
+
+            ob_clean();
+            flush();
+
+            readfile($this->_options['path']);
+
+        } else {
+
+            $this->_archive = fopen($this->_options['path'], 'wb+');
+            $data = stream_get_contents($this->_archive, $data);
+            fclose($this->_archive);
+
+            return $data;
+        }
     }
 
     /**

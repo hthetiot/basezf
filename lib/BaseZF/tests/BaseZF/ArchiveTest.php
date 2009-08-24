@@ -30,8 +30,11 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
 
     public function testAddFileFromString()
     {
+        // declare file data for testing
         $fileData = '<html><h1>Toto ' . time() . '</h1></html>';
-        $fileName = 'index-' . time() . '.html';
+        $fileLength = mb_strlen($fileData);
+        $fileExt = 'html';
+        $fileName = 'index-' . time() . '.' . $fileExt;
 
         // create archive
         $newArchive = BaseZF_Archive::newArchive('tar', $this->_archiveFilePath);
@@ -45,8 +48,11 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $archiveFiles = $readArchive->getFiles();
         $archiveTestFile = current($archiveFiles);
 
-        $this->assertEquals($archiveTestFile['name'], $fileName);
-        $this->assertEquals($archiveTestFile['data'], $fileData);
+        // checking integrety of data
+        $this->assertEquals($archiveTestFile['name'], $fileName); // test file name extraction
+        $this->assertEquals($archiveTestFile['data'], $fileData); // test file data extraction
+        $this->assertEquals($archiveTestFile['ext'], $fileExt); // test file ext
+        $this->assertEquals($archiveTestFile['stat'][7], $fileLength); // test file size
     }
 
     /**
