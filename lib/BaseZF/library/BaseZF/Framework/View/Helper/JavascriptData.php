@@ -3,9 +3,9 @@
  * javascriptData.php
  *
  * @category   BaseZF
- * @package    BaseZF_Framwork
+ * @package    BaseZF_Framework
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_Framework_View_Helper_JavascriptData extends BaseZF_Framework_View_Helper_Abstract

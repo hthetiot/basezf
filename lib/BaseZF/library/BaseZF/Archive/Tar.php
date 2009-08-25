@@ -2,14 +2,14 @@
 /**
  * Tar class in /BazeZF/Archive
  *
- * @category   BazeZF_Core
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Archive
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
-
-/**
+ * @author     Harold Thetiot (hthetiot)
+ *
  * Archive Builder for Tar Format.
  */
+
 class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
 {
     /**

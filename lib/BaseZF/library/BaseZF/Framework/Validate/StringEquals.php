@@ -2,10 +2,10 @@
 /**
  * StringEquals class in /BazeZF/Framework/Validate
  *
- * @category   BazeZF_Framework
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Framework
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_Framework_Validate_StringEquals extends Zend_Validate_Abstract

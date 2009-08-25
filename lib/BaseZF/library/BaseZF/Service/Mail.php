@@ -2,10 +2,10 @@
 /**
  * Mail class in /BazeZF/Service
  *
- * @category   BazeZF_Service
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Service
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_Service_Mail

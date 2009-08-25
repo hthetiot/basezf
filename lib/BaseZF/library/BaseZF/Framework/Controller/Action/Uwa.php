@@ -5,7 +5,7 @@
  * @category   BaseZF_Framework
  * @package    BaseZF
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 abstract class BaseZF_Framework_Controller_Action_Uwa extends BaseZF_Framework_Controller_Action

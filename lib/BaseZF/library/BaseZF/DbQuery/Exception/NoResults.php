@@ -1,11 +1,11 @@
 <?php
 /**
- * Exception class in /BazeZF/DbCollection
+ * Exception class in /BazeZF/DbCollection/Exception
  *
- * @category   BazeZF_Core
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_DbItem
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_DbQuery_Exception_NoResults extends BaseZF_DbQuery_Exception

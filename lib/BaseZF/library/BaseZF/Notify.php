@@ -4,10 +4,10 @@
  *
  * Used to displaying a message and destuct it after it disaplayed, just a little notify system
  *
- * @category   BazeZF_Core
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Core
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_Notify
@@ -50,9 +50,9 @@ class BaseZF_Notify
     }
 
     /**
-     * Retreive instance of Bahu_Notify, or create if not exist
+     * Retreive instance of BazeZF_Notify, or create if not exist
      *
-     * @return object instance of Bahu_Notify
+     * @return object instance of BazeZF_Notify
      */
      static public function getInstance($nameSpace = self::DEFAULT_NAMESPACE)
     {
@@ -142,7 +142,7 @@ class BaseZF_Notify
      * Delete a notifier record
      *
      * @param string $notifierId nofifier id
-     * @return object instance of Bahu_Notify
+     * @return object instance of BazeZF_Notify
      */
     public function delete($notifierId)
     {
@@ -169,7 +169,7 @@ class BaseZF_Notify
     /**
      * Update cookies data
      *
-     * @return object instance of Bahu_Notify
+     * @return object instance of BazeZF_Notify
      */
     protected function _updateStorage()
     {

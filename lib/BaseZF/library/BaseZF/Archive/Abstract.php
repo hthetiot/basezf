@@ -2,14 +2,14 @@
 /**
  * Abstract class in /BazeZF/Archive
  *
- * @category   BazeZF_Core
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Archive
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
-
-/**
+ * @author     Harold Thetiot (hthetiot)
+ *
  * Abstract Archive Builder for format.
  */
+
 abstract class BaseZF_Archive_Abstract
 {
     /**

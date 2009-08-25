@@ -2,14 +2,14 @@
 /**
  * Zip class in /BazeZF/Archive
  *
- * @category   BazeZF_Core
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Archive
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
-
-/**
+ * @author     Harold Thetiot (hthetiot)
+ *
  * Archive Builder for Zip Format.
  */
+
 class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
 {
     /**

@@ -2,10 +2,10 @@
 /**
  * ArchiveTest.php for BaseZF in tests/
  *
- * @category   Test
- * @package    Test_Example
- * @copyright  Copyright (c) 2008 Bahu
- * @author     Harold Thétiot (hthetiot)
+ * @category   BaseZF
+ * @package    BaseZF_UnitTest
+ * @copyright  Copyright (c) 2008 BaseZF
+ * @author     Harold Thetiot (hthetiot)
  */
 
 // Load PhpUnit Libs

@@ -2,10 +2,10 @@
 /**
  * DbCollection class in /BaseZF
  *
- * @category   BaseZF_DbCollection
- * @package    BaseZF
- * @copyright  Copyright (c) 2008 Bahu
- * @author     Harold Thétiot (hthetiot)
+ * @category   BaseZF
+ * @package    BaseZF_DbItem
+ * @copyright  Copyright (c) 2008 BazeZF
+ * @author     Harold Thetiot (hthetiot)
  */
 
 abstract class BaseZF_DbCollection implements Iterator, Countable

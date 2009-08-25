@@ -2,10 +2,10 @@
 /**
  * AllTests.php for BaseZF in tests/BaseZF/
  *
- * @category   BaseZF_UnitTest
- * @package    BaseZF
+ * @category   BaseZF
+ * @package    BaseZF_UnitTest
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 // include PhpUnit Library
