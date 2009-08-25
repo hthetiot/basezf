@@ -1,15 +1,15 @@
 <?php
 /**
- * Bean.php
+ * Registry.php
  *
  * @category   MyProject
- * @package    MyProject
+ * @package    MyProject_Core
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  *
  * This class should registry features
  *
- * You can add some callback for Program_Bean::registry('YourRegistryEntryName');
+ * You can add some callback for MyProject_Registry->registry('YourRegistryEntryName');
  * for that you just have to add a function like following.
  * <code>
  * private static function _create<YourRegistryEntryName>()
@@ -20,7 +20,7 @@
  *
  */
 
-final class MyProject_Registry extends BaseZF_Registry
+final class MyProject_Registry extends BaseZF_Framework_Registry
 {
     /**
      * Return Existing instance

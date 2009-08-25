@@ -2,8 +2,8 @@
 /**
  * Example form object
  *
- * @category  MyProject_Form
- * @package   MyProject
+ * @category  MyProject
+ * @package   MyProject_Form
  * @copyright Copyright (c) 2008 MyProject
  */
 

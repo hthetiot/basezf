@@ -2,10 +2,10 @@
 /**
  * AllTests.php for MyProject in tests/MyProject/
  *
- * @category   MyProject_UnitTest
- * @package    MyProject
+ * @category   MyProject
+ * @package    MyProject_UnitTest
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 // include PhpUnit Library

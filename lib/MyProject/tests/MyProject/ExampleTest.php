@@ -1,11 +1,11 @@
 <?php
 /**
- * ExampleTest.php for Bahu in tests/
+ * ExampleTest.php for MyProject in tests/
  *
- * @category   Test
- * @package    Test_Example
- * @copyright  Copyright (c) 2008 Bahu
- * @author     Harold Thétiot (hthetiot)
+ * @category   MyProject
+ * @package    MyProject_UnitTest
+ * @copyright  Copyright (c) 2008 MyProject
+ * @author     Harold Thetiot (hthetiot)
  */
 
 // Load PhpUnit Libs
