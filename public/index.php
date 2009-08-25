@@ -5,9 +5,9 @@
  * Main Bootstrap launcher
  *
  * @category   MyProject
- * @package    MyProject
+ * @package    MyProject_App
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 // include auto_prepend if missing

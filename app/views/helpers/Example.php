@@ -3,9 +3,9 @@
  * Example.php for MyProject in /app/views/helpers
  *
  * @category   MyProject
- * @package    MyProject_Helpers
+ * @package    MyProject_App_Helper
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class App_View_Helper_Example

@@ -5,7 +5,7 @@
  * @category   BaseZF_UnitTest
  * @package    BaseZF
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 // PhpUnit Libs

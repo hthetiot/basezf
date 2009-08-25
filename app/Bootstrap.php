@@ -5,15 +5,15 @@
  * Main Bootstrap
  *
  * @category   MyProject
- * @package    MyProject
+ * @package    MyProject_App
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 /**
  * Main BootStrap
  */
-final class Bootstrap extends BaseZF_Bootstrap
+final class Bootstrap extends BaseZF_Framework_Application_Bootstrap
 {
     /**
      * Init MyProject Bean class

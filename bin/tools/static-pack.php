@@ -6,7 +6,7 @@
 # ./static-pack.php (js|css) <source_path> <dest_path>
 #
 # @copyright  Copyright (c) 2008 BaseZF
-# @author     Harold Thétiot (hthetiot)
+# @author     Harold Thetiot (hthetiot)
 # @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
 // disable time limit and upgrade memory limit

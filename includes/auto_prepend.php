@@ -3,9 +3,9 @@
  * auto_prepend.php for MyProject in /includes/
  *
  * @category   MyProject
- * @package    MyProject
+ * @package    MyProject_App
  * @copyright  Copyright (c) 2008
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 $t_start = microtime(true);
