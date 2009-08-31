@@ -10,13 +10,13 @@
 final class BazeZF_Version
 {
     /**
-     * Zend Framework version identification - see compareVersion()
+     * BaseZF Framework version identification - see compareVersion()
      */
     const VERSION = '0.7';
 
     /**
-     * Compare the specified Zend Framework version string $version
-     * with the current Zend_Version::VERSION of Zend Framework.
+     * Compare the specified BaseZF Framework version string $version
+     * with the current BazeZF_Version::VERSION of BaseZF Framework.
      *
      * @param  string  $version  A version string (e.g. "0.7.1").
      * @return boolean           -1 if the $version is older,
