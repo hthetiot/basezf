@@ -26,6 +26,7 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
             'Tools' => array(
                '/example/index/blueprint'       => 'Blueprint',
                '/example/index/mootools'        => 'Mootools',
+               '/example/index/debug'           => 'Debug',
                '/example/index/makefile'        => 'MakeFile',
             ),
 
@@ -35,7 +36,6 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
                 '/example/form/dateselect'      => 'Date Element',
                 //'/example/form/rangeselect'   => 'Range Select Element',
                 //'/example/form/contactselect' => 'Contact List Element',
-                '/example/form/elements'        => 'Elements Extras',
             ),
 
             'CSS Elements' => array(
