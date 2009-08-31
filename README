@@ -6,3 +6,46 @@
  *
  * # Last update: YYYY-MM-DD
  */
+
+ # To install
+    run make install
+    cp includes/auto_prepend_local.php-dist includes/auto_prepend_local.php
+    set ZF_PATH value on includes/auto_prepend_local.php for Zend Framework path (without library)
+
+ # Project structure
+
+ <project name>/
+    |
+	|-> app/
+    | 	|-> Bootstrap.php
+	| 	|-> controllers/
+	| 	|-> views/
+	| 		|-> filters/
+	| 		|-> helpers/
+    |       |-> layouts/
+	| 		|-> scripts/
+    |
+    |-> bin/
+    |-> data/
+    |-> doc/
+    |-> etc/
+    |-> includes/
+    |-> lib/
+    |-> locale/
+    |-> public/
+    |-> sql/
+    |-> tests/
+
+ # Project structure description
+
+    etc/                            - The application-wide configuration directory
+    app/                            - This directory contains your application. It will house the MVC system, as well as conifgurations, services used, and your bootstrap file.
+    app/controllers/views/helpers/  - These directories will contain action helpers. Action helpers will be namespaced either as "Controller_Helper_" for the default module or "<Module>Controller_Helper" in other modules.
+    app/controllers/views/layouts/  - This layout directory is for MCV-based layouts. Since Zend_Layout is capable of MVC- and non-MVC-based layouts, the location of this directory reflects that layouts are not on a 1-to-1 relationship with controllers and are independent of templates within views/.
+    app/Bootstrap.php               - This file is the entry point for your application. The purpose for this file is to bootstrap the application and make components available to the application by initializing them. This file should not call dispatch() on the front controller.
+    data/                           - This directory provides a place to store application data that is volatile and possibly temporary. The disturbance of data in this directory might cause the application to fail. Also, the information in this directory may or may not be committed to a subversion repository. Examples of things in this directory are session files, cache files, sqlite databases, logs and indexes.
+    doc/                            - This directory contains documentation, either generated or directly authored.
+    lib/                            - This directory houses the Zend/library/Zend/* folder which contains Zend Framework. Developers should also place their application's library code under this directory in a separate namespace- ie, a namespace that does not begin with 'Zend'.
+    bin/tools/                      - This directory contains maintenance and/or build scripts. Such scripts might include command line, cron, or phing build scripts that are not executed at runtime but are part of the correct functioning of the application.
+    tests/                          - This directory contains application tests. These could be hand written, phpunit tests, selenium based tests or based on some other testing framework. By default, library code can be tested by mimicing the directory structure of your library/ directory. Additionally, functional tests for your application could be written mimicing the application/ directory structure (including the application subdirectory).
+    public/                         - This directory contains all public files for your application. index.php sets up the PHP environment, include the Bootstrap.php file from your application/ directory and finally dispatch() the front controller. The web root of your web server would typically be set to this directory.
