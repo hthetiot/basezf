@@ -31,27 +31,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
     public function archiveAction()
     {
-        $archive = BaseZF_Archive::newArchive('zip', '/tmp/toto.zip', array(
-            //'inmemory' => true
-        ));
 
-        $archive->addFileFromString('index.html', '<html><h1>Toto</h1></html>');
-        $archive->addFile(PUBLIC_PATH . '/robot.txt', '/robot.txt');
-        $archive->addFile(PUBLIC_PATH . '/crossdomain.xml', 'titi/crossdomain.xml');
-
-        $archive->createArchive();
-        //$archive->downloadFile();
-
-        $archive = BaseZF_Archive::extractArchive('/tmp/toto.zip', '/tmp/toto/', null, array(
-            'overwrite' => false
-        ));
-
-
-        exit();
-    }
-
-    public function imageAction()
-    {
     }
 
     public function notifyAction()

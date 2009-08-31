@@ -60,7 +60,6 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
             'Classes' => array(
                 '/example/BaseZF/error'         => 'Error Handler',
                 '/example/BaseZF/controller'    => 'Controller Abstract',
-                '/example/BaseZF/image'         => 'Image',
                 '/example/BaseZF/archive'       => 'Archive',
                 '/example/BaseZF/notify'        => 'Notify',
                 '/example/BaseZF/stitem'        => 'StItem/StCollection',
