@@ -2,7 +2,7 @@
 /**
  * Notify class in /BazeZF/
  *
- * Used to displaying a message and destuct it after it disaplayed, just a little notify system
+ * Used to displaying a message and destuct it after it displayed, just a little notify system
  *
  * @category   BazeZF
  * @package    BazeZF_Core

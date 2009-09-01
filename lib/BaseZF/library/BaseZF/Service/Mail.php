@@ -124,7 +124,7 @@ class BaseZF_Service_Mail
     static private function _sendCommand($fp, $out)
     {
         fwrite($fp, $out . "\r\n");
-         stream_set_timeout($fp, 2);
+        stream_set_timeout($fp, 2);
 
         $s = '';
         for($i = 0; $i < 2; $i++) {

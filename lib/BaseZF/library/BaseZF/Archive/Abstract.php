@@ -198,6 +198,7 @@ abstract class BaseZF_Archive_Abstract
     {
         if (is_null($outputDir)) {
             $this->_options['inmemory'] = true;
+            $outputDir = DIRECTORY_SEPARATOR;
 
         // add possible missing DIRECTORY_SEPARATOR at the end of string
         } else {
@@ -214,7 +215,7 @@ abstract class BaseZF_Archive_Abstract
         if (!$this->_options['inmemory']) {
             $this->_extractArchiveToPath($outputDir);
         } else {
-            $this->_extractArchive(null);
+            $this->_extractArchive($outputDir);
         }
 
         return $this;
