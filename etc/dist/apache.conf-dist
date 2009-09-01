@@ -95,6 +95,18 @@
         ## Short open tags
         php_flag short_open_tag on
 
+        ## How many CPU-seconds a script can consume
+        max_execution_time 30
+
+        ## How long (seconds) a script can wait for input data
+        max_input_time 60
+
+        ## How much memory (bytes) a script can consume before being killed
+        memory_limit 32M
+
+        ## How much data (bytes) to buffer before sending out to the client
+        output_buffering 4096
+
         ## Output Compression
         php_value zlib.output_compression 1
         php_value zlib.output_compression_level 9
