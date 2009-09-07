@@ -12,6 +12,9 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 {
     protected function _render()
     {
+        // Server error
+        header('HTTP/1.1 500 Internal Server Error');
+
         ?>
         <style>
             pre.debug {
