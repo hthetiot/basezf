@@ -129,53 +129,8 @@ abstract class BaseZF_Framework_Registry
         // get config
         $config = $this->registry('config');
 
-        // disabled log
-        if (!$config->log->enable) {
-            return false;
-        }
-
         // init logger
-        $logger = new Zend_Log();
-
-        // add priority per components
-        $componentsAvailable = $config->log->components->available->toArray();
-        $componentsEnable = explode(' ', $config->log->components->enable);
-
-        foreach($componentsAvailable as $name => $priority) {
-
-            $logger->addPriority($name, (int) $priority);
-
-            if (in_array($name, $componentsEnable) === false) {
-                $filter = new Zend_Log_Filter_Priority((int) $priority, '!=');
-                $logger->addFilter($filter);
-            }
-        }
-
-        // add TABLE Priority for db profiler
-        $tablePriority = 8;
-        $logger->addPriority('TABLE', $tablePriority);
-
-        // add stream writer
-        if ($config->log->writers->stream->enable) {
-            $writer = new Zend_Log_Writer_Stream($config->log->writers->stream->path);
-            $logger->addWriter($writer);
-        }
-
-        // add firebug writer
-        if ($config->log->writers->firebug->enable) {
-            $writer = new Zend_Log_Writer_Firebug();
-
-            // set TABLE Priority to TABLE style
-            $writer->setPriorityStyle($tablePriority, 'TABLE');
-
-            $logger->addWriter($writer);
-        }
-
-        // add default writer if no writer was added
-        if (!isset($writer)) {
-            $writer = new Zend_Log_Writer_Null();
-            $logger->addWriter($writer);
-        }
+        $logger = BaseZF_Framework_Log::factory($config->log);
 
         return $logger;
     }
