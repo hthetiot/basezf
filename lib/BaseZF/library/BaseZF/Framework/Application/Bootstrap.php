@@ -83,6 +83,8 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
         $options = $this->mergeOptions($this->_defaultOptions, $options);
 
         $this->setOptions($options);
+
+        return $this->_options;
     }
 
     //
@@ -168,6 +170,8 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
         $headScriptPackConfig = new BaseZF_Framework_Config_Yaml($staticPackoptions['script_config']);
         $view->headScript()->setPacksConfig($headScriptPackConfig->toArray());
         $view->headScript()->enablePacks();
+
+        return $view->headScript();
     }
 
     //
@@ -234,6 +238,7 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
 
         $frontController->setControllerDirectory($controllerModules);
 
+        return $controllerModules;
     }
 
     /**
@@ -242,15 +247,22 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
     protected function _initControllerPlugins()
     {
         $frontController = Zend_Controller_Front::getInstance();
-
         $controllerOptions = $this->getOption('controller');
 
-        foreach ($controllerOptions['plugins'] as $controllerPlugin) {
-             $plugin = new $controllerPlugin();
-             $frontController->registerPlugin($plugin);
+        $controllerPlugins = array();
+        foreach ($controllerOptions['plugins'] as $plugin) {
+
+             $pluginName = $plugin['plugin'];
+             $pluginParams = (isset($writer['params'])) ? $writer['params'] : array();
+
+             Zend_Loader::loadClass($pluginName);
+             $pluginObj = new $pluginName($pluginParams);
+             $frontController->registerPlugin($pluginObj);
+
+             $controllerPlugins[$pluginName] = $pluginObj;
         }
 
-        return $this;
+        return $controllerPlugins;
     }
 }
 

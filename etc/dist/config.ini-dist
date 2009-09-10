@@ -29,7 +29,8 @@ controller.modules.default	= default
 controller.modules.example	= example
 
 # MVC > enable plugins
-controller.plugins.NotModifiedCache	= BaseZF_Framework_Controller_Plugin_NotModifiedCache
+controller.plugins.NotModifiedCache.plugin      = BaseZF_Framework_Controller_Plugin_NotModifiedCache
+controller.plugins.NotModifiedCache.params      =
 
 # Static-Pack
 static_pack.enable          = false
@@ -75,9 +76,9 @@ log.components.available.dbitem        = 10
 log.components.available.dbquery       = 11
 
 #debug
-#debug
 debug.enable            = DEBUG_ENABLE
 debug.report.enable     = DEBUG_REPORT
+debug.report.subject    = DEBUG_REPORT_SUBJECT
 debug.report.to         = DEBUG_REPORT_FROM
 debug.report.from       = DEBUG_REPORT_TO
 
