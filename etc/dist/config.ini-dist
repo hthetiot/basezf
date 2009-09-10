@@ -63,17 +63,30 @@ dbcache.backend.servers.node1.port          = 11211
 dbcache.backend.servers.node1.host          = localhost
 dbcache.backend.servers.node1.persistent    = true
 
-#log config
-log.enable                  = false
-log.writers.stream.enable   = false
-log.writers.stream.path     = php://output
-log.writers.firebug.enable  = false
+#log writers
+log.writers.file.enable                             = true
+log.writers.file.writerName                         = "Zend_Log_Writer_Stream"
+log.writers.file.writerParams.stream                = LOG_PATH "/application.log"
+log.writers.file.filterName                         = "Zend_Log_Filter_Priority"
+log.writers.file.filterParams.priority              = "Zend_Log::CRIT"
+log.writers.file.filterParams.operator              = "<="
 
-#log components - start components priority to 9
-log.components.enable                  = dbcollection dbitem dbquery
-log.components.available.dbcollection  = 9
-log.components.available.dbitem        = 10
-log.components.available.dbquery       = 11
+log.writers.mail.enable                             = false
+log.writers.mail.writerName                         = "Zend_Log_Writer_Mail"
+log.writers.mail.writerParams.subject               = DEBUG_REPORT_SUBJECT
+log.writers.mail.writerParams.to                    = DEBUG_REPORT_TO
+log.writers.mail.writerParams.from                  = DEBUG_REPORT_FROM
+
+# log filters
+log.filters.file.filterName                         = "Zend_Log_Filter_Priority"
+log.filters.file.filterParams.priority              = "Zend_Log::CRIT"
+log.filters.file.filterParams.operator              = "<="
+
+#log priorities > start priority to 8
+log.priorities.TABLE         = "BaseZF_Framework_Log::TABLE"
+log.priorities.dbcollection  = "BaseZF_DbCollection::LOG_PRIORITY"
+log.priorities.dbitem        = "BaseZF_DbItem::LOG_PRIORITY"
+log.priorities.dbquery       = "BaseZF_DbQuery::LOG_PRIORITY"
 
 #debug
 debug.enable            = DEBUG_ENABLE
