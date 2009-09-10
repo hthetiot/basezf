@@ -39,7 +39,7 @@ try {
 
     // report error enable ?
     } else if (defined('DEBUG_REPORT') && DEBUG_REPORT) {
-        BaseZF_Error_Handler::sendExceptionByMail($e, DEBUG_REPORT_FROM, DEBUG_REPORT_TO);
+        BaseZF_Error_Handler::sendExceptionByMail($e, DEBUG_REPORT_FROM, DEBUG_REPORT_TO, DEBUG_REPORT_SUBJECT);
     }
 
     // then display Service Temporarily Unavailable
