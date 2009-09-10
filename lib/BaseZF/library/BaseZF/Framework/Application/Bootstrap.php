@@ -42,25 +42,25 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
 
         // View Options
         'view'    => array(
-            'path'            => 'application/views',
-            'script_suffix' => '.phtml',
-            'inflector'     => ':module/:controller/:action.:suffix',
-            'helper_paths'     => array(),
+            'path'              => 'application/views',
+            'script_suffix'     => 'phtml',
+            'inflector'         => ':module/:controller/:action.:suffix',
+            'helper_paths'      => array(),
         ),
 
         // Static Pack Options
-        'static_pack'    => array(
-            'enable'            => false,
-            'css_config'       => null,
-            'script_config'    => null,
+        'static_pack'       => array(
+            'enable'        => false,
+            'css_config'    => null,
+            'script_config' => null,
         ),
 
         // Layout Options
         'layout'    => array(
-            'path'            => 'application/views/layouts',
-            'default'         => 'default',
-            'content_key'    => 'content',
-            'script_suffix' => '.phtml',
+            'path'          => 'application/views/layouts',
+            'default'       => 'default',
+            'content_key'   => 'content',
+            'script_suffix' => 'phtml',
             'inflector'     => ':script/layout.:suffix',
         ),
     );
@@ -106,6 +106,9 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
             'contentKey' => $layoutOptions['content_key'],
         ));
 
+        //set layout preffix
+        $layout->setViewSuffix($layoutOptions['script_suffix']);
+
         // set layout path and suffix
         $layout->setInflectorTarget($layoutOptions['inflector']);
 
@@ -138,6 +141,7 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
         // Optionure view render (path and suffix)
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewRenderer->setView($view)
+                     ->setViewSuffix($viewOptions['script_suffix'])
                      ->setViewScriptPathSpec($viewOptions['inflector']);
 
 
