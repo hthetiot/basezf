@@ -15,15 +15,13 @@ if (!defined('APPLICATION_PATH')) {
     require_once(realpath(dirname(__FILE__)) . '/../includes/auto_prepend.php');
 }
 
-// Register Error Handler
-BaseZF_Error_Handler::registerErrorHandler();
-
 try {
 
+    // Register Error Handler to convert PHP error has Exception
+    BaseZF_Error_Handler::registerErrorHandler();
+
     // Test Zend Framework Version
-    if (Zend_Version::compareVersion(ZF_VERSION) > 0) {
-        trigger_error(sprintf('Please upgrade to a newer version of Zend Framework (require %s)', ZF_VERSION), E_USER_NOTICE);
-    }
+    BaseZF_Version::checkZendVersion(ZF_VERSION);
 
     // Initialize Application Configuration and Environment
     $application = new Zend_Application(APPLICATION_ENV, APPLICATION_CONFIG);

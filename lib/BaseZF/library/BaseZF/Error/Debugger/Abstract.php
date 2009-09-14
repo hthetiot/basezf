@@ -19,6 +19,8 @@ abstract class BaseZF_Error_Debugger_Abstract
         return $this->_render();
     }
 
+    abstract protected function _render();
+
     public function getExceptionSourceDetails()
     {
         $source = false;
@@ -33,6 +35,7 @@ abstract class BaseZF_Error_Debugger_Abstract
     public function getExceptionContext()
     {
         $context = false;
+
         if (is_callable(array($this->_exception, 'getContext'))) {
             $context = $this->_exception->getContext();
         }
@@ -40,6 +43,29 @@ abstract class BaseZF_Error_Debugger_Abstract
         return $context;
     }
 
-    abstract protected function _render();
+    public function getServerParams()
+    {
+        return $_SERVER;
+    }
+
+    public function getPostParams()
+    {
+        return $_POST;
+    }
+
+    public function getGetParams()
+    {
+        return $_GET;
+    }
+
+    public function getCookiesParams()
+    {
+        return isset($_COOKIES) ? $_COOKIES : false;
+    }
+
+    public function getSessionParams()
+    {
+        return isset($_SESSION) ? $_SESSION : false;
+    }
 }
 

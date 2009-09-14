@@ -201,12 +201,6 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
         // set default params
         $frontController->setParam('env', $this->getOption('application', 'environment'));
 
-        // use error handler
-        $debugOptions = $this->getOption('debug');
-        if ($debugOptions['enable']) {
-            $frontController->throwExceptions(true);
-        }
-
         return $frontController;
     }
 
@@ -267,6 +261,24 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
         }
 
         return $controllerPlugins;
+    }
+
+    //
+    // Others
+    //
+
+    /**
+     * Init Debug
+     */
+    protected function _initDebug()
+    {
+        $debugOptions = $this->getOption('debug');
+
+        // throw to use error handler
+        if ($debugOptions['enable']) {
+            $frontController = Zend_Controller_Front::getInstance();
+            $frontController->throwExceptions(true);
+        }
     }
 }
 
