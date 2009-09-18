@@ -10,42 +10,60 @@
 
     widget.onLoad = function() {
 
-      var tabs = new UWA.Controls.TabView();
+      // init tab system
+      if (typeof(TabViewSample.tabs) == "undefined") {
 
-      TabViewSample.tabs = tabs;
 
-      // Create tab items
-      tabs.addTab("tab1", {text: "UWA Links", customInfo: "custom"});
-      tabs.addTab("tab2", {text: "Grid Data"});
-      tabs.addTab("tab3", {text: "E-Mail List"});
-      tabs.addTab("tab4", {text: "Rich list "});
-      tabs.addTab("tab5", {text: "Thumbnailed list"});
-      tabs.addTab("tab6", {text: "Json"});
-      tabs.addTab("tab7", {text: "Ajax"});
-      tabs.addTab("tab8", {text: "Export"});
+          var tabs = new UWA.Controls.TabView();
 
-      // Put some content in tabs
-      tabs.setContent("tab1", $('hello-content').innerHTML);
-      tabs.setContent("tab2", $('griddata-content').innerHTML);
-      tabs.setContent("tab3", $('emaillist-content').innerHTML);
-      tabs.setContent("tab4", $('richlist-content').innerHTML);
-      tabs.setContent("tab5", $('thumbist-content').innerHTML);
-	  tabs.setContent("tab6", $('json-content').innerHTML);
-      tabs.setContent("tab7", $('ajax-content').innerHTML);
-      tabs.setContent("tab8", $('export-content').innerHTML);
+          TabViewSample.tabs = tabs;
 
-      // Register to activeTabChange event
-      tabs.observe('activeTabChange', TabViewSample.onActiveTabChanged);
+          // Create tab items
+          tabs.addTab("tab1", {text: "UWA Links", customInfo: "custom"});
+          tabs.addTab("tab2", {text: "Grid Data"});
+          tabs.addTab("tab3", {text: "E-Mail List"});
+          tabs.addTab("tab4", {text: "Rich list "});
+          tabs.addTab("tab5", {text: "Thumbs list"});
+          tabs.addTab("tab6", {text: "Json"});
+          tabs.addTab("tab7", {text: "Ajax"});
+          tabs.addTab("tab8", {text: "Prefs"});
+          tabs.addTab("tab9", {text: "Export"});
+
+          // Put some content in tabs
+          tabs.setContent("tab1", $('hello-content').innerHTML);
+          tabs.setContent("tab2", $('griddata-content').innerHTML);
+          tabs.setContent("tab3", $('emaillist-content').innerHTML);
+          tabs.setContent("tab4", $('richlist-content').innerHTML);
+          tabs.setContent("tab5", $('thumbist-content').innerHTML);
+          tabs.setContent("tab6", $('json-content').innerHTML);
+          tabs.setContent("tab7", $('ajax-content').innerHTML);
+          tabs.setContent("tab8", $('prefs-content').innerHTML);
+          tabs.setContent("tab9", $('export-content').innerHTML);
+
+          // Register to activeTabChange event
+          tabs.observe('activeTabChange', TabViewSample.onActiveTabChanged);
+
+      } else {
+          var tabs = TabViewSample.tabs;
+      }
 
       // Restore saved active tab
       var activeTab = widget.getValue('activeTab');
+
       if (activeTab) {
-          tabs.selectTab(activeTab);
+
+          if (TabViewSample.tabs.selectedTab) {
+              tabs.reload();
+          } else {
+              tabs.selectTab(activeTab);
+          }
+
       } else {
           tabs.selectTab('tab1');
       }
 
-      widget.setBody(tabs.tabSet);
+      widget.setBody(TabViewSample.tabs.tabSet);
+      widget.onResize();
     }
 
     TabViewSample.onActiveTabChanged = function(name, data) {
@@ -80,11 +98,27 @@
                 proxy: 'ajax',
                 onComplete: onCompleteAjax.bind(this)
             });
+        } else if (name == 'tab8') {
+
+            html = '<h1>Preference values</h1>'
+            + '<ul style="padding: 5px;">'
+                + '<li>my_text: ' + widget.getValue('my_text') + "</li>"
+                + '<li>my_text: ' + widget.getValue('pass') + "</li>"
+                + '<li>my_checkbox: ' + widget.getValue('my_checkbox') + "</li>"
+                + '<li>my_range: ' + widget.getValue('my_range') + "</li>"
+                + '</ul>'
+
+            tabs.setContent(name, html);
         }
+
+        widget.onResize();
     }
 
+    var resized = 0;
+    var OriginalTitle = widget.getTitle();
+
     widget.onResize = function() {
-        //alert('resize');
+        widget.setTitle(OriginalTitle + '(resized:' + resized++ + ')' );
     }
 
 </script>
@@ -247,6 +281,10 @@
     </div>
 
     <div id="ajax-content">
+        Loading...
+    </div>
+
+    <div id="prefs-content">
         Loading...
     </div>
 
