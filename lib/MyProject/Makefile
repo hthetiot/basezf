@@ -2,48 +2,33 @@
 # MyProject Makefile
 #
 # Targets:
-#  - clean: 	Remove the staged files
 #  - doc: 		Generate the doc
 #  - syntax:	Check syntax of PHP files
 #  - test: 		Exec unitTest
-#  - locale: 	Generate gettext files
+#  - clean: 	Remove the useless files
 #
-# @copyright  Copyright (c) 2008 BaseZF
+# @copyright  Copyright (c) 2008 MyProject
 # @author     Harold Thetiot (hthetiot)
 # @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
 # Binary
-ZIP = zip
-TAR = tar
 PHP = php
 DOXYGEN = doxygen
 
 # Project ID
 PROJECT_NAME = MyProject
-PROJECT_VERSION = alpha
+PROJECT_VERSION = aplha
 
-# Others
-RELEASE_NAME = $(PROJECT_NAME)-$(PROJECT_VERSION)
-CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
-
-ZIP_NAME = $(NAME)-$(VERSION).zip
-TAR_NAME = $(NAME)-$(VERSION).tar.gz
-
-install: clean syntax
+all: clean syntax
 	@echo "----------------"
-	@echo "Project install complete."
-	@echo ""
-
-all: clean syntax locale
-	@echo "----------------"
-	@echo "Project build complete."
+	@echo "BaseZF build complete."
 	@echo ""
 
 # Generate the doc
 doc:
 	@echo "----------------"
 	@echo "Generate doxygen doc :"
-	@$(DOXYGEN) ./etc/doxygen.cnf > $(PROJECT_LOG)/doc.log
+	@$(DOXYGEN) ./doxygen.cnf
 	@echo "done"
 
 # Check syntax of PHP files
@@ -81,6 +66,9 @@ clean:
 		-iname '*.thumb' -o \
 		-iname '*Thumbs.db' \) \
 		-print`
+	@rm -f ./doc/html/*
+	@rm -f ./doc/latex/*
+	@rm -f ./doc_warn.log
 	@echo "done"
 
 .PHONY: doc

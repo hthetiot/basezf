@@ -214,6 +214,8 @@ clean:
 		-iname '*.thumb' -o \
 		-iname '*Thumbs.db' \) \
 		-print`
+	@rm -f ./doc/html/*
+	@rm -f ./doc/latex/*
 	@echo "done"
 
 # Update from current GIT repository
