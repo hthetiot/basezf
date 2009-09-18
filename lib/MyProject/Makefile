@@ -9,7 +9,7 @@
 #  - locale: 	Generate gettext files
 #
 # @copyright  Copyright (c) 2008 BaseZF
-# @author     Harold Thétiot (hthetiot)
+# @author     Harold Thetiot (hthetiot)
 # @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
 # Binary

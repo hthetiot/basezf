@@ -11,8 +11,12 @@
 *.marks
 
 # production only files
-doc/*
 locale/*/LC_MESSAGES/*.mo
+
+# generated documention files
+doc/*
+lib/*/doc/*
+lib/*/doc_warn.log
 
 # config files
 etc/*
@@ -28,5 +32,5 @@ public/debug/phpunitreport/*
 public/css/pack/*.css
 public/js/pack/*.js
 
-# sql current upgrade 
+# sql current upgrade
 sql/schema/upgrade/current
