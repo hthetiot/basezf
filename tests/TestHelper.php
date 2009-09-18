@@ -25,3 +25,10 @@ define('APPLICATION_ENV',  'test');
 if (!defined('APPLICATION_PATH')) {
     require_once(realpath(dirname(__FILE__)) . '/../includes/auto_prepend.php');
 }
+
+//---------------------------------------------------------------------------
+// Initialize Application Configuration and Environment
+
+$application = new Zend_Application(APPLICATION_ENV, APPLICATION_CONFIG);
+$application->bootstrap();
+
