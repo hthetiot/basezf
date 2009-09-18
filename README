@@ -39,14 +39,14 @@ STRUCTURE
 
    <path_to_basezf>/
     |
-	|-> app/                        - This directory contains your application. It will house the MVC system, as well as conifgurations, services used, and your bootstrap file.
-    | 	|-> Bootstrap.php           - This file is the entry point for your application. The purpose for this file is to bootstrap the application and make components available to the application by initializing them. This file should not call dispatch() on the front controller.
-	| 	|-> controllers/
-	| 	|-> views/
-	| 		|-> filters/
-	| 		|-> helpers/            - These directories will contain view helpers. View helpers will be namespaced either as "App_View_Helper_"
+    |-> app/                        - This directory contains your application. It will house the MVC system, as well as conifgurations, services used, and your bootstrap file.
+    |   |-> Bootstrap.php           - This file is the entry point for your application. The purpose for this file is to bootstrap the application and make components available to the application by initializing them. This file should not call dispatch() on the front controller.
+    |   |-> controllers/
+    |   |-> views/
+    |       |-> filters/
+    |       |-> helpers/            - These directories will contain view helpers. View helpers will be namespaced either as "App_View_Helper_"
     |       |-> layouts/            - This layout directory is for MCV-based layouts.
-	| 		|-> scripts/
+    |       |-> scripts/
     |
     |-> bin/
     |-> data/                       - This directory provides a place to store application data that is volatile and possibly temporary. The disturbance of data in this directory might cause the application to fail. Also, the information in this directory may or may not be committed to a subversion repository. Examples of things in this directory are session files, cache files, sqlite databases, logs and indexes.
