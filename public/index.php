@@ -10,7 +10,7 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-// include auto_prepend if missing
+// Include auto_prepend if missing
 if (!defined('APPLICATION_PATH')) {
     require_once(realpath(dirname(__FILE__)) . '/../includes/auto_prepend.php');
 }
