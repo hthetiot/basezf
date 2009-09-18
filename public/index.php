@@ -30,14 +30,15 @@ try {
 
 } catch (Exception $e) {
 
+    // report error enable ?
+    if (defined('DEBUG_REPORT') && DEBUG_REPORT) {
+        BaseZF_Error_Handler::sendExceptionByMail($e, DEBUG_REPORT_FROM, DEBUG_REPORT_TO, DEBUG_REPORT_SUBJECT);
+    }
+
     // debug error enable ?
     if (defined('DEBUG_ENABLE') && DEBUG_ENABLE) {
         BaseZF_Error_Handler::debugException($e);
-        exit();
-
-    // report error enable ?
-    } else if (defined('DEBUG_REPORT') && DEBUG_REPORT) {
-        BaseZF_Error_Handler::sendExceptionByMail($e, DEBUG_REPORT_FROM, DEBUG_REPORT_TO, DEBUG_REPORT_SUBJECT);
+        exit(1);
     }
 
     // then display Service Temporarily Unavailable
