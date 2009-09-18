@@ -1,10 +1,10 @@
 <?php
 /**
- * ExampleTest.php for MyProject in tests/
+ * ExampleTest.php for App in tests/
  *
- * @category   MyProject
- * @package    MyProject_UnitTest
- * @copyright  Copyright (c) 2008 MyProject
+ * @category   App
+ * @package    App_UnitTest
+ * @copyright  Copyright (c) 2008 App
  * @author     Harold Thetiot (hthetiot)
  */
 
@@ -13,13 +13,11 @@ require_once dirname(__FILE__) . '/../TestHelper.php';
 /**
  * Test class for Example
  *
- * @group MyProject
- * @group MyProject_Example
+ * @group App
+ * @group App_Example
  */
-class MyProject_ExampleTest extends PHPUnit_Framework_TestCase
+class App_ExampleTest extends PHPUnit_Framework_TestCase
 {
-    protected $_example = null;
-
     /**
      * Call before all test and on class test loading
      */
@@ -33,7 +31,7 @@ class MyProject_ExampleTest extends PHPUnit_Framework_TestCase
         // use time to have floating value
         $value = time();
 
-        $example = new MyProject_Example();
+        $example = new App_Example();
 
         $example->updateProperty($value);
 

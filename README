@@ -33,31 +33,74 @@ Install Zend Framework locally, and the follow these steps:
     ln -s /path/to/<baszf>/etc/apache.conf /etc/apache2/site-available/001-basezf
     ln -s /etc/apache2/site-available/001-basezf /etc/apache2/site-enable/001-basezf
 
+DEPENDENCY
+=======================================================================
+
+1. PHP Package
+    php5 php-pear php5-mysqli php5-pgsql php5-curl php5-xmlrpc php5-json
+
+2. PHP PEAR Modules
+    phpunit/PHPUnit (channel pear.phpunit.de)
+
+3. PHP pecl Modules
+    apc memcache xdebug
+
+4. Apache Modules (need to be enable for perfomance issue)
+    Expire Rewrite Deflate
+
+5. Binary Services Package
+    gettext imagemagick memcached pwgen java-1.6 csstidy
+
+6. Documentation Generation (useless in production)
+    doxygen graphviz
+
+
+FEATURES
+=======================================================================
+
 
 STRUCTURE
 =======================================================================
 
    <path_to_basezf>/
     |
-    |-> app/                        - This directory contains your application. It will house the MVC system, as well as conifgurations, services used, and your bootstrap file.
-    |   |-> Bootstrap.php           - This file is the entry point for your application. The purpose for this file is to bootstrap the application and make components available to the application by initializing them. This file should not call dispatch() on the front controller.
+    |-> app/                        - This directory contains your application. It will house the MVC system, as well as
+    |   |                             configurations, services used, and your bootstrap file.
+    |   |-> Bootstrap.php           - This file is the entry point for your application. The purpose for this file is to
+    |   |                             bootstrap the application and make components available to the application by
+    |   |                             initializing them. This file should not call dispatch() on the front controller.
     |   |-> controllers/
     |   |-> views/
     |       |-> filters/
-    |       |-> helpers/            - These directories will contain view helpers. View helpers will be namespaced either as "App_View_Helper_"
+    |       |-> helpers/            - These directories will contain view helpers. View helpers will be namespaced
+    |       |                         either as "App_View_Helper_"
     |       |-> layouts/            - This layout directory is for MCV-based layouts.
     |       |-> scripts/
     |
     |-> bin/
-    |-> data/                       - This directory provides a place to store application data that is volatile and possibly temporary. The disturbance of data in this directory might cause the application to fail. Also, the information in this directory may or may not be committed to a subversion repository. Examples of things in this directory are session files, cache files, sqlite databases, logs and indexes.
+    |-> data/                       - This directory provides a place to store application data that is volatile and
+    |                                 possibly temporary. The disturbance of data in this directory might cause the
+    |                                 application to fail. Also, the information in this directory may or may not be
+                                      committed to a subversion repository. Examples of things in this directory are
+                                      session files, cache files, sqlite databases, logs and indexes.
+    |
     |-> doc/                        - This directory contains documentation, either generated or directly authored.
     |-> etc/                        - The application-wide configuration directory
     |-> includes/
-    |-> lib/                        - This directory houses the Zend/library/Zend/* folder which contains Zend Framework. Developers should also place their application's library code under this directory in a separate namespace- ie, a namespace that does not begin with 'Zend'.
+    |-> lib/                        - This directory houses the Zend/library/Zend/* folder which contains Zend Framework.
+    |                                 Developers should also place their application's library code under this directory
+    |                                 in a separate namespace- ie, a namespace that does not begin with 'Zend'.
     |-> locale/
-    |-> public/                     - This directory contains all public files for your application. index.php sets up the PHP environment, include the Bootstrap.php file from your app/ directory and finally dispatch() the front controller. The web root of your web server would typically be set to this directory.
+    |-> public/                     - This directory contains all public files for your application. index.php sets up
+    |                                 the PHP environment, include the Bootstrap.php file from your app/ directory and
+    |                                 finally dispatch() the front controller. The web root of your web server would
+                                      typically be set to this directory.
     |-> sql/
-    |-> tests/                      - This directory contains application tests. These could be hand written, phpunit tests, selenium based tests or based on some other testing framework. By default, library code can be tested by mimicing the directory structure of your library/ directory. Additionally, functional tests for your application could be written mimicing the application/ directory structure (including the application subdirectory).
+    |-> tests/                      - This directory contains application tests. These could be hand written, phpunit tests,
+                                      selenium based tests or based on some other testing framework. By default, library code can
+                                      be tested by mimicing the directory structure of your library/ directory. Additionally,
+                                      functional tests for your application could be written mimicing the application/ directory
+                                      structure (including the application subdirectory).
 
 
 REQUESTS
@@ -70,4 +113,4 @@ I may or may not honor them. :)
 
 LICENSE
 =======================================================================
-Please see LICENSE.txt
+Please see COPYING

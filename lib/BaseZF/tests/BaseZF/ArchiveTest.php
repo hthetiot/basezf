@@ -8,12 +8,13 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-// Load PhpUnit Libs
-require_once 'PHPUnit/Framework.php';
+require_once dirname(__FILE__) . '/../TestHelper.php';
 
-// Load BaseZF Libs
-require_once 'BaseZF/Archive.php';
-
+/**
+ * Test class for BaseZF_Archive
+ *
+ * @group BaseZF
+ */
 class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
 {
     protected $_tmpFiles = array();

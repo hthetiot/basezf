@@ -1,0 +1,14 @@
+To run the unit tests, use the following:
+
+    phpunit --configuration phpunit.xml
+
+You can also run tests for just the controllers:
+
+    phpunit --configuration phpunit.xml --group App_Controllers
+
+or just the Framework BaseZF:
+
+    phpunit --configuration phpunit.xml --group BaseZF
+
+By default, coverage reports and TestDox are generated in the ../public/debug/phpunitreport/
+subdirectory.
