@@ -10,9 +10,14 @@
 #
 [app]
 
-# Library
+# Library > Namespaces
 autoloaderNamespaces.myproject  = "MyProject_"
 autoloaderNamespaces.basezf     = "BaseZF_"
+
+# Library > includePaths
+#includePaths.library    = LIBRARY_PATH
+#includePaths.BaseZF     = LIBRARY_PATH "/BaseZF/library"
+#includePaths.MyProject  = LIBRARY_PATH "/MyProject/library"
 
 # MVC > common paths
 bootstrap.path              = APPLICATION_PATH "/Bootstrap.php"
@@ -21,8 +26,8 @@ view.path                   = APPLICATION_PATH "/views"
 layout.path                 = APPLICATION_PATH "/views/layouts"
 
 # MVC > view helpers class paths
-view.helper_paths.App_View_Helper = APPLICATION_PATH "/views/helpers"
-view.helper_paths.BaseZF_Framework_View_Helper = "BaseZF/Framework/View/Helper"
+view.helper_paths.App_View_Helper               = APPLICATION_PATH "/views/helpers"
+view.helper_paths.BaseZF_Framework_View_Helper  = "BaseZF/Framework/View/Helper"
 
 # MVC > enable module
 controller.modules.default	= default
@@ -33,7 +38,7 @@ controller.plugins.NotModifiedCache.plugin      = BaseZF_Framework_Controller_Pl
 controller.plugins.NotModifiedCache.params      =
 
 # Static-Pack
-static_pack.enable          = false
+static_pack.enable          = true
 static_pack.css_config		= CONFIG_PATH "/static/css.yml"
 static_pack.script_config	= CONFIG_PATH "/static/javascript.yml"
 
@@ -48,22 +53,20 @@ db.params.password          = $DB_PASSWORD
 db.params.profiler.enabled  = false
 db.params.profiler.class    = Zend_Db_Profiler_Firebug
 
-# Database cache
-
-# To use file adapter
+# Cache Adapter > file
 #dbcache.adapter                             = File
 #dbcache.backend.cache_dir                   = /tmp/
 #dbcache.frontend.lifetime                   = 7200
 #dbcache.frontend.automatic_serialization    = true
 
-# To use memcache adapter
+# Cache Adapter > memcache
 dbcache.adapter                             = Memcached
 dbcache.frontend.automatic_serialization    = true
 dbcache.backend.servers.node1.port          = 11211
 dbcache.backend.servers.node1.host          = localhost
 dbcache.backend.servers.node1.persistent    = true
 
-#log writers
+#log > writers and filters
 log.writers.file.enable                             = true
 log.writers.file.writerName                         = "Zend_Log_Writer_Stream"
 log.writers.file.writerParams.stream                = LOG_PATH "/application.log"
@@ -77,12 +80,12 @@ log.writers.mail.writerParams.subject               = DEBUG_REPORT_SUBJECT
 log.writers.mail.writerParams.to                    = DEBUG_REPORT_TO
 log.writers.mail.writerParams.from                  = DEBUG_REPORT_FROM
 
-# log filters
+# log > filters
 log.filters.file.filterName                         = "Zend_Log_Filter_Priority"
 log.filters.file.filterParams.priority              = "Zend_Log::CRIT"
 log.filters.file.filterParams.operator              = "<="
 
-#log priorities > start priority to 8
+#log > priorities
 log.priorities.TABLE         = "BaseZF_Framework_Log::TABLE"
 log.priorities.dbcollection  = "BaseZF_DbCollection::LOG_PRIORITY"
 log.priorities.dbitem        = "BaseZF_DbItem::LOG_PRIORITY"
@@ -90,6 +93,8 @@ log.priorities.dbquery       = "BaseZF_DbQuery::LOG_PRIORITY"
 
 #debug
 debug.enable            = DEBUG_ENABLE
+
+#debug > report
 debug.report.enable     = DEBUG_REPORT
 debug.report.subject    = DEBUG_REPORT_SUBJECT
 debug.report.to         = DEBUG_REPORT_FROM
@@ -103,3 +108,6 @@ debug.report.from       = DEBUG_REPORT_TO
 
 # development config mode extend app config mode
 [development: app]
+
+#log config for developer
+log.firebug.writerName                      = "Zend_Log_Writer_Firebug"
