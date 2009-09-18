@@ -5,7 +5,7 @@
  * @category   BaseZF_Library
  * @package    BaseZF
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 //
@@ -105,6 +105,42 @@ if (!function_exists('array_set_current')) {
            next($array);
        }
        return current($array);
+    }
+}
+
+if (!function_exists('uasort_by_lenght')) {
+
+    function uasort_by_lenght_callback($a,$b) {
+        return strlen($b)-strlen($a);
+    }
+
+    function uasort_by_lenght(array $array, $revert = false)
+    {
+        uasort($array, 'uasort_by_lenght_callback');
+
+        if ($revert) {
+            return array_reverse($array, true);
+        }
+
+        return $array;
+    }
+}
+
+if (!function_exists('uksort_by_lenght')) {
+
+    function uksort_by_lenght_callback($a,$b) {
+        return strlen($b)-strlen($a);
+    }
+
+    function uksort_by_lenght(array $array, $revert = false)
+    {
+        uksort($array, 'uksort_by_lenght_callback');
+
+        if ($revert) {
+            return array_reverse($array, true);
+        }
+
+        return $array;
     }
 }
 
