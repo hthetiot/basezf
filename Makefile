@@ -84,7 +84,7 @@ syntax-fast:
 test:
 	@echo "----------------"
 	@echo "Exec Units test:"
-	@cd tests && phpunit AllTests
+	@cd tests && phpunit --configuration phpunit.xml
 	@echo "done"
 
 # Exec unitTest and coverage report

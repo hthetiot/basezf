@@ -48,7 +48,7 @@ syntax-fast:
 test:
 	@echo "----------------"
 	@echo "Exec Units test:"
-	@cd tests && phpunit BaseZF_AllTests
+	@cd tests && phpunit --configuration phpunit.xml
 	@echo "done"
 
 # Remove the staged files
