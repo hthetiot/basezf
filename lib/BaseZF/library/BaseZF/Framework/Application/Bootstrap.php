@@ -274,11 +274,8 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
     {
         $debugOptions = $this->getOption('debug');
 
-        // throw to use error handler
-        if ($debugOptions['enable']) {
-            $frontController = Zend_Controller_Front::getInstance();
-            $frontController->throwExceptions(true);
-        }
+        $frontController = Zend_Controller_Front::getInstance();
+        $frontController->throwExceptions($debugOptions['enable']);
     }
 }
 

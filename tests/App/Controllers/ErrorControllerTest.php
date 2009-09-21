@@ -1,10 +1,16 @@
 <?php
-// Call ErrorControllerTest::main() if this source file is executed directly.
-if (!defined("PHPUnit_MAIN_METHOD")) {
-    define("PHPUnit_MAIN_METHOD", "ErrorControllerTest::main");
-}
+/**
+ * ErrorControllerTest.php for App in Controllers
+ *
+ * @category   App
+ * @package    App_UnitTest
+ * @copyright  Copyright (c) 2008 BaseZF
+ * @author     Harold Thetiot (hthetiot)
+ */
 
-require_once dirname(__FILE__) . '/../../TestHelper.php';
+if (!defined('APPLICATION_PATH')) {
+    require_once dirname(__FILE__) . '/../../TestHelper.php';
+}
 
 /**
  * Test class for Error.
@@ -21,7 +27,10 @@ class ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
      */
     public function setUp()
     {
+        parent::setUp();
 
+        $application = new Zend_Application(APPLICATION_ENV, APPLICATION_CONFIG);
+        $application->bootstrap();
     }
 
     /**
@@ -32,7 +41,7 @@ class ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
      */
     public function tearDown()
     {
-
+        parent::tearDown();
     }
 
     public function testErrorControllerTrapsMissingActionsAs404s()
@@ -40,7 +49,7 @@ class ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->dispatch('/paste/bogus');
         $this->assertModule('default');
         $this->assertController('error');
-        $this->assertAction('error');
+        $this->assertAction('notfound');
         $this->assertResponseCode(404);
     }
 
@@ -49,7 +58,7 @@ class ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->dispatch('/bogus');
         $this->assertModule('default');
         $this->assertController('error');
-        $this->assertAction('error');
+        $this->assertAction('notfound');
         $this->assertResponseCode(404);
     }
 

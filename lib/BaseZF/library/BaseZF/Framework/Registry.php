@@ -80,7 +80,7 @@ abstract class BaseZF_Framework_Registry
             throw new BaseZF_Exception('Invalid config provided; must be location of config file, a config object, or an array');
         }
 
-        return $this->register('config', $config);
+        return $this->register('config', $config, true);
     }
 
     /**
@@ -275,7 +275,7 @@ abstract class BaseZF_Framework_Registry
     {
         $locale = $this->_createLocale($locale);
 
-        return $this->register('locale', $locale);
+        return $this->register('locale', $locale, true);
     }
 
     /**

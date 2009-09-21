@@ -10,25 +10,23 @@
 
 //---------------------------------------------------------------------------
 // Start output buffering
+
 ob_start();
 
 //---------------------------------------------------------------------------
 // Maximize memory limit
+
 ini_set('memory_limit', -1);
 
 //---------------------------------------------------------------------------
 // Define application environment
+
 define('APPLICATION_ENV',  'test');
 
 //---------------------------------------------------------------------------
 // Include auto_prepend if missing
+
 if (!defined('APPLICATION_PATH')) {
     require_once(realpath(dirname(__FILE__)) . '/../includes/auto_prepend.php');
 }
-
-//---------------------------------------------------------------------------
-// Initialize Application Configuration and Environment
-
-$application = new Zend_Application(APPLICATION_ENV, APPLICATION_CONFIG);
-$application->bootstrap();
 
