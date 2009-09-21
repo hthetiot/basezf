@@ -50,16 +50,16 @@ CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
 ZIP_NAME = $(NAME)-$(VERSION).zip
 TAR_NAME = $(NAME)-$(VERSION).tar.gz
 
-# Generate a new Env
-install: clean config syntax locale static-pack
-	@echo "----------------"
-	@echo "Project install complete."
-	@echo ""
-
 # Update Env
 all: clean syntax locale-deploy static-pack
 	@echo "----------------"
 	@echo "Project build complete."
+	@echo ""
+
+# Generate a new Env
+install: clean config syntax locale static-pack
+	@echo "----------------"
+	@echo "Project install complete."
 	@echo ""
 
 # Generate the doc
