@@ -10,8 +10,8 @@
 #  - update: 	Update from current GIT repository
 #
 # @copyright  Copyright (c) 2008 BaseZF
-# @author     Harold Thetiot (hthetiot)
-# @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+# @author	 Harold Thetiot (hthetiot)
+# @license	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
 # Binary
 ZIP = zip
@@ -50,12 +50,14 @@ CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
 ZIP_NAME = $(NAME)-$(VERSION).zip
 TAR_NAME = $(NAME)-$(VERSION).tar.gz
 
-install: clean syntax locale-deploy static-pack
+# Generate a new Env
+install: clean config syntax locale static-pack
 	@echo "----------------"
 	@echo "Project install complete."
 	@echo ""
 
-all: clean syntax locale
+# Update Env
+all: clean syntax locale-deploy static-pack
 	@echo "----------------"
 	@echo "Project build complete."
 	@echo ""
@@ -67,38 +69,78 @@ doc:
 	@$(DOXYGEN) $(PROJECT_CONFIG)/doxygen.cnf > $(PROJECT_LOG)/doc.log
 	@echo "done"
 
-# Check syntax of PHP files
-syntax:
-	@echo "----------------"
-	@echo "Check PHP syntax on all php files:"
-	@for i in `find . -type f -name *.ph* | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
-	@echo "done"
-
-syntax-fast:
-	@echo "----------------"
-	@echo "Check PHP syntax on all php files updated:"
-	@for i in `git-diff --name-only | grep '.ph' | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
-	@echo "done"
-
-# Exec unitTest
-test:
-	@echo "----------------"
-	@echo "Exec Units test:"
-	@cd tests && phpunit --configuration phpunit.xml
-	@echo "done"
-
-# Exec unitTest and coverage report
-test-report:
-	@echo "----------------"
-	@echo "Exec Units test coverage report:"
-	@cd tests && phpunit --report ../public/debug/phpunitreport/ AllTests
-	@echo "done"
-
+# Deploy config from $(PROJECT_CONFIG)/dist
 config:
 	@echo "----------------"
 	@echo "Configure config files:"
 	@$(PROJECT_BIN)/tools/config-generator.php configure $(PROJECT_CONFIG) $(PROJECT_CONFIG)/dist
 	@echo "done"
+
+#
+# Alias
+#
+syntax:	php-syntax
+test:	php-phpunit
+
+#
+# PHP
+#
+
+# Check syntax of PHP files
+php-syntax:
+	@echo "----------------"
+	@echo "Check PHP syntax on all php files:"
+	@for i in `find . -type f -name *.ph* -not -name ".*" | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
+	@echo "done"
+
+# Check syntax of non commited PHP files
+php-syntax-commit:
+	@echo "----------------"
+	@echo "Check PHP syntax on all php files updated:"
+	@for i in `git-diff --name-only | grep '.ph' | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
+	@echo "done"
+
+# Exec PHP unitTest
+php-phpunit:
+	@echo "----------------"
+	@echo "Exec PHPUnits test:"
+	@cd tests && phpunit --configuration phpunit.xml
+	@echo "done"
+
+# Exec PHP unitTest with coverage report
+php-phpunit-report:
+	@echo "----------------"
+	@echo "Exec PHPUnits test coverage report:"
+	@cd tests && phpunit --configuration phpunit-report.xml
+	@echo "done"
+
+# Exec PHP Quality report
+php-qa: php-phploc php-phpcs php-phpcpd
+
+# Exec PHP Quality stats report
+php-phploc:
+	@echo "----------------"
+	@echo "Exec PHP Code Stats report:"
+	@phploc . > $(PROJECT_LOG)/php-loc.log
+	@echo "done"
+
+# Exec PHP Quality syntax report
+php-phpcs:
+	@echo "----------------"
+	@echo "Exec PHP CodeSniffer report:"
+	@phpcs . --report=checkstyle > $(PROJECT_LOG)/php-cs.log
+	@echo "done"
+
+# Exec PHP Quality Duplicate source report
+php-phpcpd:
+	@echo "----------------"
+	@echo "Exec PHP Code Duplicate report:"
+	@phpcpd . --log-pmd=$(PROJECT_LOG)/php-cpd.log
+	@echo "done"
+
+#
+# Locale
+#
 
 locale: clean locale-template locale-update locale-deploy
 
@@ -116,57 +158,61 @@ locale-update:
 	@echo "----------------"
 	@echo "Update GetText PO files from POT files:"
 	@for o in $(LOCALE_DOMAINS); do \
-	for i in `find $(LOCALE_SRC_PATH) -maxdepth 1 -mindepth 1 -type d -not -name "dist"`; do \
+	for i in `find $(LOCALE_SRC_PATH) -maxdepth 1 -mindepth 1 -type d -not -name "dist" -not -name ".*"`; do \
 		if [ -e "$$i/$(LOCALE_PO_DIR)/$$o.po" ] ; then \
 			echo "Updated $$i/$(LOCALE_PO_DIR)/$$o.po"; \
 			msgmerge --previous $$i/$(LOCALE_PO_DIR)/$$o.po $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
 			else mkdir $$i/$(LOCALE_PO_DIR)/ -p; msginit -l `echo "$(ROOT)/$$i" | sed 's:$(LOCALE_SRC_PATH)\/::g' | sed 's:\/LC_MESSAGES::g'` --no-translator --no-wrap -i $(LOCALE_SRC_PATH)/dist/$(LOCALE_PO_DIR)/$$o.pot -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
 		fi; \
 		msguniq $$i/$(LOCALE_PO_DIR)/$$o.po -o $$i/$(LOCALE_PO_DIR)/$$o.po; \
-    done \
+	done \
 	done
 
 # Generate all .mo files
 locale-deploy:
 	@echo "----------------"
 	@echo "Generate GetText MO files:"
-	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po"`; \
+	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po" -not -name ".*"`; \
 	for i in $$list;do \
 		echo "Compiling  $$i"; \
 		msgfmt --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
-    done
+	done
 
 # Generate all .mo files
 locale-deploy-fuzzy:
 	@echo "----------------"
 	@echo "Generate GetText MO files with Fuzzy translation:"
-	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po"`; \
+	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po" -not -name ".*"`; \
 	for i in $$list;do \
 		echo "Compiling  $$i"; \
 		msgfmt -f --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
-    done
+	done
 
 # Generate all .mo files
 locale-translate-google:
 	@echo "----------------"
 	@echo "Translate GetText PO files with Google translate:"
-	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po"`; \
+	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.po" -not -name ".*"`; \
 	for i in $$list;do \
 		$(PROJECT_BIN)/tools/gettext-translator.php en `echo "$$i" | cut -d / -f3 | cut -d _ -f1` $$i $$i; \
-    done
+	done
 
 # Remove all .mo and .po files
 locale-clean:
 	@echo "----------------"
 	@echo "Clean GetText MO and PO files:"
-	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.*o"`; \
+	@list=`find $(LOCALE_SRC_PATH) -type f -iname "*.*o" -not -name ".*"`; \
 	for i in $$list;do \
 		echo "Removed $$i"; \
 		rm -f $$i; \
-    done
+	done
 	@echo "done"
 
+
+#
 # Static packing
+#
+
 static-pack: clean static-pack-css static-pack-js
 
 static-pack-css:
@@ -177,26 +223,30 @@ static-pack-js:
 	@echo "----------------"
 	@$(PROJECT_BIN)/tools/static-pack.php js $(JS_PACK_CONFIG) public
 
+#
+# Log
+#
+
 # Remove the log files
 log-clean:
 	@echo "----------------"
 	@echo "Cleaning log files:"
-	@list=`find $(PROJECT_LOG) -type f -not -name "README"`; \
+	@list=`find $(PROJECT_LOG) -type f -not -name "README" -not -name ".*"`; \
 	for i in $$list;do \
 		echo "Removed $$i"; \
 		rm -f $$i; \
-    done
+	done
 	@echo "done"
 
 # Archive the log files
 log-archive:
 	@echo "----------------"
 	@echo "Archive log files:"
-	@list=`find $(PROJECT_LOG) -type f -not -name "README"`; \
+	@list=`find $(PROJECT_LOG) -type f -not -name "README" -not -name ".*"`; \
 	for i in $$list;do \
 		echo "Archived $$i"; \
 	gzip $$i; \
-    done
+	done
 	@echo "done"
 
 # Remove the staged files
@@ -214,7 +264,17 @@ clean:
 		-iname '*.thumb' -o \
 		-iname '*Thumbs.db' \) \
 		-print`
+
+# Remove doxygen generated doc
+	@rm -f ./doc/html/*.html
+	@rm -f ./doc/html/*.png
+	@rm -f ./doc/html/*.map
+	@rm -f ./doc/html/*.md5
 	@rm -f ./doc/html/*
+	@rm -f ./doc/latex/*.tex
+	@rm -f ./doc/latex/*.png
+	@rm -f ./doc/latex/*.map
+	@rm -f ./doc/latex/*.md5
 	@rm -f ./doc/latex/*
 	@echo "done"
 

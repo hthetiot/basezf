@@ -30,24 +30,34 @@ doc:
 	@echo "Generate doxygen doc :"
 	@$(DOXYGEN) ./doxygen.cnf
 	@echo "done"
+#
+# Alias
+#
+syntax:	php-syntax
+test:	php-phpunit
+
+#
+# PHP
+#
 
 # Check syntax of PHP files
-syntax:
+php-syntax:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files:"
-	@for i in `find . -type f -name *.ph* | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
+	@for i in `find . -type f -name *.ph* -not -name ".*" | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
-syntax-fast:
+# Check syntax of non commited PHP files
+php-syntax-commit:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files updated:"
 	@for i in `git-diff --name-only | grep '.ph' | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
-# Exec unitTest
-test:
+# Exec PHP unitTest
+php-phpunit:
 	@echo "----------------"
-	@echo "Exec Units test:"
+	@echo "Exec PHPUnits test:"
 	@cd tests && phpunit --configuration phpunit.xml
 	@echo "done"
 
@@ -66,8 +76,19 @@ clean:
 		-iname '*.thumb' -o \
 		-iname '*Thumbs.db' \) \
 		-print`
+
+# Remove doxygen generated doc
+	@rm -f ./doc/html/*.html
+	@rm -f ./doc/html/*.png
+	@rm -f ./doc/html/*.map
+	@rm -f ./doc/html/*.md5
 	@rm -f ./doc/html/*
+	@rm -f ./doc/latex/*.tex
+	@rm -f ./doc/latex/*.png
+	@rm -f ./doc/latex/*.map
+	@rm -f ./doc/latex/*.md5
 	@rm -f ./doc/latex/*
+
 	@rm -f ./doc_warn.log
 	@echo "done"
 
