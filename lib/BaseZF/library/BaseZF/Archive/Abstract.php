@@ -541,7 +541,7 @@ abstract class BaseZF_Archive_Abstract
 
         unset ($current, $pwd);
 
-        usort($files, array ($this, "sortFiles"));
+        usort($files, array ($this, '_sortFiles'));
 
         return $files;
     }
