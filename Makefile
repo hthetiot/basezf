@@ -128,7 +128,7 @@ php-phploc:
 php-phpcs:
 	@echo "----------------"
 	@echo "Exec PHP CodeSniffer report:"
-	@phpcs . --report=checkstyle > $(PROJECT_LOG)/php-cs.log
+	@phpcs . > $(PROJECT_LOG)/php-cs.log
 	@echo "done"
 
 # Exec PHP Quality Duplicate source report
