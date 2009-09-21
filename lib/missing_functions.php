@@ -108,15 +108,17 @@ if (!function_exists('array_set_current')) {
     }
 }
 
-if (!function_exists('uasort_by_lenght')) {
+if (!function_exists('uasort_by_length')) {
 
-    function uasort_by_lenght_callback($a,$b) {
+    function uasort_by_length_callback($a,$b) {
+
+        // return isset($b[strlen($a) - 1]); // Jviveret say it more fast
         return strlen($b)-strlen($a);
     }
 
-    function uasort_by_lenght(array $array, $revert = false)
+    function uasort_by_length(array $array, $revert = false)
     {
-        uasort($array, 'uasort_by_lenght_callback');
+        uasort($array, 'uasort_by_length_callback');
 
         if ($revert) {
             return array_reverse($array, true);
@@ -126,15 +128,17 @@ if (!function_exists('uasort_by_lenght')) {
     }
 }
 
-if (!function_exists('uksort_by_lenght')) {
+if (!function_exists('uksort_by_length')) {
 
-    function uksort_by_lenght_callback($a,$b) {
+    function uksort_by_length_callback($a,$b) {
+
+        // return isset($b[strlen($a) - 1]); // Jviveret say it more fast
         return strlen($b)-strlen($a);
     }
 
-    function uksort_by_lenght(array $array, $revert = false)
+    function uksort_by_length(array $array, $revert = false)
     {
-        uksort($array, 'uksort_by_lenght_callback');
+        uksort($array, 'uksort_by_length_callback');
 
         if ($revert) {
             return array_reverse($array, true);
