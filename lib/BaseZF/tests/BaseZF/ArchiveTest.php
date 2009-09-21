@@ -53,7 +53,7 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $fileExt = 'html';
         $filePath = $this->_getTmpFile('.' . $fileExt);
 
-        // add contenn on test file
+        // add contennt on test file
         file_put_contents($filePath, $fileData);
 
         // create archive
@@ -70,10 +70,10 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $archiveTestFile = current($archiveFiles);
 
         // checking integrety of data
-        $this->assertEquals($archiveTestFile['name'], $filePath); // test file name extraction
-        $this->assertEquals($archiveTestFile['data'], $fileData); // test file data extraction
-        $this->assertEquals($archiveTestFile['ext'], $fileExt); // test file ext
-        $this->assertEquals($archiveTestFile['stat'][7], $fileLength); // test file size
+        $this->assertEquals($archiveTestFile['name'], $filePath);       // test file name extraction
+        $this->assertEquals($archiveTestFile['data'], $fileData);       // test file data extraction
+        $this->assertEquals($archiveTestFile['ext'], $fileExt);         // test file ext
+        $this->assertEquals($archiveTestFile['stat'][7], $fileLength);  // test file size
     }
 
     public function testAddFileFromString()
@@ -98,10 +98,10 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $archiveTestFile = current($archiveFiles);
 
         // checking integrety of data
-        $this->assertEquals($archiveTestFile['name'], $filePath); // test file name extraction
-        $this->assertEquals($archiveTestFile['data'], $fileData); // test file data extraction
-        $this->assertEquals($archiveTestFile['ext'], $fileExt); // test file ext
-        $this->assertEquals($archiveTestFile['stat'][7], $fileLength); // test file size
+        $this->assertEquals($archiveTestFile['name'], $filePath);       // test file name extraction
+        $this->assertEquals($archiveTestFile['data'], $fileData);       // test file data extraction
+        $this->assertEquals($archiveTestFile['ext'], $fileExt);         // test file ext
+        $this->assertEquals($archiveTestFile['stat'][7], $fileLength);  // test file size
     }
 
     public function testAddFilesFromDirPattern()
@@ -116,6 +116,7 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
             $this->_getTmpFile('.' . $testFileExtExcluded, 'subdir1/') => array(),
         );
 
+        // create test files list and properties for checking
         foreach ($testFiles as $testFile => &$testFileData) {
 
             $testFileContent = sprintf($testFileContentTpl, $testFile);
@@ -151,7 +152,7 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
             $this->assertEquals($archiveFileData['name'], $testFile['name']);       // test file name extraction
             $this->assertEquals($archiveFileData['data'], $testFile['data']);       // test file data extraction
             $this->assertEquals($archiveFileData['ext'], $testFile['ext']);         // test file ext
-            $this->assertNotEquals($archiveFileData['ext'], $testFileExtExcluded);         // excluded file extentions
+            $this->assertNotEquals($archiveFileData['ext'], $testFileExtExcluded);  // excluded file extentions
             $this->assertEquals($archiveFileData['stat'][7], $testFile['length']);  // test file size
         }
     }
