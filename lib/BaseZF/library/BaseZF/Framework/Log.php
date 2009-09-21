@@ -38,40 +38,50 @@ class BaseZF_Framework_Log extends Zend_Log
 
         $logger = new Zend_Log();
 
-        // load priority
-        foreach($config['priorities'] as $priorityName => $priority) {
+         // load priority
+        if (isset($config['priorities'])) {
 
-            // convert priority const has integer
-            if (!is_numeric($priority)) {
-                $priority = constant($priority);
+            foreach($config['priorities'] as $priorityName => $priority) {
+
+                // convert priority const has integer
+                if (!is_numeric($priority)) {
+                    $priority = constant($priority);
+                }
+
+                $logger->addPriority($priorityName, (int) $priority);
             }
-
-            $logger->addPriority($priorityName, (int) $priority);
         }
 
         // load writers
-        foreach($config['writers'] as $writer) {
+        if (isset($config['writers'])) {
 
-            // skip disabled writer
-            if (isset($writer['enable']) && !$writer['enable']) {
-                continue;
+            foreach($config['writers'] as $writer) {
+
+                // skip disabled writer
+                if (isset($writer['enable']) && !$writer['enable']) {
+                    continue;
+                }
+
+                $writerObj = self::_loadWriter($writer['writerName'], ((isset($writer['writerParams'])) ? $writer['writerParams'] : array()));
+
+                // load writer filters
+                if(isset($writer['filterName'])) {
+                    $filterObj = self::_loadFilter($writer['filterName'], ((isset($writer['filterParams'])) ? $writer['filterParams'] : array()));
+                    $writerObj->addFilter($filterObj);
+                }
+
+                $logger->addWriter($writerObj);
             }
-
-            $writerObj = self::_loadWriter($writer['writerName'], ((isset($writer['writerParams'])) ? $writer['writerParams'] : array()));
-
-            // load writer filters
-            if(isset($writer['filterName'])) {
-                $filterObj = self::_loadFilter($writer['filterName'], ((isset($writer['filterParams'])) ? $writer['filterParams'] : array()));
-                $writerObj->addFilter($filterObj);
-            }
-
-            $logger->addWriter($writerObj);
         }
 
         // load writer filters
-        foreach($config['filters'] as $filter) {
-            $filterObj = self::_loadFilter($filter['filterName'], ((isset($filter['filterParams'])) ? $filter['filterParams'] : array()));
-            $logger->addFilter($filterObj);
+        if (isset($config['filters'])) {
+
+            foreach($config['filters'] as $filter) {
+                $filterObj = self::_loadFilter($filter['filterName'], ((isset($filter['filterParams'])) ? $filter['filterParams'] : array()));
+                $logger->addFilter($filterObj);
+            }
+
         }
 
         // add default writer if no writer was added
