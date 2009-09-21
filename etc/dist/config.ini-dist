@@ -103,6 +103,12 @@ debug.report.from       = DEBUG_REPORT_TO
 # test config mode extend app config mode
 [test: app]
 
+#debug
+debug.enable            = false
+
+#debug > report
+debug.report.enable     = false
+
 # production config mode extend app config mode
 [production: app]
 
