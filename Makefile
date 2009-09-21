@@ -135,7 +135,7 @@ php-phpcs:
 php-phpcpd:
 	@echo "----------------"
 	@echo "Exec PHP Code Duplicate report:"
-	@phpcpd . --log-pmd=$(PROJECT_LOG)/php-cpd.log
+	@phpcpd . > $(PROJECT_LOG)/php-cpd.log
 	@echo "done"
 
 #
