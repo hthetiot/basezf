@@ -2,10 +2,10 @@
 /**
  * Uwa layout for MyProject
  *
- * @category   MyProject_Layouts
- * @package    MyProject
+ * @category   MyProject
+ * @package    MyProject_App_Layouts
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
     // set default title if empty
@@ -15,9 +15,9 @@
     $this->headLink()->appendStylesheet('http://uwa.service.japanim.fr/css/uwa-standalone.css');
 
     // add default scripts
-    //$this->headScript()->appendFile('http://www.netvibes.com/js/UWA/load.js.php?env=Standalone');
+    $this->headScript()->appendFile('http://www.netvibes.com/js/UWA/load.js.php?env=Standalone');
     //$this->headScript()->appendFile('http://uwa.service.japanim.fr/js/c/UWA_Standalone.js');
-    $this->headScript()->appendFile('http://uwa.service.japanim.fr/js/c/UWA_Standalone_Mootools.js');
+    //$this->headScript()->appendFile('http://uwa.service.japanim.fr/js/c/UWA_Standalone_Mootools.js');
 
     // add tools
     $this->headScript()->appendFile('http://cdn.netvibes.com/js/c/UWA_Controls_TabView.js?v=preview3');

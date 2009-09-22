@@ -5,9 +5,9 @@
  * @brief this is a example of local config for dev
  *
  * @category   MyProject
- * @package    MyProject
+ * @package    MyProject_App
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 
@@ -30,7 +30,7 @@ if (extension_loaded('xdebug')) {
 //---------------------------------------------------------------------------
 // External variable env
 
-define_if_not('BASE_URL', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost'));
+define_if_not('BASE_URL', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : trim(`hostname -f`)));
 
 //---------------------------------------------------------------------------
 // Config  (can be defined before auto_prepend include)
@@ -40,12 +40,16 @@ define_if_not('APPLICATION_ENV', 'development');
 //---------------------------------------------------------------------------
 // Debug options
 
-define_if_not('DEBUG_ENABLE', true);
+// if DEBUG_ENABLE is commented it check by default if DEBUG_REMOTE_TOKEN set has key in $_GET/$_POST/$_COOKIE param to be true
+//define_if_not('DEBUG_ENABLE', false);
+
 define_if_not('DEBUG_REPORT', false);
+define_if_not('DEBUG_REPORT_SUBJECT', '[' . APPLICATION_ENV . '] ' . BASE_URL);
 define_if_not('DEBUG_REPORT_FROM', 'debug@' . BASE_URL);
 define_if_not('DEBUG_REPORT_TO', 'dev@' . BASE_URL);
 
 //---------------------------------------------------------------------------
 // Frameworks Path
 
+//define_if_not('ZF_VERSION', '1.8.4');
 //define_if_not('ZF_PATH', '/home/johndoe/ZendFramework-1.7.7-minimal/library');

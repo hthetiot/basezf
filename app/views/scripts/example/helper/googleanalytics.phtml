@@ -3,7 +3,7 @@
     <h1 id="title"><a href="#Title">Google Analytics</a></h1>
 
     <p class="description">
-        Bla bla...
+        Use Google Analytics Service and track your user.
     </p>
 
     <h2 id="Usage"><a href="#Usage">Usage</a></h2>
@@ -22,15 +22,69 @@
     $source[] = '$this->GoogleAnalytics()->setVar($trackerId, \'another_var\');';
     $source[] = '$this->view->GoogleAnalytics()->setVar($trackerId, \'online:1\');';
     $source[] = '';
-    $source[] = '// displaying tracker';
+    $source[] = '// displaying tracker on view or layout';
     $source[] = 'echo $this->GoogleAnalytics();';
 
     echo $this->GeSHi(implode("\n", $source), 'php');
 ?>
 
-    <h2 id="Functions"><a href="#Functions">Functions</a></h2>
+    <h2 id="Functions"><a href="#Functions">Available Functions</a></h2>
 
-    <h3 id="">Sub Sections</h3>
+    <p>
+        This helper implemement a PHP to Javascript binding, you can call following Google Analytics
+        Javascript API function throw PHP helper.
+    </p>
+
+   <p>
+        See Google Analytics Doc for functions usage:<br />
+        <a href="http://www.scribd.com/doc/2261328/InstallingGATrackingCode">http://www.scribd.com/doc/2261328/InstallingGATrackingCode</a>
+    </p>
+
+
+    <h3>Standard Options</h3>
+    <ul>
+        <li>trackPageview</li>
+        <li>setVar</li>
+    </ul>
+
+    <h3>ECommerce Options</h3>
+    <ul>
+        <li>addItem</li>
+        <li>addTrans</li>
+        <li>trackTrans</li>
+    </ul>
+
+    <h3>Tracking Options</h3>
+    <ul>
+        <li>setClientInfo</li>
+        <li>setAllowHash</li>
+        <li>setDetectFlash</li>
+        <li>setDetectTitle</li>
+        <li>setSessionTimeOut</li>
+        <li>setCookieTimeOut</li>
+        <li>setDomainName</li>
+        <li>setAllowLinker</li>
+        <li>setAllowAnchor</li>
+    </ul>
+
+    <h3>Campaign Options</h3>
+    <ul>
+        <li>setCampNameKey</li>
+        <li>setCampMediumKey</li>
+        <li>setCampSourceKey</li>
+        <li>setCampTermKey</li>
+        <li>setCampContentKey</li>
+        <li>setCampIdKey</li>
+        <li>setCampNoKey</li>
+    </ul>
+
+    <h3>Other</h3>
+    <ul>
+        <li>addOrganic</li>
+        <li>addIgnoredOrganic</li>
+        <li>addIgnoredRef</li>
+        <li>setSampleRate</li>
+    </ul>
 
 </div>
 
@@ -39,3 +93,5 @@
     <div class="menu-item"><a href="#Usage">Usage</a></div>
     <div class="menu-item"><a href="#Functions">Functions</a></div>
 </div>
+
+

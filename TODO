@@ -1,0 +1,8 @@
+This is BaseZF todo list:
+* Finish phpUnit support
+
+* UWA
+$this->headScript()->appendFile('http://wzdapi.com/widget/emulator.js'); http://www.wzdapi.com/
+http://developers.pageflakes.com/hello
+http://www.alstrasoft.com/ajax-desktop-startpage-enterprise.htm#4
+

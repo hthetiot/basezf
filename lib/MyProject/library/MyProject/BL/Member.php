@@ -2,10 +2,10 @@
 /**
  * Member.php
  *
- * @category   MyProject_BL
- * @package    MyProject
+ * @category   MyProject
+ * @package    MyProject_BL
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class MyProject_BL_Member

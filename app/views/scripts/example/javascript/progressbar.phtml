@@ -1,0 +1,94 @@
+<div id="main" class="l-border r-border span-15">
+<script type="text/javascript">
+//once the DOM is ready
+window.addEvent('domready', function() {
+
+	/* create the progress bar for example 1 */
+	pb = new dwProgressBar({
+		container: $('put-bar-here'),
+		startPercentage: 25,
+		speed:1000,
+		boxID: 'box',
+		percentageID: 'perc',
+		step:10,
+		allowMore: 1
+	});
+
+	/* create the progress bar for example 2 */
+	pb2 = new dwProgressBar({
+		container: $('put-bar-here2'),
+		startPercentage: 10,
+		speed:1000,
+		boxID: 'box2',
+		percentageID: 'perc2',
+		displayID: 'text',
+		displayText: true,
+		step:15,
+		onComplete: function() {
+			//alert('Done!');
+		},
+		onChange: function() {
+			//alert('Changed!');
+		}
+	});
+
+	/* movers */
+	$$('.mover2').each(function(el) {
+		el.addEvent('click',function(e) {
+			e.stop();
+			pb2.set(el.get('rel'));
+		});
+	});
+
+	$$('.mover').each(function(el) {
+		el.addEvent('click',function(e) {
+			e.stop();
+			pb.set(el.get('rel'));
+		});
+	});
+
+	/* steppers */
+	$$('.stepper').each(function(el) {
+		el.addEvent('click',function(e) {
+			e.stop();
+			pb.step();
+		});
+	});
+
+	$$('.stepper2').each(function(el) {
+		el.addEvent('click',function(e) {
+			e.stop();
+			pb2.step();
+		});
+	});
+
+});
+
+</script>
+<h2 style="margin-bottom: 10px;">Basic Example</h2>
+<div id="put-bar-here"></div>
+<br />
+<a href="" rel="0" class="mover">To 0%</a> |
+<a href="" rel="25" class="mover">To 25%</a> |
+<a href="" rel="50" class="mover">To 50%</a> |
+<a href="" rel="75" class="mover">To 75%</a> |
+<a href="" rel="100" class="mover">To 100%</a> |
+<a href="" class="stepper">Step 10</a>
+<br /><br />
+<h2 style="margin-bottom:10px;">Spicy Example -- Events and Stepping</h2>
+<div id="put-bar-here2"></div>
+<br /><br />
+<a href="" rel="0" class="mover2">To 0%</a> |
+<a href="" rel="25" class="mover2">To 25%</a> |
+<a href="" rel="50" class="mover2">To 50%</a> |
+<a href="" rel="75" class="mover2">To 75%</a> |
+<a href="" rel="100" class="mover2">To 100%</a> |
+<a href="" class="stepper2">Step 15</a>
+
+</div>
+
+
+<div id="menu" class="span-5 last">
+</div>
+
+

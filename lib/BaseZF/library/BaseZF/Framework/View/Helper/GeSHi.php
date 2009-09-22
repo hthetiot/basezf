@@ -3,9 +3,9 @@
  * GeSHi.php
  *
  * @category   BaseZF
- * @package    BaseZF_Framwork
+ * @package    BaseZF_Framework
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 /** GeSHi Engine */

@@ -2,10 +2,10 @@
 /**
  * ErrorController.php
  *
- * @category   MyProject_Controller
- * @package    MyProject
+ * @category   MyProject
+ * @package    MyProject_App_Controller
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class ErrorController extends BaseZF_Framework_Controller_Action
@@ -77,6 +77,12 @@ class ErrorController extends BaseZF_Framework_Controller_Action
                 $response->setHttpResponseCode(500);
                 $this->_forward('applicationerror');
                 $this->view->message = __('Application error');
+
+                // report error enable ?
+                if (defined('DEBUG_REPORT') && DEBUG_REPORT) {
+                    BaseZF_Error_Handler::sendExceptionByMail($this->_error_handler->exception, DEBUG_REPORT_FROM, DEBUG_REPORT_TO, DEBUG_REPORT_SUBJECT);
+                }
+
                 break;
             }
         }

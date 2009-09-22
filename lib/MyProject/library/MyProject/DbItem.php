@@ -2,10 +2,10 @@
 /**
  * DbItem class in /MyProject/
  *
- * @category   MyProject_Core
- * @package    MyProject
+ * @category   MyProject
+ * @package    MyProject_DbItem
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class MyProject_DbItem extends BaseZF_DbItem

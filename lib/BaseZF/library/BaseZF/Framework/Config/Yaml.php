@@ -2,23 +2,23 @@
 /**
  * Yaml class in /BazeZF/Framework/Config
  *
- * @category   BazeZF_Framework
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Framework
  * @author     Sean P. O. MacCath-Moran
- * @email      zendcode@emanaton.com
- * @website    http://www.emanaton.com
- * @copyright  This work is licenced under a Attribution Non-commercial Share Alike Creative Commons licence
- * @license    http://creativecommons.org/licenses/by-nc-sa/3.0/us/
+ *
+ * Sean P. O. MacCath-Moran
+ * zendcode@emanaton.com
+ * http://www.emanaton.com
  */
 
 /**
-* @see Zend_Config
-*/
+ * @see Zend_Config
+ */
 require_once 'Zend/Config.php';
 
 /**
-* @see Syck extension fallback to Spyc lib class
-*/
+ * @see Syck extension fallback to Spyc lib class
+ */
 if (!function_exists('syck_load')) {
     Zend_Loader::loadClass('Spyc');
 }

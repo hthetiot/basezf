@@ -3,9 +3,9 @@
  * auto_prepend.php for MyProject in /includes/
  *
  * @category   MyProject
- * @package    MyProject
+ * @package    MyProject_App
  * @copyright  Copyright (c) 2008
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 $t_start = microtime(true);
@@ -33,6 +33,8 @@ define('LIBRARY_PATH',       BASE_PATH . '/lib');
 define('PUBLIC_PATH',        BASE_PATH . '/public');
 define('APPLICATION_PATH',   BASE_PATH . '/app');
 define('CONFIG_PATH',        BASE_PATH . '/etc');
+define('DATA_PATH',          BASE_PATH . '/data');
+define('LOG_PATH',           DATA_PATH . '/log');
 define('LOCALES_PATH',       BASE_PATH . '/locale');
 
 //---------------------------------------------------------------------------
@@ -67,8 +69,10 @@ define_if_not('MAIN_URL', BASE_URL_SCHEME . BASE_URL);
 //---------------------------------------------------------------------------
 // Debug options
 
-define_if_not('DEBUG_ENABLE', false);
+define_if_not('DEBUG_REMOTE_TOKEN', 'debug_me');
+define_if_not('DEBUG_ENABLE', (isset($_POST[DEBUG_REMOTE_TOKEN]) || isset($_GET[DEBUG_REMOTE_TOKEN]) || isset($_COOKIE[DEBUG_REMOTE_TOKEN]) ? true : false));
 define_if_not('DEBUG_REPORT', true);
+define_if_not('DEBUG_REPORT_SUBJECT', '[' . APPLICATION_ENV . '] ' . BASE_URL);
 define_if_not('DEBUG_REPORT_FROM', 'debug@' . BASE_URL);
 define_if_not('DEBUG_REPORT_TO', 'dev@' . BASE_URL);
 
@@ -107,4 +111,5 @@ require_once 'Zend/Loader/Autoloader.php';
 
 $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->setFallbackAutoloader(true);
+$autoloader->suppressNotFoundWarnings(true);
 

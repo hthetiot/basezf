@@ -3,9 +3,9 @@
  * MyProject_StCollection_Country for MyProject in /MyProject/StCollection
  *
  * @category   MyProject
- * @package    MyProject_StCollection
+ * @package    MyProject_StItem
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 class MyProject_StCollection_Country extends BaseZF_StCollection {
 

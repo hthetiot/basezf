@@ -5,7 +5,7 @@
  * @category   BaseZF_Framework
  * @package    BaseZF
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_Framework_View_Smarty extends Zend_View_Abstract

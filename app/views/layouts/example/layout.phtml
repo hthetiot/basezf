@@ -2,10 +2,10 @@
 /**
  * Example layout for MyProject
  *
- * @category   MyProject_Layouts
- * @package    MyProject
+ * @category   MyProject
+ * @package    MyProject_App_Layouts
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
     //
     // CSS stuff
@@ -71,7 +71,14 @@
         $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/i-heart-ny/calendar.css', 'screen, projection');
         $this->headLink()->appendStylesheet('/js/lib/motools-plugins/Calendar/dashboard/calendar.css', 'screen, projection');
         */
+
+        // Progress bar
+        $this->headScript()->appendFile('/js/lib/motools-plugins/dwProgressBar/dwProgressBar.js');
+        $this->headLink()->appendStylesheet('/js/lib/motools-plugins/dwProgressBar/dwProgressBar.css', 'screen, projection');
     }
+
+    // Firebug-lite
+    //$this->headScript()->appendFile('http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
     //
     // Others

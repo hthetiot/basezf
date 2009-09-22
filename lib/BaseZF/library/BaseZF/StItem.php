@@ -2,10 +2,10 @@
 /**
  * StItem class in /BazeZF/
  *
- * @category   BazeZF_StCollection
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_StItem
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_StItem extends ArrayObject {

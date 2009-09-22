@@ -2,14 +2,14 @@
 /**
  * Abstract class in /BazeZF/Archive
  *
- * @category   BazeZF_Core
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Archive
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
-
-/**
+ * @author     Harold Thetiot (hthetiot)
+ *
  * Abstract Archive Builder for format.
  */
+
 abstract class BaseZF_Archive_Abstract
 {
     /**
@@ -198,6 +198,7 @@ abstract class BaseZF_Archive_Abstract
     {
         if (is_null($outputDir)) {
             $this->_options['inmemory'] = true;
+            $outputDir = DIRECTORY_SEPARATOR;
 
         // add possible missing DIRECTORY_SEPARATOR at the end of string
         } else {
@@ -214,7 +215,7 @@ abstract class BaseZF_Archive_Abstract
         if (!$this->_options['inmemory']) {
             $this->_extractArchiveToPath($outputDir);
         } else {
-            $this->_extractArchive(null);
+            $this->_extractArchive($outputDir);
         }
 
         return $this;
@@ -540,7 +541,7 @@ abstract class BaseZF_Archive_Abstract
 
         unset ($current, $pwd);
 
-        usort($files, array ($this, "sortFiles"));
+        usort($files, array ($this, '_sortFiles'));
 
         return $files;
     }

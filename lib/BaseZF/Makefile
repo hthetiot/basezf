@@ -2,68 +2,63 @@
 # Basezf Makefile
 #
 # Targets:
-#  - clean: 	Remove the staged files
 #  - doc: 		Generate the doc
 #  - syntax:	Check syntax of PHP files
 #  - test: 		Exec unitTest
-#  - locale: 	Generate gettext files
+#  - clean: 	Remove the useless files
 #
 # @copyright  Copyright (c) 2008 BaseZF
-# @author     Harold Thétiot (hthetiot)
+# @author     Harold Thetiot (hthetiot)
 # @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
 # Binary
-ZIP = zip
-TAR = tar
 PHP = php
 DOXYGEN = doxygen
 
 # Project ID
 PROJECT_NAME = Basezf
-PROJECT_VERSION = alpha
+PROJECT_VERSION = 0.7
 
-# Others
-RELEASE_NAME = $(PROJECT_NAME)-$(PROJECT_VERSION)
-CHANGELOG_FILE_PATH = $(ROOT)/CHANGELOG
-
-ZIP_NAME = $(NAME)-$(VERSION).zip
-TAR_NAME = $(NAME)-$(VERSION).tar.gz
-
-install: clean syntax
+all: clean syntax
 	@echo "----------------"
-	@echo "Project install complete."
-	@echo ""
-
-all: clean syntax locale
-	@echo "----------------"
-	@echo "Project build complete."
+	@echo "BaseZF build complete."
 	@echo ""
 
 # Generate the doc
 doc:
 	@echo "----------------"
 	@echo "Generate doxygen doc :"
-	@$(DOXYGEN) ./etc/doxygen.cnf > $(PROJECT_LOG)/doc.log
+	@$(DOXYGEN) ./doxygen.cnf
 	@echo "done"
+#
+# Alias
+#
+syntax:	php-syntax
+test:	php-phpunit
+
+#
+# PHP
+#
 
 # Check syntax of PHP files
-syntax:
+php-syntax:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files:"
-	@for i in `find . -type f -name *.ph* | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
+	@for i in `find . -type f -name *.ph* -not -name ".*" | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
-syntax-fast:
+# Check syntax of non commited PHP files
+php-syntax-commit:
 	@echo "----------------"
 	@echo "Check PHP syntax on all php files updated:"
 	@for i in `git-diff --name-only | grep '.ph' | tr '\n' ' '`; do test=`php -l $$i`; test2=`echo $$test | grep "Parse error"`; if [ "$$test2" != "" ]; then echo $$test; fi; done;
 	@echo "done"
 
-# Exec unitTest
-test:
+# Exec PHP unitTest
+php-phpunit:
 	@echo "----------------"
-	@echo "Exec Units test:"
-	@cd tests && phpunit BaseZF_AllTests
+	@echo "Exec PHPUnits test:"
+	@cd tests && phpunit --configuration phpunit.xml
 	@echo "done"
 
 # Remove the staged files
@@ -81,6 +76,19 @@ clean:
 		-iname '*.thumb' -o \
 		-iname '*Thumbs.db' \) \
 		-print`
+
+# Remove doxygen generated doc
+	@rm -f ./doc/html/*.html
+	@rm -f ./doc/html/*.png
+	@rm -f ./doc/html/*.map
+	@rm -f ./doc/html/*.md5
+	@rm -f ./doc/html/*
+	@rm -f ./doc/latex/*.tex
+	@rm -f ./doc/latex/*.png
+	@rm -f ./doc/latex/*.map
+	@rm -f ./doc/latex/*.md5
+	@rm -f ./doc/latex/*
+	@rm -f ./doc_warn.log
 	@echo "done"
 
 .PHONY: doc

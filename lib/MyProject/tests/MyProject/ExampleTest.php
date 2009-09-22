@@ -1,19 +1,21 @@
 <?php
 /**
- * ExampleTest.php for Bahu in tests/
+ * ExampleTest.php for MyProject in tests/
  *
- * @category   Test
- * @package    Test_Example
- * @copyright  Copyright (c) 2008 Bahu
- * @author     Harold Thétiot (hthetiot)
+ * @category   MyProject
+ * @package    MyProject_UnitTest
+ * @copyright  Copyright (c) 2008 MyProject
+ * @author     Harold Thetiot (hthetiot)
  */
 
-// Load PhpUnit Libs
-require_once 'PHPUnit/Framework.php';
+require_once dirname(__FILE__) . '/../TestHelper.php';
 
-// Load tested class
-require_once 'Example.php';
-
+/**
+ * Test class for Example
+ *
+ * @group MyProject
+ * @group MyProject_Example
+ */
 class MyProject_ExampleTest extends PHPUnit_Framework_TestCase
 {
     protected $_example = null;

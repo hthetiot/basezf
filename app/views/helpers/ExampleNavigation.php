@@ -2,10 +2,10 @@
 /**
  * Example.php for MyProject in /app/views/helpers
  *
- * @category   MyProject_Helpers
- * @package    MyProject
+ * @category   MyProject
+ * @package    MyProject_App_Helper
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abstract
@@ -26,6 +26,7 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
             'Tools' => array(
                '/example/index/blueprint'       => 'Blueprint',
                '/example/index/mootools'        => 'Mootools',
+               '/example/index/debug'           => 'Debug',
                '/example/index/makefile'        => 'MakeFile',
             ),
 
@@ -35,7 +36,6 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
                 '/example/form/dateselect'      => 'Date Element',
                 //'/example/form/rangeselect'   => 'Range Select Element',
                 //'/example/form/contactselect' => 'Contact List Element',
-                '/example/form/elements'        => 'Elements Extras',
             ),
 
             'CSS Elements' => array(
@@ -60,7 +60,7 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
             'Classes' => array(
                 '/example/BaseZF/error'         => 'Error Handler',
                 '/example/BaseZF/controller'    => 'Controller Abstract',
-                '/example/BaseZF/image'         => 'Image',
+                '/example/BaseZF/archive'       => 'Archive',
                 '/example/BaseZF/notify'        => 'Notify',
                 '/example/BaseZF/stitem'        => 'StItem/StCollection',
                 '/example/BaseZF/dbitem'        => 'DbItem/DbCollection',

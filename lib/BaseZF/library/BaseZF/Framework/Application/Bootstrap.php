@@ -7,10 +7,10 @@
  * @category   BaseZF
  * @package    BaseZF
  * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
-abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected $_options = array();
 
@@ -42,25 +42,25 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // View Options
         'view'    => array(
-            'path'            => 'application/views',
-            'script_suffix' => '.phtml',
-            'inflector'     => ':module/:controller/:action.:suffix',
-            'helper_paths'     => array(),
+            'path'              => 'application/views',
+            'script_suffix'     => 'phtml',
+            'inflector'         => ':module/:controller/:action.:suffix',
+            'helper_paths'      => array(),
         ),
 
         // Static Pack Options
-        'static_pack'    => array(
-            'enable'            => false,
-            'css_config'       => null,
-            'script_config'    => null,
+        'static_pack'       => array(
+            'enable'        => false,
+            'css_config'    => null,
+            'script_config' => null,
         ),
 
         // Layout Options
         'layout'    => array(
-            'path'            => 'application/views/layouts',
-            'default'         => 'default',
-            'content_key'    => 'content',
-            'script_suffix' => '.phtml',
+            'path'          => 'application/views/layouts',
+            'default'       => 'default',
+            'content_key'   => 'content',
+            'script_suffix' => 'phtml',
             'inflector'     => ':script/layout.:suffix',
         ),
     );
@@ -83,6 +83,8 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $options = $this->mergeOptions($this->_defaultOptions, $options);
 
         $this->setOptions($options);
+
+        return $this->_options;
     }
 
     //
@@ -103,6 +105,9 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             'layout'     => $layoutOptions['default'],
             'contentKey' => $layoutOptions['content_key'],
         ));
+
+        //set layout preffix
+        $layout->setViewSuffix($layoutOptions['script_suffix']);
 
         // set layout path and suffix
         $layout->setInflectorTarget($layoutOptions['inflector']);
@@ -136,6 +141,7 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // Optionure view render (path and suffix)
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewRenderer->setView($view)
+                     ->setViewSuffix($viewOptions['script_suffix'])
                      ->setViewScriptPathSpec($viewOptions['inflector']);
 
 
@@ -168,6 +174,8 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $headScriptPackConfig = new BaseZF_Framework_Config_Yaml($staticPackoptions['script_config']);
         $view->headScript()->setPacksConfig($headScriptPackConfig->toArray());
         $view->headScript()->enablePacks();
+
+        return $view->headScript();
     }
 
     //
@@ -192,12 +200,6 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         // set default params
         $frontController->setParam('env', $this->getOption('application', 'environment'));
-
-        // use error handler
-        $debugOptions = $this->getOption('debug');
-        if ($debugOptions['enable']) {
-            $frontController->throwExceptions(true);
-        }
 
         return $frontController;
     }
@@ -234,6 +236,7 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $frontController->setControllerDirectory($controllerModules);
 
+        return $controllerModules;
     }
 
     /**
@@ -242,15 +245,37 @@ abstract class BaseZF_Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initControllerPlugins()
     {
         $frontController = Zend_Controller_Front::getInstance();
-
         $controllerOptions = $this->getOption('controller');
 
-        foreach ($controllerOptions['plugins'] as $controllerPlugin) {
-             $plugin = new $controllerPlugin();
-             $frontController->registerPlugin($plugin);
+        $controllerPlugins = array();
+        foreach ($controllerOptions['plugins'] as $plugin) {
+
+             $pluginName = $plugin['plugin'];
+             $pluginParams = (isset($writer['params'])) ? $writer['params'] : array();
+
+             Zend_Loader::loadClass($pluginName);
+             $pluginObj = new $pluginName($pluginParams);
+             $frontController->registerPlugin($pluginObj);
+
+             $controllerPlugins[$pluginName] = $pluginObj;
         }
 
-        return $this;
+        return $controllerPlugins;
+    }
+
+    //
+    // Others
+    //
+
+    /**
+     * Init Debug
+     */
+    protected function _initDebug()
+    {
+        $debugOptions = $this->getOption('debug');
+
+        $frontController = Zend_Controller_Front::getInstance();
+        $frontController->throwExceptions($debugOptions['enable']);
     }
 }
 

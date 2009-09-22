@@ -2,10 +2,10 @@
 /**
  * Mail class in /BazeZF/Service
  *
- * @category   BazeZF_Service
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Service
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_Service_Mail
@@ -124,7 +124,7 @@ class BaseZF_Service_Mail
     static private function _sendCommand($fp, $out)
     {
         fwrite($fp, $out . "\r\n");
-         stream_set_timeout($fp, 2);
+        stream_set_timeout($fp, 2);
 
         $s = '';
         for($i = 0; $i < 2; $i++) {

@@ -2,16 +2,19 @@
 /**
  * Handler class in /BazeZF/Error
  *
- * @category   BazeZF_Core
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Core
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 {
     protected function _render()
     {
+        // Server error
+        header('HTTP/1.1 500 Internal Server Error');
+
         ?>
         <style>
             pre.debug {
@@ -74,33 +77,44 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
 
         <div>
             <h3>Server Parameters:</h3>
-            <pre class="debug"><?php echo var_dump($_SERVER); ?></pre>
+            <pre class="debug"><?php echo var_dump($this->getServerParams()); ?></pre>
         </div>
 
         <div>
             <h3>POST Parameters:</h3>
-            <pre class="debug"><?php echo var_dump($_POST); ?></pre>
+            <pre class="debug"><?php echo var_dump($this->getPostParams()); ?></pre>
         </div>
 
         <div>
             <h3>GET Parameters:</h3>
-            <pre class="debug"><?php echo var_dump($_GET); ?></pre>
+            <pre class="debug"><?php echo var_dump($this->getGetParams()); ?></pre>
+        </div>
+
+        <div>
+            <h3>COOKIES Parameters:</h3>
+            <pre class="debug"><?php
+
+                if($cookies = $this->getCookiesParams()) {
+                    var_dump($cookies);
+                } else {
+                    echo 'No Cookies initialized or empty.';
+                }
+            ?>
+            </pre>
         </div>
 
         <div>
             <h3>SESSION Parameters:</h3>
             <pre class="debug"><?php
 
-                if(isset($_SESSION)) {
-                    var_dump($_SESSION);
+                if($session = $this->getSessionParams()) {
+                    var_dump($session);
                 } else {
                     echo 'No Session initialized or empty.';
                 }
-
-            ?></pre>
+            ?>
+            </pre>
         </div>
         <?php
-
-        exit();
     }
 }

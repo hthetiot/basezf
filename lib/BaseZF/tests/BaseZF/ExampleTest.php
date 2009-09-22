@@ -2,20 +2,22 @@
 /**
  * ExampleTest.php for BaseZF in tests/
  *
- * @category   Test
- * @package    Test_Example
- * @copyright  Copyright (c) 2008 Bahu
- * @author     Harold Thétiot (hthetiot)
+ * @category   BaseZF
+ * @package    BaseZF_UnitTest
+ * @copyright  Copyright (c) 2008 BaseZF
+ * @author     Harold Thetiot (hthetiot)
  */
 
-// Load PhpUnit Libs
-require_once 'PHPUnit/Framework.php';
+require_once dirname(__FILE__) . '/../TestHelper.php';
 
-
+/**
+ * Test class for Example
+ *
+ * @group BaseZF
+ * @group BaseZF_Example
+ */
 class BaseZF_ExampleTest extends PHPUnit_Framework_TestCase
 {
-    protected $_example = null;
-
     /**
      * Call before all test and on class test loading
      */
@@ -29,8 +31,44 @@ class BaseZF_ExampleTest extends PHPUnit_Framework_TestCase
         // use time to have floating value
         $value = time();
 
+        $example = new BaseZF_Example();
+
+        $example->updateProperty($value);
+
         // compare waiting results with results
-        $this->assertEquals($value, $value);
+        $this->assertEquals($value, $example->getProperty());
+
+        /*
+        assertArrayHasKey()
+        assertClassHasAttribute()
+        assertClassHasStaticAttribute()
+        assertContains()
+        assertContainsOnly()
+        assertEqualXMLStructure()
+        assertEquals()
+        assertFalse()
+        assertFileEquals()
+        assertFileExists()
+        assertGreaterThan()
+        assertGreaterThanOrEqual()
+        assertLessThan()
+        assertLessThanOrEqual()
+        assertNotNull()
+        assertObjectHasAttribute()
+        assertRegExp()
+        assertSame()
+        assertSelectCount()
+        assertSelectEquals()
+        assertSelectRegExp()
+        assertStringEqualsFile()
+        assertTag()
+        assertThat()
+        assertTrue()
+        assertType()
+        assertXmlFileEqualsXmlFile()
+        assertXmlStringEqualsXmlFile()
+        assertXmlStringEqualsXmlString()
+        */
     }
 
     /**

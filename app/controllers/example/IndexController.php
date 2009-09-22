@@ -2,10 +2,10 @@
 /**
  * IndexController.php
  *
- * @category   MyProject_Controller
- * @package    MyProject
+ * @category   MyProject
+ * @package    MyProject_App_Controller
  * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 class Example_IndexController extends BaseZF_Framework_Controller_Action
 {
@@ -31,6 +31,10 @@ class Example_IndexController extends BaseZF_Framework_Controller_Action
     }
 
     public function makefileAction()
+    {
+    }
+
+    public function debugAction()
     {
     }
 }

@@ -2,10 +2,10 @@
 /**
  * Date.php class in /BazeZF/Framework/Form/Element
  *
- * @category   BazeZF_Framework
- * @package    BazeZF
+ * @category   BazeZF
+ * @package    BazeZF_Framework
  * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thétiot (hthetiot)
+ * @author     Harold Thetiot (hthetiot)
  */
 
 /** Zend_Form_Element_Xhtml */
