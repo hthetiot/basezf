@@ -30,7 +30,7 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
             if ($this->isJson) {
 
                 // test asynchron validation
-                if (isset($formData['first_name'])) {
+                if (isset($formData['username'])) {
                     sleep(3);
                 }
 
@@ -95,6 +95,16 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
 
     public function autocompletercallbackAction()
     {
+        /*
+        //http://www.insee.fr/fr/methodes/nomenclatures/cog/telechargement.asp
+        foreach ($departements as $departement) {
+            if (stripos($departement, $this->_getParam('search') === 0) {
+                //
+            }
+        }
+        */
+
+        // &todo dbSearch import with sphinx adapter
         $this->_makeJson();
         $this->_setJson(array('Paris', 'Nantes'));
     }
