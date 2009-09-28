@@ -39,8 +39,7 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
         $central = '';
 
         if (!empty ($this->_options['sfx']))
-            if ($fp = fopen($this->_options['sfx'], "rb"))
-            {
+            if ($fp = fopen($this->_options['sfx'], "rb")) {
                 $temp = fread($fp, filesize($this->_options['sfx']));
                 fclose($fp);
                 $this->_addArchiveData($temp);
