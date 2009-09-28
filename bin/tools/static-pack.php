@@ -53,7 +53,8 @@ class staticPack
 
     static protected $_workingPath;
 
-    public function __construct($workingPath = null) {
+    public function __construct($workingPath = null)
+    {
 
         if (is_null($workingPath)) {
             $workingPath = realpath(dirname(__FILE__));
@@ -146,7 +147,7 @@ class staticPack
         // stats
         $inputSize = filesize($bufferFile);
         $outputSize = filesize($pack);
-        $compressionRatio = round(100-((100/$inputSize)*$outputSize),2) . "%";
+        $compressionRatio = round(100-((100/$inputSize)*$outputSize), 2) . "%";
 
         // delete tmp buffer
         unlink($bufferFile);
@@ -190,7 +191,7 @@ class staticPack
         $suffix = array('Bytes','KB','MB','GB','TB','PB','EB','ZB','YB','NB','DB');
         $i = 0;
 
-        while ($size >= 1024 && ($i < count($suffix) - 1)){
+        while ($size >= 1024 && ($i < count($suffix) - 1)) {
             $size /= 1024;
             $i++;
         }

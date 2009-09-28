@@ -126,7 +126,7 @@ class gettextTranslator
 
                 $this->_fileHeader[] = $matches[1];
 
-            } elseif (strpos($line,'#, fuzzy') === 0) {
+            } elseif (strpos($line, '#, fuzzy') === 0) {
                 $this->_fileStats['fuzzy']++;
                 $isFuzzy = true;
             }

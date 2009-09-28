@@ -21,7 +21,7 @@ ini_set('memory_limit', -1);
 //---------------------------------------------------------------------------
 // Define application environment
 
-define('APPLICATION_ENV',  'test');
+define('APPLICATION_ENV', 'test');
 
 //---------------------------------------------------------------------------
 // Include auto_prepend if missing

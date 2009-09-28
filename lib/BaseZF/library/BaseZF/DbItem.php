@@ -812,7 +812,7 @@ abstract class BaseZF_DbItem
         $value = $data[$property];
 
         // clean array
-        if (strstr($type,'[]') == '[]' && !is_array($value)) {
+        if (strstr($type, '[]') == '[]' && !is_array($value)) {
             $data[$property] = self::str2arr($value);
         }
 
@@ -837,7 +837,7 @@ abstract class BaseZF_DbItem
         $value = $data[$property];
 
         // clean array
-        if (strstr($type,'[]') == '[]' && is_array($value)) {
+        if (strstr($type, '[]') == '[]' && is_array($value)) {
             $data[$property] = self::arr2str($value);
         }
 
@@ -1185,7 +1185,7 @@ abstract class BaseZF_DbItem
      */
     public function __isset($property)
     {
-        return array_key_exists($property,$this->_modified) || array_key_exists($property, $this->_data);
+        return array_key_exists($property, $this->_modified) || array_key_exists($property, $this->_data);
     }
 
     /**
@@ -1233,7 +1233,7 @@ abstract class BaseZF_DbItem
             return $value;
         }
 
-        $value = substr($value, 1,-1); // remove brakets {} from string "{1,2,3}"
+        $value = substr($value, 1, -1); // remove brakets {} from string "{1,2,3}"
 
         if (empty($value)) {
             return array();
@@ -1268,9 +1268,9 @@ abstract class BaseZF_DbItem
     {
         $result = array();
         $value = intval($value);
-        for($i=0; $i<32; $i++) {
+        for ($i=0; $i<32; $i++) {
             $key = 1<<$i;
-            if ( ($value & $key) != 0) {
+            if (($value & $key) != 0) {
                 $result[] =  $key ;
             }
         }

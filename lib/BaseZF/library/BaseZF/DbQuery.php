@@ -732,16 +732,20 @@ class BaseZF_DbQuery
      */
     private function _parseQueryFields()
     {
-        $query = preg_replace("|\s+|"," ",$this->_query);
+        $query = preg_replace("|\s+|"," ", $this->_query);
         $pattern = "|SELECT(?: DISTINCT)? (.+) FROM |i";
 
-        if (!preg_match($pattern,$query,$fields)) return false;
+        $fields = array();
+        if (!preg_match($pattern, $query, $fields)) {
+            return false;
+        }
 
         $fields = array_map('trim', explode(',', $fields[1]));
         $pattern = "/((?:.+(?: AS (?P<alias>\w+)))|(?:(?P<just_field>.+)))/i";
         foreach ($fields as &$field) {
-            preg_match($pattern,$field,$match);
-            $field = empty($match['alias']) ? $match['just_field'] : $match['alias'];
+            $matches = array();
+            preg_match($pattern, $field, $matches);
+            $field = empty($matches['alias']) ? $matches['just_field'] : $matches['alias'];
         }
 
         return $fields;

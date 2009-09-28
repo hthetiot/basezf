@@ -33,7 +33,7 @@ abstract class BaseZF_StCollection extends ArrayObject
         foreach ($this->_data as $key => $item) {
             $row = new $itemClassName($key, $item);
             $rows[$key] = $row;
-            $has_numeric_key = $has_numeric_key || strcmp(intval($key),$key)==0;
+            $has_numeric_key = $has_numeric_key || strcmp(intval($key), $key) == 0;
         }
 
         parent::__construct($rows);

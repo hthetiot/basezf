@@ -753,7 +753,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $this->_saveIteratorPosition();
         try {
             foreach ($this as $id => $item) {
-                $item->setProperty($property,$value);
+                $item->setProperty($property, $value);
             }
         } catch (Exception $e) {
             $this->_loadIteratorPosition();

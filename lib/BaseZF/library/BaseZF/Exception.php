@@ -43,7 +43,7 @@ class BaseZF_Exception extends Exception
         $code = '';
         $curLine = 0;
 
-        while($line = fgets($file)) {
+        while ($line = fgets($file)) {
 
             $curLine++;
             if ($curLine >= $beginLine && $curLine <= $endLine) {

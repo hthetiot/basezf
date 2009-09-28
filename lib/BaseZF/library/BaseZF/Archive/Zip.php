@@ -162,7 +162,7 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
             if (!$this->_options['inmemory']) {
 
                 $fullPath = '';
-                foreach (explode(DIRECTORY_SEPARATOR ,$completePath) as $path) {
+                foreach (explode(DIRECTORY_SEPARATOR, $completePath) as $path) {
 
                     $fullPath .= $path . DIRECTORY_SEPARATOR;
 

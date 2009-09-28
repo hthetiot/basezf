@@ -75,7 +75,7 @@ if (!function_exists('bytes_to_human_size')) {
         $suffix = array('Bytes','KB','MB','GB','TB','PB','EB','ZB','YB','NB','DB');
         $i = 0;
 
-        while ($size >= 1024 && ($i < count($suffix) - 1)){
+        while ($size >= 1024 && ($i < count($suffix) - 1)) {
             $size /= 1024;
             $i++;
         }
@@ -96,7 +96,7 @@ if (!function_exists('array_set_current')) {
     function array_set_current(array &$array, $key)
     {
        reset($array);
-       while (current($array) !== false){
+       while (current($array) !== false) {
 
            if (key($array) == $key) {
                break;
@@ -219,26 +219,26 @@ if (!function_exists('parseCSS')) {
      */
     function parseCSS($filename)
     {
-        $fp = fopen($filename,"r");
+        $fp = fopen($filename, "r");
         $css = fread($fp, filesize ($filename));
         fclose($fp);
 
-        $css = preg_replace("/[\s,]+/","",$css);
+        $css = preg_replace("/[\s,]+/", "", $css);
         $css_class = preg_split("/}/", $css);
 
         while (list($key,$val) = each ($css_class)) {
 
-            $aCSSObj = preg_split("/{/",$val);
+            $aCSSObj = preg_split("/{/", $val);
 
             if (!isset($aCSSObj[1])) {
                 continue;
             }
 
-            $a = preg_split("/;/",$aCSSObj[1]);
-            while(list($key,$val0) = each ($a))
-            {
-                if($val0 !='') {
-                    $aCSSSub=preg_split("/:/",$val0);
+            $a = preg_split("/;/", $aCSSObj[1]);
+            while(list($key,$val0) = each ($a)) {
+
+                if ($val0 !='') {
+                    $aCSSSub = preg_split("/:/", $val0);
                     $aCSSItem[$aCSSSub[0]]=$aCSSSub[1];
                 }
             }
