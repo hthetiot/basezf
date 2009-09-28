@@ -519,7 +519,8 @@ abstract class BaseZF_DbItem
         return $this;
     }
 
-    public function setVirtualProperty($property, $value, $propertyDependency = null) {
+    public function setVirtualProperty($property, $value, $propertyDependency = null)
+    {
 
         if (isset($this->_structure['fields'][$property])) {
             throw new BaseZF_DbItem_Exception('Unable to set value to virtual property "' . $this->getTable() . ':' . $property . '". Field with same name exists in database.');

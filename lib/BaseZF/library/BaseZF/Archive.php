@@ -120,8 +120,8 @@ class BaseZF_Archive
      *
      * @return string class name of BaseZF_Archive_Abstract extended class
      */
-    static private function _getClassNameByFormat($format) {
-
+    static private function _getClassNameByFormat($format)
+    {
         if (in_array($format, self::$_availableFormats) === false) {
             throw new BaseZF_Archive_Exception(sprintf('Invalid archive format "%s", see %s::$_availableFormats value for available form', $format, __CLASS__));
         }

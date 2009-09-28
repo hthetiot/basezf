@@ -33,7 +33,7 @@ date_default_timezone_set('GMT');
 //---------------------------------------------------------------------------
 // Define usefull paths
 
-define('BASE_PATH',          realpath(dirname(__FILE__) . '/..'));
+define('BASE_PATH', realpath(dirname(__FILE__) . '/..'));
 
 //---------------------------------------------------------------------------
 // file inclusion & autoload

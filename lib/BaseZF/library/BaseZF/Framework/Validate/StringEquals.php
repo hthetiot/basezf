@@ -32,7 +32,8 @@ class BaseZF_Framework_Validate_StringEquals extends Zend_Validate_Abstract
      * @param  string $field
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->_fields = func_get_args();
     }
 
@@ -45,8 +46,8 @@ class BaseZF_Framework_Validate_StringEquals extends Zend_Validate_Abstract
      * @param  string $value
      * @return boolean
      */
-    public function isValid($value, $context = null) {
-
+    public function isValid($value, $context = null)
+    {
         $contextFields = array();
         foreach ($this->_fields as $fieldName) {
 

@@ -23,7 +23,8 @@ if (!function_exists('syck_load')) {
     Zend_Loader::loadClass('Spyc');
 }
 
-class BaseZF_FrameWork_Config_Yaml extends Zend_Config {
+class BaseZF_FrameWork_Config_Yaml extends Zend_Config
+{
 
     /**
     * Holds the options values as passed in.
@@ -92,8 +93,8 @@ class BaseZF_FrameWork_Config_Yaml extends Zend_Config {
     * @throws Zend_Config_Exception
     * @return void
     */
-    public function __construct($filename, $section = null, $options = false) {
-
+    public function __construct($filename, $section = null, $options = false)
+    {
         // If filename is empy, we cannot proceed.
         if (empty($filename)) {
 

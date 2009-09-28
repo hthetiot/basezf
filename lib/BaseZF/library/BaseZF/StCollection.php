@@ -131,5 +131,7 @@ abstract class BaseZF_StCollection extends ArrayObject
     }
 }
 
-class BaseZF_StCollection_Exception extends BaseZF_Exception {}
+class BaseZF_StCollection_Exception extends BaseZF_Exception
+{
+}
 

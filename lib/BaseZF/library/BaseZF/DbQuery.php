@@ -801,19 +801,19 @@ class BaseZF_DbQuery
     }
 
     /**
-     * Set something in cache
-     *
-     * from prototype: bool Memcache::set ( string key, mixed var [, int flag [, int expire]] )
-     *
-     * @param string $cacheKey Key in cache
-     * @param mixed $value Object to set in cache
-     * @param integer $flag Use MEMCACHE_COMPRESSED to use zlib
-     * @param integer $expire Expiration time of the key
-     * @param object $cache use a specific instance of cache
-     *
-     * @return boolean true if success, else false
-     */
-     protected function _setInCache($cacheKey, $value, $expire = self::EXPIRE_NONE, $cache = null)
+    * Set something in cache
+    *
+    * from prototype: bool Memcache::set ( string key, mixed var [, int flag [, int expire]] )
+    *
+    * @param string $cacheKey Key in cache
+    * @param mixed $value Object to set in cache
+    * @param integer $flag Use MEMCACHE_COMPRESSED to use zlib
+    * @param integer $expire Expiration time of the key
+    * @param object $cache use a specific instance of cache
+    *
+    * @return boolean true if success, else false
+    */
+    protected function _setInCache($cacheKey, $value, $expire = self::EXPIRE_NONE, $cache = null)
     {
         if (is_null($cache)) {
             $cache = $this->_getCacheInstance();

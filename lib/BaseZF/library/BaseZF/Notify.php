@@ -55,13 +55,13 @@ class BaseZF_Notify
      * @return object instance of BazeZF_Notify
      */
      static public function getInstance($nameSpace = self::DEFAULT_NAMESPACE)
-    {
+     {
         if (!isset(self::$_INSTANCES[$nameSpace])) {
             self::$_INSTANCES[$nameSpace] = new BaseZF_Notify($nameSpace);
         }
 
         return self::$_INSTANCES[$nameSpace];
-    }
+     }
 
     /**
      * Set a new notifier with data

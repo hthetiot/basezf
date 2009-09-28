@@ -7,8 +7,8 @@
  * @copyright  Copyright (c) 2008 MyProject
  * @author     Harold Thetiot (hthetiot)
  */
-class MyProject_StCollection_Country extends BaseZF_StCollection {
-
+class MyProject_StCollection_Country extends BaseZF_StCollection
+{
     protected $_data = array(
         1 => array( 'iso' => 'AF', 'name' => 'Afghanistan'),
         2 => array( 'iso' => 'ZA', 'name' => 'South Africa'),

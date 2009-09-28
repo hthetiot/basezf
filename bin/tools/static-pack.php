@@ -16,7 +16,8 @@ ini_set('memory_limit', '256M');
 /**
  * Main Class
  */
-class staticPack {
+class staticPack
+{
 
     /**
      * Available Adapters

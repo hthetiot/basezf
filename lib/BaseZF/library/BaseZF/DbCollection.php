@@ -253,8 +253,8 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      *
      * @return $this for more fluent interface
      */
-    final public function setRealTime($realtime = true) {
-
+    final public function setRealTime($realtime = true)
+    {
         $this->_realtime = $realtime;
 
         return $this;

@@ -155,6 +155,7 @@ abstract class BaseZF_Framework_Controller_Action_Uwa extends BaseZF_Framework_C
     }
 }
 
-Class BaseZF_Framework_Controller_Action_Uwa_Exception extends BaseZF_Exception {}
-
+Class BaseZF_Framework_Controller_Action_Uwa_Exception extends BaseZF_Exception
+{
+}
 

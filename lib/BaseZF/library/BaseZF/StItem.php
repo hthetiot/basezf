@@ -8,7 +8,8 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-class BaseZF_StItem extends ArrayObject {
+class BaseZF_StItem extends ArrayObject
+{
 
     /**
      * Encrypt ids key
@@ -39,7 +40,8 @@ class BaseZF_StItem extends ArrayObject {
     /**
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -86,5 +88,7 @@ class BaseZF_StItem extends ArrayObject {
     }
 }
 
-class BaseZF_StItem_Exception extends BaseZF_Exception {}
+class BaseZF_StItem_Exception extends BaseZF_Exception
+{
+}
 

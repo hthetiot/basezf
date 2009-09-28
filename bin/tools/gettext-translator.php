@@ -16,13 +16,15 @@ ini_set('memory_limit', '256M');
 /**
  * Main Class
  */
-class gettextTranslator {
+class gettextTranslator
+{
 
     protected $_fileHeader = array();
     protected $_fileData = array();
     protected $_fileStats = array();
 
-    public function __construct() {
+    public function __construct()
+    {
 
     }
 

@@ -8,8 +8,6 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-$t_start = microtime(true);
-
 //---------------------------------------------------------------------------
 // Set PHP Errors Reporting
 
@@ -26,16 +24,16 @@ date_default_timezone_set('Europe/Paris');
 //---------------------------------------------------------------------------
 // Define usefull paths
 
-define('BASE_PATH',          realpath(dirname(__FILE__) . '/..'));
-define('INCLUDE_PATH',       realpath(dirname(__FILE__)));
-define('BIN_PATH',           BASE_PATH . '/bin');
-define('LIBRARY_PATH',       BASE_PATH . '/lib');
-define('PUBLIC_PATH',        BASE_PATH . '/public');
-define('APPLICATION_PATH',   BASE_PATH . '/app');
-define('CONFIG_PATH',        BASE_PATH . '/etc');
-define('DATA_PATH',          BASE_PATH . '/data');
-define('LOG_PATH',           DATA_PATH . '/log');
-define('LOCALES_PATH',       BASE_PATH . '/locale');
+define('BASE_PATH', realpath(dirname(__FILE__) . '/..'));
+define('INCLUDE_PATH', realpath(dirname(__FILE__)));
+define('BIN_PATH', BASE_PATH . '/bin');
+define('LIBRARY_PATH', BASE_PATH . '/lib');
+define('PUBLIC_PATH', BASE_PATH . '/public');
+define('APPLICATION_PATH', BASE_PATH . '/app');
+define('CONFIG_PATH', BASE_PATH . '/etc');
+define('DATA_PATH', BASE_PATH . '/data');
+define('LOG_PATH', DATA_PATH . '/log');
+define('LOCALES_PATH', BASE_PATH . '/locale');
 
 //---------------------------------------------------------------------------
 // Include missing functions from library path
@@ -56,8 +54,8 @@ if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(INCLUDE_PATH . '/auto_prepe
 //---------------------------------------------------------------------------
 // Application options
 
-define_if_not('APPLICATION_ENV',  'production');
-define_if_not('APPLICATION_CONFIG',   CONFIG_PATH . '/config.ini');
+define_if_not('APPLICATION_ENV', 'production');
+define_if_not('APPLICATION_CONFIG', CONFIG_PATH . '/config.ini');
 
 //---------------------------------------------------------------------------
 // External variable env
@@ -92,9 +90,9 @@ define_if_not('MYPROJECT_PATH', LIBRARY_PATH . '/MyProject');
 set_include_path(
 
     // frameworks
-    ZF_PATH         . '/library' . PATH_SEPARATOR .
-    BASEZF_PATH     . '/library' . PATH_SEPARATOR .
-    MYPROJECT_PATH  . '/library' . PATH_SEPARATOR .
+    ZF_PATH . '/library' . PATH_SEPARATOR .
+    BASEZF_PATH . '/library' . PATH_SEPARATOR .
+    MYPROJECT_PATH . '/library' . PATH_SEPARATOR .
 
     // load others lib
     INCLUDE_PATH . PATH_SEPARATOR .
