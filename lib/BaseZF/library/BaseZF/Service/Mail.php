@@ -167,7 +167,7 @@ class BaseZF_Service_Mail
 
         // test email server
         $fp = @fsockopen($mxHostname, 25, $errno, $errstr, 2);
-        if ($fp)    {
+        if ($fp) {
             self::_sendCommand($fp, 'HELO ' . self::DEFAULT_HELO);
             self::_sendCommand($fp, 'MAIL FROM:<' . self::DEFAULT_FROM . '>');
             $erg = self::_sendCommand($fp, 'RCPT TO:<' . $emails . '>');

@@ -34,8 +34,8 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
      */
     protected function _buildArchive()
     {
-        foreach ($this->_files as $current)
-        {
+        foreach ($this->_files as $current) {
+
             // useless ?
             if ($current['name'] == $this->_options['path']) {
                 continue;

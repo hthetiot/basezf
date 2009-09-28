@@ -36,8 +36,7 @@ class BaseZF_Framework_View_Helper_HeadLink extends Zend_View_Helper_HeadLink
             isset($item->href) &&
             isset(self::$_prefixHref) &&
             substr_count($item->attributes['href'], 'http://') == 0
-        )
-        {
+        ) {
             $item->attributes['href'] = self::$_prefixHref . $item->attributes['href'];
         }
     }

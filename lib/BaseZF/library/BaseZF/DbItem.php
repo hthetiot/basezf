@@ -580,7 +580,7 @@ abstract class BaseZF_DbItem
             $data = $this->_loadData($ids);
             foreach ($data as $id => $row) {
 
-                if (isset($this->_instances['items'][$id])){
+                if (isset($this->_instances['items'][$id])) {
                     $item = $this->_instances['items'][$id];
                     $item->_setData($row, true);
                 }
@@ -1022,7 +1022,7 @@ abstract class BaseZF_DbItem
             }
 
             // update row
-            $db->update($this->getTable(), $properties,  $primaryKey . ' = ' . $db->quote($id));
+            $db->update($this->getTable(), $properties, $primaryKey . ' = ' . $db->quote($id));
 
             // clear cache
             $cache->remove($this->_getCacheKey());

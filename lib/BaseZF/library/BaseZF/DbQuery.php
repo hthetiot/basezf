@@ -692,8 +692,7 @@ class BaseZF_DbQuery
 
     public function fetch()
     {
-        if (!$this->_firtFetch)
-        {
+        if (!$this->_firtFetch) {
             return $this->next();
         }
 

@@ -110,8 +110,8 @@ if (!function_exists('array_set_current')) {
 
 if (!function_exists('uasort_by_length')) {
 
-    function uasort_by_length_callback($a,$b) {
-
+    function uasort_by_length_callback($a,$b)
+    {
         // return isset($b[strlen($a) - 1]); // Jviveret say it more fast
         return strlen($b)-strlen($a);
     }
@@ -130,8 +130,8 @@ if (!function_exists('uasort_by_length')) {
 
 if (!function_exists('uksort_by_length')) {
 
-    function uksort_by_length_callback($a,$b) {
-
+    function uksort_by_length_callback($a,$b)
+    {
         // return isset($b[strlen($a) - 1]); // Jviveret say it more fast
         return strlen($b)-strlen($a);
     }
@@ -173,7 +173,8 @@ if (!function_exists('mb_ucfirst')) {
     /**
      * @todo doc
      */
-    function mb_ucfirst($string, $encoding = 'UTF-8') {
+    function mb_ucfirst($string, $encoding = 'UTF-8')
+    {
         if ($encoding) {
             return mb_strtoupper(mb_substr($string, 0, 1, $encoding), $encoding) . mb_substr($string, 1, mb_strlen($string, $encoding) - 1, $encoding);
         } else {
@@ -384,7 +385,7 @@ if (!function_exists('implode_assoc')) {
         $output = array();
 
         // Create a collection of the inner key-value pairs and glue them as indicated by the $options
-        foreach($array as $key=>$item) {
+        foreach ($array as $key=>$item) {
 
             // If not skipping empty values OR if the item evaluates to true.
             // i.e. If $skip_empty is true then check to see if the array item's value evaluates to true.

@@ -69,7 +69,7 @@ class BaseZF_Framework_Controller_Plugin_NotModifiedCache extends Zend_Controlle
         $DoIDsMatch = (isset($headers['If-None-Match']) && strpos($headers['If-None-Match'], $hashID) !== false);
 
         // Does one of the two ways apply?
-        if (!$PageWasUpdated or $DoIDsMatch){
+        if (!$PageWasUpdated or $DoIDsMatch) {
 
             // Okay, the browser already has the
             // latest version of our page in his
