@@ -12,7 +12,7 @@ class BaseZF_Framework_View_Helper_FormInfo extends Zend_View_Helper_FormElement
 {
     public function formInfo($name, $value = null, $attribs = array(), $options = null)
     {
-		$info = $this->_getInfo($name, $value, $attribs, $options);
+        $info = $this->_getInfo($name, $value, $attribs, $options);
 
         extract($info); // name, id, value, attribs, options, listsep, disable
 

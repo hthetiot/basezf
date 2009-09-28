@@ -108,7 +108,7 @@ abstract class BaseZF_Framework_Controller_Action_Uwa extends BaseZF_Framework_C
      */
     protected function _setPreferenceValue($name, $value)
     {
-        if(!isset($this->view->widget->preferences[$name])) {
+        if (!isset($this->view->widget->preferences[$name])) {
             throw new BaseZF_Framework_Controller_Action_Uwa_Exception('Unable to find preference "' . $name . '", please add preference before set a new value');
         }
 

@@ -16,7 +16,7 @@ class BaseZF_Framework_View_Helper_UwaWidgetPreferences extends BaseZF_Framework
         $xhtml[] = '<widget:preferences>';
 
          // render Widget preferences
-        foreach($widgetPreferences as $name => $data) {
+        foreach ($widgetPreferences as $name => $data) {
 
             $tagAttribs = array(
                 'name'          => $name,

@@ -432,7 +432,7 @@ class BaseZF_DbQuery
     {
         if (!$this->_useCacheKeyByRows()) {
 
-            if(is_null($cacheKey)) {
+            if (is_null($cacheKey)) {
                 $cacheKey = $this->getCacheKey();
             }
 
@@ -718,7 +718,7 @@ class BaseZF_DbQuery
      */
     private function _getQueryFields()
     {
-        if( !$this->_queryFields ) {
+        if ( !$this->_queryFields ) {
             //parse query if field list is not specified
             $this->_queryFields = $this->_parseQueryFields();
         }
@@ -735,7 +735,7 @@ class BaseZF_DbQuery
         $query = preg_replace("|\s+|"," ",$this->_query);
         $pattern = "|SELECT(?: DISTINCT)? (.+) FROM |i";
 
-        if(!preg_match($pattern,$query,$fields)) return false;
+        if (!preg_match($pattern,$query,$fields)) return false;
 
         $fields = array_map('trim', explode(',', $fields[1]));
         $pattern = "/((?:.+(?: AS (?P<alias>\w+)))|(?:(?P<just_field>.+)))/i";
@@ -768,7 +768,7 @@ class BaseZF_DbQuery
 
         if (!is_array($cacheKey)) {
 
-            if(!$value = $cache->load($cacheKey)) {
+            if (!$value = $cache->load($cacheKey)) {
                 throw new BaseZF_DbQuery_Exception('value for cache key "' . $cacheKey . '" not found');
             }
 

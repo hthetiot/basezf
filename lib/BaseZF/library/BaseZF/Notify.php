@@ -94,7 +94,7 @@ class BaseZF_Notify
         if (is_array($notifierIds)) {
 
             $return = array();
-            foreach($notifierIds as $notifierId) {
+            foreach ($notifierIds as $notifierId) {
                 $return[$notifierId] = $this->get($notifierId, $destruct);
             }
 

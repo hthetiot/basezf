@@ -156,7 +156,7 @@ abstract class BaseZF_DbItem
 
             Zend_Loader::loadClass($classItem);
 
-            if(!class_exists($classItem, true)) {
+            if (!class_exists($classItem, true)) {
                 throw new Exception('not existing class '. $classItem);
             }
 
@@ -182,7 +182,7 @@ abstract class BaseZF_DbItem
      */
     public static function getInstance($table, $id = null, $realtime = false, $class = null)
     {
-        if(empty($table)) {
+        if (empty($table)) {
            throw new BaseZF_DbItem_Exception('There no table name for BaseZF_DbItem' );
         }
 
@@ -215,7 +215,7 @@ abstract class BaseZF_DbItem
 
     final protected function _getInstances()
     {
-        if(empty($this->_instances)) {
+        if (empty($this->_instances)) {
             $this->_createInstances();
         }
 
@@ -242,7 +242,7 @@ abstract class BaseZF_DbItem
         $this->_structure = &$schema[$table];
 
         // create string of fields in fomat: <field1> AS <alias1>, <field2> AS <alias2>, ....
-        if(!isset($this->_structure['values'])) {
+        if (!isset($this->_structure['values'])) {
             foreach ($this->_structure['fields'] as $field => $type) {
                 $value = $table . '.' . $field;
                 $this->_structure['values'][$field] = $value . ' AS ' . $field;
@@ -267,7 +267,7 @@ abstract class BaseZF_DbItem
     {
         $oldId = $this->getId();
 
-        if(!is_null($id) && !is_numeric($id)) {
+        if (!is_null($id) && !is_numeric($id)) {
             $id = self::getIdFromExtendedId($id);
         }
 
@@ -275,16 +275,16 @@ abstract class BaseZF_DbItem
         //  1. the mysql_fetch_row() always return string values
         //  2. some DbObject class doesn't use numerical primary key, so
         //     we have to ensure the key is numeric before to cast it
-        if(is_numeric($id)) {
+        if (is_numeric($id)) {
             $id = (int) $id;
         }
 
         $this->_id = $id;
 
-        if($oldId != $id) {
-            if(!empty($oldId))
+        if ($oldId != $id) {
+            if (!empty($oldId))
                 unset($this->_instances['items'][$oldId]);
-            if(!empty($id))
+            if (!empty($id))
                 $this->_instances['items'][$id] = $this;
         }
 
@@ -309,12 +309,12 @@ abstract class BaseZF_DbItem
      */
     final static public function getIdFromExtendedId($id)
     {
-        if(is_numeric($id)) {
+        if (is_numeric($id)) {
             return $id;
         }
 
         // if id start with an x, it's an ASCII id, we have to decode it
-        if(preg_match('/^x(.*)$/', $id, $m)) {
+        if (preg_match('/^x(.*)$/', $id, $m)) {
             $id = base_convert($m[1], 36, 10) - self::EXTENTED_ID_INCREMENT;
         } else {
             return null;
@@ -393,7 +393,7 @@ abstract class BaseZF_DbItem
     final public function setRealTime($realtime = true)
     {
         $this->_realtime = $realtime;
-        if($realtime) {
+        if ($realtime) {
             $this->_data = array();
         }
         return $this;
@@ -447,10 +447,10 @@ abstract class BaseZF_DbItem
 
     public function getProperty($property)
     {
-        if($this->isPropertyModified($property))
+        if ($this->isPropertyModified($property))
            return $this->_modified[$property];
 
-        if(!$this->isPropertyLoaded($property))
+        if (!$this->isPropertyLoaded($property))
             $this->_loadProperty($property);
 
         if (!$this->isPropertyLoaded($property)) {
@@ -476,11 +476,11 @@ abstract class BaseZF_DbItem
 
     public function setProperty($property, $value)
     {
-        if(!isset($this->_structure['fields'][$property])) {
+        if (!isset($this->_structure['fields'][$property])) {
             throw new BaseZF_DbItem_Exception('Unable to set value to property "' . $this->getTable() . ':' . $property . '". Property is not found in structure.');
         }
 
-        if($this->_checkValueSame && $this->isPropertyLoaded($property) && $value === $this->_data[$property]) return $this;
+        if ($this->_checkValueSame && $this->isPropertyLoaded($property) && $value === $this->_data[$property]) return $this;
 
         // empty string value is null value;
         if (mb_strlen(trim($value)) == 0) {
@@ -499,7 +499,7 @@ abstract class BaseZF_DbItem
 
     public function setProperties($data)
     {
-        if(!is_array($data)) {
+        if (!is_array($data)) {
             throw new BaseZF_DbItem_Exception('Unable to data to item: data is not an array');
         }
 
@@ -521,7 +521,7 @@ abstract class BaseZF_DbItem
 
     public function setVirtualProperty($property, $value, $propertyDependency = null) {
 
-        if(isset($this->_structure['fields'][$property])) {
+        if (isset($this->_structure['fields'][$property])) {
             throw new BaseZF_DbItem_Exception('Unable to set value to virtual property "' . $this->getTable() . ':' . $property . '". Field with same name exists in database.');
         }
 
@@ -557,10 +557,10 @@ abstract class BaseZF_DbItem
 
         foreach ($ids as $id) {
             $item = isset($this->_instances['items'][$id]) ? $item = $this->_instances['items'][$id] : false;
-            if(!$item || !$item->isPropertyLoaded($property)) {
+            if (!$item || !$item->isPropertyLoaded($property)) {
                 $result[] = $id;
                 $limit--;
-                if($limit <= 0) break;
+                if ($limit <= 0) break;
             }
         }
 
@@ -569,7 +569,7 @@ abstract class BaseZF_DbItem
 
     protected function _massLoadProperty($ids, $property)
     {
-        if(empty($ids) || !is_array($ids)) {
+        if (empty($ids) || !is_array($ids)) {
             return $this;
         }
 
@@ -579,7 +579,7 @@ abstract class BaseZF_DbItem
             $data = $this->_loadData($ids);
             foreach ($data as $id => $row) {
 
-                if(isset($this->_instances['items'][$id])){
+                if (isset($this->_instances['items'][$id])){
                     $item = $this->_instances['items'][$id];
                     $item->_setData($row, true);
                 }
@@ -644,7 +644,7 @@ abstract class BaseZF_DbItem
         if (!isset($this->_dependency[$property])) {
             $this->_dependency[$property] = array();
         }
-        if(!in_array($dependProperty, $this->_dependency[$property])) {
+        if (!in_array($dependProperty, $this->_dependency[$property])) {
             $this->_dependency[$property][] = $dependProperty;
         }
         return $this;
@@ -682,7 +682,7 @@ abstract class BaseZF_DbItem
     {
         $camelCaseProperty = str_replace(' ', '', ucwords(str_replace('_', ' ', $property)));
         $methodName = 'get' . $camelCaseProperty . 'Validator';
-        if(is_callable(array($this, $methodName))) {
+        if (is_callable(array($this, $methodName))) {
 
             $validator = call_user_func(array($this, $methodName));
 
@@ -705,8 +705,8 @@ abstract class BaseZF_DbItem
 
     protected function _getCacheKey($id = null, $table = null)
     {
-        if(is_null($id)) $id = $this->getId();
-        if(is_null($table)) $table = $this->getTable();
+        if (is_null($id)) $id = $this->getId();
+        if (is_null($table)) $table = $this->getTable();
 
         return 'dbItem_' . $table . '_' . $id ;
     }
@@ -743,7 +743,7 @@ abstract class BaseZF_DbItem
         $fields = array_keys($this->_structure['fields']);
         $cacheKeyTemplate = $this->_getCacheKey(self::_CACHE_KEY_TEMPLATE);
 
-        if($realTime === null) {
+        if ($realTime === null) {
             $realTime = $this->isRealTime();
         }
 
@@ -791,7 +791,7 @@ abstract class BaseZF_DbItem
 
         $this->_data = array_merge($this->_data, $data);
 
-        if($isLoaded) {
+        if ($isLoaded) {
             $this->_setLoaded();
         }
 
@@ -800,7 +800,7 @@ abstract class BaseZF_DbItem
 
     protected function _propertyToDbItemFormat($property, &$data)
     {
-        if(
+        if (
             !($type = $this->getFieldType($property)) ||
             !isset($data[$property]) ||
             mb_strlen($data[$property]) == 0
@@ -825,7 +825,7 @@ abstract class BaseZF_DbItem
 
     protected function _propertyToDbFormat($property, &$data)
     {
-        if(
+        if (
             !($type = $this->getFieldType($property)) ||
             !isset($data[$property]) ||
             mb_strlen($data[$property]) == 0
@@ -858,9 +858,9 @@ abstract class BaseZF_DbItem
     public function insert()
     {
         // ignore not modified
-        if(!$this->isModified()) return $this;
+        if (!$this->isModified()) return $this;
 
-        if($id = $this->_insert($this->_modified)) {
+        if ($id = $this->_insert($this->_modified)) {
 
             $this->setId($id);
             $this->_setData($this->_modified);
@@ -875,7 +875,7 @@ abstract class BaseZF_DbItem
      */
     public static function massInsert($items)
     {
-        if(empty($items) || !is_array($items)) {
+        if (empty($items) || !is_array($items)) {
             return false;
         }
 
@@ -909,7 +909,7 @@ abstract class BaseZF_DbItem
      */
     protected function _insert($properties)
     {
-        if(empty($properties)) return false;
+        if (empty($properties)) return false;
 
         $db = $this->_getDbInstance();
         $cache = $this->_getCacheInstance();
@@ -949,9 +949,9 @@ abstract class BaseZF_DbItem
     public function update()
     {
         // ignore not modified
-        if(!$this->isModified()) return $this;
+        if (!$this->isModified()) return $this;
 
-        if($this->_update($this->_id, $this->_modified)) {
+        if ($this->_update($this->_id, $this->_modified)) {
             $this->_setData($this->_modified);
             $this->_modified = array();
         }
@@ -964,7 +964,7 @@ abstract class BaseZF_DbItem
      */
     final public static function massUpdate($items)
     {
-        if(empty($items) || !is_array($items)) return false;
+        if (empty($items) || !is_array($items)) return false;
 
         reset($items);
         $current = current($items);
@@ -1006,8 +1006,8 @@ abstract class BaseZF_DbItem
      */
     protected function _update($id, $properties)
     {
-        if(empty($id)) return false;
-        if(empty($properties)) return false;
+        if (empty($id)) return false;
+        if (empty($properties)) return false;
 
         $db = $this->_getDbInstance();
         $cache = $this->_getCacheInstance();
@@ -1044,7 +1044,7 @@ abstract class BaseZF_DbItem
     public function delete()
     {
         $id = $this->_id;
-        if(empty($id)) return $this;
+        if (empty($id)) return $this;
 
         $this->_delete($id);
         $this->setId(null);
@@ -1064,7 +1064,7 @@ abstract class BaseZF_DbItem
      */
     final public static function massDelete($items)
     {
-        if(empty($items) || !is_array($items)) return false;
+        if (empty($items) || !is_array($items)) return false;
 
         $ids = array();
         foreach ($items as $item) {
@@ -1102,7 +1102,7 @@ abstract class BaseZF_DbItem
      */
     protected function _delete($ids)
     {
-        if(empty($ids)) return false;
+        if (empty($ids)) return false;
 
         $db = $this->_getDbInstance();
         $cache = $this->_getCacheInstance();
@@ -1143,7 +1143,7 @@ abstract class BaseZF_DbItem
         //@TODO: relation to collections not used now, seems like we should delete
         //this function in future or add functionality to refresh colections if item is changed
 
-        if(!in_array($collection, $this->_collections)) {
+        if (!in_array($collection, $this->_collections)) {
            $this->_collections[] = &$collection;
         }
 
@@ -1163,7 +1163,7 @@ abstract class BaseZF_DbItem
         //this function in future or add functionality to refresh colections if item is changed
 
         $key = array_search($collection, $this->_collections);
-        if($key !== FALSE) {
+        if ($key !== FALSE) {
            unset($this->_collections[$key]);
         }
 
@@ -1269,7 +1269,7 @@ abstract class BaseZF_DbItem
         $value = intval($value);
         for($i=0; $i<32; $i++) {
             $key = 1<<$i;
-            if( ($value & $key) != 0) {
+            if ( ($value & $key) != 0) {
                 $result[] =  $key ;
             }
         }
@@ -1307,13 +1307,13 @@ abstract class BaseZF_DbItem
 
     final public function exists()
     {
-        if(empty($this->_id)) {
+        if (empty($this->_id)) {
             return false;
         }
 
         $property = $this->getPrimaryKey();
 
-        if(!$this->isPropertyLoaded($property)) {
+        if (!$this->isPropertyLoaded($property)) {
             $this->_loadProperty($property);
         }
 
@@ -1329,7 +1329,7 @@ abstract class BaseZF_DbItem
      */
     final public function isEqual($object)
     {
-        if(get_class($object) != get_class($this)) {
+        if (get_class($object) != get_class($this)) {
             return false;
         }
 
@@ -1381,7 +1381,7 @@ abstract class BaseZF_DbItem
      */
     public function __destruct()
     {
-        if(!empty($this->_id)) {
+        if (!empty($this->_id)) {
             unset($this->_instances['items'][$this->_id]);
         }
     }

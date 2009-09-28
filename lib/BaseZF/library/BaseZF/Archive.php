@@ -85,7 +85,7 @@ class BaseZF_Archive
         }
 
         // compare mine types
-        foreach(self::$_availableFormats as $formatExtention => $format) {
+        foreach (self::$_availableFormats as $formatExtention => $format) {
 
             $className = self::_getClassNameByFormat($format);
             $formatMimeType = call_user_func($className .'::getFileMimeType');

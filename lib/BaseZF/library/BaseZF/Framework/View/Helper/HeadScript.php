@@ -81,7 +81,7 @@ class BaseZF_Framework_View_Helper_HeadScript extends Zend_View_Helper_HeadScrip
         // search pack
         foreach (self::$_packsConfig as $packPath => $items) {
 
-            if(in_array($item->attributes['src'], $items)) {
+            if (in_array($item->attributes['src'], $items)) {
                 $matchPackPath = $packPath;
             }
         }
@@ -128,7 +128,7 @@ class BaseZF_Framework_View_Helper_HeadScript extends Zend_View_Helper_HeadScrip
         // looking for packs
         $items = array();
         foreach ($this as $item) {
-            if($itemPack = $this->_getItemPack($item)) {
+            if ($itemPack = $this->_getItemPack($item)) {
                 $items[] = $this->itemToString($itemPack, $indent, $escapeStart, $escapeEnd);
             }
         }

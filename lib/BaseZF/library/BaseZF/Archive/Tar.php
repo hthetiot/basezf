@@ -129,19 +129,19 @@ class BaseZF_Archive_Tar extends BaseZF_Archive_Abstract
 
                 // unknow value have 0 or -1 look http://php.net/stat for details
                 'stat'      => array(
-                    0   => 0,                        // 0  	dev  	device number
-                    1   => 0,                        // 1 	ino 	inode number *
-                    2   => $temp['mode'],            // 2 	mode 	inode protection mode
-                    3   => 0,                        // 3 	nlink 	number of links
-                    4   => octdec($temp['uid']),     // 4 	uid 	userid of owner *
-                    5   => octdec($temp['gid']),     // 5 	gid 	groupid of owner *
-                    6   => 0,                        // 6 	rdev 	device type, if inode device
-                    7   => octdec($temp['size']),    // 7 	size 	size in bytes
-                    8   => time(),                   // 8 	atime 	time of last access (Unix timestamp)
-                    9   => octdec($temp['mtime']),   // 9 	mtime 	time of last modification (Unix timestamp)
-                    10  => octdec($temp['mtime']),   // 10 	ctime 	time of last inode change (Unix timestamp)
-                    11  => -1,                       // 11 	blksize blocksize of filesystem IO **
-                    12  => -1,                       // 12 	blocks 	number of blocks allocated **
+                    0   => 0,                        // 0      dev      device number
+                    1   => 0,                        // 1     ino     inode number *
+                    2   => $temp['mode'],            // 2     mode     inode protection mode
+                    3   => 0,                        // 3     nlink     number of links
+                    4   => octdec($temp['uid']),     // 4     uid     userid of owner *
+                    5   => octdec($temp['gid']),     // 5     gid     groupid of owner *
+                    6   => 0,                        // 6     rdev     device type, if inode device
+                    7   => octdec($temp['size']),    // 7     size     size in bytes
+                    8   => time(),                   // 8     atime     time of last access (Unix timestamp)
+                    9   => octdec($temp['mtime']),   // 9     mtime     time of last modification (Unix timestamp)
+                    10  => octdec($temp['mtime']),   // 10     ctime     time of last inode change (Unix timestamp)
+                    11  => -1,                       // 11     blksize blocksize of filesystem IO **
+                    12  => -1,                       // 12     blocks     number of blocks allocated **
                 ),
             );
 

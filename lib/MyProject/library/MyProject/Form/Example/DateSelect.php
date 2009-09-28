@@ -15,35 +15,35 @@ class MyProject_Form_Example_DateSelect extends BaseZF_Framework_Form
     public function init()
     {
         $this->addElement('info', 'info1', array(
-			'label'		=> __('Date Select Samples'),
-			'messages'	=> array(
+            'label'        => __('Date Select Samples'),
+            'messages'    => array(
                 '@todo',
-			),
-		));
+            ),
+        ));
 
         $this->addElement('date', 'date1', array(
-			'label'     => __('Simple:'),
+            'label'     => __('Simple:'),
             'required'  => true,
-		));
+        ));
 
         $this->addElement('date', 'date2', array(
-			'label'     => __('Special Format:'),
+            'label'     => __('Special Format:'),
             'required'  => true,
             'format'    => array('d', 'm', 'Y')
-		));
+        ));
 
         $this->addElement('date', 'date3', array(
-			'label'		=> __('Limited date range:'),
+            'label'        => __('Limited date range:'),
             'required'  => true,
             'years'     => range(date('Y')-1, date('Y')),
-		));
+        ));
 
-		$this->addDisplayGroup(array(
+        $this->addDisplayGroup(array(
             'info1',
-			'date1',
+            'date1',
             'date2',
             'date3',
-		), 'personal_information');
+        ), 'personal_information');
 
         $this->getDisplayGroup('personal_information')->setLegend(__('Date Select Samples'));
 

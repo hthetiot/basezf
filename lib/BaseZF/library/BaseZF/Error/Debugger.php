@@ -94,7 +94,7 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
             <h3>COOKIES Parameters:</h3>
             <pre class="debug"><?php
 
-                if($cookies = $this->getCookiesParams()) {
+                if ($cookies = $this->getCookiesParams()) {
                     var_dump($cookies);
                 } else {
                     echo 'No Cookies initialized or empty.';
@@ -107,7 +107,7 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
             <h3>SESSION Parameters:</h3>
             <pre class="debug"><?php
 
-                if($session = $this->getSessionParams()) {
+                if ($session = $this->getSessionParams()) {
                     var_dump($session);
                 } else {
                     echo 'No Session initialized or empty.';

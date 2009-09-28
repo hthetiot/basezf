@@ -27,7 +27,7 @@ class BaseZF_StItem extends ArrayObject {
     {
         $this->_id = self::getIdFromExtendedId($id);
 
-        if(!is_array($properties)) {
+        if (!is_array($properties)) {
             $item = array('value' => $properties);
         }
 
@@ -61,12 +61,12 @@ class BaseZF_StItem extends ArrayObject {
      */
     final static public function getIdFromExtendedId($id)
     {
-        if(is_numeric($id)) {
+        if (is_numeric($id)) {
             return $id;
         }
 
         // if id start with an x, it's an ASCII id, we have to decode it
-        if(preg_match('/^x(.*)$/', $id, $m)) {
+        if (preg_match('/^x(.*)$/', $id, $m)) {
             $id = base_convert($m[1], 36, 10) - self::EXTENTED_ID_INCREMENT;
         } else {
             return null;

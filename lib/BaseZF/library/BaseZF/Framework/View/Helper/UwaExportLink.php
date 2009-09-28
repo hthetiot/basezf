@@ -37,7 +37,7 @@ class BaseZF_Framework_View_Helper_UwaExportLink extends BaseZF_Framework_View_H
             case 'jil':
             case 'vista':
             case 'blogger':
-				$url = $uwaServerUrl . '/widget/' . $environmentName . '?uwaUrl=' . urlencode($widgetUrl) . $optionsParams;
+                $url = $uwaServerUrl . '/widget/' . $environmentName . '?uwaUrl=' . urlencode($widgetUrl) . $optionsParams;
                 break;
 
             default:

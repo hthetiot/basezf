@@ -59,13 +59,13 @@ class gettextTranslator {
 
         foreach ($lines as $nbline => $line) {
 
-            if(trim($line) == '' ) {
+            if (trim($line) == '' ) {
 
                 // Blank line, go back to base status:
-                if($status == 't' && !empty($msgid)) {
+                if ($status == 't' && !empty($msgid)) {
 
                     // End of a translation
-                    if(empty($msgstr)) {
+                    if (empty($msgstr)) {
                          $this->_fileStats['untranslated']++;
                     } else {
                         $this->_fileStats['translated']++;
@@ -89,26 +89,26 @@ class gettextTranslator {
                 $sources = array();
 
             // Encountered an original text
-            } elseif(($status == '-') && preg_match( '#^msgid "(.*)"#', $line, $matches)) {
+            } elseif (($status == '-') && preg_match( '#^msgid "(.*)"#', $line, $matches)) {
 
                 $status = 'o';
                 $msgid = $matches[1];
                 $this->_fileStats['translation']++;
 
             // Encountered a translated text
-            } elseif(($status == 'o') && preg_match( '#^msgstr "(.*)"#', $line, $matches)) {
+            } elseif (($status == 'o') && preg_match( '#^msgstr "(.*)"#', $line, $matches)) {
 
                 $status = 't';
                 $msgstr = $matches[1];
 
             // Encountered a translated text
-            } elseif(($status == 'o') && preg_match( '#^msgstr ""#', $line, $matches)) {
+            } elseif (($status == 'o') && preg_match( '#^msgstr ""#', $line, $matches)) {
 
                 $status = 't';
                 $msgstr = '';
 
             // Encountered a followup line
-            } elseif(preg_match('/^"(.*)"/', $line, $matches)) {
+            } elseif (preg_match('/^"(.*)"/', $line, $matches)) {
 
                 if ($status == 'o') {
                     $msgid .= "\n" .$matches[1];
@@ -117,14 +117,14 @@ class gettextTranslator {
                 }
 
             // Encountered a source code location comment
-            } elseif(($status == '-') && preg_match( '@^#:(.*)@', $line, $matches)) {
+            } elseif (($status == '-') && preg_match( '@^#:(.*)@', $line, $matches)) {
 
                 $sources[] = trim($matches[1]);
-            } elseif(($status == '-') && preg_match( '@^#(.*)@', $line, $matches) && empty($this->_fileData)) {
+            } elseif (($status == '-') && preg_match( '@^#(.*)@', $line, $matches) && empty($this->_fileData)) {
 
                 $this->_fileHeader[] = $matches[1];
 
-            } elseif(strpos($line,'#, fuzzy') === 0) {
+            } elseif (strpos($line,'#, fuzzy') === 0) {
                 $this->_fileStats['fuzzy']++;
                 $isFuzzy = true;
             }
@@ -250,7 +250,7 @@ class gettextTranslator {
         $html = curl_exec($ch);
 
         // empty if error
-        if(curl_errno($ch)) {
+        if (curl_errno($ch)) {
             return '';
         }
 
@@ -287,7 +287,7 @@ function usage()
 }
 
 // handle missing agruments
-if( count($_SERVER['argv']) < 3 ) {
+if ( count($_SERVER['argv']) < 3 ) {
     usage();
     return;
 }

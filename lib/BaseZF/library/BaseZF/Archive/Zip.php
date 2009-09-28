@@ -162,11 +162,11 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
             if (!$this->_options['inmemory']) {
 
                 $fullPath = '';
-                foreach(explode(DIRECTORY_SEPARATOR ,$completePath) as $path) {
+                foreach (explode(DIRECTORY_SEPARATOR ,$completePath) as $path) {
 
                     $fullPath .= $path . DIRECTORY_SEPARATOR;
 
-                    if(!is_dir($fullPath)) {
+                    if (!is_dir($fullPath)) {
                         mkdir($fullPath, 0777);
                     }
                 }
@@ -198,19 +198,19 @@ class BaseZF_Archive_Zip extends BaseZF_Archive_Abstract
 
                         // unknow value have 0 or -1 look http://php.net/stat for details
                         'stat' => array(
-                            0   => 0,               // 0  	dev  	device number
-                            1   => 0,               // 1 	ino 	inode number *
-                            2   => 0,               // 2 	mode 	inode protection mode
-                            3   => 0,               // 3 	nlink 	number of links
-                            4   => 0,               // 4 	uid 	userid of owner *
-                            5   => 0,               // 5 	gid 	groupid of owner *
-                            6   => 0,               // 6 	rdev 	device type, if inode device
-                            7   => $zipEntrySize,   // 7 	size 	size in bytes
-                            8   => time(),          // 8 	atime 	time of last access (Unix timestamp)
-                            9   => time(),          // 9 	mtime 	time of last modification (Unix timestamp)
-                            10  => time(),          // 10 	ctime 	time of last inode change (Unix timestamp)
-                            11  => -1,              // 11 	blksize blocksize of filesystem IO **
-                            12  => -1,              // 12 	blocks 	number of blocks allocated **
+                            0   => 0,               // 0      dev      device number
+                            1   => 0,               // 1     ino     inode number *
+                            2   => 0,               // 2     mode     inode protection mode
+                            3   => 0,               // 3     nlink     number of links
+                            4   => 0,               // 4     uid     userid of owner *
+                            5   => 0,               // 5     gid     groupid of owner *
+                            6   => 0,               // 6     rdev     device type, if inode device
+                            7   => $zipEntrySize,   // 7     size     size in bytes
+                            8   => time(),          // 8     atime     time of last access (Unix timestamp)
+                            9   => time(),          // 9     mtime     time of last modification (Unix timestamp)
+                            10  => time(),          // 10     ctime     time of last inode change (Unix timestamp)
+                            11  => -1,              // 11     blksize blocksize of filesystem IO **
+                            12  => -1,              // 12     blocks     number of blocks allocated **
                         ),
                     );
                 } else if (!$this->_options['overwrite'] && file_exists($completeName)) {

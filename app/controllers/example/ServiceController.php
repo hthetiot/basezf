@@ -17,7 +17,7 @@ class Example_ServiceController extends BaseZF_Framework_Controller_Action_Uwa
     {
         Zend_XmlRpc_Server_Fault::attachFaultException('Exception');
 
-		$server = new Zend_XmlRpc_Server();
+        $server = new Zend_XmlRpc_Server();
         $server->setClass('MyProject_BL_Member', 'member');
 
         header('Content-Type: text/xml');
@@ -32,8 +32,8 @@ class Example_ServiceController extends BaseZF_Framework_Controller_Action_Uwa
         $member = $client->getProxy('member');
 
         echo '<hr />';
-			echo "Available methods: \n";
-			print_r($system->listMethods());
+            echo "Available methods: \n";
+            print_r($system->listMethods());
             exit();
 
     }

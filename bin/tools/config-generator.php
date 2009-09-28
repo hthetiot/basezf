@@ -54,17 +54,17 @@ class configGenerator {
      */
     public function __construct($destDir, $tplDir)
     {
-	// check params
-	if (!is_dir($destDir)) {
-	    throw new Exception('Non existing config destination dir "' . $destDir . '"');
-	}
+    // check params
+    if (!is_dir($destDir)) {
+        throw new Exception('Non existing config destination dir "' . $destDir . '"');
+    }
 
-	if (!is_dir($tplDir)) {
-	    throw new Exception('Non existing config template dir "' . $tplDir . '"');
-	}
+    if (!is_dir($tplDir)) {
+        throw new Exception('Non existing config template dir "' . $tplDir . '"');
+    }
 
-	$this->_destDir = $destDir;
-	$this->_tplDir = $tplDir;
+    $this->_destDir = $destDir;
+    $this->_tplDir = $tplDir;
     }
 
     /**
@@ -72,22 +72,22 @@ class configGenerator {
      */
     public function ask($string, $length = 1024)
     {
-	static $tty;
+    static $tty;
 
-	if (!isset($tty)) {
+    if (!isset($tty)) {
 
-	    if (substr(PHP_OS, 0, 3) == "WIN") {
-		$tty = fOpen("\con", "rb");
-	    } else {
-		if (!($tty = fOpen("/dev/tty", "r"))) {
-		    $tty = fOpen("php://stdin", "r");
-		}
-	    }
-	}
+        if (substr(PHP_OS, 0, 3) == "WIN") {
+        $tty = fOpen("\con", "rb");
+        } else {
+        if (!($tty = fOpen("/dev/tty", "r"))) {
+            $tty = fOpen("php://stdin", "r");
+        }
+        }
+    }
 
-	echo $string;
-	$result = trim(fGets($tty, $length));
-	return $result;
+    echo $string;
+    $result = trim(fGets($tty, $length));
+    return $result;
     }
 
     /**
@@ -95,82 +95,82 @@ class configGenerator {
      */
     public function configure()
     {
-	$tplFiles = glob($this->_tplDir . '/*' . self::CONFIG_TEMPLATE_PREFFIX);
+    $tplFiles = glob($this->_tplDir . '/*' . self::CONFIG_TEMPLATE_PREFFIX);
 
-	// display help
-	echo 'Notice: tape "skip" to skip file, press Enter for default value.' . "\n";
+    // display help
+    echo 'Notice: tape "skip" to skip file, press Enter for default value.' . "\n";
 
-	$filesVarsValues = array();
-	foreach ($tplFiles as $tplFile) {
+    $filesVarsValues = array();
+    foreach ($tplFiles as $tplFile) {
 
-	    $destFile = str_replace(array($this->_tplDir, self::CONFIG_TEMPLATE_PREFFIX), array($this->_destDir, ''), $tplFile);
-	    $fileVarsValues = array();
-	    $fileVars = $this->_getTemplateVars($tplFile);
+        $destFile = str_replace(array($this->_tplDir, self::CONFIG_TEMPLATE_PREFFIX), array($this->_destDir, ''), $tplFile);
+        $fileVarsValues = array();
+        $fileVars = $this->_getTemplateVars($tplFile);
 
-	    // override current destination file
-	    if (is_file($destFile)) {
+        // override current destination file
+        if (is_file($destFile)) {
 
-		$buffer = null;
-		while (!in_array(strtolower($buffer), array('y', 'n', 'skip'))) {
+        $buffer = null;
+        while (!in_array(strtolower($buffer), array('y', 'n', 'skip'))) {
 
-		    $buffer = $this->ask('Overvrite existing config file "' . $destFile . '" [y/N] ? ');
+            $buffer = $this->ask('Overvrite existing config file "' . $destFile . '" [y/N] ? ');
 
-		    if (empty($buffer)) {
-			$buffer = 'n';
-		    }
-		}
+            if (empty($buffer)) {
+            $buffer = 'n';
+            }
+        }
 
-		// skip file $tplFile from iteration on $tplFiles
-		if (in_array(strtolower($buffer), array('n', 'skip'))) {
-		    continue;
-		}
-	    }
+        // skip file $tplFile from iteration on $tplFiles
+        if (in_array(strtolower($buffer), array('n', 'skip'))) {
+            continue;
+        }
+        }
 
-	    // display current destination file and help
-	    echo 'Setup config file "' . $destFile . '"' . "\n";
+        // display current destination file and help
+        echo 'Setup config file "' . $destFile . '"' . "\n";
 
-	    // ask vars value to prompt
-	    foreach ($fileVars as $fileVar => $data) {
+        // ask vars value to prompt
+        foreach ($fileVars as $fileVar => $data) {
 
-		// build question
-		$question = ' - ' . $data['question'];
+        // build question
+        $question = ' - ' . $data['question'];
 
-		// add default notice in question
-		if (!empty($data['default'])) {
-		    $question .= ' [default: ' . $data['default'] . ']';
+        // add default notice in question
+        if (!empty($data['default'])) {
+            $question .= ' [default: ' . $data['default'] . ']';
 
-		// add default notice in question for same vars name
-		} else if (isset($filesVarsValues[$fileVar])) {
-		    $question .= ' [default: ' . $filesVarsValues[$fileVar]. ']';
-		}
+        // add default notice in question for same vars name
+        } else if (isset($filesVarsValues[$fileVar])) {
+            $question .= ' [default: ' . $filesVarsValues[$fileVar]. ']';
+        }
 
-		$question .= ' ? ';
+        $question .= ' ? ';
 
-		// ask until is not empty and if not have default
-		$buffer = null;
-		while (empty($buffer)) {
+        // ask until is not empty and if not have default
+        $buffer = null;
+        while (empty($buffer)) {
 
-		    $buffer = $this->ask($question);
+            $buffer = $this->ask($question);
 
-		    // skip file
-		    if (strtolower($buffer) == 'skip') {
-			break(3);
-		    //use default value
-		    } else if (empty($buffer) && !empty($data['default'])) {
-			$buffer = $data['default'];
+            // skip file
+            if (strtolower($buffer) == 'skip') {
+            break(3);
+            //use default value
+            } else if (empty($buffer) && !empty($data['default'])) {
+            $buffer = $data['default'];
 
-		    // use previous value
-		    } else if (empty($buffer) && isset($filesVarsValues[$fileVar])) {
-			$buffer = $filesVarsValues[$fileVar];
-		    }
-		}
+            // use previous value
+            } else if (empty($buffer) && isset($filesVarsValues[$fileVar])) {
+            $buffer = $filesVarsValues[$fileVar];
+            }
+        }
 
-		$fileVarsValues[$fileVar] = $buffer;
-	    }
+        $fileVarsValues[$fileVar] = $buffer;
+        }
 
-	    $filesVarsValues = array_merge($filesVarsValues, $fileVarsValues);
-	    $this->_generateTemplate($tplFile, $destFile, $fileVarsValues);
-	}
+        $filesVarsValues = array_merge($filesVarsValues, $fileVarsValues);
+        $this->_generateTemplate($tplFile, $destFile, $fileVarsValues);
+    }
     }
 
     /**
@@ -191,27 +191,27 @@ class configGenerator {
      */
     protected function _generateTemplate($tplFile, $destFile, $vars)
     {
-	// check tpl file
-	if (!is_file($tplFile) || !is_readable($tplFile)) {
-	    throw new Exception('Unable to read template config file "' . $tplFile . '"');
-	}
+    // check tpl file
+    if (!is_file($tplFile) || !is_readable($tplFile)) {
+        throw new Exception('Unable to read template config file "' . $tplFile . '"');
+    }
 
-	// check dest file
-	if ((is_file($destFile) && !is_writable($destFile)) || !is_writable(dirname($destFile))) {
-	    throw new Exception('Unable to write new config file "' . $destFile . '"');
-	}
+    // check dest file
+    if ((is_file($destFile) && !is_writable($destFile)) || !is_writable(dirname($destFile))) {
+        throw new Exception('Unable to write new config file "' . $destFile . '"');
+    }
 
-	$fileContent = file_get_contents($tplFile);
-	$fileContent = str_replace(array_keys($vars), array_values($vars), $fileContent);
+    $fileContent = file_get_contents($tplFile);
+    $fileContent = str_replace(array_keys($vars), array_values($vars), $fileContent);
 
-	if (is_file($destFile)) {
-	    // @todo add backup
-	    echo 'Warning: config file "' . $destFile . '" overwritten' . "\n";
-	}
+    if (is_file($destFile)) {
+        // @todo add backup
+        echo 'Warning: config file "' . $destFile . '" overwritten' . "\n";
+    }
 
-	file_put_contents($destFile, $fileContent, LOCK_EX);
+    file_put_contents($destFile, $fileContent, LOCK_EX);
 
-	return $this;
+    return $this;
     }
 
     /**
@@ -222,26 +222,26 @@ class configGenerator {
      */
     protected function _getTemplateVars($tplFile)
     {
-	// check file
-	if (!is_file($tplFile) || !is_readable($tplFile)) {
-	    throw new Exception('Unable to read template config file "' . $tplFile . '"');
-	}
+    // check file
+    if (!is_file($tplFile) || !is_readable($tplFile)) {
+        throw new Exception('Unable to read template config file "' . $tplFile . '"');
+    }
 
-	// get vars and questions
-	$fileVars = array();
-	$fileLines = file($tplFile);
-	foreach ($fileLines as $line) {
+    // get vars and questions
+    $fileVars = array();
+    $fileLines = file($tplFile);
+    foreach ($fileLines as $line) {
 
-	    $matches = array();
-	    if (preg_match(self::CONFIG_TEMPLATE_PARSOR, $line, $matches)) {
-		$fileVars[$matches[1]] = array(
-		    'question'  => trim($matches[2]),
-		    'default'   => (isset($matches[4]) ? $matches[4] : null),
-		);
-	    }
-	}
+        $matches = array();
+        if (preg_match(self::CONFIG_TEMPLATE_PARSOR, $line, $matches)) {
+        $fileVars[$matches[1]] = array(
+            'question'  => trim($matches[2]),
+            'default'   => (isset($matches[4]) ? $matches[4] : null),
+        );
+        }
+    }
 
-	return $fileVars;
+    return $fileVars;
     }
 }
 
@@ -259,7 +259,7 @@ function usage()
 }
 
 // handle missing agruments
-if( count($_SERVER['argv']) < 4 ) {
+if ( count($_SERVER['argv']) < 4 ) {
     usage();
     return;
 }
@@ -276,19 +276,19 @@ try {
     // handle possible first agruments
     switch ($_SERVER['argv'][1]) {
 
-	case 'configure':
-	{
-	    $configGenerator->configure();
-	    break;
-	}
+    case 'configure':
+    {
+        $configGenerator->configure();
+        break;
+    }
 
-	case 'show':
-	{
-	    $configGenerator->show();
-	    break;
-	}
+    case 'show':
+    {
+        $configGenerator->show();
+        break;
+    }
 
-	default : usage();
+    default : usage();
     }
 
     exit(0);

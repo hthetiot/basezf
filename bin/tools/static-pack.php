@@ -138,7 +138,7 @@ class staticPack {
            $adapterConfig['command']
         );
 
-        if($results = exec($command)) {
+        if ($results = exec($command)) {
             throw new Exception(sprintf('compilation error "%s"', $results));
         }
 
@@ -213,7 +213,7 @@ function usage()
 }
 
 // handle missing agruments
-if( count($_SERVER['argv']) < 3 ) {
+if ( count($_SERVER['argv']) < 3 ) {
     usage();
     return;
 }

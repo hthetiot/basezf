@@ -48,11 +48,11 @@ class BaseZF_Framework_View_Helper_FormMultiCheckbox extends Zend_View_Helper_Fo
         unset($attribs['label']);
 
         // update classnames
-        if(isset($attribs['class'])) {
+        if (isset($attribs['class'])) {
             $attribs['class'] = str_replace('Multi', '', $attribs['class']);
         }
 
-        if(isset($attribs['label_class'])) {
+        if (isset($attribs['label_class'])) {
             $attribs['label_class'] = str_replace('Multi', '', $attribs['label_class']);
         }
 

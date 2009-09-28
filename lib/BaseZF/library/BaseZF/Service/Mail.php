@@ -159,7 +159,7 @@ class BaseZF_Service_Mail
         $hostname = array_pop(explode('@', $emails));
 
         // try to get mx
-        if(!getmxrr($hostname, $mxHostnames, $mxHostnamesWeigth)) {
+        if (!getmxrr($hostname, $mxHostnames, $mxHostnamesWeigth)) {
             return $code;
         }
 

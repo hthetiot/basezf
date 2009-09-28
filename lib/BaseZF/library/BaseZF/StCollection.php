@@ -38,7 +38,7 @@ abstract class BaseZF_StCollection extends ArrayObject
 
         parent::__construct($rows);
 
-        if(!$has_numeric_key) {
+        if (!$has_numeric_key) {
             $this->setFlags(ArrayObject::ARRAY_AS_PROPS);
         }
     }
@@ -50,7 +50,7 @@ abstract class BaseZF_StCollection extends ArrayObject
      */
     static protected function getInstance($className, $itemClassName = null)
     {
-        if(!isset(self::$_STATIC_INSTANCES[$className])) {
+        if (!isset(self::$_STATIC_INSTANCES[$className])) {
             self::$_STATIC_INSTANCES = &new $className($itemClassName);
         }
 
@@ -78,7 +78,7 @@ abstract class BaseZF_StCollection extends ArrayObject
 
             Zend_Loader::loadClass($itemClassName);
 
-            if(!class_exists($itemClassName, true)) {
+            if (!class_exists($itemClassName, true)) {
                 throw new Exception('not existing class '. $classItem);
             }
 

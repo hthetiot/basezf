@@ -20,7 +20,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
      * Error object provide by zend controller plugins error
      * @var object
      */
-    protected $_error_handler;
+    protected $_errorHandler;
 
     /**
      * preDispatch for Controller
@@ -30,8 +30,8 @@ class ErrorController extends BaseZF_Framework_Controller_Action
     public function initController()
     {
         // Grab the error object from the request
-        $this->_error_handler = $this->_getParam('error_handler');
-        $this->view->error_handler = $this->_error_handler;
+        $this->_errorHandler = $this->_getParam('error_handler');
+        $this->view->errorHandler = $this->_errorHandler;
     }
 
     /**
@@ -52,14 +52,14 @@ class ErrorController extends BaseZF_Framework_Controller_Action
         $response = $this->getResponse();
 
         // force error 404 from throw exception width code 404
-        if ($this->_error_handler->exception->getCode() == 404) {
-            $this->_error_handler->type = Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION;
+        if ($this->_errorHandler->exception->getCode() == 404) {
+            $this->_errorHandler->type = Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION;
         }
 
         $this->layout->setLayout($this->_defaultLayout);
 
         // $errors will be an object set as a parameter of the request object, type is a property
-        switch ($this->_error_handler->type) {
+        switch ($this->_errorHandler->type) {
 
             // not found error (controller or action not found or exception code is 404)
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
@@ -80,7 +80,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
 
                 // report error enable ?
                 if (defined('DEBUG_REPORT') && DEBUG_REPORT) {
-                    BaseZF_Error_Handler::sendExceptionByMail($this->_error_handler->exception, DEBUG_REPORT_FROM, DEBUG_REPORT_TO, DEBUG_REPORT_SUBJECT);
+                    BaseZF_errorHandler::sendExceptionByMail($this->_errorHandler->exception, DEBUG_REPORT_FROM, DEBUG_REPORT_TO, DEBUG_REPORT_SUBJECT);
                 }
 
                 break;
@@ -88,7 +88,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
         }
 
         // send error handler to view
-        $this->view->error_handler = $this->_error_handler;
+        $this->view->errorHandler = $this->_errorHandler;
     }
 
     /**

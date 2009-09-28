@@ -59,7 +59,7 @@ class BaseZF_Framework_Validate_StringEquals extends Zend_Validate_Abstract
             $contextFields[] = $context[$fieldName];
         }
 
-        if(call_user_func_array('strcmp', $contextFields) != 0) {
+        if (call_user_func_array('strcmp', $contextFields) != 0) {
             $this->_error(self::NOT_MATCH);
             return false;
         }

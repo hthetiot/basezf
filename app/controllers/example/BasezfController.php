@@ -39,7 +39,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
         /*
         $notify = BaseZF_Notify::getInstance();
 
-        if($data = $notify->get('test')) {
+        if ($data = $notify->get('test')) {
             var_dump($data);
         } else {
             $notify->set('test', 'toto');
@@ -85,7 +85,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
         echo '<hr />';
         echo 'filter dbColl:' . "<br />";
         $examples->filterExecute();
-        foreach($examples as $example) {
+        foreach ($examples as $example) {
             echo $example->getId() . '/' . date('Y-m-d', $example->creation) . "<br />";
         }
 
@@ -124,7 +124,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
         echo '<hr />';
         echo 'list update dbItem:' . "<br />";
-        foreach($examples as $example) {
+        foreach ($examples as $example) {
             echo $example->getId() . '/' . $example->login . "<br />";
         }
 
@@ -136,7 +136,7 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
         echo '<hr />';
         echo 'list deleted dbItem:' . "<br />";
-        foreach($examples as $example) {
+        foreach ($examples as $example) {
             echo $example->getId() . '/' . $example->login . "<br />";
         }
 

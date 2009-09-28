@@ -188,7 +188,7 @@ class BaseZF_FrameWork_Config_Yaml extends Zend_Config {
             $dataArray = array();
             foreach ($preProcessedArray as $sectionName => $sectionData) {
 
-                if(!is_array($sectionData)) {
+                if (!is_array($sectionData)) {
                     $dataArray = array_merge_recursive($dataArray, array($sectionName=>$sectionData));
                 } else {
                     $dataArray[$sectionName] = $this->_processExtends($preProcessedArray, $sectionName);

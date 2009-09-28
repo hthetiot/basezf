@@ -8,6 +8,10 @@
  * @author     Harold Thetiot (hthetiot)
  *
  * Abstract Archive Builder for format.
+ *
+ *
+ * @todo add $fp = fopen("php://temp/maxmemory:$fiveMBs", 'r+'); support
+ *
  */
 
 abstract class BaseZF_Archive_Abstract

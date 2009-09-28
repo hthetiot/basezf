@@ -38,7 +38,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $newAttribs['class'] = $helper . ' ' . $element->getAttrib('class');
 
         // do not display useless label
-        if(in_array($helper, self::$helperWithoutLabel) ==! false) {
+        if (in_array($helper, self::$helperWithoutLabel) ==! false) {
 
             $labelClass = 'formLabel' . ucfirst(str_replace('form', '', $helper));
 
@@ -47,7 +47,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         }
 
         // set label has value for buttons
-        if(in_array($helper, self::$helpersButton) ==! false) {
+        if (in_array($helper, self::$helpersButton) ==! false) {
             $element->setValue($element->getLabel());
         }
 
@@ -91,7 +91,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $label = $element->getLabel();
 
         // do not display useless label
-        if(in_array($helper, self::$helperWithoutLabel) ==! false) {
+        if (in_array($helper, self::$helperWithoutLabel) ==! false) {
             $element->setAttrib('label', $label);
             return '';
         }
@@ -130,7 +130,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $helper  = $element->helper;
 
         // do not display useless container
-        if(in_array($helper, self::$helperWithoutContainerClass) ==! false) {
+        if (in_array($helper, self::$helperWithoutContainerClass) ==! false) {
             return '';
         }
 
@@ -142,7 +142,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         }
 
         // add default class
-        if(in_array($helper, self::$helpersButton) ==! false) {
+        if (in_array($helper, self::$helpersButton) ==! false) {
             $containerClass[] = 'inline';
         } else {
             $containerClass[] = ($element->isRequired() ? 'required' : 'optional');
