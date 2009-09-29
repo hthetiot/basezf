@@ -155,7 +155,9 @@ php-phploc:
 php-phpcs:
 	@echo "----------------"
 	@echo "Exec PHP CodeSniffer report:"
-	@$(PHPCS) --extensions=php -n $(ROOT) > $(PROJECT_LOG_PATH_PATH)/php-cs.log
+	@$(PHPCS) --extensions=php \
+    --ignore=$(ROOT)/lib/ZFDebug/*,$(ROOT)/lib/geshi*,$(ROOT)/public/debug/*,$(ROOT)/lib/Spyc.php,$(ROOT)/lib/SphinxClient.php \
+    -n $(ROOT) > $(PROJECT_LOG_PATH_PATH)/php-cs.log
 	@echo "done"
 
 # Exec PHP Quality Duplicate source report
