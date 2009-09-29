@@ -34,13 +34,13 @@ PROJECT_LOCALE_DOMAIN = message
 ROOT = .
 PROJECT_LIB_PATH = $(ROOT)/lib
 PROJECT_BIN_PATH = $(ROOT)/bin
-PROJECT_LOG_PATH = $(ROOT)/data/log
+PROJECT_LOG_PATH_PATH = $(ROOT)/data/log
 PROJECT_CONFIG_PATH = $(ROOT)/etc
 PROJECT_TEST_PATH = $(ROOT)/tests
 PROJECT_LOCALE_PATH = $(ROOT)/locale
 
 # Files Finder
-FIND_LOG_FILES = find $(PROJECT_LOG_PATH) -type f -not -name "README" -not -name ".*" -not -name "*.gz"
+FIND_LOG_FILES = find $(PROJECT_LOG_PATH_PATH) -type f -not -name "README" -not -name ".*" -not -name "*.gz"
 FIND_LOCALE_SRC = find $(PROJECT_LOCALE_PATH) -type f -iname '*.po' -not -name ".*"
 FIND_LOCALE_FILES = find $(PROJECT_LOCALE_PATH) -type f -iname '*.po' -o -iname '*.mo' -not -name ".*"
 FIND_PHP_LOCALE_FILES = find $(ROOT)/app $(PROJECT_LIB_PATH)/MyProject $(PROJECT_LIB_PATH)/BaseZF -type f -iname '*.php' -o -iname '*.phtml'
@@ -87,7 +87,7 @@ install: clean config syntax locale static-pack
 doc:
 	@echo "----------------"
 	@echo "Generate doxygen doc :"
-	@$(DOXYGEN) $(PROJECT_CONFIG)/doxygen.cnf > $(PROJECT_LOG)/doc.log
+	@$(DOXYGEN) $(PROJECT_CONFIG)/doxygen.cnf > $(PROJECT_LOG_PATH)/doc.log
 	@echo "done"
 
 # Deploy config from $(PROJECT_CONFIG)/dist
@@ -148,21 +148,21 @@ php-qa: php-phploc php-phpcs php-phpcpd
 php-phploc:
 	@echo "----------------"
 	@echo "Exec PHP Code Stats report:"
-	@$(PHPLOC) $(ROOT) > $(PROJECT_LOG)/php-loc.log
+	@$(PHPLOC) $(ROOT) > $(PROJECT_LOG_PATH)/php-loc.log
 	@echo "done"
 
 # Exec PHP Quality syntax report
 php-phpcs:
 	@echo "----------------"
 	@echo "Exec PHP CodeSniffer report:"
-	@$(PHPCS) --extensions=php -n $(ROOT) > $(PROJECT_LOG)/php-cs.log
+	@$(PHPCS) --extensions=php -n $(ROOT) > $(PROJECT_LOG_PATH_PATH)/php-cs.log
 	@echo "done"
 
 # Exec PHP Quality Duplicate source report
 php-phpcpd:
 	@echo "----------------"
 	@echo "Exec PHP Code Duplicate report:"
-	@$(PHPCPD) $(ROOT) > $(PROJECT_LOG)/php-cpd.log
+	@$(PHPCPD) $(ROOT) > $(PROJECT_LOG_PATH)/php-cpd.log
 	@echo "done"
 
 #
