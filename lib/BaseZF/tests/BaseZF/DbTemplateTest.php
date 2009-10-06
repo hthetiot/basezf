@@ -11,7 +11,7 @@
 require_once dirname(__FILE__) . '/../TestHelper.php';
 
 /**
- * Test class for BaseZF_Archive
+ * Test class for BaseZF_DbTemplate
  *
  * @group BaseZF
  */
@@ -104,12 +104,17 @@ class BaseZF_DbTemplateTest extends PHPUnit_Framework_TestCase
         $this->markTestSkipped('Still trying to determine a scenario to test this');
     }
 
-    public function testRenderTemplateWithDbItem()
+    public function testRenderTemplateWithDbitem()
     {
         $this->markTestSkipped('Still trying to determine a scenario to test this');
     }
 
-    public function testRenderTemplateWithDbCollection()
+    public function testRenderTemplateWithDbcollection()
+    {
+        $this->markTestSkipped('Still trying to determine a scenario to test this');
+    }
+
+    public function testSleepAndWakeUpTemplateWithAllTags()
     {
         $this->markTestSkipped('Still trying to determine a scenario to test this');
     }
