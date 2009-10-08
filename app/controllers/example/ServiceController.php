@@ -1,6 +1,6 @@
 <?php
 /**
- * UwaController.php
+ * ServiceController.php
  *
  * @category   MyProject
  * @package    MyProject_App_Controller
@@ -8,12 +8,16 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-class Example_ServiceController extends BaseZF_Framework_Controller_Action_Uwa
+class Example_ServiceController extends BaseZF_Framework_Controller_Action
 {
     /**
      * Xml-Rpc controller main action
      */
-    public function rpcAction()
+    public function xmlrpcAction()
+    {
+    }
+
+    public function xmlrpcServerAction()
     {
         Zend_XmlRpc_Server_Fault::attachFaultException('Exception');
 
@@ -25,23 +29,22 @@ class Example_ServiceController extends BaseZF_Framework_Controller_Action_Uwa
         exit(0);
     }
 
-    public function rpchelpAction()
+    public function xmlrpcHelpAction()
     {
         $client = new Zend_XmlRpc_Client(MAIN_URL . '/example/service/rpc');
         $system = $client->getProxy('system');
         $member = $client->getProxy('member');
 
         echo '<hr />';
-            echo "Available methods: \n";
-            print_r($system->listMethods());
-            exit();
+        echo "Available methods: \n";
+        print_r($system->listMethods());
+        exit();
 
     }
 
-    public function rpcconsoleAction()
+    public function xmlrpcConsoleAction()
     {
         $client = new Zend_XmlRpc_Client(MAIN_URL . '/example/service/rpc');
         $member = $client->getProxy('member');
-
     }
 }

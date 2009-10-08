@@ -1,6 +1,6 @@
 <?php
 /**
- * BaseZfController.php
+ * CoreController.php
  *
  * @category   MyProject
  * @package    MyProject_App_Controller
@@ -8,7 +8,7 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-class Example_BaseZfController extends BaseZF_Framework_Controller_Action
+class Example_CoreController extends BaseZF_Framework_Controller_Action
 {
     /**
      * Set default layout
@@ -62,6 +62,66 @@ class Example_BaseZfController extends BaseZF_Framework_Controller_Action
 
         die();
         */
+    }
+
+    public function dbtemplateAction()
+    {
+        $examples = new MyProject_DbCollection('example');
+        $examples->filterWhere('example_id > ? AND country_id = 1', 1);
+        $examples->filterOrderBy('example_id DESC');
+        $examples->filterLimit(10);
+        $examples->filterExecute();
+
+        $data = array(
+            'titi' => rand(1, 3),
+            'tata' => array(
+                'tutu' => time(),
+                'tete' => time(),
+            ),
+            'data' => $examples,
+
+            'data2' => array(
+                'a',
+                'b',
+            ),
+        );
+
+        $tplString = '
+        <pre>
+test string with var name   : titi
+test var                    : titi={titi}
+test if titi == 1           : [if: {titi} == 1 ? titi=true : titi=false]
+test var array assoc        : {tata:tutu}
+test const                  : [const:BASE_PATH]
+
+[begin:{datas}]
+test begin/end with limit   : {data:login}
+[end:{datas}]
+
+
+</pre>
+';
+
+        $tpl = new BaseZF_DbTemplate();
+        $tpl->setTemplate($tplString);
+        $tpl->setData($data);
+
+        $tplRendered = $tpl->render();
+
+        echo $tplRendered;
+/*
+        echo "<hr />";
+        $sleepTpl = serialize($tpl);
+        var_dump($sleepTpl);
+
+        echo "<hr />";
+        $wakeupTpl = unserialize($sleepTpl);
+        var_dump($wakeupTpl);
+
+        echo "<hr />";
+        echo $wakeupTpl;
+*/
+        die();
     }
 
     public function dbitemAction()

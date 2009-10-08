@@ -8,7 +8,7 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abstract
+class App_View_Helper_ExampleNavigation extends Zend_View_Helper_Navigation
 {
     /**
      * This is the main helper methods
@@ -16,6 +16,45 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
      */
     public function exampleNavigation()
     {
+        /*
+        <?php echo $this->exampleNavigation()->menu(); ?>
+        $config = array(
+            array(
+                'label'      => 'Home',
+                'module'     => 'example',
+                'controller' => 'index',
+                'action'     => 'index',
+            ),
+
+            array(
+                'label'      => 'Coding Guidelines',
+                'module'     => 'example',
+                'controller' => 'index',
+                'action'     => 'guideslines',
+            ),
+
+            array(
+                'label'      => 'Libraries',
+                'module'     => 'example',
+                'controller' => 'index',
+                'action'     => 'index',
+                'pages'      => array(
+                    array(
+                        'label'      => 'Debug',
+                        'module'     => 'store',
+                        'controller' => 'offer',
+                        'action'     => 'amazing',
+                    ),
+                ),
+            ),
+        );
+
+        $container = new Zend_Navigation($config);
+		$this->setContainer($container);
+
+        return $this;
+        */
+
         $menus = array(
 
             '' => array(
@@ -23,11 +62,29 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
                 '/example/index/guideslines'    => 'Coding Guidelines',
             ),
 
+            'Libraries' => array(
+               //'/example/library/zend'            => 'Zend Framework',
+               '/example/library/blueprint'       => 'Blueprint',
+               '/example/library/mootools'        => 'Mootools',
+            ),
+
             'Tools' => array(
-               '/example/index/blueprint'       => 'Blueprint',
-               '/example/index/mootools'        => 'Mootools',
-               '/example/index/debug'           => 'Debug',
-               '/example/index/makefile'        => 'MakeFile',
+               '/example/tools/debug'           => 'Debug',
+               '/example/tools/makefile'        => 'MakeFile',
+            ),
+
+            'CSS Elements' => array(
+               '/example/css/menus'             => 'Menus',
+               '/example/css/buttons'           => 'Fancy Buttons',
+               '/example/css/box'               => 'Round Box',
+            ),
+
+            'JS Elements' => array(
+               //'/example/form/autocompleter'    => 'Auto Completer',
+               '/example/javascript/ajaxlink'   => 'Ajax Link',
+               '/example/javascript/ajaxform'   => 'Ajax Form',
+               '/example/javascript/lightbox'   => 'LightBox',
+               '/example/javascript/uwa'        => 'UWA Widget',
             ),
 
             'Form Elements' => array(
@@ -38,33 +95,23 @@ class App_View_Helper_ExampleNavigation extends BaseZF_Framework_View_Helper_Abs
                 //'/example/form/contactselect' => 'Contact List Element',
             ),
 
-            'CSS Elements' => array(
-               '/example/css/menus'             => 'Menus',
-               '/example/css/buttons'           => 'Fancy Buttons',
-               '/example/css/box'               => 'Round Box',
-            ),
-
-            'JS Tools' => array(
-               '/example/form/autocompleter'    => 'Auto Completer',
-               '/example/javascript/ajaxlink'   => 'Ajax Link',
-               '/example/javascript/ajaxform'   => 'Ajax Form',
-               '/example/javascript/lightbox'   => 'LightBox',
-               '/example/javascript/uwa'        => 'UWA Widget',
-            ),
-
-            'Helpers' => array(
+            'View Helpers' => array(
                 '/example/helper/geshi'            => 'GeShi',
                 '/example/helper/googleanalytics'  => 'Google Analytics',
             ),
 
-            'Classes' => array(
-                '/example/BaseZF/error'         => 'Error Handler',
-                '/example/BaseZF/controller'    => 'Controller Abstract',
-                '/example/BaseZF/archive'       => 'Archive',
-                '/example/BaseZF/notify'        => 'Notify',
-                '/example/BaseZF/stitem'        => 'StItem/StCollection',
-                '/example/BaseZF/dbitem'        => 'DbItem/DbCollection',
-                '/example/BaseZF/dbsearch'      => 'DbSearch',
+            'Services' => array(
+                '/example/service/xmlrpc'           => 'Simple XMLRPC',
+            ),
+
+            'Core Classes' => array(
+                '/example/core/error'         => 'Error Handler',
+                '/example/core/controller'    => 'Controller Abstract',
+                '/example/core/archive'       => 'Archive',
+                '/example/core/notify'        => 'Notify',
+                '/example/core/stitem'        => 'StItem/StCollection',
+                '/example/core/dbitem'        => 'DbItem/DbCollection',
+                '/example/core/dbsearch'      => 'DbSearch',
             ),
         );
 

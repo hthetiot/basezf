@@ -29,7 +29,6 @@ class BaseZF_Exception extends Exception
 
     /**
      * Gets the interesting lines in the interesting file
-     *
      */
     public function getSource($nbLine = 6)
     {
@@ -43,11 +42,18 @@ class BaseZF_Exception extends Exception
         $code = '';
         $curLine = 0;
 
-        while ($line = fgets($file)) {
+        while($line = fgets($file)) {
 
             $curLine++;
+
+            if ($this->line == $curLine) {
+                $lineLabel = 'ERR:';
+            } else {
+                $lineLabel = str_pad($curLine, 3, '0', STR_PAD_LEFT) . ':';
+            }
+
             if ($curLine >= $beginLine && $curLine <= $endLine) {
-                $code .= $line;
+                $code .= $lineLabel . $line;
             }
 
             if ($curLine > $endLine) {
