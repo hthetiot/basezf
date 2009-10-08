@@ -33,7 +33,7 @@ class Example_ServiceController extends BaseZF_Framework_Controller_Action
 
     public function xmlrpcHelpAction()
     {
-        $client = new Zend_XmlRpc_Client(MAIN_URL . '/example/service/rpc');
+        $client = new Zend_XmlRpc_Client(MAIN_URL . '/example/service/rpc-server');
         $system = $client->getProxy('system');
         $member = $client->getProxy('member');
 
@@ -46,7 +46,7 @@ class Example_ServiceController extends BaseZF_Framework_Controller_Action
 
     public function xmlrpcConsoleAction()
     {
-        $client = new Zend_XmlRpc_Client(MAIN_URL . '/example/service/rpc');
+        $client = new Zend_XmlRpc_Client(MAIN_URL . '/example/service/rpc-server');
         $member = $client->getProxy('member');
     }
 }
