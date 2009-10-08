@@ -11,8 +11,10 @@
 class Example_ServiceController extends BaseZF_Framework_Controller_Action
 {
     /**
-     * Xml-Rpc controller main action
+     * Set default layout
      */
+    protected $_defaultLayout = 'example';
+
     public function xmlrpcAction()
     {
     }
