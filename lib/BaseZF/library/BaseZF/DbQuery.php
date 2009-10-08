@@ -797,7 +797,7 @@ class BaseZF_DbQuery
 
         // one results
         } elseif (strpos($cacheKey, 'json')) {
-            $value = json_decode($value);
+            $value = Zend_Json::decode($value);
         }
 
         return $value;
@@ -824,7 +824,7 @@ class BaseZF_DbQuery
 
         // add json_encode if array and key use "json"
         if (is_array($value) && strpos($cacheKey, 'json')) {
-            $value = json_encode($value);
+            $value = Zend_Json::encode($value);
         }
 
         return $cache->save($value, $cacheKey, array(), $expire);
