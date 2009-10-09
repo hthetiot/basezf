@@ -87,8 +87,8 @@ class App_View_Helper_ExampleNavigation extends Zend_View_Helper_Navigation
 
             'Form Elements' => array(
                 '/example/form/index'           => 'Showcases',
-                '/example/form/fancyselect'     => 'Fancy Select Element',
-                '/example/form/dateselect'      => 'Date Element',
+                '/example/form/fancyselect'     => 'Fancy Select',
+                '/example/form/dateselect'      => 'Date Select',
                 '/example/form/autocompleter'   => 'Auto Completer',
                 //'/example/form/rangeselect'   => 'Range Select Element',
                 //'/example/form/contactselect' => 'Contact List Element',
