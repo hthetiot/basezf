@@ -75,6 +75,60 @@ FEATURES
 
 @todo list basic features
 
+Frameworks:
+- Zend Framework 1.9.2
+- Motools 1.2.3
+- BluePrint 0.9
+
+Features:
+
+* MakeFile
+- Static content compilator for CSS and JS use YUICompressor and TidyCSS
+- PHP Unit test with Examples Classes for MVC coverage and others layers (using phpUnit)
+- PHP Unit test coverage report
+- PHP syntax validator
+- PHP quality validator and inspector (using phpcs, phploc and phpcpd)
+- Source code documention generator (using Doxygen)
+- Locale manager (update, deploy, merge using gettext)
+- Log manger (clean, archive, rotate)
+- Config manager (deploy, distribute, versioning)
+
+* Orm (DbItem + DbCollection)
+- Zend_Cache support
+- Zend_Db support
+- Zend_Db_Select support
+- Data Mass Extractor/Extractor
+- Simple Extend for DbItem and DBCollection
+- Simple CacheKeys and Expire Duration management for many patern with no complex flushing
+- Paginator Flushing on DbCollection
+- Template parsor Adapter with simple scripting support
+- Debugger and log
+
+* Orm (not merged but in sandbox)
+- Sphinx adapter
+- StCollection And StItem
+- Full relationel mapping one to one and one to many (extendable)
+
+*  Others
+- Controller plugin to enable full native cache browser
+- Zend_Application_BootStrap extended class
+- Simple and usefull Abstract Controllers
+- UWA Abstract Controllers (widget for os, phones and web services)
+- New Form Elements and Decorators and Helpers include BaseZF helper JS plugins (based on mootools)
+- Debugger and Loger for Firefox (use ZF now)
+- Local environment for developer
+- Debugging tools frontends: Apc, XDebug, MemCached, phpUnit, ...
+- Use Apache AutoPrepend for perfomance issue (instead of .htaccess)
+- Distributed Config on repository
+
+* Others (not merged but in sandbox)
+- Locale parser for StCollection and StItem
+- Simple Gettext Release Process
+
+And many more not yet listed...
+
+"Software is like sex: it's better when it's free"
+
 STRUCTURE
 =======================================================================
 
@@ -89,7 +143,7 @@ STRUCTURE
     |   |-> views/
     |       |-> filters/
     |       |-> helpers/            - These directories will contain view helpers. View helpers will be namespaced
-    |       |                         either as "App_View_Helper_"
+    |       |                         either as "App_View_Helper_<HelperName>" on <HelperName>.php file
     |       |-> layouts/            - This layout directory is for MCV-based layouts.
     |       |-> scripts/
     |
