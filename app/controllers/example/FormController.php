@@ -98,36 +98,24 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
 
     public function autocompletercallbackAction()
     {
-        /*
-        //http://www.insee.fr/fr/methodes/nomenclatures/cog/telechargement.asp
-        foreach ($departements as $departement) {
-            if (stripos($departement, $this->_getParam('search') === 0) {
-                //
-            }
-        }
-        */
-
-        // &todo dbSearch import with sphinx adapter
+        $registry = MyProject_Registry::getInstance();
+        $locale = $registry->registry('locale');
 
         $search = $this->_getParam('search');
+        $client = new Zend_Http_Client('http://clients1.google.com/complete/search', array( 'maxredirects' => 0, 'timeout' => 30));
+        $client->setParameterGet('hl', substr($locale->toString(), 0, 2));
+        $client->setParameterGet('js', 'true');
+        $client->setParameterGet('q', $search);
+        $reponse = $client->request(Zend_Http_Client::GET)->getBody();
 
-        $maxResults = 10;
+        $matches = array();
         $results = array();
-        $skipHeader = true;
-        $handle = fopen(LOCALES_PATH . "/fr_FR/cities.csv", "r");
-        while (($data = fgetcsv($handle, 1000, "\t")) !== false) {
-
-            if (count($results) > $maxResults) {
-                break;
-            } else if ($skipHeader) {
-                $skipHeader = false;
-                continue;
-            } else if (stripos(strtolower($data[15]), $search) === 0 && in_array($data[15], $results) == false ) {
-                $results[] = $data[15];
+        if (preg_match_all('/window.google.ac.h\((.*)\)/is', $reponse, $matches) && isset($matches[1][0])) {
+            $matchesResults = Zend_Json::decode($matches[1][0]);
+            foreach ($matchesResults[1] as $matchesResultData) {
+                $results[] = $matchesResultData[0];
             }
-            unset($data);
         }
-        fclose($handle);
 
         $this->_makeJson();
         $this->_setJson($results);
@@ -156,6 +144,29 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
 
             // check if all form is valid
             if ($form->isValid($formData)) {
+
+            }
+        }
+
+        $this->view->form = $form;
+    }
+
+    public function autocompleterAction()
+    {
+        $form = new MyProject_Form_Example_AutoCompleter();
+        $form->setAction('/example/form/autocompleter');
+
+        if ($this->getRequest()->isPost()) {
+
+            // get form data
+            $formData = $_POST;
+
+            // set form data
+            $form->populate($formData);
+
+            // check if all form is valid
+            if ($form->isValid($formData)) {
+
             }
         }
 

@@ -1,0 +1,27 @@
+<div id="main" class="l-border r-border span-15">
+
+    <h1 id="title"><a href="#Title">Auto Completer</a></h1>
+    <p class="description">
+        Bla bla...
+    </p>
+
+    <h2 id="Example"><a href="#Example">Example</a></h2>
+    <script type="text/javascript">
+
+        // add auto complete
+        window.addEvent('domready', function() {
+            new Autocompleter.Request.JSON('search', '/example/form/autocompletercallback', {
+                'postVar': 'search',
+                'indicatorClass': 'inputSearch'
+            });
+        });
+
+    </script>
+    <?php echo $this->form; ?>
+
+</div>
+
+<div id="menu" class="span-5 last">
+    <h4 class="menu-item"><a href="#Title">Auto Completer</a></h4>
+    <div class="menu-item"><a href="#Section">Example</a></div>
+</div>

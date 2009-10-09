@@ -17,8 +17,7 @@ class App_View_Helper_ExampleNavigation extends Zend_View_Helper_Navigation
     public function exampleNavigation()
     {
         /*
-        <?php echo $this->exampleNavigation()->menu(); ?>
-        $config = array(
+       $config = array(
             array(
                 'label'      => 'Home',
                 'module'     => 'example',
@@ -40,10 +39,10 @@ class App_View_Helper_ExampleNavigation extends Zend_View_Helper_Navigation
                 'action'     => 'index',
                 'pages'      => array(
                     array(
-                        'label'      => 'Debug',
-                        'module'     => 'store',
-                        'controller' => 'offer',
-                        'action'     => 'amazing',
+                        'label'      => 'Blueprint',
+                        'module'     => 'example',
+                        'controller' => 'library',
+                        'action'     => 'blueprint',
                     ),
                 ),
             ),
@@ -53,8 +52,8 @@ class App_View_Helper_ExampleNavigation extends Zend_View_Helper_Navigation
 		$this->setContainer($container);
 
         return $this;
-        */
 
+        */
         $menus = array(
 
             '' => array(
@@ -80,17 +79,17 @@ class App_View_Helper_ExampleNavigation extends Zend_View_Helper_Navigation
             ),
 
             'JS Elements' => array(
-               //'/example/form/autocompleter'    => 'Auto Completer',
-               '/example/javascript/ajaxlink'   => 'Ajax Link',
-               '/example/javascript/ajaxform'   => 'Ajax Form',
-               '/example/javascript/lightbox'   => 'LightBox',
-               '/example/javascript/uwa'        => 'UWA Widget',
+               '/example/javascript/ajaxlink'       => 'Ajax Link',
+               '/example/javascript/ajaxform'       => 'Ajax Form',
+               '/example/javascript/lightbox'       => 'LightBox',
+               '/example/javascript/uwa'            => 'UWA Widget',
             ),
 
             'Form Elements' => array(
                 '/example/form/index'           => 'Showcases',
                 '/example/form/fancyselect'     => 'Fancy Select Element',
                 '/example/form/dateselect'      => 'Date Element',
+                '/example/form/autocompleter'   => 'Auto Completer',
                 //'/example/form/rangeselect'   => 'Range Select Element',
                 //'/example/form/contactselect' => 'Contact List Element',
             ),
