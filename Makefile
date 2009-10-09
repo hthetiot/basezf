@@ -68,8 +68,8 @@ LOCALE_GETTEXT_DIR 	= LC_MESSAGES
 LOCALE_DOMAINS 		= $(PROJECT_LOCALE_DOMAIN) time validate
 
 # Static
-CSS_PACK_CONFIG = $(PROJECT_CONFIG)/static/css.yml
-JS_PACK_CONFIG = $(PROJECT_CONFIG)/static/javascript.yml
+CSS_PACK_CONFIG = $(PROJECT_CONFIG_PATH)/static/css.yml
+JS_PACK_CONFIG = $(PROJECT_CONFIG_PATH)/static/javascript.yml
 
 # Update Env
 all: clean syntax locale-deploy static-pack
@@ -240,17 +240,19 @@ locale-clean:
 
 #
 # Static packing
+
+
 #
 
 static-pack: clean static-pack-css static-pack-js
 
 static-pack-css:
 	@echo "----------------"
-	@$(PROJECT_BIN)/tools/static-pack.php css $(CSS_PACK_CONFIG) public
+	@$(PROJECT_BIN_PATH)/tools/static-pack.php css $(CSS_PACK_CONFIG) public
 
 static-pack-js:
 	@echo "----------------"
-	@$(PROJECT_BIN)/tools/static-pack.php js $(JS_PACK_CONFIG) public
+	@$(PROJECT_BIN_PATH)/tools/static-pack.php js $(JS_PACK_CONFIG) public
 
 #
 # Log
