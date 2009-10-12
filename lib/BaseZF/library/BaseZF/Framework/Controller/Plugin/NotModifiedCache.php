@@ -16,10 +16,15 @@ class BaseZF_Framework_Controller_Plugin_NotModifiedCache extends Zend_Controlle
     public function dispatchLoopShutdown()
     {
         $response = $this->getResponse();
+        $request = $this->_request;
 
-        // no cache if error found or if response
-        // is not a Zend_Controller_Response_Http instance
-        if (!($response instanceOf Zend_Controller_Response_Http) || $response->isException()) {
+        // no cache if error found or
+        // if response is not a Zend_Controller_Response_Http instance
+        // if request is not a Zend_Controller_Request_Http instance
+        if (!($response instanceOf Zend_Controller_Response_Http) ||
+            !($request instanceOf Zend_Controller_Request_Http) ||
+            $response->isException()
+        ) {
             return;
         }
 
@@ -35,10 +40,11 @@ class BaseZF_Framework_Controller_Plugin_NotModifiedCache extends Zend_Controlle
         // Define the proxy or cache expire time
         $expireTime = 3600; // seconds (= one hour)
 
-        // Get request headers:
-        $headers = apache_request_headers();
-        // you could also use getallheaders() or $_SERVER
-        // or HTTP_SERVER_VARS
+        // Get request headers needed:
+        $headers = array(
+            'If-Modified-Since' => $request->getHeader('If-Modified-Since'),
+            'If-None-Match'     => $request->getHeader('If-None-Match'),
+        );
 
         // Set cache/proxy informations:
         $response->setHeader('Cache-Control', 'max-age=' . $expireTime); // must-revalidate
