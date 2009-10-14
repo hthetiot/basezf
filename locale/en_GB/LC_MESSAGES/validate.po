@@ -1,9 +1,9 @@
-#  Language  translations for PACKAGE package.
-#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-#  This file is distributed under the same license as the PACKAGE package.
-#  Automatically generated, 2009.
-#
-# , fuzzy
+#   English translations for PACKAGE package.
+#   Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+#   This file is distributed under the same license as the PACKAGE package.
+#   Automatically generated, 2009.
+# 
+#  , fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -15,130 +15,142 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Value is required and can't be empty"
-msgstr ""
+msgstr "Value is required and can't be empty"
 
 msgid "Value must be alphanumeric"
-msgstr ""
+msgstr "Value must be alphanumeric"
 
 msgid "Cannot be an empty string"
-msgstr ""
+msgstr "Cannot be an empty string"
 
 msgid "Value must consist of only alphabetic characters"
-msgstr ""
+msgstr "Value must consist of only alphabetic characters"
 
 msgid "Value must be between \"%min%\" and \"%max%\", inclusively"
-msgstr ""
+msgstr "Value must be between \"%min%\" and \"%max%\", inclusively"
 
 msgid "Value must be strictly between \"%min%\" and \"%max%\""
-msgstr ""
+msgstr "Value must be strictly between \"%min%\" and \"%max%\""
 
 msgid "Value must contain between 13 and 19 digits"
-msgstr ""
+msgstr "Value must contain between 13 and 19 digits"
 
 msgid "Luhn algorithm (mod-10 checksum) failed"
-msgstr ""
+msgstr "Luhn algorithm (mod-10 checksum) failed"
 
 msgid "Date must be in YYYY-MM-DD format"
-msgstr ""
+msgstr "Date must be in YYYY-MM-DD format"
 
 msgid "\"%value%\" does not appear to be a valid date"
-msgstr ""
+msgstr "\"%value%\" does not appear to be a valid date"
 
 msgid "\"%value%\" does not fit given date format"
-msgstr ""
+msgstr "\"%value%\" does not fit given date format"
 
 msgid "Value must be a number"
-msgstr ""
+msgstr "Value must be a number"
 
 msgid "\"%value%\" does not appear to be a valid email address"
-msgstr ""
+msgstr "\"%value%\" does not appear to be a valid email address"
 
 msgid "\"%hostname%\" is not a valid hostname for email address \"%value%\""
-msgstr ""
+msgstr "\"%hostname%\" is not a valid hostname for email address \"%value%\""
 
 msgid ""
 "\"%hostname%\" does not appear to have a valid MX record for the email "
 "address \"%value%\""
 msgstr ""
+"\"%hostname%\" does not appear to have a valid MX record for the email "
+"address \"%value%\""
 
 msgid "\"%localPart%\" does not match against the dot-atom format"
-msgstr ""
+msgstr "\"%localPart%\" does not match against the dot-atom format"
 
 msgid "\"%localPart%\" does not match against the quoted-string format"
-msgstr ""
+msgstr "\"%localPart%\" does not match against the quoted-string format"
 
 msgid "\"%localPart%\" is not a valid local part for email address \"%value%\""
 msgstr ""
+"\"%localPart%\" is not a valid local part for email address \"%value%\""
 
 msgid "Value must be a float or decimal"
-msgstr ""
+msgstr "Value must be a float or decimal"
 
 msgid "Value must be greater than \"%min%\""
-msgstr ""
+msgstr "Value must be greater than \"%min%\""
 
 msgid "Value must be hexadecimal"
-msgstr ""
+msgstr "Value must be hexadecimal"
 
 msgid "Value appears to be an IP address, but IP addresses are not allowed"
-msgstr ""
+msgstr "Value appears to be an IP address, but IP addresses are not allowed"
 
 msgid ""
 "\"%value%\" appears to be a DNS hostname but cannot match the TLD against "
 "our known list"
 msgstr ""
+"\"%value%\" appears to be a DNS hostname but cannot match the TLD against "
+"our known list"
 
 msgid ""
 "\"%value%\" appears to be a DNS hostname but contains a dash (-) in an "
 "invalid position"
 msgstr ""
+"\"%value%\" appears to be a DNS hostname but contains a dash (-) in an "
+"invalid position"
 
 msgid ""
 "\"%value%\" appears to be a DNS hostname but cannot match against hostname "
 "schema for TLD \"%tld%\""
 msgstr ""
+"\"%value%\" appears to be a DNS hostname but cannot match against hostname "
+"schema for TLD \"%tld%\""
 
 msgid "\"%value%\" appears to be a DNS hostname but cannot extract TLD part"
-msgstr ""
+msgstr "\"%value%\" appears to be a DNS hostname but cannot extract TLD part"
 
 msgid "\"%value%\" does not match the expected structure for a DNS hostname"
-msgstr ""
+msgstr "\"%value%\" does not match the expected structure for a DNS hostname"
 
 msgid "Value does not appear to be a valid local network name"
-msgstr ""
+msgstr "Value does not appear to be a valid local network name"
 
 msgid ""
 "\"%value%\" appears to be a local network name but local network names are "
 "not allowed"
 msgstr ""
+"\"%value%\" appears to be a local network name but local network names are "
+"not allowed"
 
 msgid "Values are not the same"
-msgstr ""
+msgstr "Values are not the same"
 
 msgid "No token was provided to match against"
-msgstr ""
+msgstr "No token was provided to match against"
 
 msgid "\"%value%\" was not found in the collection"
-msgstr ""
+msgstr "\"%value%\" was not found in the collection"
 
 msgid "Value must be an integer"
-msgstr ""
+msgstr "Value must be an integer"
 
 msgid "Value does not appear to be a valid IP address"
-msgstr ""
+msgstr "Value does not appear to be a valid IP address"
 
 msgid "Value must be less than \"%max%\""
-msgstr ""
+msgstr "Value must be less than \"%max%\""
 
 msgid "Value cannot be empty"
-msgstr ""
+msgstr "Value cannot be empty"
 
 msgid "\"%value%\" does not match against pattern \"%pattern%\""
-msgstr ""
+msgstr "\"%value%\" does not match against pattern \"%pattern%\""
 
 msgid "Value must be more than %min% characters"
-msgstr ""
+msgstr "Value must be more than %min% characters"
 
 msgid "Value must be shorter than %max% characters"
-msgstr ""
+msgstr "Value must be shorter than %max% characters"

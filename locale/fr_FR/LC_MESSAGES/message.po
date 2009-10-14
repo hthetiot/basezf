@@ -1,60 +1,700 @@
-# Language  translations for PACKAGE package.
-# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2009.
-#
+#  French translations for PACKAGE package
+#  Traductions françaises du paquet PACKAGE.
+#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+#  This file is distributed under the same license as the PACKAGE package.
+#  Automatically generated, 2009.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-07-27 18:34+0200\n"
-"PO-Revision-Date: 2009-07-27 18:34+0200\n"
+"POT-Creation-Date: 2009-10-14 12:26+0200\n"
+"PO-Revision-Date: 2009-10-14 12:26+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:61
+#, fuzzy
+msgid "Address:"
+msgstr "Adresse:"
 
 #: app/controllers/default/ErrorController.php:79
+#, fuzzy
 msgid "Application error"
-msgstr ""
+msgstr "Application error"
 
-#: app/views/layouts/example/layout.phtml:85
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:32
+#, fuzzy
+msgid "April"
+msgstr "Avril"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:36
+#, fuzzy
+msgid "August"
+msgstr "Août"
+
+#: lib/MyProject/library/MyProject/Form/Example/AutoCompleter.php:18
+#: lib/MyProject/library/MyProject/Form/Example/AutoCompleter.php:33
+#, fuzzy
+msgid "Auto Completer Sample"
+msgstr "Auto Completer échantillon"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:413
+#, fuzzy
+msgid "Avatar"
+msgstr "Avatar"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:377
+#, fuzzy
+msgid "Avatar Information"
+msgstr "Avatar de l'information"
+
+#: app/views/layouts/example/layout.phtml:93
+#, fuzzy
 msgid "BaseZF"
-msgstr ""
+msgstr "BaseZF"
 
 #: app/views/scripts/example/index/index.phtml:3
+#, fuzzy
 msgid "BaseZF Examples"
+msgstr "BaseZF Exemples"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:94
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:31
+#, fuzzy
+msgid "Bi"
+msgstr "Bi"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:56
+#, fuzzy
+msgid "Birthday:"
+msgstr "Anniversaire:"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormFile.php:61
+#, fuzzy
+msgid "Browse"
+msgstr "Parcourir"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:351
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:96
+#, fuzzy
+msgid ""
+"By checking this, you are indicating that you are agree with the %s Terms of "
+"Use %s."
 msgstr ""
+" En vérifiant cela, vous indiquez que vous êtes d'accord avec les Conditions d'%s "
+" Utilisez %s."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:448
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:119
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:51
+#: lib/MyProject/library/MyProject/Form/Example/AutoCompleter.php:36
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:61
+#, fuzzy
+msgid "Cancel"
+msgstr "Annuler"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:107
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:44
+#, fuzzy
+msgid "Chatting"
+msgstr "Chatting"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:90
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:104
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:27
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:41
+#, fuzzy
+msgid "Choose from the list"
+msgstr "Choisissez dans la liste"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:84
+#, fuzzy
+msgid "City:"
+msgstr "Ville:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:138
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:286
+#, fuzzy
+msgid "Contact Information"
+msgstr "Coordonnées"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:68
+#, fuzzy
+msgid "Country:"
+msgstr "Pays:"
+
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:18
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:48
+#, fuzzy
+msgid "Date Select Samples"
+msgstr "Date de sélectionner des échantillons"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:40
+#, fuzzy
+msgid "December"
+msgstr "Décembre"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:158
+#, fuzzy
+msgid "Email"
+msgstr "Email"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:166
+#, fuzzy
+msgid "Email:"
+msgstr "Email:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:191
+#, fuzzy
+msgid "Emails don't match, please enter them again"
+msgstr "E-mails ne correspondent pas, s'il vous plaît entrer à nouveau"
 
 #: app/views/scripts/example/form/fancyselect.phtml:7
 #: app/views/scripts/example/form/fancyselect.phtml:16
+#, fuzzy
 msgid "Examples"
-msgstr ""
+msgstr "Exemples"
 
-#: app/views/layouts/example/layout.phtml:82
+#: app/views/layouts/example/layout.phtml:90
+#, fuzzy
 msgid "Examples module"
-msgstr ""
+msgstr "Exemples module"
 
 #: app/views/scripts/example/form/fancyselect.phtml:3
 #: app/views/scripts/example/form/fancyselect.phtml:14
+#, fuzzy
 msgid "Fancy Select"
-msgstr ""
+msgstr "Fancy Sélectionner"
+
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:18
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:58
+#, fuzzy
+msgid "Fancy Select Samples"
+msgstr "Fancy sélectionner des échantillons"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:200
+#, fuzzy
+msgid "Fax:"
+msgstr "Fax:"
 
 #: app/views/scripts/example/form/fancyselect.phtml:5
 #: app/views/scripts/example/form/fancyselect.phtml:15
+#, fuzzy
 msgid "Features"
+msgstr "Fonctions"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:30
+#, fuzzy
+msgid "February"
+msgstr "Février"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:38
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:40
+#, fuzzy
+msgid "Female"
+msgstr "Femelle"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:380
+#, fuzzy
+msgid ""
+"File size limit 4 MB. If your upload does not work, try a smaller picture."
 msgstr ""
+" Limite de taille de fichier de 4 Mo. Si votre téléchargement ne fonctionne pas, essayez une image plus petite."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:111
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:48
+#, fuzzy
+msgid "Find the true love"
+msgstr "Trouver l'amour vrai"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:45
+#, fuzzy
+msgid "First Name:"
+msgstr "Prénom:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:110
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:47
+#, fuzzy
+msgid "Flirting"
+msgstr "Flirting"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:252
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:264
+#, fuzzy
+msgid "Full-time (Days)"
+msgstr "À plein temps (jours)"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:254
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:266
+#, fuzzy
+msgid "Full-time (Graveyard)"
+msgstr "À temps plein (cimetière)"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:253
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:265
+#, fuzzy
+msgid "Full-time (Swing)"
+msgstr "À temps plein (Swing)"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:95
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:32
+#, fuzzy
+msgid "Gay"
+msgstr "Gay"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:34
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:36
+#, fuzzy
+msgid "Gender:"
+msgstr "Sexe:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:101
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:38
+#, fuzzy
+msgid "Her for:"
+msgstr "Elle pour:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:93
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:30
+#, fuzzy
+msgid "Hetero"
+msgstr "Hetero"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:207
+#, fuzzy
+msgid "How can I tell my father/mother, it's time for them to retire?"
+msgstr "Comment puis-je dire à mon père / mère, il est temps pour eux de prendre leur retraite?"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:209
+#, fuzzy
+msgid "How do I stop my family members from interfering?"
+msgstr "Comment puis-je arrêter les membres de ma famille d'intervenir?"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:154
+#, fuzzy
+msgid "How to Contact You ?"
+msgstr "Comment vous contacter?"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:348
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:93
+#, fuzzy
+msgid "I agree to the bellow terms"
+msgstr "J'accepte les termes ci-dessous"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:396
+#, fuzzy
+msgid ""
+"I certify that I have the right to distribute this picture and that it does "
+"not violate the Terms of Use"
+msgstr ""
+" Je certifie que j'ai le droit de distribuer cette image et qu'elle ne "
+" ne viole pas les Conditions d'utilisation"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:208
+#, fuzzy
+msgid "I'm exasperated with an awkward partner!"
+msgstr "Je suis exaspéré par un partenaire encombrant!"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:344
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:89
+#, fuzzy
+msgid ""
+"If you don't want to bother with having to login every time you visit the "
+"site, then checking \"Remember Me\" will place a unique identifier only our "
+"site can read that we'll use to identify you and log you in automatically "
+"each time you visit."
+msgstr ""
+" Si vous ne voulez pas prendre la peine d'avoir à vous identifier à chaque fois que vous visitez le "
+" site, la vérification, puis \"Se souvenir de moi \", vous effectuerez un identifiant unique que nos "
+" site peut lire que nous allons utiliser pour vous identifier et vous connecter automatiquement à vous "
+" chaque fois que vous visitez."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:313
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:58
+#, fuzzy
+msgid ""
+"Invalide Username should only contain letters, numbers, and underscore (_)."
+msgstr ""
+" Invalide nom d'utilisateur doit contenir uniquement des lettres, des chiffres et trait de soulignement (_)."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:141
+#, fuzzy
+msgid ""
+"It is important that you provide a valid, working email address that you "
+"have access to as it must be verified before you can use your account."
+msgstr ""
+" Il est important que vous fournissiez une valides, travaillant adresse email que vous "
+" avoir accès à telle qu'elle doit être vérifiée avant que vous puissiez utiliser votre compte."
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:29
+#, fuzzy
+msgid "January"
+msgstr "Janvier"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:35
+#, fuzzy
+msgid "July"
+msgstr "Juillet"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:34
+#, fuzzy
+msgid "June"
+msgstr "Juin"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:239
+#, fuzzy
+msgid "Keywords:"
+msgstr "Mots-clés:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:50
+#, fuzzy
+msgid "Last Name:"
+msgstr "Nom:"
+
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:36
+#, fuzzy
+msgid "Limited date range:"
+msgstr "Limited plage de dates:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:293
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:370
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:27
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:116
+#, fuzzy
+msgid "Login Information"
+msgstr "Informations de connexion"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:37
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:39
+#, fuzzy
+msgid "Male"
+msgstr "Mâle"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:31
+#, fuzzy
+msgid "March"
+msgstr "Mars"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:33
+#, fuzzy
+msgid "May"
+msgstr "Mai"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:305
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:50
+#, fuzzy
+msgid ""
+"May only contain letters, numbers, and underscore (_) and 8-20 characters "
+"long."
+msgstr ""
+" Mai contenir que des lettres, des chiffres et trait de soulignement (_) et 8-20 caractères "
+" long."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:109
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:46
+#, fuzzy
+msgid "Meeting new people"
+msgstr "Rencontrer de nouvelles personnes"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:205
+#, fuzzy
+msgid "Message Subject:  "
+msgstr "Sujet du message:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:220
+#, fuzzy
+msgid "Must be 250 characters or less."
+msgstr "Doit être de 250 caractères ou moins."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:321
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:66
+#, fuzzy
+msgid "Must be 6-25 characters long."
+msgstr "Doit être 6-25 caractères."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:184
+#, fuzzy
+msgid "Must match the email address you just entered above."
+msgstr "Doit correspondre à l'adresse électronique que vous venez de saisir ci-dessus."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:331
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:76
+#, fuzzy
+msgid "Must match the password you entered just above."
+msgstr "Doit correspondre au mot de passe que vous avez entré juste au-dessus."
 
 #: app/views/layouts/default/layout.phtml:28
 #: app/views/layouts/default/layout.phtml:55
+#, fuzzy
 msgid "MyProject"
-msgstr ""
+msgstr "MonProjet"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:39
+#, fuzzy
+msgid "November"
+msgstr "Novembre"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:38
+#, fuzzy
+msgid "October"
+msgstr "Octobre"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:210
+#, fuzzy
+msgid "Other:"
+msgstr "Autres:"
 
 #: app/controllers/default/ErrorController.php:70
+#, fuzzy
 msgid "Page not found"
+msgstr "Page not found"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:251
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:263
+#, fuzzy
+msgid "Part-time"
+msgstr "À temps partiel"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:319
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:64
+#, fuzzy
+msgid "Password:"
+msgstr "Mot de passe:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:338
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:83
+#, fuzzy
+msgid "Passwords don't match, please enter them again"
+msgstr "Mots de passe ne correspondent pas, s'il vous plaît entrer à nouveau"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:27
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:131
+#, fuzzy
+msgid "Personal Information"
+msgstr "Informations personnelles"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:157
+#, fuzzy
+msgid "Phone"
+msgstr "Téléphone"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:196
+#, fuzzy
+msgid "Phone:"
+msgstr "Téléphone:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:142
+#, fuzzy
+msgid "Please enter a land line number, not a mobile phone number."
+msgstr "S'il vous plaît entrer un numéro de ligne fixe, pas de numéro de téléphone mobile."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:140
+#, fuzzy
+msgid "Please enter your full email address, for example, name@domain.com"
+msgstr "S'il vous plaît, entrez votre adresse e-mail complète, par exemple, name@domain.com"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:29
+#, fuzzy
+msgid ""
+"Please enter your name and address as they are listed for your debit card, "
+"credit card, or bank account."
 msgstr ""
+" S'il vous plaît entrer votre nom et adresse tels qu'ils sont énumérés pour votre carte de débit, "
+" carte de crédit ou compte bancaire."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:329
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:74
+#, fuzzy
+msgid "Please re-enter your password:"
+msgstr "S'il vous plaît entrer à nouveau votre mot de passe:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:108
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:45
+#, fuzzy
+msgid "Promote Myself"
+msgstr "Promouvoir Myself"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:182
+#, fuzzy
+msgid "Re-enter Email:"
+msgstr "Confirmez votre adresse Email:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:343
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:88
+#, fuzzy
+msgid "Remember Me"
+msgstr "Se souvenir de moi"
+
+#: lib/MyProject/library/MyProject/Form/Example/AutoCompleter.php:25
+#, fuzzy
+msgid "Search:"
+msgstr "Recherche:"
+
+#: lib/BaseZF/library/BaseZF/Framework/View/Helper/FormDate.php:37
+#, fuzzy
+msgid "September"
+msgstr "Septembre"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:89
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:26
+#, fuzzy
+msgid "Sexuality:"
+msgstr "Sexualité:"
+
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:25
+#, fuzzy
+msgid "Simple:"
+msgstr "Simple:"
+
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:30
+#, fuzzy
+msgid "Special Format:"
+msgstr "Format spécial:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:449
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:120
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:52
+#: lib/MyProject/library/MyProject/Form/Example/AutoCompleter.php:37
+#: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:62
+#, fuzzy
+msgid "Submit"
+msgstr "Envoyer"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:173
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:174
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:175
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:176
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:177
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:178
+#, fuzzy
+msgid "This does not appear to be a valid email address"
+msgstr "Cela ne semble pas être une adresse email valide"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:422
+#, fuzzy
+msgid ""
+"Type the characters you see in this picture. This ensures that a person, not "
+"an automated program, is creating this account."
+msgstr ""
+" Saisissez les caractères que vous voyez dans cette image. Cela garantit qu'une personne, non "
+" un programme automatisé, est la création de ce compte."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:249
+#, fuzzy
+msgid "Use the CTRL key to select more than one."
+msgstr "Utilisez la touche CTRL pour sélectionner plus d'un."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:303
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:48
+#, fuzzy
+msgid "Username:"
+msgstr "Nom d'utilisateur:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:445
+#, fuzzy
+msgid "Verification"
+msgstr "Vérification"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:420
+#, fuzzy
+msgid "Verification Information"
+msgstr "La vérification des renseignements"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:296
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:30
+#, fuzzy
+msgid ""
+"We recommend that your password is not a word you can find in the "
+"dictionary, includes both capital and lower case letters, and contains at "
+"least one special character (1-9, !, *, _, etc.)."
+msgstr ""
+" Nous recommandons que votre mot de passe n'est pas un mot, vous pouvez trouver dans la "
+" dictionnaire, inclut à la fois le capital et les lettres minuscules, et contient au "
+" moins un caractère spécial (1-9,!, *, _, etc.)"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:168
+#, fuzzy
+msgid ""
+"We will never sell or disclose your email address to anyone. Once your "
+"account is setup, you may add additional email addresses."
+msgstr ""
+" Nous n'allons jamais vendre ou communiquer votre adresse e-mail à n'importe qui. Une fois votre "
+" compte est configurée, vous mai ajouter des adresses e-mail supplémentaire."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:229
+#, fuzzy
+msgid ""
+"We'd love to get your feedback on any of the products or services we offer "
+"or on your experience with us."
+msgstr ""
+" Nous aimerions obtenir vos commentaires sur n'importe lequel des produits ou services que nous offrons "
+" ou sur votre expérience avec nous."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:255
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:267
+#, fuzzy
+msgid "Weekends Only"
+msgstr "Fins de semaine seulement"
 
 #: app/views/layouts/default/layout.phtml:25
+#, fuzzy
 msgid "Welcome to MyProject!"
+msgstr "Bienvenue sur MonProjet!"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:247
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:260
+#, fuzzy
+msgid "What is your current availability?"
+msgstr "Quelles sont vos disponibilités actuelles?"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:379
+#, fuzzy
+msgid "You can upload a JPG, GIF or PNG file."
+msgstr "Vous pouvez envoyer un fichier JPG, GIF ou PNG."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:218
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:227
+#, fuzzy
+msgid "Your Message:"
+msgstr "Votre message:"
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:297
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:31
+#, fuzzy
+msgid ""
+"Your password will be encrypted and stored in our system. Due to the "
+"encryption, we cannot retrieve your password for you. If you lose or forget "
+"your password, we offer the ability to reset it."
 msgstr ""
+" Votre mot de passe sont cryptés et stockés dans notre système. En raison de la "
+" chiffrement, nous ne pouvons pas récupérer votre mot de passe pour vous. Si vous perdez ou oubliez "
+" votre mot de passe, nous vous offrons la possibilité de le réinitialiser."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:146
+#, fuzzy
+msgid ""
+"Your phone number will not be shared or used for telemarketing. Your "
+"information is protected by our %s Privacy Policy %s."
+msgstr ""
+" Votre numéro de téléphone ne seront pas partagées ou utilisées à des fins de télémarketing. Ton "
+" l'information est protégée par notre Politique de confidentialité %s %s."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:295
+#: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:29
+#, fuzzy
+msgid ""
+"Your username and password must both be at least 8 characters long and are "
+"case-sensitive. Please do not enter accented characters."
+msgstr ""
+" Votre nom d'utilisateur et mot de passe doivent tous deux être d'au moins 8 caractères de long et sont "
+" la casse. S'il vous plaît ne saisissez pas de caractères accentués."
+
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:80
+#, fuzzy
+msgid "Zip/Postal Code:"
+msgstr "Zip / Code Postal:"
