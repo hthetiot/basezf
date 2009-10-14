@@ -292,7 +292,8 @@ backup_action()
         notice "Processing backup database into \"${options}\":"
 
         set +e
-        backup_results="`pg_dump -i -h ${db_hostname} -U ${db_username} -Fc ${db_name} -f ${options} 2>&1 | grep 'pg_dump'`"
+        echo pg_dump -F tar -i -c -h ${db_hostname} -U ${db_username} -f ${options} ${db_name}  2>&1 | grep 'pg_dump'
+        backup_results="`pg_dump -F tar -i -c -h ${db_hostname} -U ${db_username} -f ${options} ${db_name}  2>&1 | grep 'pg_dump'`"
         set -e
 
         if [ -z "${backup_results}" ]; then
@@ -332,7 +333,7 @@ restore_action()
         notice "Processing restore database from \"${options}\":"
 
         set +e
-        restore_results="`pg_restore -h ${db_hostname} -U ${db_username} -d ${db_name} ${options} 2>&1 | grep 'pg_restore'`"
+        restore_results="`pg_restore -c -h ${db_hostname} -U ${db_username} -d ${db_name} ${options} 2>&1 | grep 'pg_restore'`"
         set -e
 
         if [ -z "${restore_results}" ]; then

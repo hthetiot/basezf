@@ -67,7 +67,7 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
     public function dbtemplateAction()
     {
         $examples = new MyProject_DbCollection('example');
-        $examples->filterWhere('example_id > ? AND country_id = 1', 1);
+        $examples->filterWhere('example_id > ? AND example_type_id = 1', 1);
         $examples->filterOrderBy('example_id DESC');
         $examples->filterLimit(10);
         $examples->filterExecute();
@@ -95,7 +95,7 @@ test var array assoc        : {tata:tutu}
 test const                  : [const:BASE_PATH]
 
 [begin:{datas}]
-test begin/end with limit   : {data:login}
+test begin/end with limit   : {data:unique_string}
 [end:{datas}]
 
 
@@ -131,10 +131,10 @@ test begin/end with limit   : {data:login}
         // add collection dependency
 
         $examples = new MyProject_DbCollection('example');
-        $examples->filterWhere('example_id > ? AND country_id = 1', 1);
+        $examples->filterWhere('example_id > ? AND example_type_id = 1', 1);
         $examples->filterOrderBy('example_id DESC');
         $examples->filterLimit(10);
-        //$examples->clearCache();
+        $examples->clearCache();
 
         //
         echo '<hr />';
@@ -154,12 +154,10 @@ test begin/end with limit   : {data:login}
         echo 'insert dbItem:' . "<br />";
 
         $data = array(
-            'country_id'    => '1',
-            'language_id'    => '1',
-            'login'            => time(),
-            'email'            => 'w',
-            'display_name'    => 'w',
-            'creation'        => '2008-10-10',
+            'example_type_id'   => '1',
+            'unique_string'     => time(),
+            'string'            => 'hello',
+            'creation'          => '2008-10-10',
         );
 
         $example = $examples->newItem($data);
@@ -172,20 +170,20 @@ test begin/end with limit   : {data:login}
         echo 'properties dbItem:' . "<br />";
         $example = MyProject_DbItem::getInstance('example', $id);
         $example->getId();
-        echo $example->login;
+        echo $example->unique_string;
 
         // update
         echo '<hr />';
         echo 'update dbItem:' . "<br />";
-        $example->login = 'titi' . time();
-        $example->login = 'titi' . time();
+        $example->unique_string = 'titi' . time();
+        $example->unique_string = 'titi' . time();
         $example->update();
         echo 'done';
 
         echo '<hr />';
         echo 'list update dbItem:' . "<br />";
         foreach ($examples as $example) {
-            echo $example->getId() . '/' . $example->login . "<br />";
+            echo $example->getId() . '/' . $example->unique_string . "<br />";
         }
 
         // delete
@@ -197,7 +195,7 @@ test begin/end with limit   : {data:login}
         echo '<hr />';
         echo 'list deleted dbItem:' . "<br />";
         foreach ($examples as $example) {
-            echo $example->getId() . '/' . $example->login . "<br />";
+            echo $example->getId() . '/' . $example->unique_string . "<br />";
         }
 
 

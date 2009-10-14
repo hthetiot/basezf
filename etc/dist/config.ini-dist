@@ -2,7 +2,7 @@
 # Description: Application config file for Project using BaseZF
 #
 # Config template vars:
-# $DB_ADAPTER: Database server type [default: Pdo_Mysql]
+# $DB_ADAPTER: Database server type [default: Pdo_PgSQL]
 # $DB_HOST: Database server [default: localhost]
 # $DB_NAME: Database name
 # $DB_USERNAME: Database username
