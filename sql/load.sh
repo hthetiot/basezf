@@ -292,7 +292,6 @@ backup_action()
         notice "Processing backup database into \"${options}\":"
 
         set +e
-        echo pg_dump -F tar -i -c -h ${db_hostname} -U ${db_username} -f ${options} ${db_name}  2>&1 | grep 'pg_dump'
         backup_results="`pg_dump -F tar -i -c -h ${db_hostname} -U ${db_username} -f ${options} ${db_name}  2>&1 | grep 'pg_dump'`"
         set -e
 
