@@ -264,8 +264,8 @@ class gettextTranslator
         $html = substr($html, 0, strpos($html, "</div>"));
 
         // clean results
-        $search = array('<br>', '&#39;', '&lt;a&gt;', '42', '»', '\ &quot;', '\"% ', '% \&quot;');
-        $replace = array("\n", "'", '%s', '%d', '\"', '\"', '\"%', '%\"');
+        $search = array('<br>', '&#39;', '&lt;a&gt;', '42', '»', '\&quot;', '\ &quot;', '\"% ', '% \&quot;');
+        $replace = array("\n", "'", '%s', '%d', '\"', '\"', '\"', '\"%', '%\"');
         $results = str_replace($search, $replace, $html);
 
         return utf8_encode($results);
@@ -282,9 +282,9 @@ function usage()
     echo "where:\n";
     echo "  inputLanguage  - input language for translator (example: en, fr, it, ...)\n";
     echo "  outputLanguage - output language for translator (example: en, fr, it, ...)\n";
-    echo "  inputPoFile   - intput po or pot file\n";
-    echo "  outputPoFile  - output po file\n";
-    echo "  adapter         - translator adapter, currenlty only google is available\n";
+    echo "  inputPoFile    - intput po or pot file\n";
+    echo "  outputPoFile   - output po file\n";
+    echo "  adapter        - translator adapter, currenlty only google is available\n";
     exit;
 }
 
