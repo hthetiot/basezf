@@ -35,16 +35,9 @@ class BaseZF_Notify
     /**
      * Constructor
      */
-    protected function __construct($nameSpace)
+    protected function __construct($nameSpace = self::DEFAULT_NAMESPACE)
     {
-        // init session namespace
-        $this->_storage = &new Zend_Session_Namespace($nameSpace);
-
-        if (!isset($this->_storage->data)) {
-            $this->_storage->data = array();
-        }
-
-        $this->_data = $this->_storage->data;
+        $this->_retrieveStorage($nameSpace);
 
         return $this;
     }
@@ -167,7 +160,22 @@ class BaseZF_Notify
     }
 
     /**
-     * Update cookies data
+     * Get data from storage
+     *
+     * @return object instance of BazeZF_Notify
+     */
+    protected function _retrieveStorage($nameSpace)
+    {
+        // init session namespace
+        $this->_storage = &new Zend_Session_Namespace($nameSpace);
+
+        if (isset($this->_storage->data)) {
+           $this->_data = $this->_storage->data;
+        }
+    }
+
+    /**
+     * Update data to storage
      *
      * @return object instance of BazeZF_Notify
      */
