@@ -1,6 +1,6 @@
 This is BaseZF todo list:
 * Finish phpUnit support
-
+* Remove DbTemplate DbItem dependency
 * UWA
 $this->headScript()->appendFile('http://wzdapi.com/widget/emulator.js'); http://www.wzdapi.com/
 http://developers.pageflakes.com/hello
