@@ -90,7 +90,7 @@ Features:
 - PHP quality validator and inspector (using phpcs, phploc and phpcpd)
 - Source code documention generator (using Doxygen)
 - Locale manager (update, deploy, merge using gettext)
-- Log manger (clean, archive, rotate)
+- Log manager (clean, archive, rotate)
 - Config manager (deploy, distribute, versioning)
 
 * Orm (DbItem + DbCollection)
@@ -134,43 +134,56 @@ STRUCTURE
 
    <myproject_path>/
     |
-    |-> app/                        - This directory contains your application. It will house the MVC system, as well as
-    |   |                             configurations, services used, and your bootstrap file.
-    |   |-> Bootstrap.php           - This file is the entry point for your application. The purpose for this file is to
-    |   |                             bootstrap the application and make components available to the application by
-    |   |                             initializing them. This file should not call dispatch() on the front controller.
+    |-> app/                        - This directory contains your application. It will house the
+    |   |                             MVC system, as well as configurations, services used, and your
+    |   |                             bootstrap file.
+    |   |
+    |   |-> Bootstrap.php           - This file is the entry point for your application. The purpose
+    |   |                             for this file is to bootstrap the application and make
+    |   |                             components available to the application by initializing them.
+    |   |                             This file should not call dispatch() on the front controller.
     |   |-> controllers/
     |   |-> views/
     |       |-> filters/
-    |       |-> helpers/            - These directories will contain view helpers. View helpers will be namespaced
-    |       |                         either as "App_View_Helper_<HelperName>" on <HelperName>.php file
+    |       |-> helpers/            - These directories will contain view helpers. View helpers will
+    |       |                         be namespaced either as "App_View_Helper_<HelperName>" on
+    |       |                         <HelperName>.php file
+    |       |
     |       |-> layouts/            - This layout directory is for MCV-based layouts.
     |       |-> scripts/
     |
     |-> bin/
-    |-> data/                       - This directory provides a place to store application data that is volatile and
-    |                                 possibly temporary. The disturbance of data in this directory might cause the
-    |                                 application to fail. Also, the information in this directory may or may not be
-    |                                 committed to a subversion repository. Examples of things in this directory are
-    |                                 session files, cache files, sqlite databases, logs and indexes.
+    |-> data/                       - This directory provides a place to store application data that
+    |                                 is volatile and possibly temporary. The disturbance of data in
+    |                                 this directory might cause the application to fail. Also, the
+    |                                 information in this directory may or may not be committed to a
+    |                                 subversion repository. Examples of things in this directory
+    |                                 are session files, cache files, sqlite databases, logs and
+    |                                 indexes.
     |
-    |-> doc/                        - This directory contains documentation, either generated or directly authored.
+    |-> doc/                        - This directory contains documentation, either generated or
+    |                                 directly authored.
+    |
     |-> etc/                        - The application-wide configuration directory
     |-> includes/
-    |-> lib/                        - This directory houses of PHP libraries folder which contains BaseZF and MyProject.
-    |                                 Developers should also place their application's library code under this directory
-    |                                 in a separate namespace- ie, a namespace that does not begin with 'Zend'.
+    |-> lib/                        - This directory houses of PHP libraries folder which contains
+    |                                 BaseZF and MyProject. Developers should also place their
+    |                                 application's library code under this directory in a separate
+    |                                 namespace- ie, a namespace that does not begin with 'Zend'.
     |-> locale/
-    |-> public/                     - This directory contains all public files for your application. index.php sets up
-    |                                 the PHP environment, include the Bootstrap.php file from your app/ directory and
-    |                                 finally dispatch() the front controller. The web root of your web server would
-    |                                 typically be set to this directory.
+    |-> public/                     - This directory contains all public files for your application.
+    |                                 index.php sets up the PHP environment, include the
+    |                                 Bootstrap.php file from your app/ directory and finally
+    |                                 dispatch() the front controller. The web root of your web
+    |                                 server would typically be set to this directory.
     |-> sql/
-    |-> tests/                      - This directory contains application tests. These could be hand written, phpunit ,
-                                      tests selenium based tests or based on some other testing framework. By default,
-                                      library code can be tested by mimicing the directory structure of your library/
-                                      directory. Additionally, functional tests for your application could be written
-                                      mimicing the app/ directory and subdirectory structure.
+    |-> tests/                      - This directory contains application tests. These could be hand
+                                      written, phpunit , tests selenium based tests or based on some
+                                      other testing framework. By default, library code can be
+                                      tested by mimicing the directory structure of your library/
+                                      directory. Additionally, functional tests for your application
+                                      could be written mimicing the app/ directory and subdirectory
+                                      structure.
 
 
 REQUESTS
