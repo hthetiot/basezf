@@ -11,11 +11,15 @@ can get it from one of the following sources:
   * Official Release:
     http://framework.zend.com/dowload/latest
 
-  * Subversion; use either the current trunk or the 1.9.2 release branch:
+  * Subversion: use either the current trunk or the 1.9.2 release branch:
     svn co http://framework.zend.com/svn/framework/standard/trunk/library/Zend
-
     svn co http://framework.zend.com/svn/framework/standard/branches/release-1.9.2/library/Zend
 
+  * Git: use either the current trunk or the 1.9.2 release branch:
+    git clone http://tjohns.net/git/zf.git
+    git fetch
+    git checkout --track -b release-1.9.2 origin/tags/release-1.9.2
+    
 Install Zend Framework locally, and the follow these steps:
 
 1. Run the "make config" commande and answer questions:
