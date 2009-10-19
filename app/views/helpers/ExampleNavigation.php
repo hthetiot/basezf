@@ -107,6 +107,7 @@ class App_View_Helper_ExampleNavigation extends Zend_View_Helper_Navigation
                 '/example/core/error'         => 'Error Handler',
                 '/example/core/controller'    => 'Controller Abstract',
                 '/example/core/archive'       => 'Archive',
+                '/example/core/template'      => 'Template',
                 '/example/core/notify'        => 'Notify',
                 '/example/core/stitem'        => 'StItem/StCollection',
                 '/example/core/dbitem'        => 'DbItem/DbCollection',

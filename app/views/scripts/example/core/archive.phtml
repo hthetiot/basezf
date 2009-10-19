@@ -3,16 +3,55 @@
     <h1 id="Title"><a href="#Title">Archive</a></h1>
 
     <p>
-        Compress and Extract archive on common format without any binary or
-        PEAR Extention.
+        Compress and Extract archive on common format without any binary or PEAR Extention.
+        Add files from path, string or exclude simply some of them.
     </p>
 
-    <h2 id="Syntax"><a href="#Syntax">Syntax</a></h2>
     <p>
-        @todo
+        Available formats:
+        <ul>
+            <li>Zip</li>
+            <li>Tar</li>
+            <li>Gzip</li>
+            <li>Bzip</li>
+        </ul>
     </p>
 
-    <h2 id="Functions"><a href="#Functions">Functions</a></h2>
+    <h2 id="Example"><a href="#Example">Example usage</a></h2>
+    <?php
+
+        $source = array();
+        $source[] = '// create a new archive on $archiveFilePath path with tar format';
+        $source[] = '$newArchive = BaseZF_Archive::newArchive("tar", $archiveFilePath);';
+        $source[] = '';
+        $source[] = '// add file my_file into archive with path example/my_file';
+        $source[] = '$newArchive->addFile("my_file", "example/my_file");';
+        $source[] = '';
+        $source[] = '// add some file from string';
+        $source[] = '$newArchive->addFileFromString($filePath, $fileData);';
+        $source[] = '';
+        $source[] = '// add some files from reg exp';
+        $source[] = '$newArchive->addFiles($dirPath . "/*." . $testFileExt);';
+        $source[] = '';
+        $source[] = '// create archive then run download for client browser';
+        $source[] = '$newArchive->createArchive();';
+        $source[] = '$newArchive->downloadFile();';
+
+        echo $this->GeSHi(implode("\n", $source), 'php');
+    ?>
+
+    <h1 id="Functions"><a href="#Functions">Functions</a></h1>
+
+    <h2 id="newArchive"><a href="#newArchive">newArchive</a></h2>
+    <h2 id="newArchive"><a href="#extractArchive">extractArchive</a></h2>
+    <h2 id="newArchive"><a href="#addFile">addFile</a></h2>
+    <h2 id="newArchive"><a href="#addFiles">addFiles</a></h2>
+    <h2 id="newArchive"><a href="#addFileFromString">addFileFromString</a></h2>
+    <h2 id="newArchive"><a href="#getFiles">getFiles</a></h2>
+    <h2 id="newArchive"><a href="#excludeFiles">excludeFiles</a></h2>
+    <h2 id="newArchive"><a href="#createArchive">createArchive</a></h2>
+    <h2 id="newArchive"><a href="#getArchiveContent">getArchiveContent</a></h2>
+    <h2 id="newArchive"><a href="#downloadFile">downloadFile</a></h2>
     <p>
         @todo
     </p>
@@ -22,7 +61,17 @@
 
 <div id="menu" class="span-5 last">
     <h4 class="menu-item"><a href="#Title">Archive</a></h4>
-    <div class="menu-item"><a href="#Syntax">Syntax</a></div>
-    <div class="menu-item"><a href="#Functions">Functions</a></div>
+    <div class="menu-item"><a href="#Example">Example usage</a></div>
+    <h4 class="menu-item"><a href="#Functions">Functions</a></h4>
+    <div class="menu-item"><a href="#newArchive">newArchive</a></div>
+    <div class="menu-item"><a href="#extractArchive">extractArchive</a></div>
+    <div class="menu-item"><a href="#addFile">addFile</a></div>
+    <div class="menu-item"><a href="#addFiles">addFiles</a></div>
+    <div class="menu-item"><a href="#addFileFromString">addFileFromString</a></div>
+    <div class="menu-item"><a href="#getFiles">getFiles</a></div>
+    <div class="menu-item"><a href="#excludeFiles">excludeFiles</a></div>
+    <div class="menu-item"><a href="#createArchive">createArchive</a></div>
+    <div class="menu-item"><a href="#getArchiveContent">getArchiveContent</a></div>
+    <div class="menu-item"><a href="#downloadFile">downloadFile</a></div>
 </div>
 

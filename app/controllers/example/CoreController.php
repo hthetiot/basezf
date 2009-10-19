@@ -54,9 +54,7 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
         /*
         $countries = MyProject_StCollection_Country::getInstance();
 
-
         foreach ($countries as $country) {
-
             echo $country->getExtendedId();
         }
 
@@ -66,6 +64,7 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
 
     public function templateAction()
     {
+        /*
         $examples = new MyProject_DbCollection('example');
         $examples->filterWhere('example_id > ? AND example_type_id = 1', 1);
         $examples->filterOrderBy('example_id DESC');
@@ -88,19 +87,17 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
 
         $tplString = '
         <pre>
-test string with var name   : titi
-test var                    : titi={titi}
-test if titi == 1           : [if: {titi} == 1 ? titi=true : titi=false]
-test var array assoc        : {tata:tutu}
-test const                  : [const:BASE_PATH]
+            test string with var name   : titi
+            test var                    : titi={titi}
+            test if titi == 1           : [if: {titi} == 1 ? titi=true : titi=false]
+            test var array assoc        : {tata:tutu}
+            test const                  : [const:BASE_PATH]
 
-[begin:{datas}]
-test begin/end with limit   : {data:unique_string}
-[end:{datas}]
-
-
-</pre>
-';
+            [begin:{datas}]
+            test begin/end with limit   : {data:unique_string}
+            [end:{datas}]
+        </pre>
+        ';
 
         $tpl = new BaseZF_Template();
         $tpl->setTemplate($tplString);
@@ -109,24 +106,15 @@ test begin/end with limit   : {data:unique_string}
         $tplRendered = $tpl->render();
 
         echo $tplRendered;
-/*
-        echo "<hr />";
-        $sleepTpl = serialize($tpl);
-        var_dump($sleepTpl);
-
-        echo "<hr />";
-        $wakeupTpl = unserialize($sleepTpl);
-        var_dump($wakeupTpl);
-
-        echo "<hr />";
-        echo $wakeupTpl;
-*/
         die();
+        */
+
     }
 
     public function dbitemAction()
     {
 
+        /*
         // clear count cache /cache/perpage
         // add collection dependency
 
@@ -197,7 +185,7 @@ test begin/end with limit   : {data:unique_string}
         foreach ($examples as $example) {
             echo $example->getId() . '/' . $example->unique_string . "<br />";
         }
-
+        */
 
     }
 
@@ -205,3 +193,4 @@ test begin/end with limit   : {data:unique_string}
     {
     }
 }
+
