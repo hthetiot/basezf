@@ -2,16 +2,36 @@
 # MyProject Makefile
 #
 # Targets:
-#  - clean: 	Remove the staged files
-#  - doc: 		Generate the doc
-#  - syntax:	Check syntax of PHP files
-#  - test: 		Exec unitTest
-#  - locale: 	Generate gettext files
-#  - update: 	Update from current GIT repository
+#  - doc
+#  - syntax                     Check syntax of PHP files
+#  - test                       Exec unitTest
+#  - config                     Deploy config from $(PROJECT_CONFIG_PATH)/dist
+#  - php-qa                     Exec PHP Quality reports
+#  - php-phpcpd                 Exec PHP Quality Duplicate source report
+#  - php-phpcs                  Exec PHP Quality syntax report
+#  - php-phploc                 Exec PHP Quality stats report
+#  - php-phpunit                Exec PHP unitTest
+#  - php-phpunit-report         Exec PHP unitTest with coverage report
+#  - php-syntax                 Check syntax of PHP files
+#  - php-syntax-commit          Check syntax of non commited PHP file
+#  - locale                     Generate gettext files
+#  - locale-template            Generate .pot file for current project domain
+#  - locale-update              Update .po files of from current .pot for all available local domains
+#  - locale-deploy              Generate all .mo files
+#  - locale-deploy-fuzzy        Generate all .mo files with fuzzy
+#  - locale-translate-google    Transalte all .po files with Google Translate
+#  - locale-clean               Remove all .mo and .po files
+#  - static-pack                Deploy static packs
+#  - static-pack-css            Deploy static packs for CSS
+#  - static-pack-js             Deploy static packs for javascript
+#  - log-clean                  Remove the log files
+#  - log-archive                Archive the log files
+#  - clean                      Remove the staged files
+#  - update                     Update from current GIT repository
 #
 # @copyright  Copyright (c) 2008 BaseZF
-# @author	 Harold Thetiot (hthetiot)
-# @license	http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+# @author     Harold Thetiot (hthetiot)
+# @license	  http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
 
 # Binary
 ZIP = zip
@@ -141,7 +161,7 @@ php-phpunit-report:
 	@cd $(PROJECT_TEST_PATH) && $(PHPUNIT) --configuration phpunit-report.xml
 	@echo "done"
 
-# Exec PHP Quality report
+# Exec PHP Quality reports
 php-qa: php-phploc php-phpcs php-phpcpd
 
 # Exec PHP Quality stats report
@@ -208,7 +228,7 @@ locale-deploy:
 		msgfmt --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
 	done
 
-# Generate all .mo files
+# Generate all .mo files with fuzzy
 locale-deploy-fuzzy:
 	@echo "----------------"
 	@echo "Generate GetText MO files with Fuzzy translation:"
@@ -218,7 +238,7 @@ locale-deploy-fuzzy:
 		msgfmt -f --statistics $$i -o `echo $$i | sed s/.po/.mo/`; \
 	done
 
-# Generate all .mo files
+# Transalte all .po files with Google Translate
 locale-translate-google:
 	@echo "----------------"
 	@echo "Translate GetText PO files with Google translate:"
@@ -243,14 +263,15 @@ locale-clean:
 # Static packing
 
 
-#
-
+# Deploy static packs
 static-pack: clean static-pack-css static-pack-js
 
+# Deploy static packs for CSS
 static-pack-css:
 	@echo "----------------"
 	@$(PROJECT_BIN_PATH)/tools/static-pack.php css $(CSS_PACK_CONFIG) public
 
+# Deploy static packs for javascript
 static-pack-js:
 	@echo "----------------"
 	@$(PROJECT_BIN_PATH)/tools/static-pack.php js $(JS_PACK_CONFIG) public
