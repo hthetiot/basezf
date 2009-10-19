@@ -104,12 +104,12 @@ class BaseZF_TemplateTest extends PHPUnit_Framework_TestCase
         $this->markTestSkipped('Still trying to determine a scenario to test this');
     }
 
-    public function testRenderTemplateWithDbitem()
+    public function testRenderTemplateWithArrayAccess()
     {
         $this->markTestSkipped('Still trying to determine a scenario to test this');
     }
 
-    public function testRenderTemplateWithDbcollection()
+    public function testRenderTemplateWithIterator()
     {
         $this->markTestSkipped('Still trying to determine a scenario to test this');
     }
