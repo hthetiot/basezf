@@ -66,16 +66,16 @@ class BaseZF_Framework_Controller_Plugin_NotModifiedCache extends Zend_Controlle
         // has in it's internal cache. So now we can check
         // if the submitted time equals our internal time value.
         // If yes then the page did not get updated
-        $PageWasUpdated = !(isset($headers['If-Modified-Since']) && strtotime($headers['If-Modified-Since']) == $lastChangeTime);
+        $pageWasUpdated = !(isset($headers['If-Modified-Since']) && strtotime($headers['If-Modified-Since']) == $lastChangeTime);
 
         // The second possibility is that the browser sends us
         // the last Hash-ID he has. If he does we can determine
         // if he has the latest version by comparing both IDs.
         // Warning: If-None-Match header can have a value like "hash0, hash1"
-        $DoIDsMatch = (isset($headers['If-None-Match']) && strpos($headers['If-None-Match'], $hashID) !== false);
+        $doIDsMatch = (isset($headers['If-None-Match']) && strpos($headers['If-None-Match'], $hashID) !== false);
 
         // Does one of the two ways apply?
-        if (!$PageWasUpdated or $DoIDsMatch) {
+        if (!$pageWasUpdated or $doIDsMatch) {
 
             // Okay, the browser already has the
             // latest version of our page in his
