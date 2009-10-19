@@ -87,14 +87,14 @@ install: clean config syntax locale static-pack
 doc:
 	@echo "----------------"
 	@echo "Generate doxygen doc :"
-	@$(DOXYGEN) $(PROJECT_CONFIG)/doxygen.cnf > $(PROJECT_LOG_PATH)/doc.log
+	@$(DOXYGEN) $(PROJECT_CONFIG_PATH)/doxygen.cnf > $(PROJECT_LOG_PATH)/doc.log
 	@echo "done"
 
-# Deploy config from $(PROJECT_CONFIG)/dist
+# Deploy config from $(PROJECT_CONFIG_PATH)/dist
 config:
 	@echo "----------------"
 	@echo "Configure config files:"
-	@$(PROJECT_BIN_PATH)/tools/config-generator.php configure $(PROJECT_CONFIG) $(PROJECT_CONFIG)/dist
+	@$(PROJECT_BIN_PATH)/tools/config-generator.php configure $(PROJECT_CONFIG_PATH) $(PROJECT_CONFIG_PATH)/dist
 	@echo "done"
 
 #
@@ -149,7 +149,7 @@ php-phploc:
 	@echo "----------------"
 	@echo "Exec PHP Code Stats report:"
 	@$(PHPLOC) $(ROOT) > $(PROJECT_LOG_PATH)/php-loc.log
-	@echo "done"
+	@echo "done (output: $(PROJECT_LOG_PATH)/php-loc.log)"
 
 # Exec PHP Quality syntax report
 php-phpcs:
@@ -158,14 +158,14 @@ php-phpcs:
 	@$(PHPCS) --extensions=php \
 	--ignore=$(ROOT)/lib/ZFDebug/*,$(ROOT)/lib/geshi*,$(ROOT)/public/debug/*,$(ROOT)/lib/Spyc.php,$(ROOT)/lib/SphinxClient.php \
 	-n $(ROOT) > $(PROJECT_LOG_PATH)/php-cs.log
-	@echo "done"
+	@echo "done (output: $(PROJECT_LOG_PATH)/php-cs.log)"
 
 # Exec PHP Quality Duplicate source report
 php-phpcpd:
 	@echo "----------------"
 	@echo "Exec PHP Code Duplicate report:"
 	@$(PHPCPD) $(ROOT) > $(PROJECT_LOG_PATH)/php-cpd.log
-	@echo "done"
+	@echo "done (output: $(PROJECT_LOG_PATH)/php-cpd.log)"
 
 #
 # Locale
