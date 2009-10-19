@@ -76,7 +76,7 @@ abstract class BaseZF_StCollection extends ArrayObject
 
         try {
 
-            Zend_Loader::loadClass($itemClassName);
+            @Zend_Loader::loadClass($itemClassName);
 
             if (!class_exists($itemClassName, true)) {
                 throw new Exception('not existing class '. $classItem);
