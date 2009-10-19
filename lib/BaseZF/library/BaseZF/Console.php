@@ -240,6 +240,27 @@ abstract class BaseZF_Console
     //
 
     /**
+     * My prompt func because realine is not default module
+     */
+    protected function _ask($string, $length = 1024)
+    {
+        static $tty;
+
+        if (!isset($tty)) {
+
+            if (substr(PHP_OS, 0, 3) == "WIN") {
+                $tty = fopen("\con", "rb");
+            } else if (!($tty = fopen("/dev/tty", "r"))) {
+                $tty = fopen("php://stdin", "r");
+            }
+        }
+
+        echo $string;
+        $result = trim(fgets($tty, $length));
+        return $result;
+    }
+
+    /**
      * Print a debug message
      *
      * @param $str string message to print

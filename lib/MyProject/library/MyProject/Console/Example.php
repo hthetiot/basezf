@@ -20,5 +20,8 @@ class MyProject_Console_Example extends BaseZF_Console
 
         $this->_addSemaphore('import');
         $this->_cleanSemaphore('import');
+
+        $choice = $this->_ask('toto ?');
+        $this->_log(sprintf('You enter <%s>', $choice));
     }
 }
