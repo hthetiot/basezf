@@ -13,7 +13,7 @@
  * You can add some callback for BaseZF_Registry::registry('YourRegistryEntryName');
  * for that you just have to add a function like following.
  * <code>
- * private function _create<YourRegistryEntryName>()
+ * protected function _create<YourRegistryEntryName>()
  * {
  *      return new SingletonClass();
  * }
@@ -124,7 +124,7 @@ abstract class BaseZF_Framework_Registry
      *
      * @return object Zend_Log instance
      */
-    private function _createLog()
+    protected function _createLog()
     {
         // get config
         $config = $this->registry('config');
@@ -140,7 +140,7 @@ abstract class BaseZF_Framework_Registry
      *
      * @return object Zend_Db instance
      */
-    private function _createDb()
+    protected function _createDb()
     {
         // get config
         $config = $this->registry('config');
@@ -156,7 +156,7 @@ abstract class BaseZF_Framework_Registry
      *
      * @return object Zend_Cache instance
      */
-    private function _createCache()
+    protected function _createCache()
     {
         // get config
         $config = $this->registry('config');
@@ -187,7 +187,7 @@ abstract class BaseZF_Framework_Registry
      *
      * @return object Zend_Session_Namespace instance
      */
-    private function _createSession()
+    protected function _createSession()
     {
         // get config
         $config = $this->registry('config');
@@ -207,7 +207,7 @@ abstract class BaseZF_Framework_Registry
      *
      * @return object Zend_Locale instance of current locale
      */
-    private function _createLocale($locale = null)
+    protected function _createLocale($locale = null)
     {
         try {
 
@@ -315,7 +315,7 @@ abstract class BaseZF_Framework_Registry
      *
      * @return object Zend_Auth instance
      */
-    private function _createAuth()
+    protected function _createAuth()
     {
         return Zend_Auth::getInstance();
     }
@@ -327,7 +327,7 @@ abstract class BaseZF_Framework_Registry
      *
      * @return object Zend_Acl instance
      */
-    private function _createAcl()
+    protected function _createAcl()
     {
         $acl = new Zend_Acl();
 
