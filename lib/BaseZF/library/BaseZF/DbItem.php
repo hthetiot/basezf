@@ -8,7 +8,7 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-abstract class BaseZF_DbItem
+abstract class BaseZF_DbItem implements ArrayAccess
 {
     /**
      * Define the zend log priority
@@ -154,7 +154,7 @@ abstract class BaseZF_DbItem
 
         try {
 
-            Zend_Loader::loadClass($classItem);
+            @Zend_Loader::loadClass($classItem);
 
             if (!class_exists($classItem, true)) {
                 throw new Exception('not existing class '. $classItem);
@@ -1371,6 +1371,29 @@ abstract class BaseZF_DbItem
         $id = $this->_id;
         $this->__construct($this->getTable(), null, $this->_realtime);
         $this->setId($id);
+    }
+
+
+    //
+    // Implement ArrayAccess
+    //
+
+    public function offsetSet($offset, $value) {
+        $this->setProperty($offset, $value);
+    }
+
+    public function offsetExists($offset) {
+        return $this->getFieldType($offset);
+    }
+
+    public function offsetUnset($offset) {
+
+        $this->setProperty($offset, null);
+
+    }
+
+    public function offsetGet($offset) {
+        return $this->getProperty($offset);
     }
 
     //

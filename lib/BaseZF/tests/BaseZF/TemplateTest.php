@@ -1,6 +1,6 @@
 <?php
 /**
- * ArchiveTest.php for BaseZF in tests/
+ * TemplateTest.php for BaseZF in tests/
  *
  * @category   BaseZF
  * @package    BaseZF_UnitTest
@@ -11,11 +11,11 @@
 require_once dirname(__FILE__) . '/../TestHelper.php';
 
 /**
- * Test class for BaseZF_DbTemplate
+ * Test class for BaseZF_Template
  *
  * @group BaseZF
  */
-class BaseZF_DbTemplateTest extends PHPUnit_Framework_TestCase
+class BaseZF_TemplateTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Call before all test and on class test loading
@@ -35,7 +35,7 @@ class BaseZF_DbTemplateTest extends PHPUnit_Framework_TestCase
         $tplString = 'hello {gender} {login}, did you like parsor !';
         $tplStringTest = 'hello ' . $tplData['gender'] . ' ' . $tplData['login'] . ', did you like parsor !';
 
-        $tpl = new BaseZF_DbTemplate();
+        $tpl = new BaseZF_Template();
         $tpl->setTemplate($tplString);
         $tpl->setData($tplData);
 
@@ -54,7 +54,7 @@ class BaseZF_DbTemplateTest extends PHPUnit_Framework_TestCase
         $tplString = 'hello {member:gender} {member:login}, did you like parsor !';
         $tplStringTest = 'hello ' . $tplData['member']['gender'] . ' ' . $tplData['member']['login'] . ', did you like parsor !';
 
-        $tpl = new BaseZF_DbTemplate();
+        $tpl = new BaseZF_Template();
         $tpl->setTemplate($tplString);
         $tpl->setData($tplData);
 
@@ -63,14 +63,14 @@ class BaseZF_DbTemplateTest extends PHPUnit_Framework_TestCase
 
     public function testRenderTemplateWithConstantTag()
     {
-        $constantName = 'BaseZF_DbTemplateTest_' . rand(1, 100);
+        $constantName = 'BaseZF_TemplateTest_' . rand(1, 100);
         define($constantName, time());
 
         $tplString = 'hello [const:' . $constantName . '], did you like parsor !';
         $tplStringTest = 'hello ' . constant($constantName) . ', did you like parsor !';
         $tplData = array();
 
-        $tpl = new BaseZF_DbTemplate();
+        $tpl = new BaseZF_Template();
         $tpl->setTemplate($tplString);
         $tpl->setData($tplData);
 
@@ -87,7 +87,7 @@ class BaseZF_DbTemplateTest extends PHPUnit_Framework_TestCase
         $tplString = 'hello [if: {gender} == 1 ? Mr : Miss ] {login}, did you like parsor !';
         $tplStringTest = 'hello ' . ($tplData['gender'] == 1 ? 'Mr' : 'Miss') . ' Toto, did you like parsor !';
 
-        $tpl = new BaseZF_DbTemplate();
+        $tpl = new BaseZF_Template();
         $tpl->setTemplate($tplString);
         $tpl->setData($tplData);
 

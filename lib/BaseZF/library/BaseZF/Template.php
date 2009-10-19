@@ -1,14 +1,14 @@
 <?php
 /**
- * DbTemplate class in /BaseZF
+ * Template class in /BaseZF
  *
  * @category   BaseZF
- * @package    BaseZF_DbItem
+ * @package    BaseZF_Template
  * @copyright  Copyright (c) 2008 BazeZF
  * @author     Harold Thetiot (hthetiot)
  */
 
-class BaseZF_DbTemplate
+class BaseZF_Template
 {
     /**
      * Template parts
@@ -217,7 +217,7 @@ class BaseZF_DbTemplate
     /**
      *
      */
-    private function _replaceBeginTagInTemplate($template, $data)
+    private function _replaceBeginTagInTemplate($template, array $data)
     {
         $originalTextArray = array();
         $replacedTextArray = array();
@@ -239,11 +239,14 @@ class BaseZF_DbTemplate
                     $collectionIndex = $titleIndex;
 
                 } elseif (isset($data[$collectionIndex])) {
-                    if ($data[$collectionIndex] instanceof BaseZF_DbCollection) {
+
+                    if ($data[$collectionIndex] instanceof Iterator && $data[$collectionIndex] instanceof Countable) {
                         $dataLimit = $data[$collectionIndex]->count();
                     } else {
                         $dataLimit = count($data[$collectionIndex]);
                     }
+                } else {
+                    throw new BaseZF_Template_Exception(sprintf('Unable to find template vars values for: "%s"', $titleIndex));
                 }
 
                 $limit = ($templateLimit !== null ? min($templateLimit, $dataLimit) : $dataLimit);
@@ -320,13 +323,13 @@ class BaseZF_DbTemplate
 
                     $evalResult = @eval($evalString);
                     if ( $evalResult === false ) {
-                        throw new BaseZF_DbTemplate_Exception(sprintf('Can\'t parse string: "%s"', $evalString));
+                        throw new BaseZF_Template_Exception(sprintf('Can\'t parse string: "%s"', $evalString));
                     }
 
                     $replaceTextArray[] = $caseResult;
 
                 } catch (Exception $e) {
-                    throw new BaseZF_DbTemplate_Exception(sprintf('Unable to find template vars values for: "%s"', $evalString));
+                    throw new BaseZF_Template_Exception(sprintf('Unable to find template vars values for: "%s"', $evalString));
                 }
             }
 
@@ -398,75 +401,48 @@ class BaseZF_DbTemplate
 
         // data is available ?
         if (!isset($data[$dbItemParts[0]]) ) {
-            throw new BaseZF_DbTemplate_Exception(sprintf('There are no template vars values for "%s"', $dbItemParts[0]));
+            throw new BaseZF_Template_Exception(sprintf('There are no template vars values for "%s"', $dbItemParts[0]));
         }
 
         // manage BaseZF_DbItem
-        if ($data[$dbItemParts[0]] instanceof BaseZF_DbItem) {
+        if ($data[$dbItemParts[0]] instanceof ArrayAccess) {
 
             $object = $data[$dbItemParts[0]];
-
-            unset($dbItemParts[0]);
-            if ( count($dbItemParts) > 1 ) {
-
-                $lastPart = array_pop($dbItemParts);
-                $dbItemParts = array_map("ucfirst", $dbItemParts);
-                $evalString = '$object = $object->' . implode('->', $dbItemParts) .';';
-
-                try {
-
-                    $evalResult = @eval($evalString);
-
-                    if ( $evalResult === false ) {
-                        throw new BaseZF_DbTemplate_Exception(sprintf('Can\'t parse string: "%s"', $evalString));
-                    }
-
-                } catch (Exception $e) {
-                    throw new BaseZF_DbTemplate_Exception(sprintf('Unable to find template vars values for "%s"', $index));
-                }
-
-            } else {
-                $lastPart = $dbItemParts[1];
-            }
+            $index = $dbItemParts[1];
 
             // check if callable if it is a function
-            if( ($pos = strpos($lastPart, '(')) !== false ) {
-                $functionName = substr($lastPart, 0, $pos);
+            if( ($pos = strpos($index, '(')) !== false ) {
+
+                $functionName = substr($index, 0, $pos);
+
                 if (!is_callable(array($object, $functionName))) {
-                    throw new BaseZF_DbTemplate_Exception(sprintf('No such method "%s" for "%s"', $lastPart, $index));
-                }
-            }
-
-            $value = '';
-            $evalString = '$value = $object->' . $lastPart .';';
-
-            try {
-
-                $evalResult = @eval($evalString);
-                if ( $evalResult === false ) {
-                    throw new BaseZF_DbTemplate_Exception(sprintf('Can\'t parse string: "%s"', $evalString));
+                    throw new BaseZF_Template_Exception(sprintf('No such method "%s" on object "%s"', $functionName, get_class($object)));
                 }
 
-                if (is_bool($value)) {
-                    $value = intval($value);
+                $value = call_user_func(array($object, $functionName));
+
+            // check if index exist
+            } else {
+
+                if (!isset($object[$index])) {
+                    throw new BaseZF_Template_Exception(sprintf('No such property "%s" on object "%s"', $index, get_class($object)));
                 }
 
-            } catch (Exception $e) {
-                throw new BaseZF_DbTemplate_Exception(sprintf('Unable to find template vars values for "%s"', $index));
+                $value = $object[$index];
             }
 
             return self::_encodeBySpecialChars($value);
 
-        // manage BaseZF_DbCollection
-        } elseif ($data[$dbItemParts[0]] instanceof BaseZF_DbCollection) {
+        // manage Iterator
+        } elseif ($data[$dbItemParts[0]] instanceof Iterator && $data[$dbItemParts[0]] instanceof Countable) {
 
-            throw new BaseZF_DbTemplate_Exception('Unable to display a DbCollection as vars');
+            throw new BaseZF_Template_Exception('Unable to display an Iterator as vars');
 
         // manage array assoc
         } else if (is_array($data[$dbItemParts[0]])) {
 
             if (!isset($dbItemParts[1])) {
-                throw new BaseZF_DbTemplate_Exception('Unable to display a Array as vars');
+                throw new BaseZF_Template_Exception('Unable to display a Array as vars');
             }
 
             return self::_encodeBySpecialChars($data[$dbItemParts[0]][$dbItemParts[1]]);
@@ -515,21 +491,7 @@ class BaseZF_DbTemplate
 
         foreach ($data as $key => &$value) {
 
-            if (strpos($value, '{json}') !== false) {
 
-                $value = Zend_Json::decode(str_replace('{json}', '', $value), true);
-
-                switch ($value['type']) {
-
-                    case 'Item':
-                        $value = BaseZF_DbItem::getInstance($value['table'], $value['id']);
-                    break;
-
-                    case 'Collection':
-                        $value = new BaseZF_DbCollection($value['table'], $value['id']);
-                    break;
-                }
-            }
         }
 
         return $data;
@@ -538,15 +500,17 @@ class BaseZF_DbTemplate
     /**
      *
      */
-    static protected function _encodeDbObject($id, $table, $type)
+    static protected function _encodeArrayAccess(ArrayAccess $object)
     {
-        $tmp = array (
-           'id'     => $id,
-           'table'  => $table,
-           'type'   => $type,
-        );
 
-        return '{json}' . Zend_Json::encode($tmp);
+    }
+
+    /**
+     *
+     */
+    static protected function _encodeIterator(Iterator $object)
+    {
+
     }
 
     /**
@@ -554,14 +518,22 @@ class BaseZF_DbTemplate
      */
     static protected function _encodeData($data)
     {
-        foreach ($data as $key => &$item) {
+        foreach ($data as $key => &$object) {
 
-            if ( $item instanceof BaseZF_DbItem ) {
-                $item = self::_encodeDbObject($item->getId(), $item->getTable(), 'Item');
-            } else if ( $item instanceof BaseZF_DbCollection ) {
-                $item = self::_encodeDbObject($item->getIds(), $item->getTable(), 'Collection');
+            // class and object support
+            if (is_object($object) || gettype($object) === 'object') {
+
+                if ($object instanceof ArrayAccess ) {
+                    $object = self::_encodeArrayAccess($object);
+                } elseif ($object instanceof Iterator && $object instanceof Countable) {
+                    $item = self::_encodeIterator($object);
+                } else {
+                    throw new BaseZF_Template_Exception(sprintf('Unable to encode object "%s" with BaseZF_Template engine', get_class($item)));
+                }
+
+            // encode others types
             } else {
-                throw new BaseZF_DbTemplate_Exception(sprintf('Unable to encode class "%s" with template engine', get_class($item)));
+
             }
         }
 

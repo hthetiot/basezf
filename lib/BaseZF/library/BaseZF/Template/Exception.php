@@ -1,14 +1,14 @@
 <?php
 /**
- * Exception class in /BazeZF/DbItem
+ * Exception class in /BazeZF/Template
  *
  * @category   BazeZF
- * @package    BazeZF_DbItem
+ * @package    BaseZF_Template
  * @copyright  Copyright (c) 2008 BazeZF
  * @author     Harold Thetiot (hthetiot)
  */
 
-class BaseZF_DbTemplate_Exception extends BaseZF_Exception
+class BaseZF_Template_Exception extends BaseZF_Exception
 {
 
 }

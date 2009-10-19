@@ -64,7 +64,7 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
         */
     }
 
-    public function dbtemplateAction()
+    public function templateAction()
     {
         $examples = new MyProject_DbCollection('example');
         $examples->filterWhere('example_id > ? AND example_type_id = 1', 1);
@@ -102,7 +102,7 @@ test begin/end with limit   : {data:unique_string}
 </pre>
 ';
 
-        $tpl = new BaseZF_DbTemplate();
+        $tpl = new BaseZF_Template();
         $tpl->setTemplate($tplString);
         $tpl->setData($data);
 
