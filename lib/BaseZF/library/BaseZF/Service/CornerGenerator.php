@@ -69,6 +69,9 @@ class BaseZF_Service_CornerGenerator
     // Public API
     //
 
+    /**
+     *
+     */
     public function __construct(array $options = null)
     {
         if (is_array($options) && !empty($options)) {
@@ -80,6 +83,9 @@ class BaseZF_Service_CornerGenerator
         $this->_response = new Zend_Controller_Response_Http();
     }
 
+    /**
+     *
+     */
     public function  setOptions(array $options)
     {
         $this->_options = $options;
@@ -87,6 +93,9 @@ class BaseZF_Service_CornerGenerator
         return $this;
     }
 
+    /**
+     *
+     */
     public static function factoryFromRequest()
     {
         $requestParams = $_GET;
@@ -101,6 +110,9 @@ class BaseZF_Service_CornerGenerator
         return new BaseZF_Service_CornerGenerator($options);
     }
 
+    /**
+     *
+     */
     public function render()
     {
         try {
@@ -115,6 +127,9 @@ class BaseZF_Service_CornerGenerator
         }
     }
 
+    /**
+     *
+     */
     public function display()
     {
         // Generate unique Hash-ID by using Sha1
@@ -212,11 +227,18 @@ class BaseZF_Service_CornerGenerator
     // Generator functions
     //
 
+    /**
+     *
+     */
     private function _createImageData()
     {
+        // @todo
         $this->_createImageDataWithGD();
     }
 
+    /**
+     *
+     */
     private function _createImageDataWithGD()
     {
         //convert colors to rgb
@@ -304,24 +326,38 @@ class BaseZF_Service_CornerGenerator
     // Cache functions
     //
 
+    /**
+     *
+     */
     private function _getImageCacheKey()
     {
         return sha1(serialize($this->_options));
     }
 
+    /**
+     *
+     */
     private function _getImageCacheData()
     {
+        // @todo
         throw new BaseZF_Service_CornerGenerator_Exception();
     }
 
+    /**
+     *
+     */
     private function _setImageCacheData()
     {
+        // @todo
     }
 
     //
     // Others functions
     //
 
+    /**
+     *
+     */
     private static function _hex2rgb($hex)
     {
         $hex = str_replace('#', '', $hex);
