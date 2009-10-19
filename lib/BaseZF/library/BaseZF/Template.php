@@ -397,18 +397,18 @@ class BaseZF_Template
      */
     private static function _getDataValue(&$data, &$index)
     {
-        $dbItemParts = explode(':', $index);
+        $objectParts = explode(':', $index);
 
         // data is available ?
-        if (!isset($data[$dbItemParts[0]]) ) {
-            throw new BaseZF_Template_Exception(sprintf('There are no template vars values for "%s"', $dbItemParts[0]));
+        if (!isset($data[$objectParts[0]]) ) {
+            throw new BaseZF_Template_Exception(sprintf('There are no template vars values for "%s"', $objectParts[0]));
         }
 
-        // manage BaseZF_DbItem
-        if ($data[$dbItemParts[0]] instanceof ArrayAccess) {
+        // manage ArrayAccess
+        if ($data[$objectParts[0]] instanceof ArrayAccess) {
 
-            $object = $data[$dbItemParts[0]];
-            $index = $dbItemParts[1];
+            $object = $data[$objectParts[0]];
+            $index = $objectParts[1];
 
             // check if callable if it is a function
             if( ($pos = strpos($index, '(')) !== false ) {
@@ -433,19 +433,19 @@ class BaseZF_Template
 
             return self::_encodeBySpecialChars($value);
 
-        // manage Iterator
-        } elseif ($data[$dbItemParts[0]] instanceof Iterator && $data[$dbItemParts[0]] instanceof Countable) {
+        // manage Countable Iterator
+        } elseif ($data[$objectParts[0]] instanceof Iterator && $data[$objectParts[0]] instanceof Countable) {
 
             throw new BaseZF_Template_Exception('Unable to display an Iterator as vars');
 
         // manage array assoc
-        } else if (is_array($data[$dbItemParts[0]])) {
+        } else if (is_array($data[$objectParts[0]])) {
 
-            if (!isset($dbItemParts[1])) {
+            if (!isset($objectParts[1])) {
                 throw new BaseZF_Template_Exception('Unable to display a Array as vars');
             }
 
-            return self::_encodeBySpecialChars($data[$dbItemParts[0]][$dbItemParts[1]]);
+            return self::_encodeBySpecialChars($data[$objectParts[0]][$objectParts[1]]);
         }
 
         // simple var from array key
