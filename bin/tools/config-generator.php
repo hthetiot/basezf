@@ -31,22 +31,22 @@ class configGenerator
 {
 
     /**
-     *
+     * Template file preffix
      */
     const CONFIG_TEMPLATE_PREFFIX = '-dist';
 
     /**
-     *
+     * Template parsor
      */
     const CONFIG_TEMPLATE_PARSOR = '/^# ([A-Z$_]*): ([^\[]*)(\[default\: (.*)\])?/';
 
     /**
-     *
+     * Config dest dir
      */
     protected $_destDir;
 
     /**
-     *
+     * Config template dir
      */
     protected $_tplDir;
 
@@ -78,16 +78,16 @@ class configGenerator
         if (!isset($tty)) {
 
             if (substr(PHP_OS, 0, 3) == "WIN") {
-            $tty = fOpen("\con", "rb");
-            } else {
-            if (!($tty = fOpen("/dev/tty", "r"))) {
+                $tty = fOpen("\con", "rb");
+            } else if (!($tty = fOpen("/dev/tty", "r"))) {
                 $tty = fOpen("php://stdin", "r");
-            }
             }
         }
 
         echo $string;
+
         $result = trim(fGets($tty, $length));
+
         return $result;
     }
 
@@ -96,7 +96,7 @@ class configGenerator
      */
     public function configure()
     {
-    $tplFiles = glob($this->_tplDir . '/*' . self::CONFIG_TEMPLATE_PREFFIX);
+        $tplFiles = glob($this->_tplDir . '/*' . self::CONFIG_TEMPLATE_PREFFIX);
 
         // display help
         echo 'Notice: tape "skip" to skip file, press Enter for default value.' . "\n";
@@ -111,20 +111,20 @@ class configGenerator
             // override current destination file
             if (is_file($destFile)) {
 
-            $buffer = null;
-            while (!in_array(strtolower($buffer), array('y', 'n', 'skip'))) {
+                $buffer = null;
+                while (!in_array(strtolower($buffer), array('y', 'n', 'skip'))) {
 
-                $buffer = $this->ask('Overvrite existing config file "' . $destFile . '" [y/N] ? ');
+                    $buffer = $this->ask('Overvrite existing config file "' . $destFile . '" [y/N] ? ');
 
-                if (empty($buffer)) {
-                $buffer = 'n';
+                    if (empty($buffer)) {
+                    $buffer = 'n';
+                    }
                 }
-            }
 
-            // skip file $tplFile from iteration on $tplFiles
-            if (in_array(strtolower($buffer), array('n', 'skip'))) {
-                continue;
-            }
+                // skip file $tplFile from iteration on $tplFiles
+                if (in_array(strtolower($buffer), array('n', 'skip'))) {
+                    continue;
+                }
             }
 
             // display current destination file and help
@@ -133,40 +133,40 @@ class configGenerator
             // ask vars value to prompt
             foreach ($fileVars as $fileVar => $data) {
 
-            // build question
-            $question = ' - ' . $data['question'];
+                // build question
+                $question = ' - ' . $data['question'];
 
-            // add default notice in question
-            if (!empty($data['default'])) {
-                $question .= ' [default: ' . $data['default'] . ']';
+                // add default notice in question
+                if (!empty($data['default'])) {
+                    $question .= ' [default: ' . $data['default'] . ']';
 
-            // add default notice in question for same vars name
-            } else if (isset($filesVarsValues[$fileVar])) {
-                $question .= ' [default: ' . $filesVarsValues[$fileVar]. ']';
-            }
-
-            $question .= ' ? ';
-
-            // ask until is not empty and if not have default
-            $buffer = null;
-            while (empty($buffer)) {
-
-                $buffer = $this->ask($question);
-
-                // skip file
-                if (strtolower($buffer) == 'skip') {
-                break(3);
-                //use default value
-                } else if (empty($buffer) && !empty($data['default'])) {
-                $buffer = $data['default'];
-
-                // use previous value
-                } else if (empty($buffer) && isset($filesVarsValues[$fileVar])) {
-                $buffer = $filesVarsValues[$fileVar];
+                // add default notice in question for same vars name
+                } else if (isset($filesVarsValues[$fileVar])) {
+                    $question .= ' [default: ' . $filesVarsValues[$fileVar]. ']';
                 }
-            }
 
-            $fileVarsValues[$fileVar] = $buffer;
+                $question .= ' ? ';
+
+                // ask until is not empty and if not have default
+                $buffer = null;
+                while (empty($buffer)) {
+
+                    $buffer = $this->ask($question);
+
+                    // skip file
+                    if (strtolower($buffer) == 'skip') {
+                        break(3);
+
+                    //use default value
+                    } else if (empty($buffer) && !empty($data['default'])) {
+                        $buffer = $data['default'];
+                    // use previous value
+                    } else if (empty($buffer) && isset($filesVarsValues[$fileVar])) {
+                        $buffer = $filesVarsValues[$fileVar];
+                    }
+                }
+
+                $fileVarsValues[$fileVar] = $buffer;
             }
 
             $filesVarsValues = array_merge($filesVarsValues, $fileVarsValues);
@@ -235,10 +235,10 @@ class configGenerator
 
             $matches = array();
             if (preg_match(self::CONFIG_TEMPLATE_PARSOR, $line, $matches)) {
-            $fileVars[$matches[1]] = array(
-                'question'  => trim($matches[2]),
-                'default'   => (isset($matches[4]) ? $matches[4] : null),
-            );
+                $fileVars[$matches[1]] = array(
+                    'question'  => trim($matches[2]),
+                    'default'   => (isset($matches[4]) ? $matches[4] : null),
+                );
             }
         }
 
@@ -277,19 +277,17 @@ try {
     // handle possible first agruments
     switch ($_SERVER['argv'][1]) {
 
-    case 'configure':
-    {
-        $configGenerator->configure();
-        break;
-    }
+        case 'configure': {
+            $configGenerator->configure();
+            break;
+        }
 
-    case 'show':
-    {
-        $configGenerator->show();
-        break;
-    }
+        case 'show': {
+            $configGenerator->show();
+            break;
+        }
 
-    default : usage();
+        default : usage();
     }
 
     exit(0);
@@ -300,5 +298,4 @@ try {
     echo '  ' . $e->getMessage() . "\n";
     exit(1);
 }
-
 
