@@ -45,9 +45,7 @@ class BaseZF_Framework_View_Helper_GeSHi extends BaseZF_Framework_View_Helper_Ab
 
         if ($value !== false && in_array($language, self::$_geshiStylesheet) === false) {
             self::$_geshiStylesheet[] = $language;
-            $xhtml[] = '<style>';
-            $xhtml[] = $geshi->get_stylesheet();
-            $xhtml[] = '</style>';
+            $this->view->headStyle()->appendStyle($geshi->get_stylesheet());
         }
 
         $xhtml[] = $value;
