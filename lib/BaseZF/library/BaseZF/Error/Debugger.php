@@ -15,15 +15,25 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
         // Server error
         header('HTTP/1.1 500 Internal Server Error');
 
-        ?>
-        <style>
-            pre.debug {
-                max-height: 100px;
-                overflow: auto;
-                background: #CCC;
-                padding: 5px;
-            }
-        </style>
+        echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<title>An error occurred</title>
+<meta name="robots" content="noindex,follow,nocache,noarchive" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Language" content="en" />
+<style>
+    pre.debug {
+        max-height: 100px;
+        overflow: auto;
+        background: #CCC;
+        padding: 5px;
+    }
+</style>
+</head>
+    <body>
         <h1>An error occurred</h1>
         <h2><?php echo $this->_exception->getMessage(); ?></h2>
 
@@ -115,6 +125,9 @@ class BaseZF_Error_Debugger extends BaseZF_Error_Debugger_Abstract
             ?>
             </pre>
         </div>
-        <?php
+    </body>
+</html>
+<?php
+
     }
 }

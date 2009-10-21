@@ -21,15 +21,42 @@ abstract class BaseZF_Error_Debugger_Abstract
 
     abstract protected function _render();
 
-    public function getExceptionSourceDetails()
+    /**
+     * Gets the interesting lines in the interesting file
+     */
+    public function getExceptionSourceDetails($nbLine = 6)
     {
-        $source = false;
-
-        if (is_callable(array($this->_exception, 'getSource'))) {
-            $source = highlight_string($this->_exception->getSource(), true);
+        if (!is_file($this->_exception->getFile())) {
+            return;
         }
 
-        return $source;
+        $file = fopen($this->_exception->getFile(), 'r');
+        $beginLine = max(0, $this->_exception->getLine() - $nbLine / 2);
+        $endLine = $beginLine + $nbLine - 1;
+        $code = '';
+        $curLine = 0;
+
+        while($line = fgets($file)) {
+
+            $curLine++;
+
+            if ($this->_exception->getLine() == $curLine) {
+                $lineLabel = 'ERR:';
+            } else {
+                $lineLabel = str_pad($curLine, 3, '0', STR_PAD_LEFT) . ':';
+            }
+
+            if ($curLine >= $beginLine && $curLine <= $endLine) {
+                $code .= $lineLabel . $line;
+            }
+
+            if ($curLine > $endLine) {
+                break;
+            }
+        }
+
+
+        return ($code);
     }
 
     public function getExceptionContext()
