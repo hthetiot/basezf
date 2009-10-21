@@ -6,6 +6,8 @@
  * @package    BaseZF_DbItem
  * @copyright  Copyright (c) 2008 BazeZF
  * @author     Harold Thetiot (hthetiot)
+ *             Oleg Stephanwhite (oleg)
+ *             Fabien Guiraud (fguiraud)
  */
 
 abstract class BaseZF_DbItem implements ArrayAccess
@@ -19,6 +21,11 @@ abstract class BaseZF_DbItem implements ArrayAccess
      * Encrypt ids key
      */
     const EXTENTED_ID_INCREMENT = '14041985';
+
+    /**
+     * Cache Key Template used by DbQuery Class
+     */
+    const CACHE_KEY_TEMPLATE = '__id__';
 
     /**
      * Unique Id
@@ -41,14 +48,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
     protected static $_STATIC_SCHEMA;
 
     /**
-     * Reference to static instance cache according current table
-     */
-    protected $_instances = array();
-
-    /**
      * Static instance cache
      */
-    protected static $_STATIC_INSTANCES = array();
+    protected static $_INSTANCES = array();
 
     /**
      * Data
@@ -59,11 +61,6 @@ abstract class BaseZF_DbItem implements ArrayAccess
      * Realtime do not use cache
      */
     protected $_realtime = false;
-
-    /**
-     * Cache Key Template used by DbQuery Class
-     */
-    const _CACHE_KEY_TEMPLATE = '__id__';
 
     /**
      * array of modified properties
@@ -110,8 +107,6 @@ abstract class BaseZF_DbItem implements ArrayAccess
     {
         $this->_table = $table;
         $this->loadStructure($table);
-
-        $this->_createInstances();
 
         $this->setRealTime($realtime);
         $this->setId($id);
@@ -183,48 +178,73 @@ abstract class BaseZF_DbItem implements ArrayAccess
     public static function getInstance($table, $id = null, $realtime = false, $class = null)
     {
         if (empty($table)) {
-           throw new BaseZF_DbItem_Exception('There no table name for BaseZF_DbItem' );
+           throw new BaseZF_DbItem_Exception('There no table name for BaseZF_DbItem');
         }
 
-        if (!is_null($id) && ($item = self::getExistInstance($table, $id))) {
-
-            $item->setRealTime($realtime);
-            $item->log('Get DbItem Instance: ' . $item);
-
-        } else {
-
-            $class = self::_getItemClassName($table, $class);
-
-            $item = new $class($table, $id, $realtime);
-            $item->log('Init DbItem Instance with table: ' . $table);
+        if (!$item = self::getExistInstance($table, $id)) {
+            $item = self::_createInstance($table, $id, $class);
         }
+
+        $item->setRealTime($realtime);
 
         return $item;
     }
 
     final public static function getExistInstance($table, $id)
     {
-        if (!empty($id) && isset(self::$_STATIC_INSTANCES[$table]['items'][$id])) {
-            $item = &self::$_STATIC_INSTANCES[$table]['items'][$id];
+        if (!empty($id) && isset(self::$_INSTANCES[$table][$id])) {
+
+            $item = &self::$_INSTANCES[$table][$id];
+            $item->log('Get DbItem Instance: ' . $item);
+
         } else {
+
             $item = false;
         }
 
         return $item;
     }
 
-    final protected function _getInstances()
+    final protected static function _createInstance($table, $id, $class = null)
     {
-        if (empty($this->_instances)) {
-            $this->_createInstances();
-        }
+        $class = self::_getItemClassName($table, $class);
 
-        return $this->_instances;
+        $item = new $class($table, $id);
+        $item->log('Init DbItem Instance with table: ' . $table);
+
+        return $item;
     }
 
-    final protected function _createInstances()
+    final protected static function _saveInstance($table, $id, $item)
     {
-        $this->_instances = &self::$_STATIC_INSTANCES[$this->getTable()];
+        if(!empty($id)) {
+
+            if (!isset(self::$_INSTANCES[$table])) {
+                self::$_INSTANCES[$table] = array();
+            }
+
+            if (isset(self::$_INSTANCES[$table][$id]) && $item === self::$_INSTANCES[$table][$id]) {
+                 throw new BaseZF_DbItem_Exception(sprintf('Unable to save duplicate instance for id "%d" used table "%s"', $id, $table));
+            }
+
+            self::$_INSTANCES[$table][$id] = &$item;
+        }
+
+        return $item;
+    }
+
+    final public static function destructExistInstance($table, $id)
+    {
+        if ($deleted = isset(self::$_INSTANCES[$table][$id])) {
+            unset(self::$_INSTANCES[$table][$id]);
+        }
+
+        return $deleted;
+    }
+
+    final protected function _getInstances()
+    {
+        return self::$_INSTANCES[$this->getTable()];
     }
 
     //
@@ -282,10 +302,14 @@ abstract class BaseZF_DbItem implements ArrayAccess
         $this->_id = $id;
 
         if ($oldId != $id) {
-            if (!empty($oldId))
-                unset($this->_instances['items'][$oldId]);
-            if (!empty($id))
-                $this->_instances['items'][$id] = $this;
+
+            if (!empty($oldId)) {
+                self::destructExistInstance($this->getTable(), $oldId);
+            }
+
+            if (!empty($id)) {
+                self::_saveInstance($this->getTable(), $id, $this);
+            }
         }
 
         return $this;
@@ -551,23 +575,38 @@ abstract class BaseZF_DbItem implements ArrayAccess
         return $this;
     }
 
+    /**
+     * @todo use related dbcollection
+     */
     protected function _getIdsNeedToLoad($property, $prefereIds = array(), $limit = BaseZF_DbCollection::MAX_ITEM_BY_REQUEST)
     {
-        $ids = array_unique(array_merge($prefereIds, array_keys($this->_instances['items'])));
+        // get neighbours ids
+        $neighboursItems = $this->_getNeighboursItems();
+
+        $ids = array_unique(array_merge($prefereIds, array_keys($neighboursItems)));
         $result = array();
 
         foreach ($ids as $id) {
-            $item = isset($this->_instances['items'][$id]) ? $item = $this->_instances['items'][$id] : false;
+
+            $item = (isset($neighboursItems[$id]) ? $item = $neighboursItems[$id] : false);
+
             if (!$item || !$item->isPropertyLoaded($property)) {
+
                 $result[] = $id;
                 $limit--;
-                if ($limit <= 0) break;
+
+                if ($limit <= 0) {
+                    break;
+                }
             }
         }
 
         return $result;
     }
 
+    /**
+     *
+     */
     protected function _massLoadProperty($ids, $property)
     {
         if (empty($ids) || !is_array($ids)) {
@@ -579,12 +618,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
             // load from db or cache
             $data = $this->_loadData($ids);
             foreach ($data as $id => $row) {
-
-                if (isset($this->_instances['items'][$id])) {
-                    $item = $this->_instances['items'][$id];
+                if ($item = self::getExistInstance($this->getTable(), $id)) {
                     $item->_setData($row, true);
                 }
-
             }
 
         } catch (Exception $e) {
@@ -592,6 +628,43 @@ abstract class BaseZF_DbItem implements ArrayAccess
         }
 
         return $this;
+    }
+
+    /**
+     * @todo
+     */
+    protected function _loadStaticProperty($property)
+    {
+
+        $this->_setData(array($property => $value), false);
+        $this->_addDependency($property, $parent_property);
+    }
+
+    /**
+     * @todo
+     *
+     * @return BaseZF_DbCollection object instance
+     */
+    protected function _loadRelationProperty($ids, $property)
+    {
+    }
+
+    /**
+     * @todo
+     *
+     * @return BaseZF_DbCollection object instance
+     */
+    protected function _loadRelationManyToOne($ids, $relationName, $key, $foreignTable, $foreignKey, $doCount = false)
+    {
+    }
+
+    /**
+     * @todo
+     *
+     * @return BaseZF_DbCollection object instance
+     */
+    protected function _loadRelationOneToMany($ids, $relationName, $key, $foreignTable, $foreignKey, $doCount = false)
+    {
     }
 
     /**
@@ -606,6 +679,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
         return array_key_exists($property, $this->_data);
     }
 
+    /**
+     *
+     */
     public function unloadProperty($property)
     {
         unset($this->_data[$property]);
@@ -613,6 +689,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
         $this->_setLoaded(false);
     }
 
+    /**
+     *
+     */
     public function resetProperty($property)
     {
         unset($this->_modified[$property]);
@@ -679,7 +758,7 @@ abstract class BaseZF_DbItem implements ArrayAccess
      *
      * @param string $property name of property to validate
      */
-    final protected function validate($property, $value = null)
+    final public function validate($property, $value = null)
     {
         $camelCaseProperty = str_replace(' ', '', ucwords(str_replace('_', ' ', $property)));
         $methodName = 'get' . $camelCaseProperty . 'Validator';
@@ -687,9 +766,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
 
             $validator = call_user_func(array($this, $methodName));
 
-            // set id of dbobject for BaseZF_Framework_Validate_DbItem_Abstract validator
-            if ($validator instanceof BaseZF_Framework_Validate_DbItem_Abstract && isset($this->_id)) {
-                $validator->setDbItemId($this->_id);
+            // set dbitem for validator with setDbItem function
+            if (is_callable(array($this, 'setDbItem'))) {
+                $validator->setDbItem(&$this);
             }
 
             if (!$validator->isValid($value)) {
@@ -704,6 +783,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
     // CacheKey Id
     //
 
+    /**
+     *
+     */
     protected function _getCacheKey($id = null, $table = null)
     {
         if (is_null($id)) $id = $this->getId();
@@ -716,6 +798,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
     // Select
     //
 
+    /**
+     *
+     */
     protected function _getQuery()
     {
         $select = $this->_getDbInstance()->select();
@@ -733,6 +818,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
         return $query;
     }
 
+    /**
+     *
+     */
     protected function _loadData($ids, $realTime = null, $cacheExpire = BaseZF_DbQuery::EXPIRE_NEVER)
     {
         $db = $this->_getDbInstance();
@@ -742,7 +830,7 @@ abstract class BaseZF_DbItem implements ArrayAccess
         $primaryKey = $this->getPrimaryKey();
         $query = $this->_getQuery();
         $fields = array_keys($this->_structure['fields']);
-        $cacheKeyTemplate = $this->_getCacheKey(self::_CACHE_KEY_TEMPLATE);
+        $cacheKeyTemplate = $this->_getCacheKey(self::CACHE_KEY_TEMPLATE);
 
         if ($realTime === null) {
             $realTime = $this->isRealTime();
@@ -754,7 +842,7 @@ abstract class BaseZF_DbItem implements ArrayAccess
         $dbQuery->setCacheExpire($cacheExpire);
         $dbQuery->setRealTime($realTime);
         $dbQuery->bindValue($primaryKey, $ids);
-        $dbQuery->setCacheKeyByRows( $primaryKey, self::_CACHE_KEY_TEMPLATE );
+        $dbQuery->setCacheKeyByRows( $primaryKey, self::CACHE_KEY_TEMPLATE );
 
         try {
 
@@ -779,7 +867,7 @@ abstract class BaseZF_DbItem implements ArrayAccess
      *
      * @return BaseZF_DbItem this object instance for more fluent interface
      */
-    protected function _setData($data, $isLoaded=false)
+    protected function _setData($data, $isLoaded = false)
     {
         if (!is_array($data)) {
             throw new BaseZF_DbItem_Exception('Unable to merge data to item: data is not an array');
@@ -799,6 +887,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
         return $this;
     }
 
+    /**
+     *
+     */
     protected function _propertyToDbItemFormat($property, &$data)
     {
         if (
@@ -824,6 +915,9 @@ abstract class BaseZF_DbItem implements ArrayAccess
         return $this;
     }
 
+    /**
+     *
+     */
     protected function _propertyToDbFormat($property, &$data)
     {
         if (
@@ -1133,6 +1227,41 @@ abstract class BaseZF_DbItem implements ArrayAccess
     //
 
     /**
+     * Retrieve DbItem on same collections
+     *
+     * @return array of BaseZF_DbItem instances
+     */
+    private function _getNeighboursItems()
+    {
+        $neighboursItems = array();
+
+        // get neighbours from associated collection
+        if (!empty($this->_collections)) {
+
+            $neighboursItemsIds = array();
+            foreach ($this->_collections as &$collection) {
+                $neighboursItems = array_merge($neighboursItems, $collection->getItems());
+            }
+
+        // get neighbours from available instances
+        } else {
+             $neighboursItems = $this->_getInstances();
+        }
+
+        return $neighboursItems;
+    }
+
+    /**
+     * Get item collection
+     *
+     * @return array of BaseZF_Collection instances
+     */
+    public function getCollection()
+    {
+        return $this->_collections;
+    }
+
+    /**
      * Set item collection
      *
      * @param object instance of BaseZF_DbCollection
@@ -1141,10 +1270,8 @@ abstract class BaseZF_DbItem implements ArrayAccess
      */
     public function addCollection(BaseZF_DbCollection $collection)
     {
-        //@TODO: relation to collections not used now, seems like we should delete
-        //this function in future or add functionality to refresh colections if item is changed
-
-        if (!in_array($collection, $this->_collections)) {
+        $key = array_search($collection, $this->_collections);
+        if ($key !== FALSE) {
            $this->_collections[] = &$collection;
         }
 
@@ -1160,9 +1287,6 @@ abstract class BaseZF_DbItem implements ArrayAccess
      */
     public function removeCollection(BaseZF_DbCollection $collection)
     {
-        //@TODO: relation to collections not used now, seems like we should delete
-        //this function in future or add functionality to refresh colections if item is changed
-
         $key = array_search($collection, $this->_collections);
         if ($key !== FALSE) {
            unset($this->_collections[$key]);
@@ -1170,7 +1294,6 @@ abstract class BaseZF_DbItem implements ArrayAccess
 
         return $this;
     }
-
 
     //
     // Magick Func
@@ -1303,6 +1426,7 @@ abstract class BaseZF_DbItem implements ArrayAccess
         // clean some things when object is reused
         $this->_data = array();
         $this->_setLoaded(false);
+
         return $this;
     }
 
@@ -1378,20 +1502,32 @@ abstract class BaseZF_DbItem implements ArrayAccess
     // Implement ArrayAccess
     //
 
+    /**
+     *
+     */
     public function offsetSet($offset, $value) {
         $this->setProperty($offset, $value);
     }
 
+    /**
+     *
+     */
     public function offsetExists($offset) {
         return $this->getFieldType($offset);
     }
 
+    /**
+     *
+     */
     public function offsetUnset($offset) {
 
         $this->setProperty($offset, null);
 
     }
 
+    /**
+     *
+     */
     public function offsetGet($offset) {
         return $this->getProperty($offset);
     }
@@ -1406,7 +1542,7 @@ abstract class BaseZF_DbItem implements ArrayAccess
     public function __destruct()
     {
         if (!empty($this->_id)) {
-            unset($this->_instances['items'][$this->_id]);
+            self::destructExistInstance($this->getTable(), $this->_id);
         }
     }
 

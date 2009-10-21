@@ -6,6 +6,8 @@
  * @package    BaseZF_DbItem
  * @copyright  Copyright (c) 2008 BazeZF
  * @author     Harold Thetiot (hthetiot)
+ *             Oleg Stephanwhite (oleg)
+ *             Fabien Guiraud (fguiraud)
  */
 
 abstract class BaseZF_DbCollection implements Iterator, Countable
@@ -14,6 +16,16 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      * Define the zend log priority
      */
     const LOG_PRIORITY = 9;
+
+    /**
+     * Max DbItem extract perQuery
+     */
+    const MAX_ITEM_BY_REQUEST = 100;
+
+    /**
+     * Max DbItem extract perQuery
+     */
+    const MAX_ITERATOR_DEPTH = 40;
 
     /**
      * Unique Id
@@ -40,22 +52,15 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     protected $_realtime = false;
 
-    protected $_cacheExpire = BaseZF_DbQuery::EXPIRE_NEVER;
-
     /**
-     * Cache Key Template used by DbQuery Class
+     * Default expiration cache TTL
      */
-    const _CACHE_KEY_TEMPLATE = '__id__';
+    protected $_cacheExpire = BaseZF_DbQuery::EXPIRE_NEVER;
 
     /**
      * Saved position f iterator
      */
     protected $_iteratorSavedPosition = array();
-
-    /**
-     * Max DbItem extract perQuery
-     */
-    const MAX_ITEM_BY_REQUEST = 100;
 
     //
     // Constructor
@@ -131,6 +136,9 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     // Data mapping
     //
 
+    /**
+     *
+     */
     final protected function loadStructure($table)
     {
         $schema = $this->_getDbSchema();
@@ -198,7 +206,11 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
             $this->_ids[] = $id;
             $this->getItem($id);
         }
-        if (!$this->valid()) $this->rewind();
+
+        if (!$this->valid()) {
+            $this->rewind();
+        }
+
         return $this;
     }
 
@@ -216,6 +228,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 
             unset($this->_ids[$key]);
         }
+
         return $this;
     }
 
@@ -227,22 +240,33 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     public function getRandomId($count=1)
     {
         if (empty($this->_ids)) return false;
+
         $this->_saveIteratorPosition();
+
         try {
+
             $idx = array_rand($this->_ids, $count);
+
             if ($count>1 && is_array($idx)) {
+
                 $result = array();
                 foreach ($idx as $i) {
                     $result[] = $this->_ids[$i];
                 }
+
             } else {
                 $result = $this->_ids[$idx];
             }
-        } catch (Exception $e) {
+
             $this->_loadIteratorPosition();
+
+        } catch (Exception $e) {
+
+            $this->_loadIteratorPosition();
+
             throw $e;
         }
-        $this->_loadIteratorPosition();
+
         return $result;
     }
 
@@ -541,6 +565,10 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $this;
     }
 
+    //
+    // Paginator manager
+    //
+
     /**
      * Clear cache for query which uses paging
      *
@@ -643,10 +671,6 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     }
 
     //
-    // Paginator manager
-    //
-
-    //
     // DbItem manager
     //
 
@@ -690,6 +714,29 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         return $item;
     }
 
+    public function getItems()
+    {
+        $result = array();
+        $this->_saveIteratorPosition();
+
+        try {
+
+            foreach ($this as $id => $item) {
+                $result[$id] = &$item;
+            }
+
+            $this->_loadIteratorPosition();
+
+        } catch (Exception $e) {
+
+            $this->_loadIteratorPosition();
+
+            throw $e;
+        }
+
+        return $result;
+    }
+
     /**
      * Create a new item and associate it to collection
      *
@@ -709,6 +756,9 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         // add item to collection
         $this->addId($newItem->getId());
 
+        // clear cache cause we add an item
+        $this->clearCache();
+
         return $newItem;
     }
 
@@ -727,15 +777,22 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     {
         $result = array();
         $this->_saveIteratorPosition();
+
         try {
+
             foreach ($this as $id => $item) {
                 $result[$id] = $item->$property;
             }
-        } catch (Exception $e) {
+
             $this->_loadIteratorPosition();
+
+        } catch (Exception $e) {
+
+            $this->_loadIteratorPosition();
+
             throw $e;
         }
-        $this->_loadIteratorPosition();
+
         return $result;
     }
 
@@ -751,15 +808,21 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     public function setProperty($property, $value)
     {
         $this->_saveIteratorPosition();
+
         try {
+
             foreach ($this as $id => $item) {
                 $item->setProperty($property, $value);
             }
-        } catch (Exception $e) {
+
             $this->_loadIteratorPosition();
+
+        } catch (Exception $e) {
+
+            $this->_loadIteratorPosition();
+
             throw $e;
         }
-        $this->_loadIteratorPosition();
 
         return $this;
     }
@@ -774,15 +837,22 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     public function setProperties($data)
     {
         $this->_saveIteratorPosition();
+
         try {
+
             foreach ($this as $id => $item) {
                 $item->setProperties($data);
             }
-        } catch (Exception $e) {
+
             $this->_loadIteratorPosition();
+
+        } catch (Exception $e) {
+
+            $this->_loadIteratorPosition();
+
             throw $e;
         }
-        $this->_loadIteratorPosition();
+
         return $this;
     }
 
@@ -792,18 +862,25 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
 
         $this->_saveIteratorPosition();
         try {
+
             foreach ($this as $id => $item) {
                 if ($item->isModified()) $items[] = $item;
             }
-        } catch (Exception $e) {
+
             $this->_loadIteratorPosition();
+
+        } catch (Exception $e) {
+
+            $this->_loadIteratorPosition();
+
             throw $e;
         }
-        $this->_loadIteratorPosition();
+
 
         if (!empty($items)) {
             BaseZF_DbItem::massUpdate($items);
         }
+
         return $this;
     }
 
@@ -814,15 +891,19 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $this->_saveIteratorPosition();
 
         try {
+
             foreach ($this as $id => $item) {
                 $items[$id] = $item;
             }
-        } catch (Exception $e) {
+
             $this->_loadIteratorPosition();
+
+        } catch (Exception $e) {
+
+            $this->_loadIteratorPosition();
+
             throw $e;
         }
-
-        $this->_loadIteratorPosition();
 
         if (!empty($items)) {
             BaseZF_DbItem::massDelete($items);
@@ -849,6 +930,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     public function rewind()
     {
         reset($this->_ids);
+
         return $this;
     }
 
@@ -862,18 +944,21 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
     public function key()
     {
         $var = current($this->_ids);
+
         return $var;
     }
 
     public function next()
     {
         $var = next($this->_ids);
+
         return ($var === false)? false : $this->getItem($var);
     }
 
     public function valid()
     {
         $var = current($this->_ids) !== false;
+
         return $var;
     }
 
@@ -888,12 +973,16 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
      */
     protected function _saveIteratorPosition()
     {
-        if (count($this->_iteratorSavedPosition) > 40) {
-            throw new BaseZF_DbCollection_Exception('maximal depth reached');
+        if (count($this->_iteratorSavedPosition) > self::MAX_ITERATOR_DEPTH) {
+            throw new BaseZF_DbCollection_Exception(sprintf('Maximal iterator depth reached with limit set %d', self::MAX_ITERATOR_DEPTH));
         }
 
         $key = key($this->_ids);
-        if ($key === NULL) $key = 0;
+
+        if ($key === NULL) {
+            $key = 0;
+        }
+
         array_push($this->_iteratorSavedPosition, $key);
 
         return $this;
@@ -913,6 +1002,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         }
 
         array_set_current($this->_ids, $pos);
+
         return $this;
     }
 
