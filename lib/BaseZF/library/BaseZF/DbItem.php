@@ -223,7 +223,7 @@ abstract class BaseZF_DbItem implements ArrayAccess
                 self::$_INSTANCES[$table] = array();
             }
 
-            if (isset(self::$_INSTANCES[$table][$id]) && $item === self::$_INSTANCES[$table][$id]) {
+            if (isset(self::$_INSTANCES[$table][$id])) {
                  throw new BaseZF_DbItem_Exception(sprintf('Unable to save duplicate instance for id "%d" used table "%s"', $id, $table));
             }
 
