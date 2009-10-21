@@ -103,9 +103,11 @@ set_include_path(
 
 
 //---------------------------------------------------------------------------
-// Start Zend Loader
+// Start Zend Loader and check Zend Framework availability
 
-require_once 'Zend/Loader/Autoloader.php';
+if(!@include_once('Zend/Loader/Autoloader.php')) {
+    trigger_error(sprintf('Unable to load Zend Framework "Zend/Loader/Autoloader.php" file with ZF_PATH as value "%s".', ZF_PATH), E_USER_ERROR );
+}
 
 $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->setFallbackAutoloader(true);
