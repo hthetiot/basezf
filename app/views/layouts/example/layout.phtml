@@ -126,12 +126,18 @@
 
         <div id="footer" class="column clear span-24">
 
-            <a id="powerby" href="http://framework.zend.com/">
-                <img width="127" height="25" alt="Powered by the Zend Framework" src="/images/layouts/example/powered-by-zf.png"/>
-            </a>
+            <p id="powerby">
+                <a href="http://framework.zend.com/" onclick="window.open(this.href); return false;">
+                    <img width="127" height="25" alt="Powered by the Zend Framework" src="/images/layouts/example/powered-by-zf.png"/>
+                </a>
+
+                <a href="http://validator.w3.org/check?uri=<?php echo urlencode($_SERVER['SCRIPT_URI']); ?>" onclick="window.open(this.href); return false;">
+                    <img src="/images/layouts/example/w3c-xhtml.gif" alt="Valid XHTML 1.0 Strict" height="25" width="88" />
+                </a>
+            </p>
 
             <p id="license">
-                This documentation is released under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike 3.0</a> License.
+                This documentation is released under a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" onclick="window.open(this.href); return false;">Attribution-NonCommercial-ShareAlike 3.0</a> License.
             </p>
 
         </div>
