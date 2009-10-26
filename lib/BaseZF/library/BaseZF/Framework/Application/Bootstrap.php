@@ -44,6 +44,7 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
         'view'    => array(
             'path'              => 'application/views',
             'script_suffix'     => 'phtml',
+            'encoding'          => 'iso-8859-1',
             'inflector'         => ':module/:controller/:action.:suffix',
             'helper_paths'      => array(),
         ),
@@ -134,18 +135,18 @@ abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_B
         }
 
         // set encoding and other options
-        $view->setEncoding('UTF-8');
+        $view->setEncoding($viewOptions['encoding']);
         $view->doctype('XHTML1_STRICT');
         $view->headTitle()->setSeparator(' - ');
 
         // Optionure view render (path and suffix)
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewRenderer->setView($view)
-                     ->setViewSuffix($viewOptions['script_suffix'])
-                     ->setViewScriptPathSpec($viewOptions['inflector']);
+            ->setViewSuffix($viewOptions['script_suffix'])
+            ->setViewScriptPathSpec($viewOptions['inflector']);
 
 
-         return $view;
+        return $view;
     }
 
     /**
