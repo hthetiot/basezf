@@ -15,38 +15,114 @@ class Example_ServiceController extends BaseZF_Framework_Controller_Action
      */
     protected $_defaultLayout = 'example';
 
+    //
+    // Xml/Rpc
+    //
+
     public function xmlrpcAction()
     {
     }
 
     public function xmlrpcServerAction()
     {
-        Zend_XmlRpc_Server_Fault::attachFaultException('Exception');
+        // disable layout and view
+        $this->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
 
-        $server = new Zend_XmlRpc_Server();
-        $server->setClass('MyProject_BL_Member', 'member');
-
+        // set output format
         header('Content-Type: text/xml');
-        echo $server->handle();
+
+        // handle server request
+        Zend_XmlRpc_Server_Fault::attachFaultException('Exception');
+        $server = new Zend_XmlRpc_Server();
+        $server->setClass('MyProject_Service_XmlRpc_Example', 'example');
+        $response = $server->handle();
+
+        // display response
+        echo $response;
+
         exit(0);
     }
 
     public function xmlrpcHelpAction()
     {
-        $client = new Zend_XmlRpc_Client(MAIN_URL . '/example/service/rpc-server');
+        $serverUrl = str_replace('help', 'server', MAIN_URL . $this->getRequest()->getRequestUri());
+        $client = new Zend_XmlRpc_Client($serverUrl);
         $system = $client->getProxy('system');
-        $member = $client->getProxy('member');
 
         echo '<hr />';
+        echo '<pre>';
         echo "Available methods: \n";
         print_r($system->listMethods());
+        echo '</pre>';
         exit();
-
     }
 
     public function xmlrpcConsoleAction()
     {
-        $client = new Zend_XmlRpc_Client(MAIN_URL . '/example/service/rpc-server');
-        $member = $client->getProxy('member');
+        $serverUrl = str_replace('console', 'server', MAIN_URL . $this->getRequest()->getRequestUri());
+        $client = new Zend_XmlRpc_Client($serverUrl);
+        $example = $client->getProxy('example');
+
+        echo $example->getTime();
+
+        exit();
+    }
+
+    //
+    // Soap
+    //
+
+    public function soapAction()
+    {
+
+    }
+
+    public function soapServerAction()
+    {
+        // disable layout and view
+        $this->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        // handle wsdl request
+        if(isset($_GET['wsdl'])) {
+
+            $autodiscover = new Zend_Soap_AutoDiscover();
+            $autodiscover->setClass('MyProject_Service_Soap_Example');
+            $autodiscover->handle();
+
+        // handle server request
+        } else {
+
+            $soap = new Zend_Soap_Server(MAIN_URL . $this->getRequest()->getRequestUri() . '?wsdl');
+            $soap->setClass('MyProject_Service_Soap_Example');
+            $soap->handle();
+        }
+
+        exit(0);
+    }
+
+    public function soapHelpAction()
+    {
+        $serverUrl = str_replace('help', 'server', MAIN_URL . $this->getRequest()->getRequestUri() . '?wsdl');
+        $client = new Zend_Soap_Client($serverUrl);
+
+        echo '<hr />';
+        echo '<pre>';
+        echo "Available methods: \n";
+        print_r($client->getFunctions());
+        echo '</pre>';
+        exit();
+
+    }
+
+    public function soapConsoleAction()
+    {
+        $serverUrl = str_replace('console', 'server', MAIN_URL . $this->getRequest()->getRequestUri() . '?wsdl');
+        $client = new Zend_Soap_Client($serverUrl);
+
+        print_r($client->getTime());
+
+        exit();
     }
 }
