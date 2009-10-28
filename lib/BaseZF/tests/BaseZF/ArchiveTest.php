@@ -1,6 +1,6 @@
 <?php
 /**
- * ArchiveTest.php for BaseZF in tests/
+ * ArchiveTest.php for BaseZF in tests/BaseZF
  *
  * @category   BaseZF
  * @package    BaseZF_UnitTest
@@ -14,6 +14,7 @@ require_once dirname(__FILE__) . '/../TestHelper.php';
  * Test class for BaseZF_Archive
  *
  * @group BaseZF
+ * @group BaseZF_Archive
  */
 class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
 {
@@ -29,15 +30,44 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
 
     }
 
-    private function _getTmpFile($prefix = null, $suffix = null)
+    /**
+     * Create a Tmp file and add it into file should remove at the end
+     *
+     * @param string $fileName file name
+     * @param string $filePath path of file
+     *
+     * @return string new tmp file path
+     */
+    private function _getTmpFile($fileName, $filePath = null)
     {
+        static $testTmpDir;
+
+        // create unique path for this test
+        if (!isset($testTmpDir)) {
+            $testTmpDir = 'phpUnitTest-' . __CLASS__ . '-' . microtime(true);
+        }
+
+        // sanitize $filePath value to use DIRECTORY_SEPARATOR
+        $filePath = str_replace('/', DIRECTORY_SEPARATOR, $filePath);
+
+        // create paths
         $tmpDir = sys_get_temp_dir();
-        $tmpFile = $tmpDir . '/' . $suffix . 'test-' . count($this->_tmpFiles) . $prefix;
+        $tmpFile = $tmpDir . DIRECTORY_SEPARATOR . $testTmpDir . $filePath . DIRECTORY_SEPARATOR . $fileName;
         $tmpFileDir = dirname($tmpFile);
 
         if (!is_dir($tmpFileDir) && $tmpFileDir != $tmpDir) {
-            $this->_tmpDirs[$tmpFileDir] = $tmpFileDir;
-            mkdir($tmpFileDir);
+
+            $tmpDirs = explode(DIRECTORY_SEPARATOR, $tmpFileDir);
+            $nbTmpDirs = count($tmpDirs);
+            for ($i = 2; $i <= $nbTmpDirs; $i++) {
+
+                $tmpDir = implode(DIRECTORY_SEPARATOR, array_slice($tmpDirs, 0, $i));
+
+                if (!is_dir($tmpDir)) {
+                    mkdir($tmpDir);
+                    $this->_tmpDirs[] = $tmpDir;
+                }
+            }
         }
 
         $this->_tmpFiles[$tmpFile] = $tmpFile;
@@ -51,13 +81,13 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $fileData = '<html><h1>Toto ' . time() . '</h1></html>';
         $fileLength = mb_strlen($fileData);
         $fileExt = 'html';
-        $filePath = $this->_getTmpFile('.' . $fileExt);
+        $filePath = $this->_getTmpFile(time() . '.' . $fileExt);
 
         // add contennt on test file
         file_put_contents($filePath, $fileData);
 
         // create archive
-        $archiveFilePath = $this->_getTmpFile('.tar');
+        $archiveFilePath = $this->_getTmpFile(time() . '.tar');
         $newArchive = BaseZF_Archive::newArchive('tar', $archiveFilePath);
         $newArchive->addFile($filePath);
         $newArchive->createArchive();
@@ -85,7 +115,7 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $filePath = '/index-' . time() . '.' . $fileExt;
 
         // create archive
-        $archiveFilePath = $this->_getTmpFile('.tar');
+        $archiveFilePath = $this->_getTmpFile(time() . '.tar');
         $newArchive = BaseZF_Archive::newArchive('tar', $archiveFilePath);
         $newArchive->addFileFromString($filePath, $fileData);
         $newArchive->createArchive();
@@ -111,9 +141,9 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $testFileExt = 'html';
         $testFileExtExcluded = 'php';
         $testFiles  = array(
-            $this->_getTmpFile('.' . $testFileExt, 'subdir1/') => array(),
-            $this->_getTmpFile('.' . $testFileExt, 'subdir1/') => array(),
-            $this->_getTmpFile('.' . $testFileExtExcluded, 'subdir1/') => array(),
+            $this->_getTmpFile(time() . '-1.' . $testFileExt, '/subdir1') => array(),
+            $this->_getTmpFile(time() . '-2.' . $testFileExt, '/subdir1') => array(),
+            $this->_getTmpFile(time() . '-3.' . $testFileExtExcluded, '/subdir1') => array(),
         );
 
         // create test files list and properties for checking
@@ -133,7 +163,7 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         }
 
         // create archive
-        $archiveFilePath = $this->_getTmpFile('.tar');
+        $archiveFilePath = $this->_getTmpFile(time() . '.tar');
         $newArchive = BaseZF_Archive::newArchive('tar', $archiveFilePath);
         $newArchive->addFiles($dirPath . '/*.' . $testFileExt);
         $newArchive->createArchive();
@@ -169,11 +199,17 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
             }
         }
 
-        foreach ($this->_tmpDirs as $tmpDir) {
+        // remove dir
+        $tmpDirs = array_reverse($this->_tmpDirs);
+        foreach ($tmpDirs as $tmpDir) {
             if (is_dir($tmpDir)) {
                 rmdir($tmpDir);
             }
         }
+
+        // reset
+        $this->_tmpFiles = array();
+        $this->_tmpDirs = array();
     }
 }
 
