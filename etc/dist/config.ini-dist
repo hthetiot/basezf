@@ -38,7 +38,7 @@ controller.plugins.NotModifiedCache.plugin      = BaseZF_Framework_Controller_Pl
 controller.plugins.NotModifiedCache.params      =
 
 # Static-Pack
-static_pack.enable          = true
+static_pack.enable              = false
 static_pack.css_config		= CONFIG_PATH "/static/css.yml"
 static_pack.script_config	= CONFIG_PATH "/static/javascript.yml"
 
