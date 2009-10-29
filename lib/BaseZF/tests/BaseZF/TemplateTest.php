@@ -1,6 +1,6 @@
 <?php
 /**
- * TemplateTest.php for BaseZF in tests/
+ * TemplateTest.php for BaseZF in tests/BaseZF
  *
  * @category   BaseZF
  * @package    BaseZF_UnitTest
@@ -14,6 +14,7 @@ require_once dirname(__FILE__) . '/../TestHelper.php';
  * Test class for BaseZF_Template
  *
  * @group BaseZF
+ * @group BaseZF_Template
  */
 class BaseZF_TemplateTest extends PHPUnit_Framework_TestCase
 {
