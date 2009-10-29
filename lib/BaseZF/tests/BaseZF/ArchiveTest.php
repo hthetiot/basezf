@@ -35,10 +35,11 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
      *
      * @param string $fileName file name
      * @param string $filePath path of file
+     * @param string $fileData content of file
      *
      * @return string new tmp file path
      */
-    private function _getTmpFile($fileName, $filePath = null)
+    private function _getTmpFile($fileName, $filePath = null, $fileData = null)
     {
         static $testTmpDir;
 
@@ -71,6 +72,11 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         }
 
         $this->_tmpFiles[$tmpFile] = $tmpFile;
+
+        // add contennt on tmp file
+        if (!is_null($fileData)) {
+            file_put_contents($tmpFile, $fileData);
+        }
 
         return $tmpFile;
     }
