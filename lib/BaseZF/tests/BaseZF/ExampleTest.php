@@ -1,6 +1,6 @@
 <?php
 /**
- * ExampleTest.php for BaseZF in tests/
+ * ExampleTest.php for BaseZF in tests/BaseZF
  *
  * @category   BaseZF
  * @package    BaseZF_UnitTest
