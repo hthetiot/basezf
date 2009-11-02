@@ -94,17 +94,29 @@ class Example_ServiceController extends BaseZF_Framework_Controller_Action
         // handle server request
         } else {
 
-            $soap = new Zend_Soap_Server(MAIN_URL . $this->getRequest()->getRequestUri() . '?wsdl');
+            $serverUrl = str_replace('server', 'wsdl', MAIN_URL . $this->getRequest()->getRequestUri());
+            $soap = new Zend_Soap_Server($serverUrl);
             $soap->setClass('MyProject_Service_Soap_Example');
             $soap->handle();
         }
+    }
 
-        exit(0);
+    public function soapWsdlAction()
+    {
+        // disable layout and view
+        $this->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $autodiscover = new Zend_Soap_AutoDiscover();
+        $autodiscover->setClass('MyProject_Service_Soap_Example');
+        $autodiscover->handle();
+
+        exit();
     }
 
     public function soapHelpAction()
     {
-        $serverUrl = str_replace('help', 'server', MAIN_URL . $this->getRequest()->getRequestUri() . '?wsdl');
+        $serverUrl = str_replace('help', 'server', MAIN_URL . $this->getRequest()->getRequestUri());
         $client = new Zend_Soap_Client($serverUrl);
 
         echo '<hr />';
