@@ -50,7 +50,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
 
         // add label and label_class for helper able to manage their own label
         } else if (in_array($helper, self::$helperWithContainerLabel) === false) {
-            $helperAttribs['label_class'] = 'formLabel' . ucfirst(str_replace('form', '', $helper));
+            $helperAttribs['label_class'] = trim('formLabel' . ucfirst(str_replace('form', '', $helper)) . ' ' . $element->getAttrib('label_class'));
             $helperAttribs['label'] = $element->getLabel();
         }
 

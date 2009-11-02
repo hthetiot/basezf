@@ -22,7 +22,7 @@ class MyProject_Form_Example_FancySelect extends BaseZF_Framework_Form
         ));
 
         $this->addElement('select', 'sexuality_id', array(
-            'helper'        => 'FormFancySelect',
+            'helper'        => 'formFancySelect',
             'label'         => __('Sexuality:'),
             'notice'        => __('Choose from the list'),
             'required'      => true,
@@ -34,7 +34,7 @@ class MyProject_Form_Example_FancySelect extends BaseZF_Framework_Form
         ));
 
         $this->addElement('multiselect', 'lookingfor_id', array(
-            'helper'        => 'FormFancySelect',
+            'helper'        => 'formFancySelect',
             'label'         => __('Her for:'),
             'multiple'      => true,
             'show_choice'   => true,

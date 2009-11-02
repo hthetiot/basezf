@@ -12,7 +12,7 @@ div.formFancySelectLabel
     background: #FFFFFF url(/images/lib/basezf/elements/formLayout/formFancySelectLabel.gif) no-repeat right 55%;
     border:1px solid #000;
     cursor:pointer;
-    height:18px;
+    height:20px;
     margin:5px 6px 0 0;
     padding:0 20px 0 7px;
     overflow:hidden;
@@ -86,6 +86,13 @@ div.formFancySelectValue
     margin:0 0 0 141px;
     padding:0 6px 0 2px;
     overflow: hidden;
+    clear: left;
+}
+
+div.formFancySelectClear
+{
+    margin:0 0 0 141px;
+    padding:0 6px 0 2px;
     clear: left;
 }
 

@@ -62,7 +62,7 @@ class Example_JavascriptController extends BaseZF_Framework_Controller_Action
             // get form data
             $formData = $_POST;
 
-            // ajax validation
+            // ajax validation ?
             if ($this->isJson) {
 
                 // set output mode for json only
@@ -77,7 +77,7 @@ class Example_JavascriptController extends BaseZF_Framework_Controller_Action
                 // set form data
                 $form->populate($formData);
 
-                // check if all form is valid
+                // check if all form is valid else add error in render with decorator
                 if ($form->isValid($formData)) {
 
                     // success, do stuff with your data here!

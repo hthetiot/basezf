@@ -137,6 +137,8 @@ class BaseZF_Framework_View_Helper_formFancySelect extends Zend_View_Helper_Form
 
         if ($showChoice) {
             $xhtml[] = '<div class="formFancySelectValue"></div>';
+        } else {
+            $xhtml[] = '<div class="formFancySelectClear"></div>';
         }
 
         return implode("\n", $xhtml);
