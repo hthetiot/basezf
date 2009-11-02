@@ -1,6 +1,6 @@
 <?php
 /**
- * FormFancySelect.php
+ * formFancySelect.php
  *
  * @category   BaseZF
  * @package    BaseZF_Framework
@@ -8,7 +8,7 @@
  * @author     Harold Thetiot (hthetiot)
  */
 
-class BaseZF_Framework_View_Helper_FormFancySelect extends Zend_View_Helper_FormElement
+class BaseZF_Framework_View_Helper_formFancySelect extends Zend_View_Helper_FormElement
 {
     /**
      * Input type to use
@@ -26,46 +26,28 @@ class BaseZF_Framework_View_Helper_FormFancySelect extends Zend_View_Helper_Form
         $options = null, $listsep = "<br />\n")
     {
         $info = $this->_getInfo($name, $value, $attribs, $options, $listsep);
-        extract($info); // name, value, attribs, options, listsep, disable
+        extract($info); // name, id, value, attribs, options, listsep, disable
 
-        // retrieve attributes for labels (prefixed with 'label_' or 'label')
-        $label_attribs = array();
-        foreach ($attribs as $key => $val) {
-            $tmp    = false;
-            $keyLen = strlen($key);
-            if ((6 < $keyLen) && (substr($key, 0, 6) == 'label_')) {
-                $tmp = substr($key, 6);
-            } elseif ((5 < $keyLen) && (substr($key, 0, 5) == 'label')) {
-                $tmp = substr($key, 5);
-            }
+        // get label
+        $label = isset($attribs['label']) ? $attribs['label'] : null;
+        unset($attribs['label']);
 
-            if ($tmp) {
-                // make sure first char is lowercase
-                $tmp[0] = strtolower($tmp[0]);
-                $label_attribs[$tmp] = $val;
-                unset($attribs[$key]);
-            }
-        }
+        // get notice
+        $notice = isset($attribs['notice']) ? $attribs['notice'] : null;
+        unset($attribs['notice']);
 
-        // add class formLabelRadio to label per default
-        $label_attribs['class'] = (isset($label_attribs['class']) ? $label_attribs['class'] . ' ' : '') . 'formLabelRadio';
+        // get notice
+        $showChoice = isset($attribs['show_choice']) ? $attribs['show_choice'] : false;
+        unset($attribs['show_choice']);
 
-        $labelPlacement = 'append';
-        foreach ($label_attribs as $key => $val) {
-            switch (strtolower($key)) {
-                case 'placement':
-                    unset($label_attribs[$key]);
-                    $val = strtolower($val);
-                    if (in_array($val, array('prepend', 'append'))) {
-                        $labelPlacement = $val;
-                    }
-                    break;
-            }
-        }
+        // get label attribs
+        $labelAttribs = $this->getAttribsNamespaceValue($attribs, 'label');
 
+        // is multiple choice
         if (isset($attribs['multiple'])) {
             $this->_inputType = 'checkbox';
             $this->_isArray = true;
+            unset($attribs['multiple']);
         }
 
         // the radio button values and labels
@@ -90,53 +72,50 @@ class BaseZF_Framework_View_Helper_FormFancySelect extends Zend_View_Helper_Form
         }
 
         // add container open tag
-        $xhtml[] = '<div class="formFancySelect">';
-        $xhtml[] = '<div class="formFancySelectOptions">';
-        $xhtml[] = '<div>';
+        $xhtml[] = '<div id="' . $this->view->escape($id) . '" class="formFancySelect">';
+        $xhtml[] = '    <div class="formFancySelectOptions">';
+        $xhtml[] = '        <div>';
 
         // add radio buttons to the list.
         require_once 'Zend/Filter/Alnum.php';
         $filter = new Zend_Filter_Alnum();
-        foreach ($options as $opt_value => $opt_label) {
+        foreach ($options as $optionValue => $optionLabel) {
 
             // Should the label be escaped?
-            if ($escape) {
-                $opt_label = $this->view->escape($opt_label);
-            }
+            $optionLabel = $this->view->escape($optionLabel);
 
             // is it disabled?
             $disabled = '';
             if (true === $disable) {
                 $disabled = ' disabled="disabled"';
-            } elseif (is_array($disable) && in_array($opt_value, $disable)) {
+            } elseif (is_array($disable) && in_array($optionValue, $disable)) {
                 $disabled = ' disabled="disabled"';
             }
 
             // is it checked?
             $checked = '';
-            if (in_array($opt_value, $value)) {
+            if (in_array($optionValue, $value)) {
                 $checked = ' checked="checked"';
             }
 
             // generate ID
-            $optId = $id . '-' . $filter->filter($opt_value);
+            $optId = $id . '-' . $filter->filter($optionValue);
 
             // set class
             $attribs['class'] = 'form' . ucfirst($this->_inputType);
 
             // Wrap the radios in labels
-            $radio = '<label'
-                    . $this->_htmlAttribs($label_attribs) . '>'
-                    . (('prepend' == $labelPlacement) ? '<span>' . $opt_label . '</span>' : '')
+            $radio = '          <label'
+                    . $this->_htmlAttribs($labelAttribs) . '>'
                     . '<input type="' . $this->_inputType . '"'
                     . ' name="' . $name . '"'
                     . ' id="' . $optId . '"'
-                    . ' value="' . $this->view->escape($opt_value) . '"'
+                    . ' value="' . $this->view->escape($optionValue) . '"'
                     . $checked
                     . $disabled
                     . $this->_htmlAttribs($attribs)
                     . $endTag
-                    . (('append' == $labelPlacement) ? '<span>' . $opt_label . '</span>' : '')
+                    . '<span>' . $optionLabel . '</span>'
                     . '</label>';
 
             // add to the array of radio buttons
@@ -144,24 +123,45 @@ class BaseZF_Framework_View_Helper_FormFancySelect extends Zend_View_Helper_Form
         }
 
         // add container close tag
-        $xhtml[] = '</div>';
-        $xhtml[] = '</div>';
+        $xhtml[] = '        </div>';
+        $xhtml[] = '    </div>';
         $xhtml[] = '</div>';
 
         $xhtml[] = '<div class="formFancySelectLabel">';
 
-        if (isset($attribs['notice'])) {
-            $xhtml[] = $attribs['notice'];
+        if (!empty($notice)) {
+            $xhtml[] = $notice;
         }
 
         $xhtml[] = '</div>';
 
-        if (isset($attribs['show_choice'])) {
+        if ($showChoice) {
             $xhtml[] = '<div class="formFancySelectValue"></div>';
-        } else {
-
         }
 
         return implode("\n", $xhtml);
+    }
+
+    public function getAttribsNamespaceValue(array &$attribs, $namespace)
+    {
+         // retrieve attributes for labels (prefixed with '$namespace_' or '$namespace')
+        $namespaceLen = mb_strlen($namespace);
+        $namespaceAttribs = array();
+        foreach ($attribs as $key => $value) {
+
+            $namespaceKey = false;
+            $keyLen = strlen($key);
+
+            if ($keyLen <= $namespaceLen) {
+                continue;
+            }
+
+            if ((substr($key, 0, $namespaceLen + 1) == $namespace . '_')) {
+
+                $namespaceKey = strtolower(substr($key, $namespaceLen + 1));
+                $namespaceAttribs[$namespaceKey] = $value;
+                unset($attribs[$key]);
+            }
+        }
     }
 }

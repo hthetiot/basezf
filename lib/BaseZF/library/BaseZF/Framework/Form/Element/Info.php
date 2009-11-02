@@ -13,7 +13,6 @@ require_once 'Zend/Form/Element/Xhtml.php';
 
 /**
  * Info form element
- *
  */
 class BaseZF_Framework_Form_Element_Info extends Zend_Form_Element_Xhtml
 {
@@ -29,8 +28,18 @@ class BaseZF_Framework_Form_Element_Info extends Zend_Form_Element_Xhtml
      */
     public $options = array();
 
+    /**
+     * Set message lines for Info element
+     *
+     * @param array $messages messages values
+     *
+     * @return $this for more fluent interface
+     */
     public function setMessages(array $messages)
     {
         $this->options['messages'] = $messages;
+
+        return $this;
     }
 }
+

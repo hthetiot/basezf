@@ -14,7 +14,7 @@ class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
     public function formDate($name, $value = null, $attribs = null, $options = array())
     {
         $info = $this->_getInfo($name, $value, $attribs, $options);
-        extract($info); // name, value, attribs, options, listsep, disable
+        extract($info); // name, id, value, attribs, options, listsep, disable
 
         // force $value to array so we can compare multiple values
         // to multiple options.
@@ -67,7 +67,7 @@ class BaseZF_Framework_View_Helper_FormDate extends Zend_View_Helper_FormElement
 
         // build Xhtml
         $xhtml = array();
-        $xhtml[] = '<div ' . $this->_htmlAttribs($attribs) . '>';
+        $xhtml[] = '<div id="' . $id . '" ' . $this->_htmlAttribs($attribs) . '>';
 
         // set format
         $elementsFormatByName = array();

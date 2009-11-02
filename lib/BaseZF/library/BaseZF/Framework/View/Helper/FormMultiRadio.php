@@ -37,6 +37,9 @@ class BaseZF_Framework_View_Helper_FormMultiRadio extends Zend_View_Helper_FormR
     public function formMultiRadio($name, $value = null, $attribs = null,
         $options = null, $listsep = "\n")
     {
+        $info = $this->_getInfo($name, $value, $attribs, $options, $listsep);
+        extract($info); // name, id, value, attribs, options, listsep, disable
+
         // get label
         $label = isset($attribs['label']) ? $attribs['label'] : null;
         unset($attribs['label']);
@@ -46,11 +49,12 @@ class BaseZF_Framework_View_Helper_FormMultiRadio extends Zend_View_Helper_FormR
             $attribs['class'] = str_replace('Multi', '', $attribs['class']);
         }
 
+        // update label classname
         if (isset($attribs['label_class'])) {
             $attribs['label_class'] = str_replace('Multi', '', $attribs['label_class']);
         }
 
-        $xhtml = '<fieldset>'
+        $xhtml = '<fieldset id="' . $this->view->escape($id) . '">'
                . ($label ==! null ? '<legend>' . $this->view->escape(trim($label)) . '</legend>' : null)
                . $this->formRadio($name, $value, $attribs, $options, $listsep)
                . '</fieldset>';

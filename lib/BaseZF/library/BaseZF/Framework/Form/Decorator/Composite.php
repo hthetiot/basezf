@@ -10,20 +10,27 @@
 
 class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abstract
 {
-    static $helperWithoutLabel = array(
-        'formInfo',
-        'formCheckbox',
-        'formMultiCheckbox',
-        'formMultiRadio',
-        'formReset',
-        'formSubmit',
+    static $helperWithContainerLabel = array(
+
+        // standart helpers
+        'formText',
+        'formTextarea',
+        'formPassword',
+        'formSelect',
+        'formRadio',
+        'formMultiSelect',
+
+        // some special helper
+        'formDate',
+        'formFancySelect',
     );
 
-    static $helperWithoutContainerClass = array(
+    static $helperWithoutContainer = array(
         'formInfo',
     );
 
     static $helpersButton = array(
+        'formButton',
         'formReset',
         'formSubmit',
     );
@@ -33,33 +40,29 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $element = $this->getElement();
         $helper  = $element->helper;
 
-        // update attribs : remove helper attribute and merge helper name with class
-        $newAttribs = $element->getAttribs();
-        $newAttribs['class'] = $helper . ' ' . $element->getAttrib('class');
+        // update attribs to add class with helper name
+        $helperAttribs = $element->getAttribs();
+        $helperAttribs['class'] = trim($helper . ' ' . $element->getAttrib('class'));
 
-        // do not display useless label
-        if (in_array($helper, self::$helperWithoutLabel) ==! false) {
-
-            $labelClass = 'formLabel' . ucfirst(str_replace('form', '', $helper));
-
-            $newAttribs['label'] = $element->getLabel();
-            $newAttribs['label_class'] = $labelClass . ' ' . $element->getAttrib('label_class');
-        }
-
-        // set label has value for buttons
+        // clean buttons attribs and set label as value for button
         if (in_array($helper, self::$helpersButton) ==! false) {
             $element->setValue($element->getLabel());
+
+        // add label and label_class for helper able to manage their own label
+        } else if (in_array($helper, self::$helperWithContainerLabel) === false) {
+            $helperAttribs['label_class'] = 'formLabel' . ucfirst(str_replace('form', '', $helper));
+            $helperAttribs['label'] = $element->getLabel();
         }
 
-        // clean attribs used by current decorator
-        unset($newAttribs['helper']);
-        unset($newAttribs['container_class']);
+        // remove useless attribs for helper
+        unset($helperAttribs['helper']);
+        unset($helperAttribs['container_class']);
 
         if ($helper == 'formFile') {
 
             return $element->getView()->$helper(
                 $element->getName(),
-                $newAttribs
+                $helperAttribs
             );
 
         } else {
@@ -67,7 +70,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
             return $element->getView()->$helper(
                 $element->getName(),
                 $element->getValue(),
-                $newAttribs,
+                $helperAttribs,
                 $element->options
             );
         }
@@ -78,7 +81,7 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $desc = $this->getElement()->getDescription();
 
         if (empty($desc)) {
-            return '';
+            return;
         }
 
         return '<small>' . $desc . '</small>';
@@ -88,20 +91,25 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
     {
         $element = $this->getElement();
         $helper  = $element->helper;
-        $label = $element->getLabel();
 
-        // do not display useless label
-        if (in_array($helper, self::$helperWithoutLabel) ==! false) {
-            $element->setAttrib('label', $label);
-            return '';
+        // ignore label for helper able to manage their own label
+        if (in_array($helper, self::$helperWithContainerLabel) === false) {
+            return;
         }
+
+        // get it !
+        $label = $element->getLabel();
 
         // translate it ?
         if ($translator = $element->getTranslator()) {
             $label = $translator->translate($label);
         }
 
-        return $element->getView()->formLabel($element->getName(), $label);
+        $attribs = array(
+            'class' => 'formLabel' . ucfirst(str_replace('form', '', $helper)),
+        );
+
+        return $element->getView()->formLabel($element->getName(), $label, $attribs);
     }
 
     public function buildErrors()
@@ -130,8 +138,8 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         $helper  = $element->helper;
 
         // do not display useless container
-        if (in_array($helper, self::$helperWithoutContainerClass) ==! false) {
-            return '';
+        if (in_array($helper, self::$helperWithoutContainer) ==! false) {
+            return null;
         }
 
         // render containerClass
@@ -163,28 +171,19 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         // ignore special elements
         if (
             !$element instanceof Zend_Form_Element ||
-            $element instanceof Zend_Form_Element_Captcha
+            $element instanceof Zend_Form_Element_Captcha ||
+            null === $element->getView()
         ) {
             return $content;
         }
 
-        if (null === $element->getView()) {
-            return $content;
-        }
-
-        // render sub parts
-        $label     = $this->buildLabel();
-        $field     = $this->buildField();
-        $errors    = $this->buildErrors();
-        $desc      = $this->buildDescription();
-
         // render container
         $containerClass = $this->getContainerClass();
         $output = '<div ' . ($containerClass ? 'class="' . $containerClass . '"' : '') . '>'
-                . $errors
-                . $label
-                . $field
-                . $desc
+                . $this->buildErrors()
+                . $this->buildLabel()
+                . $this->buildField()
+                . $this->buildDescription()
                 . '</div>';
 
         // render

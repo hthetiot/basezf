@@ -85,7 +85,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         ));
 
         $this->addElement('select', 'sexuality_id', array(
-            'helper'        => 'FormFancySelect',
+            'helper'        => 'formFancySelect',
             'label'         => __('Sexuality:'),
             'notice'        => __('Choose from the list'),
             'required'      => true,
@@ -97,7 +97,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         ));
 
         $this->addElement('multiselect', 'lookingfor_id', array(
-            'helper'        => 'FormFancySelect',
+            'helper'        => 'formFancySelect',
             'label'         => __('Her for:'),
             'multiple'      => true,
             'show_choice'   => true,
@@ -415,7 +415,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         //
         // Verification fields
         //
-
+/*
         $this->addElement('info', 'info4', array(
             'label'        => __('Verification Information'),
             'messages'    => array(
@@ -443,6 +443,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         ), 'check_information');
 
         $this->getDisplayGroup('check_information')->setLegend(__('Verification'));
+*/
 
         // submit and reset buttons
         $this->addElement('reset', 'reset', array('label' => __('Cancel')))
