@@ -1,14 +1,14 @@
-#  English translations for PACKAGE package.
-#  Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-#  This file is distributed under the same license as the PACKAGE package.
-#  Automatically generated, 2009.
-# 
+# English translations for PACKAGE package.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2009.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: debug@myproject.com\n"
-"POT-Creation-Date: 2009-10-14 12:26+0200\n"
-"PO-Revision-Date: 2009-10-14 12:26+0200\n"
+"POT-Creation-Date: 2009-11-02 21:02+0100\n"
+"PO-Revision-Date: 2009-11-02 20:59+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -37,15 +37,15 @@ msgstr "August"
 msgid "Auto Completer Sample"
 msgstr "Auto Completer Sample"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:413
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:414
 msgid "Avatar"
 msgstr "Avatar"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:377
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:378
 msgid "Avatar Information"
 msgstr "Avatar Information"
 
-#: app/views/layouts/example/layout.phtml:93
+#: app/views/layouts/example/layout.phtml:95
 msgid "BaseZF"
 msgstr "BaseZF"
 
@@ -53,8 +53,8 @@ msgstr "BaseZF"
 msgid "BaseZF Examples"
 msgstr "BaseZF Examples"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:94
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:31
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:93
 msgid "Bi"
 msgstr "Bi"
 
@@ -66,8 +66,8 @@ msgstr "Birthday:"
 msgid "Browse"
 msgstr "Browse"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:351
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:96
+#, php-format
 msgid ""
 "By checking this, you are indicating that you are agree with the %s Terms of "
 "Use %s."
@@ -75,36 +75,45 @@ msgstr ""
 "By checking this, you are indicating that you are agree with the %s Terms of "
 "Use %s."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:448
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:352
+#, php-format
+msgid ""
+"By checking this, you are indicating that you are agree with the %s Terms of "
+"Use%s."
+msgstr ""
+"By checking this, you are indicating that you are agree with the %s Terms of "
+"Use%s."
+
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:119
-#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:51
 #: lib/MyProject/library/MyProject/Form/Example/AutoCompleter.php:36
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:51
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:61
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:449
 msgid "Cancel"
 msgstr "Cancel"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:107
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:44
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:106
 msgid "Chatting"
 msgstr "Chatting"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:90
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:104
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:27
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:41
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:89
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:103
 msgid "Choose from the list"
 msgstr "Choose from the list"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:84
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:83
 msgid "City:"
 msgstr "City:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:138
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:286
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:137
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:287
 msgid "Contact Information"
 msgstr "Contact Information"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:68
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:67
 msgid "Country:"
 msgstr "Country:"
 
@@ -121,11 +130,11 @@ msgstr "December"
 msgid "Email"
 msgstr "Email"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:166
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:164
 msgid "Email:"
 msgstr "Email:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:191
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:189
 msgid "Emails don't match, please enter them again"
 msgstr "Emails don't match, please enter them again"
 
@@ -134,7 +143,7 @@ msgstr "Emails don't match, please enter them again"
 msgid "Examples"
 msgstr "Examples"
 
-#: app/views/layouts/example/layout.phtml:90
+#: app/views/layouts/example/layout.phtml:92
 msgid "Examples module"
 msgstr "Examples module"
 
@@ -148,7 +157,7 @@ msgstr "Fancy Select"
 msgid "Fancy Select Samples"
 msgstr "Fancy Select Samples"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:200
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:198
 msgid "Fax:"
 msgstr "Fax:"
 
@@ -161,19 +170,19 @@ msgstr "Features"
 msgid "February"
 msgstr "February"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:38
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:40
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:40
 msgid "Female"
 msgstr "Female"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:380
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:381
 msgid ""
 "File size limit 4 MB. If your upload does not work, try a smaller picture."
 msgstr ""
 "File size limit 4 MB. If your upload does not work, try a smaller picture."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:111
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:48
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:110
 msgid "Find the true love"
 msgstr "Find the true love"
 
@@ -181,77 +190,77 @@ msgstr "Find the true love"
 msgid "First Name:"
 msgstr "First Name:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:110
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:47
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:109
 msgid "Flirting"
 msgstr "Flirting"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:252
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:264
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:250
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:262
 msgid "Full-time (Days)"
 msgstr "Full-time (Days)"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:254
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:266
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:252
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:264
 msgid "Full-time (Graveyard)"
 msgstr "Full-time (Graveyard)"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:253
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:265
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:251
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:263
 msgid "Full-time (Swing)"
 msgstr "Full-time (Swing)"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:95
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:32
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:94
 msgid "Gay"
 msgstr "Gay"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:34
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:36
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:35
 msgid "Gender:"
 msgstr "Gender:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:101
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:38
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:100
 msgid "Her for:"
 msgstr "Her for:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:93
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:30
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:92
 msgid "Hetero"
 msgstr "Hetero"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:207
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:205
 msgid "How can I tell my father/mother, it's time for them to retire?"
 msgstr "How can I tell my father/mother, it's time for them to retire?"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:209
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:207
 msgid "How do I stop my family members from interfering?"
 msgstr "How do I stop my family members from interfering?"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:154
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:153
 msgid "How to Contact You ?"
 msgstr "How to Contact You ?"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:348
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:93
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:349
 msgid "I agree to the bellow terms"
 msgstr "I agree to the bellow terms"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:396
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:397
 msgid ""
 "I certify that I have the right to distribute this picture and that it does "
-"not violate the Terms of Use"
+"not violate the Terms of Use."
 msgstr ""
 "I certify that I have the right to distribute this picture and that it does "
-"not violate the Terms of Use"
+"not violate the Terms of Use."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:208
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:206
 msgid "I'm exasperated with an awkward partner!"
 msgstr "I'm exasperated with an awkward partner!"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:344
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:89
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:345
 msgid ""
 "If you don't want to bother with having to login every time you visit the "
 "site, then checking \"Remember Me\" will place a unique identifier only our "
@@ -263,14 +272,14 @@ msgstr ""
 "site can read that we'll use to identify you and log you in automatically "
 "each time you visit."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:313
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:58
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:314
 msgid ""
 "Invalide Username should only contain letters, numbers, and underscore (_)."
 msgstr ""
 "Invalide Username should only contain letters, numbers, and underscore (_)."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:141
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:140
 msgid ""
 "It is important that you provide a valid, working email address that you "
 "have access to as it must be verified before you can use your account."
@@ -290,7 +299,7 @@ msgstr "July"
 msgid "June"
 msgstr "June"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:239
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:237
 msgid "Keywords:"
 msgstr "Keywords:"
 
@@ -302,15 +311,15 @@ msgstr "Last Name:"
 msgid "Limited date range:"
 msgstr "Limited date range:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:293
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:370
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:27
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:116
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:294
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:371
 msgid "Login Information"
 msgstr "Login Information"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:37
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:39
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:39
 msgid "Male"
 msgstr "Male"
 
@@ -322,8 +331,8 @@ msgstr "March"
 msgid "May"
 msgstr "May"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:305
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:50
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:306
 msgid ""
 "May only contain letters, numbers, and underscore (_) and 8-20 characters "
 "long."
@@ -331,30 +340,30 @@ msgstr ""
 "May only contain letters, numbers, and underscore (_) and 8-20 characters "
 "long."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:109
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:46
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:108
 msgid "Meeting new people"
 msgstr "Meeting new people"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:205
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:203
 msgid "Message Subject:  "
 msgstr "Message Subject:  "
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:220
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:218
 msgid "Must be 250 characters or less."
 msgstr "Must be 250 characters or less."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:321
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:66
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:322
 msgid "Must be 6-25 characters long."
 msgstr "Must be 6-25 characters long."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:184
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:182
 msgid "Must match the email address you just entered above."
 msgstr "Must match the email address you just entered above."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:331
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:76
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:332
 msgid "Must match the password you entered just above."
 msgstr "Must match the password you entered just above."
 
@@ -371,7 +380,7 @@ msgstr "November"
 msgid "October"
 msgstr "October"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:210
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:208
 msgid "Other:"
 msgstr "Other:"
 
@@ -379,23 +388,23 @@ msgstr "Other:"
 msgid "Page not found"
 msgstr "Page not found"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:251
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:263
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:249
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:261
 msgid "Part-time"
 msgstr "Part-time"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:319
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:64
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:320
 msgid "Password:"
 msgstr "Password:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:338
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:83
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:339
 msgid "Passwords don't match, please enter them again"
 msgstr "Passwords don't match, please enter them again"
 
 #: lib/MyProject/library/MyProject/Form/Example/Showcases.php:27
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:131
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:130
 msgid "Personal Information"
 msgstr "Personal Information"
 
@@ -403,15 +412,15 @@ msgstr "Personal Information"
 msgid "Phone"
 msgstr "Phone"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:196
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:194
 msgid "Phone:"
 msgstr "Phone:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:142
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:141
 msgid "Please enter a land line number, not a mobile phone number."
 msgstr "Please enter a land line number, not a mobile phone number."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:140
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:139
 msgid "Please enter your full email address, for example, name@domain.com"
 msgstr "Please enter your full email address, for example, name@domain.com"
 
@@ -423,22 +432,22 @@ msgstr ""
 "Please enter your name and address as they are listed for your debit card, "
 "credit card, or bank account."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:329
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:74
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:330
 msgid "Please re-enter your password:"
 msgstr "Please re-enter your password:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:108
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:45
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:107
 msgid "Promote Myself"
 msgstr "Promote Myself"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:182
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:180
 msgid "Re-enter Email:"
 msgstr "Re-enter Email:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:343
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:88
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:344
 msgid "Remember Me"
 msgstr "Remember Me"
 
@@ -450,8 +459,8 @@ msgstr "Search:"
 msgid "September"
 msgstr "September"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:89
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:26
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:88
 msgid "Sexuality:"
 msgstr "Sexuality:"
 
@@ -463,24 +472,24 @@ msgstr "Simple:"
 msgid "Special Format:"
 msgstr "Special Format:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:449
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:120
-#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:52
 #: lib/MyProject/library/MyProject/Form/Example/AutoCompleter.php:37
+#: lib/MyProject/library/MyProject/Form/Example/DateSelect.php:52
 #: lib/MyProject/library/MyProject/Form/Example/FancySelect.php:62
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:450
 msgid "Submit"
 msgstr "Submit"
 
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:171
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:172
 #: lib/MyProject/library/MyProject/Form/Example/Showcases.php:173
 #: lib/MyProject/library/MyProject/Form/Example/Showcases.php:174
 #: lib/MyProject/library/MyProject/Form/Example/Showcases.php:175
 #: lib/MyProject/library/MyProject/Form/Example/Showcases.php:176
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:177
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:178
 msgid "This does not appear to be a valid email address"
 msgstr "This does not appear to be a valid email address"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:422
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:423
 msgid ""
 "Type the characters you see in this picture. This ensures that a person, not "
 "an automated program, is creating this account."
@@ -488,25 +497,25 @@ msgstr ""
 "Type the characters you see in this picture. This ensures that a person, not "
 "an automated program, is creating this account."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:249
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:247
 msgid "Use the CTRL key to select more than one."
 msgstr "Use the CTRL key to select more than one."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:303
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:48
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:304
 msgid "Username:"
 msgstr "Username:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:445
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:446
 msgid "Verification"
 msgstr "Verification"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:420
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:421
 msgid "Verification Information"
 msgstr "Verification Information"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:296
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:30
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:297
 msgid ""
 "We recommend that your password is not a word you can find in the "
 "dictionary, includes both capital and lower case letters, and contains at "
@@ -516,7 +525,7 @@ msgstr ""
 "dictionary, includes both capital and lower case letters, and contains at "
 "least one special character (1-9, !, *, _, etc.)."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:168
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:166
 msgid ""
 "We will never sell or disclose your email address to anyone. Once your "
 "account is setup, you may add additional email addresses."
@@ -524,7 +533,7 @@ msgstr ""
 "We will never sell or disclose your email address to anyone. Once your "
 "account is setup, you may add additional email addresses."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:229
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:227
 msgid ""
 "We'd love to get your feedback on any of the products or services we offer "
 "or on your experience with us."
@@ -532,8 +541,8 @@ msgstr ""
 "We'd love to get your feedback on any of the products or services we offer "
 "or on your experience with us."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:255
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:267
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:253
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:265
 msgid "Weekends Only"
 msgstr "Weekends Only"
 
@@ -541,22 +550,22 @@ msgstr "Weekends Only"
 msgid "Welcome to MyProject!"
 msgstr "Welcome to MyProject!"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:247
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:260
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:245
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:258
 msgid "What is your current availability?"
 msgstr "What is your current availability?"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:379
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:380
 msgid "You can upload a JPG, GIF or PNG file."
 msgstr "You can upload a JPG, GIF or PNG file."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:218
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:227
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:216
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:225
 msgid "Your Message:"
 msgstr "Your Message:"
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:297
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:31
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:298
 msgid ""
 "Your password will be encrypted and stored in our system. Due to the "
 "encryption, we cannot retrieve your password for you. If you lose or forget "
@@ -566,7 +575,8 @@ msgstr ""
 "encryption, we cannot retrieve your password for you. If you lose or forget "
 "your password, we offer the ability to reset it."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:146
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:145
+#, php-format
 msgid ""
 "Your phone number will not be shared or used for telemarketing. Your "
 "information is protected by our %s Privacy Policy %s."
@@ -574,8 +584,8 @@ msgstr ""
 "Your phone number will not be shared or used for telemarketing. Your "
 "information is protected by our %s Privacy Policy %s."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:295
 #: lib/MyProject/library/MyProject/Form/Example/AjaxForm.php:29
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:296
 msgid ""
 "Your username and password must both be at least 8 characters long and are "
 "case-sensitive. Please do not enter accented characters."
@@ -583,6 +593,6 @@ msgstr ""
 "Your username and password must both be at least 8 characters long and are "
 "case-sensitive. Please do not enter accented characters."
 
-#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:80
+#: lib/MyProject/library/MyProject/Form/Example/Showcases.php:79
 msgid "Zip/Postal Code:"
 msgstr "Zip/Postal Code:"
