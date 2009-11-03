@@ -34,7 +34,7 @@ abstract class BaseZF_Error_Handler
         self::$_oldErrorhandler = set_error_handler($handlerCallback);
 
         return self::$_oldErrorhandler;
-   }
+    }
 
    /**
     *
@@ -44,7 +44,7 @@ abstract class BaseZF_Error_Handler
         if (isset(self::$_oldErrorhandler)) {
             set_error_handler(self::$_oldErrorhandler);
         }
-    }
+   }
 
     static public function handleError($errno, $errstr = null, $file = null, $line = 0, array $errcontext = array())
     {
@@ -58,7 +58,7 @@ abstract class BaseZF_Error_Handler
             $errstr = '(' . self::getErrorType($errno) . ') ' . $errstr;
 
             throw new BaseZF_Error_Exception($errstr, $errno, $file, $line, $errcontext);
-        }
+         }
     }
 
     //
@@ -160,9 +160,9 @@ abstract class BaseZF_Error_Handler
      */
     static public function sendExceptionByMail(Exception $e, $from, $to, $subjectPrefix = null)
     {
-        // set default prefix as $SERVER['HTTP_HOST'] then $SERVER['SERVER_NAME'] then localhost
+        // set default prefix as $_SERVER['HTTP_HOST'] then $_SERVER['SERVER_NAME'] then localhost
         if (is_null($subjectPrefix)) {
-            $subjectPrefix = '[' . isset($SERVER['HTTP_HOST']) ? $SERVER['HTTP_HOST'] : (isset($SERVER['SERVER_NAME']) ? $SERVER['SERVER_NAME'] : 'localhost') . ']';
+            $subjectPrefix = '[' . isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'localhost') . ']';
         }
 
         // generate mail datas

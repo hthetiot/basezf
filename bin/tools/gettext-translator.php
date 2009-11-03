@@ -91,20 +91,20 @@ class gettextTranslator
                 $sources = array();
 
             // Encountered an original text
-            } elseif (($status == '-') && preg_match( '#^msgid "(.*)"#', $line, $matches)) {
+            } elseif (($status == '-') && preg_match('#^msgid "(.*)"#', $line, $matches)) {
 
                 $status = 'o';
                 $msgid = $matches[1];
                 $this->_fileStats['translation']++;
 
             // Encountered a translated text
-            } elseif (($status == 'o') && preg_match( '#^msgstr "(.*)"#', $line, $matches)) {
+            } elseif (($status == 'o') && preg_match('#^msgstr "(.*)"#', $line, $matches)) {
 
                 $status = 't';
                 $msgstr = $matches[1];
 
             // Encountered a translated text
-            } elseif (($status == 'o') && preg_match( '#^msgstr ""#', $line, $matches)) {
+            } elseif (($status == 'o') && preg_match('#^msgstr ""#', $line, $matches)) {
 
                 $status = 't';
                 $msgstr = '';
@@ -119,10 +119,10 @@ class gettextTranslator
                 }
 
             // Encountered a source code location comment
-            } elseif (($status == '-') && preg_match( '@^#:(.*)@', $line, $matches)) {
+            } elseif (($status == '-') && preg_match('@^#:(.*)@', $line, $matches)) {
 
                 $sources[] = trim($matches[1]);
-            } elseif (($status == '-') && preg_match( '@^#(.*)@', $line, $matches) && empty($this->_fileData)) {
+            } elseif (($status == '-') && preg_match('@^#(.*)@', $line, $matches) && empty($this->_fileData)) {
 
                 $this->_fileHeader[] = $matches[1];
 
@@ -256,7 +256,7 @@ class gettextTranslator
             return '';
         }
 
-        curl_close ($ch);
+        curl_close($ch);
 
         // find results
         $html = substr($html, strpos($html, "<div id=result_box dir=\"ltr\">"));

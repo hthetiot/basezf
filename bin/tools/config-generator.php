@@ -287,7 +287,8 @@ try {
             break;
         }
 
-        default : usage();
+        default:
+            usage();
     }
 
     exit(0);

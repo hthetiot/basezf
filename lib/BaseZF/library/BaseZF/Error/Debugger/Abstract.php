@@ -36,7 +36,7 @@ abstract class BaseZF_Error_Debugger_Abstract
         $code = '';
         $curLine = 0;
 
-        while($line = fgets($file)) {
+        while ($line = fgets($file)) {
 
             $curLine++;
 
