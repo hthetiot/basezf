@@ -32,8 +32,10 @@ class MyProject_Form_Example_AjaxForm extends BaseZF_Framework_Form
             )
         ));
 
-       $this->addElement('radio', 'gender', array(
+        $this->addElement('radio', 'gender', array(
+            'helper'        => 'formMultiRadio',
             'label'         => __('Gender:'),
+            'label_class'   => 'compact',
             'required'      => true,
             'multioptions'  => array(
                 1 => __('Male'),
