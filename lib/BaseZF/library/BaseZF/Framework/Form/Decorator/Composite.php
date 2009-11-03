@@ -1,9 +1,9 @@
 <?php
 /**
- * Form class in /BazeZF/Framework
+ * Composite class in /BazeZF/Framework/Form/Decorator
  *
  * @category   BazeZF
- * @package    BazeZF_Framework
+ * @package    BazeZF_Framework_Form
  * @copyright  Copyright (c) 2008 BazeZF
  * @author     Harold Thetiot (hthetiot)
  */
@@ -58,22 +58,12 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
         unset($helperAttribs['helper']);
         unset($helperAttribs['container_class']);
 
-        if ($helper == 'formFile') {
-
-            return $element->getView()->$helper(
-                $element->getName(),
-                $helperAttribs
-            );
-
-        } else {
-
-            return $element->getView()->$helper(
-                $element->getName(),
-                $element->getValue(),
-                $helperAttribs,
-                $element->options
-            );
-        }
+        return $element->getView()->$helper(
+            $element->getName(),
+            $element->getValue(),
+            $helperAttribs,
+            $element->options
+        );
     }
 
     public function buildDescription()
@@ -167,15 +157,17 @@ class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abst
     public function render($content)
     {
         $element = $this->getElement();
+        $view = $element->getView();
 
         // ignore special elements
         if (
-            !$element instanceof Zend_Form_Element ||
             $element instanceof Zend_Form_Element_Captcha ||
-            null === $element->getView()
+            !$element instanceof Zend_Form_Element ||
+            !$view instanceof Zend_View_Interface
         ) {
             return $content;
         }
+
 
         // render container
         $containerClass = $this->getContainerClass();

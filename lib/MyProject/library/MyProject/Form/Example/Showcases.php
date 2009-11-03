@@ -167,6 +167,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         ));
 
         $this->getElement('email')->addValidator('EmailAddress', true, array(
+
+            // Overload validator messages
             'messages' => array(
                 'emailAddressInvalid'           => __('This does not appear to be a valid email address'),
                 'emailAddressInvalidHostname'   => __('This does not appear to be a valid email address'),
@@ -185,6 +187,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         $this->getElement('email_check')->addValidator('StringEquals', true, array(
             'field1'    => 'email',
             'field2'    => 'email_check',
+
+            // Overload validator messages
             'messages'  => array(
                 'notMatch'  => __("Emails don't match, please enter them again")
             ),
@@ -311,7 +315,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             ->addValidator('Regex', false, array(
                 'pattern'   => '/^[0-9A-Za-z+\_]*$/',
                 'messages'  => array(
-                    'regexNotMatch'  => __('Invalide Username should only contain letters, numbers, and underscore (_).')
+                    Zend_Validate_Regex::INVALID    => __('Invalide Username should only contain letters, numbers, and underscore (_).'),
+                    Zend_Validate_Regex::NOT_MATCH  => __('Invalide Username should only contain letters, numbers, and underscore (_).'),
                 ),
             ));
 
@@ -335,6 +340,8 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         $this->getElement('password_check')->addValidator('StringEquals', true, array(
             'field1'    => 'password',
             'field2'    => 'password_check',
+
+            // Overload validator messages
             'messages'  => array(
                 'notMatch'  => __("Passwords don't match, please enter them again")
             ),
@@ -383,8 +390,19 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         ));
 
         // add synchron upload support
-        /*
+
         $this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
+
+        $decorators = array (
+            'ViewHelper',
+            'Errors',
+            array('Description', array('tag' => 'p', 'class' => 'description')),
+            array('HtmlTag', array('tag' => 'td')),
+            array('Label', array('tag' => 'th')),
+            array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))
+        );
+
+
         $this->addElement('file', 'avatar_file', array(
             'label'         => __('Upload your Avatar:'),
             'required'      => true,
@@ -392,7 +410,14 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             // extras
             'container_class'    => 'wide',
         ));
-*/
+
+        $elementAvatarFile = $this->getElement('avatar_file');
+        $elementAvatarFile->clearDecorators();
+        $elementAvatarFile->addDecorator('File');
+        $elementAvatarFile->addValidator('Count', false, 1)
+                          ->addValidator('Size', false, 102400)
+                          ->addValidator('Extension', false, 'jpg,png,gif');
+
         $this->addElement('checkbox', 'therms_file', array(
             'label'         => __('I certify that I have the right to distribute this picture and that it does not violate the Terms of Use.'),
             'required'      => true,
@@ -416,7 +441,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         //
         // Verification fields
         //
-
+/*
         $this->addElement('info', 'info4', array(
             'label'     => __('Verification Information'),
             'messages'  => array(
@@ -444,6 +469,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
         ), 'check_information');
 
         $this->getDisplayGroup('check_information')->setLegend(__('Verification'));
+        */
 
         // submit and reset buttons
         $this->addElement('reset', 'reset', array('label' => __('Cancel')))

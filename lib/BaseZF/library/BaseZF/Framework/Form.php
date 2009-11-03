@@ -3,7 +3,7 @@
  * Form class in /BazeZF/Framework
  *
  * @category   BazeZF
- * @package    BazeZF_Framework
+ * @package    BazeZF_Framework_Form
  * @copyright  Copyright (c) 2008 BazeZF
  * @author     Harold Thetiot (hthetiot)
  */
@@ -22,12 +22,54 @@ abstract class BaseZF_Framework_Form extends Zend_Form
     {
         $this->setDisableTranslator(true);
 
-        $this->addElementPrefixPath('BaseZF_Framework', 'BaseZF/Framework/');
-        $this->addPrefixPath('BaseZF_Framework_Form_Element', 'BaseZF/Framework/Form/Element/', 'element');
-        $this->addPrefixPath('BaseZF_Framework_Form_Decorator', 'BaseZF/Framework/Form/Decorator/', 'decorator');
+        // set default options
+        $defaultOptions = array(
+
+            'elementPrefixPath' => array(
+                array(
+                    'prefix'    => 'BaseZF_Framework',
+                    'path'      =>'BaseZF/Framework'
+                ),
+            ),
+
+            'prefixPath' => array(
+
+                'element' => array(
+                    'prefix'    => 'BaseZF_Framework_Form_Element',
+                    'path'      =>'BaseZF/Framework/Form/Element'
+                ),
+
+                'decorator' => array(
+                    'prefix'    => 'BaseZF_Framework_Form_Decorator',
+                    'path'      =>'BaseZF/Framework/Form/Decorator'
+                ),
+            ),
+
+            'elementDecorators' => array(
+                'Composite'
+            ),
+
+            'displayGroupDecorators' => array(
+                'FormElements',
+                'Fieldset',
+            ),
+
+            'decorators' => array(
+                'FormElements',
+                'Form'
+            ),
+        );
+
+        $options = is_array($options) ? $options : array();
+        $options = array_merge($defaultOptions, $options);
 
         parent::__construct($options);
 
+        // avoid bad options setting
+		$this->setDisplayGroupDecorators($options['displayGroupDecorators']);
+
+        // add default form class
+        $this->setAttrib('class', trim($this->getAttrib('class') . ' formLayout'));
     }
 
     /**
@@ -60,31 +102,6 @@ abstract class BaseZF_Framework_Form extends Zend_Form
         }
 
         return $response;
-    }
-
-    /**
-     * Set default render
-     */
-    public function render(Zend_View_Interface $view = null)
-    {
-        $this->setAttrib('class', $this->getAttrib('class') . ' formLayout');
-
-        $defaultDecorators = array(
-            'FormElements',
-            'Form'
-        );
-
-        $defaultGroupDecorators = array(
-            'FormElements',
-            'Fieldset',
-        );
-
-        $this->setElementDecorators(array('Composite'));
-        $this->setDisplayGroupDecorators($defaultGroupDecorators);
-        $this->setSubFormDecorators($defaultDecorators);
-        $this->setDecorators($defaultDecorators);
-
-        return parent::render($view);
     }
 }
 
