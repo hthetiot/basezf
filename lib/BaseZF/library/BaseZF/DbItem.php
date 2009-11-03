@@ -1271,7 +1271,7 @@ abstract class BaseZF_DbItem implements ArrayAccess
     public function addCollection(BaseZF_DbCollection $collection)
     {
         $key = array_search($collection, $this->_collections);
-        if ($key !== FALSE) {
+        if ($key === FALSE) {
            $this->_collections[] = &$collection;
         }
 

@@ -751,6 +751,7 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         $newItem = call_user_func(array($itemClassName, 'getInstance'), $this->_table, null, $this->isRealTime());
 
         $newItem->setProperties($data);
+        $newItem->addCollection(&$this);
         $newItem->insert();
 
         // add item to collection
