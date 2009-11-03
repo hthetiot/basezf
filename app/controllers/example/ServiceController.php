@@ -85,7 +85,7 @@ class Example_ServiceController extends BaseZF_Framework_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
 
         // handle wsdl request
-        if(isset($_GET['wsdl'])) {
+        if (isset($_GET['wsdl'])) {
 
             $autodiscover = new Zend_Soap_AutoDiscover();
             $autodiscover->setClass('MyProject_Service_Soap_Example');
