@@ -15,8 +15,8 @@ class MyProject_Form_Example_DateSelect extends BaseZF_Framework_Form
     public function init()
     {
         $this->addElement('info', 'info1', array(
-            'label'        => __('Date Select Samples'),
-            'messages'    => array(
+            'label'     => __('Date Select Samples'),
+            'messages'  => array(
                 '@todo',
             ),
         ));

@@ -52,6 +52,11 @@ class Example_FormController extends BaseZF_Framework_Controller_Action
                     // success, do stuff with your data here!
                     // i'll just do a lame redirect here
 
+                    $avatarFile = $form->getElement('avatar_file');
+                    //$avatarFile->receive();
+                    //$avatarFile->getMimeType();
+                    //$avatarFile->getFileName();
+
                     // if it is ajax it will redirect anyway cause _redirect handle isAjax
                     $this->_redirect('/example/form/indexvalidate');
                 }

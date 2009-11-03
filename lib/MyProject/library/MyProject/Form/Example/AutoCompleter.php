@@ -15,8 +15,8 @@ class MyProject_Form_Example_AutoCompleter extends BaseZF_Framework_Form
     public function init()
     {
         $this->addElement('info', 'info1', array(
-            'label'         => __('Auto Completer Sample'),
-            'messages'      => array(
+            'label'     => __('Auto Completer Sample'),
+            'messages'  => array(
                 '@todo',
             ),
         ));

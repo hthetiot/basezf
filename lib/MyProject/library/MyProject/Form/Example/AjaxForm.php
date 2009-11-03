@@ -24,8 +24,8 @@ class MyProject_Form_Example_AjaxForm extends BaseZF_Framework_Form
         //
 
         $this->addElement('info', 'info3', array(
-            'label'        => __('Login Information'),
-            'messages'    => array(
+            'label'     => __('Login Information'),
+            'messages'  => array(
                 __('Your username and password must both be at least 8 characters long and are case-sensitive. Please do not enter accented characters.'),
                 __('We recommend that your password is not a word you can find in the dictionary, includes both capital and lower case letters, and contains at least one special character (1-9, !, *, _, etc.).'),
                 __('Your password will be encrypted and stored in our system. Due to the encryption, we cannot retrieve your password for you. If you lose or forget your password, we offer the ability to reset it.'),
@@ -49,14 +49,14 @@ class MyProject_Form_Example_AjaxForm extends BaseZF_Framework_Form
         $this->addElement('text', 'username', array(
             'label'         => __('Username:'),
             'required'      => true,
-            'description'     => __('May only contain letters, numbers, and underscore (_) and 8-20 characters long.'),
+            'description'   => __('May only contain letters, numbers, and underscore (_) and 8-20 characters long.'),
         ));
 
         $this->getElement('username')
             ->addValidator('StringLength', true, array(8, 20))
             ->addValidator('Regex', false, array(
-                'pattern' => '/^[0-9A-Za-z+\_]*$/',
-                'messages' => array(
+                'pattern'   => '/^[0-9A-Za-z+\_]*$/',
+                'messages'  => array(
                     'regexNotMatch'  => __('Invalide Username should only contain letters, numbers, and underscore (_).')
                 ),
             ));
@@ -65,7 +65,7 @@ class MyProject_Form_Example_AjaxForm extends BaseZF_Framework_Form
         $this->addElement('password', 'password', array(
             'label'         => __('Password:'),
             'required'      => true,
-            'description'     => __('Must be 6-25 characters long.'),
+            'description'   => __('Must be 6-25 characters long.'),
         ));
 
         $this->getElement('password')
@@ -75,26 +75,26 @@ class MyProject_Form_Example_AjaxForm extends BaseZF_Framework_Form
         $this->addElement('password', 'password_check', array(
             'label'         => __('Please re-enter your password:'),
             'required'      => true,
-            'description'     => __('Must match the password you entered just above.'),
+            'description'   => __('Must match the password you entered just above.'),
         ));
 
         $this->getElement('password_check')->addValidator('StringEquals', true, array(
-            'field1' => 'password',
-            'field2' => 'password_check',
-            'messages' => array(
+            'field1'    => 'password',
+            'field2'    => 'password_check',
+            'messages'  => array(
                 'notMatch'  => __("Passwords don't match, please enter them again")
             ),
         ));
 
         $this->addElement('checkbox', 'remember_me', array(
             'label'         => __('Remember Me'),
-            'description'    => __("If you don't want to bother with having to login every time you visit the site, then checking \"Remember Me\" will place a unique identifier only our site can read that we'll use to identify you and log you in automatically each time you visit."),
+            'description'   => __("If you don't want to bother with having to login every time you visit the site, then checking \"Remember Me\" will place a unique identifier only our site can read that we'll use to identify you and log you in automatically each time you visit."),
         ));
 
         $this->addElement('checkbox', 'therms', array(
             'label'         => __('I agree to the bellow terms'),
             'required'      => true,
-            'description'     => sprintf(
+            'description'   => sprintf(
                 __('By checking this, you are indicating that you are agree with the %s Terms of Use %s.'),
                 '<a href="#">', '</a>'
             )

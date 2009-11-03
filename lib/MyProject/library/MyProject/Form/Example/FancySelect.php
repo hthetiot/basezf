@@ -15,8 +15,8 @@ class MyProject_Form_Example_FancySelect extends BaseZF_Framework_Form
     public function init()
     {
         $this->addElement('info', 'info1', array(
-            'label'        => __('Fancy Select Samples'),
-            'messages'    => array(
+            'label'     => __('Fancy Select Samples'),
+            'messages'  => array(
                 '@todo'
             ),
         ));
