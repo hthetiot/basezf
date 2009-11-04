@@ -180,7 +180,11 @@ abstract class BaseZF_DbCollection implements Iterator, Countable
         }
 
         $this->_ids = $ids;
-        foreach ($this as $item); // create DbItem object for each id if not exist
+
+        // create DbItem object for each id if not exist
+        // DISABLE for performances isssue
+        //foreach ($this as $item);
+
         $this->rewind();
         return $this;
     }
