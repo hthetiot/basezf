@@ -68,7 +68,7 @@ define_if_not('MAIN_URL', BASE_URL_SCHEME . BASE_URL);
 // Debug options
 
 define_if_not('DEBUG_REMOTE_TOKEN', 'debug_me');
-define_if_not('DEBUG_ENABLE', (isset($_POST[DEBUG_REMOTE_TOKEN]) || isset($_GET[DEBUG_REMOTE_TOKEN]) || isset($_COOKIE[DEBUG_REMOTE_TOKEN]) ? true : false));
+define_if_not('DEBUG_ENABLE', (isset($_GET[DEBUG_REMOTE_TOKEN]) || isset($_COOKIE[DEBUG_REMOTE_TOKEN]) ? true : false));
 define_if_not('DEBUG_REPORT', true);
 define_if_not('DEBUG_REPORT_SUBJECT', '[' . APPLICATION_ENV . '] ' . BASE_URL);
 define_if_not('DEBUG_REPORT_FROM', 'debug@' . BASE_URL);
@@ -87,26 +87,26 @@ define_if_not('MYPROJECT_PATH', LIBRARY_PATH . '/MyProject');
 //---------------------------------------------------------------------------
 // file inclusion & autoload
 
-set_include_path(
+$includePaths = array(
 
-    // frameworks
-    ZF_PATH . '/library' . PATH_SEPARATOR .
-    BASEZF_PATH . '/library' . PATH_SEPARATOR .
-    MYPROJECT_PATH . '/library' . PATH_SEPARATOR .
+    // Frameworks
+    ZF_PATH . '/library',
+    BASEZF_PATH . '/library',
+    MYPROJECT_PATH . '/library',
 
-    // load others lib
-    INCLUDE_PATH . PATH_SEPARATOR .
-    LIBRARY_PATH . PATH_SEPARATOR .
-
-    get_include_path()
+    // Others library
+    INCLUDE_PATH,
+    LIBRARY_PATH,
 );
+
+set_include_path(implode(PATH_SEPARATOR, $includePaths) . PATH_SEPARATOR . get_include_path());
 
 
 //---------------------------------------------------------------------------
 // Start Zend Loader and check Zend Framework availability
 
 if (!@include_once('Zend/Loader/Autoloader.php')) {
-    trigger_error(sprintf('Unable to load Zend Framework "Zend/Loader/Autoloader.php" file with ZF_PATH as value "%s".', ZF_PATH), E_USER_ERROR);
+    trigger_error(sprintf('Unable to load Zend Framework with ZF_PATH as value "%s".', ZF_PATH), E_USER_ERROR);
 }
 
 $autoloader = Zend_Loader_Autoloader::getInstance();
