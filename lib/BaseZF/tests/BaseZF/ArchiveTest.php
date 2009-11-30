@@ -81,7 +81,7 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         return $tmpFile;
     }
 
-    public function testAddSimpleFile()
+    public function testAddAndExtractSimpleFile()
     {
         // declare file data for testing
         $fileData = '<html><h1>Toto ' . time() . '</h1></html>';
@@ -112,7 +112,7 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($archiveTestFile['stat'][7], $fileLength);  // test file size
     }
 
-    public function testAddFileFromString()
+    public function testAddAndExtractFileFromString()
     {
         // declare file data for testing
         $fileData = '<html><h1>Toto ' . time() . '</h1></html>';
@@ -140,7 +140,7 @@ class BaseZF_ArchiveTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($archiveTestFile['stat'][7], $fileLength);  // test file size
     }
 
-    public function testAddFilesFromDirPattern()
+    public function testAddAndExtractFilesFromDirPattern()
     {
         // create files data for testing
         $testFileContentTpl = '<html><h1>Toto %s</h1></html>';
