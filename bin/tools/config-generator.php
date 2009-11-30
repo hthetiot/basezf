@@ -38,7 +38,7 @@ class configGenerator
     /**
      * Template parsor
      */
-    const CONFIG_TEMPLATE_PARSOR = '/^# ([A-Z$_]*): ([^\[]*)(\[default\: (.*)\])?/';
+    const CONFIG_TEMPLATE_PARSOR = '/^{comment_token} ([A-Z$_]*): ([^\[]*)(\[default\: (.*)\])?/';
 
     /**
      * Config dest dir
@@ -49,6 +49,13 @@ class configGenerator
      * Config template dir
      */
     protected $_tplDir;
+
+    static $extentionToCommentToken = array(
+        'cnf'  => '#',
+        'conf' => '#',
+        'ini'  => ';',
+        ''     => '#',
+    );
 
     /**
      *
@@ -105,8 +112,6 @@ class configGenerator
         foreach ($tplFiles as $tplFile) {
 
             $destFile = str_replace(array($this->_tplDir, self::CONFIG_TEMPLATE_PREFFIX), array($this->_destDir, ''), $tplFile);
-            $fileVarsValues = array();
-            $fileVars = $this->_getTemplateVars($tplFile);
 
             // override current destination file
             if (is_file($destFile)) {
@@ -117,7 +122,7 @@ class configGenerator
                     $buffer = $this->ask('Overvrite existing config file "' . $destFile . '" [y/N] ? ');
 
                     if (empty($buffer)) {
-                    $buffer = 'n';
+                        $buffer = 'n';
                     }
                 }
 
@@ -125,6 +130,10 @@ class configGenerator
                 if (in_array(strtolower($buffer), array('n', 'skip'))) {
                     continue;
                 }
+
+                // get tpl vars
+                $fileVarsValues = array();
+                $fileVars = $this->_getTemplateVars($tplFile);
             }
 
             // display current destination file and help
@@ -231,10 +240,12 @@ class configGenerator
         // get vars and questions
         $fileVars = array();
         $fileLines = file($tplFile);
+        $regexp = str_replace('{comment_token}', $this->_getCommentTokenByExtention($tplFile), self::CONFIG_TEMPLATE_PARSOR);
         foreach ($fileLines as $line) {
 
             $matches = array();
-            if (preg_match(self::CONFIG_TEMPLATE_PARSOR, $line, $matches)) {
+            if (preg_match($regexp, $line, $matches)) {
+
                 $fileVars[$matches[1]] = array(
                     'question'  => trim($matches[2]),
                     'default'   => (isset($matches[4]) ? $matches[4] : null),
@@ -243,6 +254,17 @@ class configGenerator
         }
 
         return $fileVars;
+    }
+
+    protected function _getCommentTokenByExtention($file)
+    {
+        $extention = str_replace(self::CONFIG_TEMPLATE_PREFFIX, '', pathinfo($file, PATHINFO_EXTENSION));
+
+        if (!isset(self::$extentionToCommentToken[$extention])) {
+            throw new Exception(sprintf('Unable to found comment token for config file "%s" with extention value "%s"', $file, $extention));
+        }
+
+        return self::$extentionToCommentToken[$extention];
     }
 }
 
