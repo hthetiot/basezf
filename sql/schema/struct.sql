@@ -29,7 +29,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: example; Type: TABLE; Schema: public; Owner: dev; Tablespace:
+-- Name: example; Type: TABLE; Schema: public; Owner: dev; Tablespace: 
 --
 
 CREATE TABLE example (
@@ -38,7 +38,7 @@ CREATE TABLE example (
     unique_string text NOT NULL,
     string text NOT NULL,
     state smallint DEFAULT 1 NOT NULL,
-    update timestamp without time zone,
+    "update" timestamp without time zone,
     creation timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -46,7 +46,7 @@ CREATE TABLE example (
 ALTER TABLE public.example OWNER TO dev;
 
 --
--- Name: example_type; Type: TABLE; Schema: public; Owner: dev; Tablespace:
+-- Name: example_type; Type: TABLE; Schema: public; Owner: dev; Tablespace: 
 --
 
 CREATE TABLE example_type (
@@ -60,7 +60,7 @@ CREATE TABLE example_type (
 ALTER TABLE public.example_type OWNER TO dev;
 
 --
--- Name: example_example_id_key; Type: CONSTRAINT; Schema: public; Owner: dev; Tablespace:
+-- Name: example_example_id_key; Type: CONSTRAINT; Schema: public; Owner: dev; Tablespace: 
 --
 
 ALTER TABLE ONLY example
@@ -68,7 +68,7 @@ ALTER TABLE ONLY example
 
 
 --
--- Name: example_type_example_type_id_key; Type: CONSTRAINT; Schema: public; Owner: dev; Tablespace:
+-- Name: example_type_example_type_id_key; Type: CONSTRAINT; Schema: public; Owner: dev; Tablespace: 
 --
 
 ALTER TABLE ONLY example_type
@@ -76,14 +76,14 @@ ALTER TABLE ONLY example_type
 
 
 --
--- Name: example__string__idx; Type: INDEX; Schema: public; Owner: dev; Tablespace:
+-- Name: example__string__idx; Type: INDEX; Schema: public; Owner: dev; Tablespace: 
 --
 
 CREATE INDEX example__string__idx ON example USING btree (string);
 
 
 --
--- Name: example_unique_idx; Type: INDEX; Schema: public; Owner: dev; Tablespace:
+-- Name: example_unique_idx; Type: INDEX; Schema: public; Owner: dev; Tablespace: 
 --
 
 CREATE UNIQUE INDEX example_unique_idx ON example USING btree (unique_string);
