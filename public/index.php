@@ -1,18 +1,19 @@
 <?php
 /**
- * index.php
- *
  * Main Bootstrap launcher
  *
- * @category   MyProject
- * @package    MyProject_App
- * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thetiot (hthetiot)
+ * PHP Version 5.2.11 or 5.3
+ *
+ * @category MyProject
+ * @package  MyProject_App
+ * @author   Harold Thetiot <hthetiot+basezf@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link     http://github.com/hthetiot/basezf
  */
 
 // Include auto_prepend if missing
 if (!defined('APPLICATION_PATH')) {
-    require_once(realpath(dirname(__FILE__)) . '/../includes/auto_prepend.php');
+    include_once realpath(dirname(__FILE__)) . '/../includes/auto_prepend.php';
 }
 
 try {
@@ -32,7 +33,12 @@ try {
 
     // report error enable ?
     if (defined('DEBUG_REPORT') && DEBUG_REPORT) {
-        BaseZF_Error_Handler::sendExceptionByMail($e, DEBUG_REPORT_FROM, DEBUG_REPORT_TO, DEBUG_REPORT_SUBJECT);
+        BaseZF_Error_Handler::sendExceptionByMail(
+            $e,
+            DEBUG_REPORT_FROM,
+            DEBUG_REPORT_TO,
+            DEBUG_REPORT_SUBJECT
+        );
     }
 
     // debug error enable ?
