@@ -9,6 +9,11 @@
  */
 
 //---------------------------------------------------------------------------
+// Get current microtime to calculate script execution duration
+
+$start_mt = microtime();
+
+//---------------------------------------------------------------------------
 // Set PHP Errors Reporting
 
 error_reporting(E_ALL | E_STRICT);
@@ -106,7 +111,7 @@ set_include_path(implode(PATH_SEPARATOR, $includePaths) . PATH_SEPARATOR . get_i
 // Start Zend Loader and check Zend Framework availability
 
 if (!@include_once('Zend/Loader/Autoloader.php')) {
-    trigger_error(sprintf('Unable to load Zend Framework with ZF_PATH as value "%s".', ZF_PATH), E_USER_ERROR);
+    trigger_error(sprintf('Unable to load Zend Framework in file <%s> on line <%d> with ZF_PATH value <"%s"> ', __FILE__, __LINE__, ZF_PATH,), E_USER_ERROR);
 }
 
 $autoloader = Zend_Loader_Autoloader::getInstance();
