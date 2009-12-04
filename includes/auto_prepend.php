@@ -53,7 +53,8 @@ if (!defined('NO_AUTO_PREPEND_LOCAL') && is_readable(INCLUDE_PATH . '/auto_prepe
 }
 
 //
-// Following define_if_not cann be defined before auto_prepend include or inauto_prepend_local
+// Following define_if_not() constants can be defined before auto_prepend include or inside
+// auto_prepend_local.php file for define other value than default
 //
 
 //---------------------------------------------------------------------------
@@ -90,7 +91,7 @@ define_if_not('MYPROJECT_PATH', LIBRARY_PATH . '/MyProject');
 
 
 //---------------------------------------------------------------------------
-// file inclusion & autoload
+// File path inclusion
 
 $includePaths = array(
 
