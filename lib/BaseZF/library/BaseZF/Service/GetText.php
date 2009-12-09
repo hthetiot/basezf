@@ -16,13 +16,13 @@ class BaseZF_Service_GetText
     protected static $_defaultConfig = array(
 
         // domain src paths
-        'domains' => array(
+        'domainsPaths' => array(
             'message'   => array(),
         ),
 
         // locales gettext env
-        'localeDirPath' => '',
-        'potDirPath'   => '',
+        'localeDirPath' => '/home/hthetiot/projects/basezf/locale',
+        'potDirPath'    => '/home/hthetiot/projects/basezf/locale/dist',
         'poDir'         => 'LC_MESSAGES',
 
         // bin path
@@ -49,9 +49,54 @@ class BaseZF_Service_GetText
      *
      * @param array $config the config of gettext service
      */
-    public function __construct($config)
+    public function __construct($config = array())
     {
         $this->setConfig($config);
+    }
+
+    //
+    //
+    //
+
+    /**
+     * Init Translation system using gettext
+     *
+     * @param object $locale instance of Zend_Locale
+     *
+     * @return void
+     */
+    public function iniTranslation($locale, array $availableDomains = array())
+    {
+        if (!$locale instanceOf Zend_Locale) {
+            $locale = new Zend_Locale($locale);
+        }
+
+        $localeDirPath = $this->getConfig('localeDirPath');
+
+        // init available gettext domains
+        foreach ($availableDomains as $domain) {
+            bindtextdomain($domain, $localeDirPath);
+            bind_textdomain_codeset($domain, 'UTF-8');
+        }
+
+        // set first domain has default domain
+        $defaultDomain = array_shift($availableDomains);
+        textdomain($defaultDomain);
+
+        $localeWithEncoding = $locale . '.utf8';
+
+        // mandatory for gettext
+        if (putenv('LANGUAGE') != $locale->getLanguage()) {
+            throw new BaseZF_Service_GetText_Exception(sprintf('Could not set the ENV variable LANGUAGE = %s', $locale));
+        }
+
+        if(setlocale(LC_MESSAGES, $localeWithEncoding) !== $localeWithEncoding) {
+            throw new BaseZF_Service_GetText_Exception(sprintf('Unable to set locale "%s" to value "%s", please check installed locales on system', 'LC_MESSAGES', $localeWithEncoding));
+        }
+
+        if(setlocale(LC_TIME, $localeWithEncoding) !== $localeWithEncoding) {
+            throw new BaseZF_Service_GetText_Exception(sprintf('Unable to set locale "%s" to value "%s", please check installed locales on system', 'LC_TIME', $localeWithEncoding));
+        }
     }
 
     //
@@ -132,7 +177,7 @@ class BaseZF_Service_GetText
         foreach ($args as $arg) {
 
             if (!isset($config[$arg])) {
-                throw new BaseZF_Service_GetText_Exception(sprintf('Unable to load config value for key "%s" in BaseZF_Service_GetText class', $arg));
+                throw new BaseZF_Service_GetText_Exception(sprintf('Unable to load config value for key "%s" in BaseZF_GetText class', $arg));
             }
 
             $config = $config[$arg];
@@ -152,7 +197,25 @@ class BaseZF_Service_GetText
 
     public function exportPoFiles(array $locales, array $domains = null, $archiveFormat = 'zip')
     {
+        $domainsPaths = $this->getDomainsPaths($domains);
 
+        // new archive
+        $archive = BaseZF_Archive::newArchive('zip');
+
+        $poDomainFiles = array();
+        foreach ($locales as $locale) {
+            foreach ($domainsPaths as $domain => $paths) {
+                $poDomainFile = $this->getPoFileForLocaleDomain($locale, $domain);
+                $archive->addFile($poDomainFile, $locale . '/' . $domain . '.po');
+            }
+        }
+
+        // create and download
+        $archive->createArchive();
+        $archive->setOption('path', 'export_language-' . date('dmY') . '-(' . implode('_', $locales) . ').zip');
+        $archive->downloadFile();
+
+        return $archive;
     }
 
     //
@@ -167,7 +230,9 @@ class BaseZF_Service_GetText
     {
         $domainsPaths = $this->getDomainsPaths($domains);
         $bugsAddress = $this->getConfig('bugsAddress');
+        $srcEncoding = $this->getConfig('srcEncoding');
         $srcKeyword = $this->getConfig('srcKeyword');
+
 
         $potFilePaths = array();
         foreach ($domainsPaths as $domain => $paths) {
@@ -191,7 +256,7 @@ class BaseZF_Service_GetText
             // create pot file
             $cleanPaths = array_map('escapeshellarg', $paths);
             $cmd = "find " . implode(' ', $cleanPaths) . " -type f -iname '*.php' -o -iname '*.phtml' | " .
-                   "xgettext -L PHP --keyword=" . escapeshellarg($srcKeyword) . " -j -s -o " . escapeshellarg($potFilePath) .
+                   "xgettext -d " . escapeshellarg($domain) . " --from-code " .  escapeshellarg($srcEncoding) . " -L PHP --keyword=" . escapeshellarg($srcKeyword) . " -s -o " . escapeshellarg($potFilePath) .
                    " --msgid-bugs-address=" . escapeshellarg($bugsAddress) . " -f -";
 
             exec($cmd, $results, $error);
@@ -213,6 +278,8 @@ class BaseZF_Service_GetText
 
         $poDomainFilePaths = array();
         foreach ($locales as $locale) {
+
+            $poDomainFilePaths[$locale] = array();
 
             foreach ($domainsPaths as $domain => $paths) {
 
@@ -242,7 +309,7 @@ class BaseZF_Service_GetText
                     }
                 }
 
-                $poDomainFilePaths[] = $poDomainFilePath;
+                $poDomainFilePaths[$locale][$domain] = $poDomainFilePath;
             }
         }
 
@@ -255,6 +322,8 @@ class BaseZF_Service_GetText
 
         $moDomainFilePaths = array();
         foreach ($locales as $locale) {
+
+            $moDomainFilePaths[$locale] = array();
 
             foreach ($domainsPaths as $domain => $paths) {
 
@@ -281,10 +350,10 @@ class BaseZF_Service_GetText
 
                 exec($cmd, $results, $error);
                 if ($error != 0) {
-                    throw new BaseZF_Service_GetText_Exception(sprintf('Unable to create PO file on path "%s" with command "%s" cause: [%s] %s', $poDomainFilePath , $cmd, $error, implode(' ', $results)));
+                    throw new BaseZF_Service_GetText_Exception(sprintf('Unable to create MO file on path "%s" with command "%s" cause: [%s] %s', $poDomainFilePath , $cmd, $error, implode(' ', $results)));
                 }
 
-                $moDomainFilePaths[$poDomainFilePath] = $moDomainFilePath;
+                $moDomainFilePaths[$locale][$domain] = $moDomainFilePath;
             }
         }
 
@@ -444,7 +513,7 @@ class BaseZF_Service_GetText
 
     public function getDomainsPaths(array $domainsRequired = null)
     {
-        $domainsPaths = $this->getConfig('domains');
+        $domainsPaths = $this->getConfig('domainsPaths');
 
         if (!is_null($domainsRequired)) {
             foreach ($domainsPaths as $domain => $paths) {

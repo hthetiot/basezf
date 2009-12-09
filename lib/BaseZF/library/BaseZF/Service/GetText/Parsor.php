@@ -13,6 +13,11 @@ class BaseZF_Service_GetText_Parsor
     /**
      *
      */
+    protected $_filePath;
+
+    /**
+     *
+     */
     protected $_fileHeader = array();
 
     /**
@@ -24,12 +29,6 @@ class BaseZF_Service_GetText_Parsor
      *
      */
     protected $_fileStats = array();
-
-
-    /**
-     *
-     */
-    protected $_filePath = null;
 
     /**
      *
@@ -76,18 +75,33 @@ class BaseZF_Service_GetText_Parsor
     /**
      *
      */
-    public function loadFile($filePath)
+    public function setFilePath($filePath)
     {
         $this->_filePath = $filePath;
-
-        // reset data
         $this->_fileData = array();
         $this->_fileHeader = array();
+        $this->_resetFileStats();
+
+        return $this;
+    }
+
+    protected function _resetFileStats()
+    {
+        // reset data
         $this->_fileStats = array(
             'untranslated' => 0,
             'translated'   => 0,
             'fuzzy'        => 0,
+            'translation'  => 0,
         );
+    }
+
+    /**
+     *
+     */
+    public function loadFile($filePath)
+    {
+        $this->setFilePath($filePath);
 
         if (!is_file($filePath)) {
             throw new BaseZF_Service_GetText_Exception(sprintf('unable to found file "%s"', $gettextFile));
@@ -106,7 +120,7 @@ class BaseZF_Service_GetText_Parsor
 
         foreach ($lines as $nbline => $line) {
 
-            if (trim($line) == '' ) {
+            if (trim($line) == '') {
 
                 // Blank line, go back to base status:
                 if ($status == 't' && !empty($msgid)) {
@@ -183,8 +197,12 @@ class BaseZF_Service_GetText_Parsor
     /**
      *
      */
-    public function saveFile($newFilePath)
+    public function saveFile($newFilePath = null)
     {
+        if (is_null($newFilePath)) {
+            $newFilePath = $this->_filePath;
+        }
+
         $fileBuffer = array();
 
         // add header
