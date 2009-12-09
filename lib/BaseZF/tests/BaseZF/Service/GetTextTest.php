@@ -180,7 +180,7 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testUpdatePoFilesWithNewAndRemovedTranslation()
+    public function testUpdatePoFilesWithNewAndRemovedAndUpdatedTranslations()
     {
         // expected po files returned by updatePoFiles
         $poLocaleFilePathsByDomainTest = array(
@@ -253,15 +253,15 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
                 $this->assertContains('msgid "I love french boys."', $poFileContent);
                 $this->assertContains('#| msgid "I love french girls."', $poFileContent);
 
-                // check removed
+                // check removed (simple2.php)
                 $this->assertContains('#~ msgid "I love my developer life."', $poFileContent);
+
+                // check new translation (simple3.php)
+                $this->assertContains('msgid "I like Gettext it rocks !"', $poFileContent);
 
                 // check existing (plural.php)
                 $this->assertContains('msgid "I whant %d donut"', $poFileContent);
                 $this->assertContains('msgid_plural "I whant %d donuts"', $poFileContent);
-
-                // check new translation (simple3.php)
-                $this->assertContains('msgid "I like Gettext it rocks !"', $poFileContent);
             }
         }
     }
@@ -296,7 +296,7 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
         $this->assertSame($poLocaleFilePathsByDomain, $poLocaleFilePathsByDomainTest);
     }
 
-    public function testTranslateAndDeployPoFileFromArray()
+    public function testTranslateFromArrayAndDeployPoFile()
     {
         /*
         // @todo plural....
