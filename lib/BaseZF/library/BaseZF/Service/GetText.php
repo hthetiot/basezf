@@ -15,6 +15,8 @@ class BaseZF_Service_GetText
      */
     protected static $_defaultConfig = array(
 
+        // @todo clean/optimize key names
+
         // domain src paths
         'domainsPaths' => array(
             'message'   => array(),
@@ -35,9 +37,10 @@ class BaseZF_Service_GetText
 
         // other options
         'bugsAddress'   => 'nobody@example.com',
-        'srcKeyword'    => '__',
+        'srcKeyword'    => '__', //@todo array('__', '_'),
         'srcEncoding'   => 'utf-8',
     );
+
 
     /**
      * Instance config value
@@ -55,7 +58,7 @@ class BaseZF_Service_GetText
     }
 
     //
-    //
+    // Public Config API
     //
 
     /**
@@ -97,11 +100,9 @@ class BaseZF_Service_GetText
         if(setlocale(LC_TIME, $localeWithEncoding) !== $localeWithEncoding) {
             throw new BaseZF_Service_GetText_Exception(sprintf('Unable to set locale "%s" to value "%s", please check installed locales on system', 'LC_TIME', $localeWithEncoding));
         }
-    }
 
-    //
-    // Public Config API
-    //
+        return $this;
+    }
 
     /**
      * Set config of current bean instance
@@ -193,14 +194,18 @@ class BaseZF_Service_GetText
     public function exportPotFile(array $domains = null)
     {
         $domainsPaths = $this->getDomainsPaths($domains);
+
+        //@todo
     }
 
     public function exportPoFiles(array $locales, array $domains = null, $archiveFormat = 'zip')
     {
+        //@todo
+
         $domainsPaths = $this->getDomainsPaths($domains);
 
         // new archive
-        $archive = BaseZF_Archive::newArchive('zip');
+        $archive = BaseZF_Archive::newArchive($archiveFormat);
 
         $poDomainFiles = array();
         foreach ($locales as $locale) {
@@ -270,7 +275,9 @@ class BaseZF_Service_GetText
         return $potFilePaths;
     }
 
-
+    /**
+     *
+     */
     public function updatePoFiles(array $locales, array $domains = null)
     {
         $domainsPaths = $this->getDomainsPaths($domains);
@@ -316,6 +323,9 @@ class BaseZF_Service_GetText
         return $poDomainFilePaths;
     }
 
+    /**
+     *
+     */
     public function deployMoFiles(array $locales, array $domains = null, $deployFuzzy = false)
     {
         $domainsPaths = $this->getDomainsPaths($domains);
@@ -360,6 +370,9 @@ class BaseZF_Service_GetText
         return $moDomainFilePaths;
     }
 
+    /**
+     *
+     */
     public function mergePoFile($locale, $domain, $newPoFile)
     {
         $poDomainFilePath = $this->getPoFileForLocaleDomain($locale, $domain);
@@ -394,6 +407,9 @@ class BaseZF_Service_GetText
         return $poDomainFilePath;
     }
 
+    /**
+     *
+     */
     public function cleanPoFile($poDomainFilePath)
     {
         if (!is_file($poDomainFilePath)) {
@@ -415,6 +431,9 @@ class BaseZF_Service_GetText
         return $poDomainFilePath;
     }
 
+    /**
+     *
+     */
     public function updateMsgIdFromPoFile($locale, $domain,  $newPoFile, array $srcPath = null)
     {
         $oldKeyStrings = array();
@@ -480,14 +499,21 @@ class BaseZF_Service_GetText
         }
     }
 
-    public function translatePoFiles(array $locales, $adapter = 'google', $hasFuzzy = true)
+    /**
+     *
+     */
+    public function translatePoFiles(array $locales, $adapter = 'array', $adapterOptions, $hasFuzzy = true)
     {
+        //@todo
     }
 
     //
     // Other Public API
     //
 
+    /**
+     *
+     */
     public function getPoFileForLocaleDomain($locale, $domain)
     {
         $localeDirPath = $this->getConfig('localeDirPath');
@@ -496,6 +522,9 @@ class BaseZF_Service_GetText
         return $localeDirPath . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . $poDir . DIRECTORY_SEPARATOR . $domain . '.po';
     }
 
+    /**
+     *
+     */
     public function getMoFileForLocaleDomain($locale, $domain)
     {
         $localeDirPath = $this->getConfig('localeDirPath');
@@ -504,6 +533,9 @@ class BaseZF_Service_GetText
         return $localeDirPath . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . $poDir . DIRECTORY_SEPARATOR . $domain . '.mo';
     }
 
+    /**
+     *
+     */
     public function getPotFileForDomain($domain)
     {
         $potDirPath = $this->getConfig('potDirPath');
@@ -511,6 +543,9 @@ class BaseZF_Service_GetText
         return $potDirPath . DIRECTORY_SEPARATOR . $domain . '.pot';
     }
 
+    /**
+     *
+     */
     public function getDomainsPaths(array $domainsRequired = null)
     {
         $domainsPaths = $this->getConfig('domainsPaths');

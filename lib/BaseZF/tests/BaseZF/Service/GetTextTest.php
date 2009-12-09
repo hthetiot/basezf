@@ -301,7 +301,7 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
         /*
         // @todo plural....
         // @todo manage error msgs
-        // àtodo manage encoding
+        // @todo manage encoding
         $translations = array(
             'I love french girls.' => "J'aime les femmes Française",
             'I whant %d donut'     => array(
@@ -340,6 +340,20 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
         foreach ($translations as $original => $translated) {
             $this->assertSame($translated,_($original));
         }
+
+        $this->markTestSkipped('Still trying to determine a scenario to test plural');
+    }
+
+    public function testMergePoFile()
+    {
+        //@todo
+        $this->markTestSkipped('Still trying to determine a scenario to test this');
+    }
+
+    public function testUpdateMsgIdFromPoFile()
+    {
+        //@todo
+        $this->markTestSkipped('Still trying to determine a scenario to test this');
     }
 
     /**
