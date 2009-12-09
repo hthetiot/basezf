@@ -31,9 +31,10 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         // src files
-        $srcFileSimple = $this->_getTmpFile('toto.php', '/src', '<?php echo _("I love french girls."); ?>');
-        $srcFilePlural = $this->_getTmpFile('titi.php', '/src', '<?php echo sprintf(ngettext("I whant %d donut", "I whant %d donuts", 1), 1); ?>');
-        $srcPath =  dirname($srcFileSimple);
+        $srcFileSimple1 = $this->_getTmpFile('simple1.php', '/src', '<?php echo _("I love french girls."); ?>');
+        $srcFileSimple2 = $this->_getTmpFile('simple2.php', '/src', '<?php echo _("I love my developer life."); ?>');
+        $srcFilePlural = $this->_getTmpFile('plural.php', '/src', '<?php echo sprintf(ngettext("I whant %d donut", "I whant %d donuts", 1), 1); ?>');
+        $srcPath =  dirname($srcFileSimple1);
 
         // locale path and files
         $localeDirPath = dirname($this->_getTmpFile('README', '/locale'));
@@ -172,13 +173,14 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
                 $poFileContent = file_get_contents($filePathsByDomain);
 
                 $this->assertContains('msgid "I love french girls."', $poFileContent);
+                $this->assertContains('msgid "I love my developer life."', $poFileContent);
                 $this->assertContains('msgid "I whant %d donut"', $poFileContent);
                 $this->assertContains('msgid_plural "I whant %d donuts"', $poFileContent);
             }
         }
     }
 
-    public function testUpdatePoFiles()
+    public function testUpdatePoFilesWithNewAndRemovedTranslation()
     {
         // expected po files returned by updatePoFiles
         $poLocaleFilePathsByDomainTest = array(
@@ -208,6 +210,7 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
                 $poFileContent = file_get_contents($filePathsByDomain);
 
                 $this->assertContains('msgid "I love french girls."', $poFileContent);
+                $this->assertContains('msgid "I love my developer life."', $poFileContent);
                 $this->assertContains('msgid "I whant %d donut"', $poFileContent);
                 $this->assertContains('msgid_plural "I whant %d donuts"', $poFileContent);
 
@@ -220,8 +223,9 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
         }
 
         // add a new transaltion and update another
-        $this->_getTmpFile('tutu.php', '/src', '<?php echo _("I need coffe now !"); ?>');
-        $this->_getTmpFile('toto.php', '/src', '<?php echo _("I love french boys."); ?>');
+        $this->_getTmpFile('simple1.php', '/src', '<?php echo _("I love french boys."); ?>'); // update
+        $this->_getTmpFile('simple2.php', '/src', '<?php  ?>'); // remove
+        $this->_getTmpFile('simple3.php', '/src', '<?php echo _("I like Gettext it rocks !"); ?>'); // new
 
         // create the POT file include new tutu.php file
         $gettextService->updatePotFiles();
@@ -245,12 +249,19 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
                 // the file contain translation template
                 $poFileContent = file_get_contents($filePathsByDomain);
 
+                // check auto fuzzy (simple1.php)
                 $this->assertContains('msgid "I love french boys."', $poFileContent);
+                $this->assertContains('#| msgid "I love french girls."', $poFileContent);
+
+                // check removed
+                $this->assertContains('#~ msgid "I love my developer life."', $poFileContent);
+
+                // check existing (plural.php)
                 $this->assertContains('msgid "I whant %d donut"', $poFileContent);
                 $this->assertContains('msgid_plural "I whant %d donuts"', $poFileContent);
 
-                // check auto fuzzy
-                $this->assertContains('#| msgid "I love french girls."', $poFileContent);
+                // check new translation (simple3.php)
+                $this->assertContains('msgid "I like Gettext it rocks !"', $poFileContent);
             }
         }
     }
