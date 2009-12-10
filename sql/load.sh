@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # load.sh - A simple bash database loader
 #
 # Usage: load.sh (struct|default|sample|index|test|clean|update|upgrade|optimize|backup|restore|install|help) <db_name> <db_username> [host_name] [option]
@@ -158,7 +158,7 @@ upgrade_action()
 {
     check_params
 
-    if [ -z "${options}" ]; then
+    if [ -z "${options}"  ]; then
 
         # get next version
         if [ -f $UPGRADE_DIR/current ]; then
@@ -169,10 +169,12 @@ upgrade_action()
         fi
 
         NEW_VERSION=$(($CURRENT_VERSION + 1))
+        NEXT_UPGRADE=1
     else
 
         # get has params
         NEW_VERSION=$options
+        NEXT_UPGRADE=0
     fi
 
     if [ -f $UPGRADE_DIR/upgrade-$NEW_VERSION.sql ]; then
@@ -186,7 +188,10 @@ upgrade_action()
 
         # next upgrade available
         if [ -f $UPGRADE_DIR/upgrade-$(($NEW_VERSION + 1)).sql ]; then
-            upgrade_action
+            if [ $NEXT_UPGRADE == 1 ]; then
+                options=$(($NEW_VERSION + 1))
+                upgrade_action
+            fi
         fi
 
     else
