@@ -1,19 +1,19 @@
 <?php
 /**
- * DbQuery class in /BazeZF/
+ * BaseZF_Item_Db_Query class in /BazeZF/Item/Db
  *
  * @category   BazeZF
- * @package    BaseZF_DbItem
+ * @package    BaseZF_Item, BaseZF_Collection
  * @copyright  Copyright (c) 2008 BazeZF
  * @author     Harold Thetiot (hthetiot)
  */
 
-class BaseZF_DbQuery
+class BaseZF_Item_Db_Query
 {
     /**
      * Define the zend log priority
      */
-    const LOG_PRIORITY = 11;
+    const LOG_PRIORITY = Zend_Log::DEBUG;
 
     const EXPIRE_NONE     = false;
     const EXPIRE_NEVER     = null;
@@ -361,7 +361,7 @@ class BaseZF_DbQuery
     {
         // check if field available in _bindValues
         if (!isset($this->_bindValues[$field])) {
-            throw new BaseZF_DbQuery_Exception('Fatal: Missing cacheKeysByRows field in binded values');
+            throw new BaseZF_Item_Db_Query_Exception('Fatal: Missing cacheKeysByRows field in binded values');
 
         } else if (!is_array($this->_bindValues[$field])) {
 
@@ -370,7 +370,7 @@ class BaseZF_DbQuery
 
         // check if field available in query fields
         if (!in_array($field, $this->_getQueryFields())) {
-            throw new BaseZF_DbQuery_Exception('Fatal: Missing cacheKeysByRows field in query fields');
+            throw new BaseZF_Item_Db_Query_Exception('Fatal: Missing cacheKeysByRows field in query fields');
         }
 
         $this->_cacheKeysByRows = array
@@ -386,7 +386,7 @@ class BaseZF_DbQuery
     private function _getCacheKeyByRowsField()
     {
         if (!$this->_useCacheKeyByRows()) {
-             throw new BaseZF_DbQuery_Exception('Fatal: Missing cacheKeysByRows values');
+             throw new BaseZF_Item_Db_Query_Exception('Fatal: Missing cacheKeysByRows values');
         }
 
         return $this->_cacheKeysByRows['field'];
@@ -400,7 +400,7 @@ class BaseZF_DbQuery
     private function _buildCacheKeysByRowsFromValues()
     {
         if (!$this->_useCacheKeyByRows()) {
-             throw new BaseZF_DbQuery_Exception('Fatal: Missing cacheKeysByRows values');
+             throw new BaseZF_Item_Db_Query_Exception('Fatal: Missing cacheKeysByRows values');
         }
 
         $placeHolder = $this->_cacheKeysByRows['place_holder'];
@@ -418,7 +418,7 @@ class BaseZF_DbQuery
     private function _buildCacheKeyByRowValue($value)
     {
         if (!$this->_useCacheKeyByRows()) {
-            throw new BaseZF_DbQuery_Exception('Fatal: Missing cacheKeysByRows values');
+            throw new BaseZF_Item_Db_Query_Exception('Fatal: Missing cacheKeysByRows values');
         }
 
         $placeHolder = $this->_cacheKeysByRows['place_holder'];
@@ -450,7 +450,7 @@ class BaseZF_DbQuery
      */
     public function execute()
     {
-        if ($this->_expire === BaseZF_DbQuery::EXPIRE_NONE) {
+        if ($this->_expire === BaseZF_Item_Db_Query::EXPIRE_NONE) {
             $this->setRealTime(true);
         }
 
@@ -477,7 +477,7 @@ class BaseZF_DbQuery
             $data = array();
 
             if ($this->isRealTime()) {
-                throw new BaseZF_DbQuery_Exception('realtime data requested');
+                throw new BaseZF_Item_Db_Query_Exception('realtime data requested');
             }
 
             // try to get from memcache
@@ -490,13 +490,13 @@ class BaseZF_DbQuery
                 $row = array_combine($queryFields, $cacheDataRow);
 
                 if (!is_array($row)) {
-                    throw new BaseZF_DbQuery_Exception('realtime data requested');
+                    throw new BaseZF_Item_Db_Query_Exception('realtime data requested');
                 }
 
                 $data[$rowId] = $row;
             }
 
-        } catch (BaseZF_DbQuery_Exception $e) {
+        } catch (BaseZF_Item_Db_Query_Exception $e) {
 
             // build multiple binding with the reste of ids
             $this->_buildMultipleBinding();
@@ -531,7 +531,7 @@ class BaseZF_DbQuery
             }
 
             if (empty($data)) {
-                throw new BaseZF_DbQuery_Exception_NoResults('no data found for this request');
+                throw new BaseZF_Item_Db_Query_Exception_NoResults('no data found for this request');
             }
         }
 
@@ -552,7 +552,7 @@ class BaseZF_DbQuery
             $missingIds = array();
 
             if ($this->isRealTime()) {
-                throw new BaseZF_DbQuery_Exception('realtime data requested');
+                throw new BaseZF_Item_Db_Query_Exception('realtime data requested');
             }
 
             // try to get from memcache
@@ -580,10 +580,10 @@ class BaseZF_DbQuery
 
                 $this->log('data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
 
-                throw new BaseZF_DbQuery_Exception('data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
+                throw new BaseZF_Item_Db_Query_Exception('data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
             }
 
-        } catch (BaseZF_DbQuery_Exception $e) {
+        } catch (BaseZF_Item_Db_Query_Exception $e) {
 
             // build multiple binding with the reste of ids
             $this->_buildMultipleBinding();
@@ -609,7 +609,7 @@ class BaseZF_DbQuery
                 foreach ($queryFields as $k => $v) {
 
                     if (!array_key_exists($v, $row)) {
-                        throw new BaseZF_Exception('field "' . $v . '" not found in results'); // not BaseZF_DbQuery_Exception
+                        throw new BaseZF_Exception('field "' . $v . '" not found in results'); // not BaseZF_Item_Db_Query_Exception
                     }
 
                     $cacheDataByRows[$cacheKey][] = $row[$v];
@@ -629,7 +629,7 @@ class BaseZF_DbQuery
         }
 
         if (empty($data)) {
-            throw new BaseZF_DbQuery_Exception_NoResults('no data found for this request');
+            throw new BaseZF_Item_Db_Query_Exception_NoResults('no data found for this request');
         }
 
         return $data;
@@ -677,7 +677,7 @@ class BaseZF_DbQuery
     public function seek($index)
     {
         if (!isset($this->_data[$index])) {
-            throw new BaseZF_DbQuery_Exception('Unable to seek on index "' . $index . '"');
+            throw new BaseZF_Item_Db_Query_Exception('Unable to seek on index "' . $index . '"');
         }
 
         array_set_current($this->_data, $index);
@@ -772,7 +772,7 @@ class BaseZF_DbQuery
         if (!is_array($cacheKey)) {
 
             if (!$value = $cache->load($cacheKey)) {
-                throw new BaseZF_DbQuery_Exception('value for cache key "' . $cacheKey . '" not found');
+                throw new BaseZF_Item_Db_Query_Exception('value for cache key "' . $cacheKey . '" not found');
             }
 
         } else {
@@ -859,7 +859,7 @@ class BaseZF_DbQuery
 
         // check for named binding
         if ($db->supportsParameters('named') === false) {
-            throw new BaseZF_DbQuery_Exception(get_class($db) . ' do not support named parameters use PDO adapter.');
+            throw new BaseZF_Item_Db_Query_Exception(get_class($db) . ' do not support named parameters use PDO adapter.');
         }
 
         $stmtClass = $db->getStatementClass();

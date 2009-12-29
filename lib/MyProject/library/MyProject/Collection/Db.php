@@ -1,14 +1,15 @@
 <?php
 /**
- * DbCollection class in /MyProject/
+ * MyProject_Collection_Db class in /MyProject/Collection/Db
  *
  * @category   MyProject
- * @package    MyProject_DbItem
+ * @package    MyProject_Collection_Db
  * @copyright  Copyright (c) 2008 MyProject
  * @author     Harold Thetiot (hthetiot)
  */
 
-class MyProject_DbCollection extends BaseZF_DbCollection
+
+class MyProject_Collection_Db extends BaseZF_Collection_Db_Abstract
 {
     /**
      * Retrieve the Db instance
@@ -29,7 +30,7 @@ class MyProject_DbCollection extends BaseZF_DbCollection
     /**
      * Retrieve the Logger instance
      */
-    protected function _getLoggerInstance()
+    protected function _getLogInstance()
     {
         return MyProject_Registry::getInstance()->registry('log');
     }
@@ -37,9 +38,11 @@ class MyProject_DbCollection extends BaseZF_DbCollection
     /**
      * Retrieve the Database Schema as array
      */
-    protected function &_getDbSchema()
+    protected function _getTableStructure()
     {
-        return MyProject_DbSchema::$tables;
+        BaseZF_Item_Db_Schema_Auto::loadSchemaFromDb($this->_getDbInstance());
+
+        return BaseZF_Item_Db_Schema_Auto::getTableStructure($this->getTable());
     }
 }
 

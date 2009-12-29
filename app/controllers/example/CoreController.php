@@ -65,7 +65,7 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
     public function templateAction()
     {
         /*
-        $examples = new MyProject_DbCollection('example');
+        $examples = new MyProject_Collection_Db('example');
         $examples->filterWhere('example_id > ? AND example_type_id = 1', 1);
         $examples->filterOrderBy('example_id DESC');
         $examples->filterLimit(10);
@@ -114,11 +114,9 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
     public function dbitemAction()
     {
 
-        /*
         // clear count cache /cache/perpage
         // add collection dependency
-
-        $examples = new MyProject_DbCollection('example');
+        $examples = new MyProject_Collection_Db('example');
         $examples->filterWhere('example_id > ? AND example_type_id = 1', 1);
         $examples->filterOrderBy('example_id DESC');
         $examples->filterLimit(10);
@@ -134,7 +132,7 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
         echo 'filter dbColl:' . "<br />";
         $examples->filterExecute();
         foreach ($examples as $example) {
-            echo $example->getId() . '/' . date('Y-m-d', $example->creation) . "<br />";
+            echo $example->getId() . '/' . $example->creation . "<br />";
         }
 
         // create
@@ -156,7 +154,7 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
         // select
         echo '<hr />';
         echo 'properties dbItem:' . "<br />";
-        $example = MyProject_DbItem::getInstance('example', $id);
+        $example = MyProject_Item_Db::getInstance('example', $id);
         $example->getId();
         echo $example->unique_string;
 
@@ -185,7 +183,6 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
         foreach ($examples as $example) {
             echo $example->getId() . '/' . $example->unique_string . "<br />";
         }
-        */
 
     }
 

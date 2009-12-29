@@ -3,12 +3,12 @@
  * DbItem class in /MyProject/
  *
  * @category   MyProject
- * @package    MyProject_DbItem
+ * @package    MyProject_Item_Db
  * @copyright  Copyright (c) 2008 MyProject
  * @author     Harold Thetiot (hthetiot)
  */
 
-class MyProject_DbItem extends BaseZF_DbItem
+class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
 {
     /**
      * Get instance of allready contructed object
@@ -23,8 +23,12 @@ class MyProject_DbItem extends BaseZF_DbItem
         return parent::getInstance($table, $id, $realtime, $class);
     }
 
+    //
+    // Cache and Db instance getter
+    //
+
     /**
-     * Retrieve the Db instance
+     * Retrieve the Zend_Db database conexion instance
      */
     protected function _getDbInstance()
     {
@@ -32,7 +36,7 @@ class MyProject_DbItem extends BaseZF_DbItem
     }
 
     /**
-     * Retrieve the Cache instance
+     * Retrieve the Zend_Cache instance
      */
     protected function _getCacheInstance()
     {
@@ -40,9 +44,9 @@ class MyProject_DbItem extends BaseZF_DbItem
     }
 
     /**
-     * Retrieve the Logger instance
+     * Retrieve the Zend_Log logger instance
      */
-    protected function _getLoggerInstance()
+    protected function _getLogInstance()
     {
         return MyProject_Registry::getInstance()->registry('log');
     }
@@ -50,9 +54,11 @@ class MyProject_DbItem extends BaseZF_DbItem
     /**
      * Retrieve the Database Schema as array
      */
-    protected function &_getDbSchema()
+    protected function _getTableStructure()
     {
-        return MyProject_DbSchema::$tables;
+        BaseZF_Item_Db_Schema_Auto::loadSchemaFromDb($this->_getDbInstance());
+
+        return BaseZF_Item_Db_Schema_Auto::getTableStructure($this->getTable());
     }
 }
 
