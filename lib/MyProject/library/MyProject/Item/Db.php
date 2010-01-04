@@ -29,6 +29,8 @@ class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
 
     /**
      * Retrieve the Zend_Db database conexion instance
+     *
+     * @return object Zend_Db instance
      */
     protected function _getDbInstance()
     {
@@ -37,6 +39,8 @@ class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
 
     /**
      * Retrieve the Zend_Cache instance
+     *
+     * @return object Zend_Cache instance
      */
     protected function _getCacheInstance()
     {
@@ -45,6 +49,8 @@ class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
 
     /**
      * Retrieve the Zend_Log logger instance
+     *
+     * @return object Zend_log instance
      */
     protected function _getLogInstance()
     {
@@ -52,13 +58,29 @@ class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
     }
 
     /**
-     * Retrieve the Database Schema as array
+     * Retreive the schema, can be an array, Zend_config instance, Zend_Db instance or
+     * a BaseZF_Item_Db_Schema_Abstract className
+     *
+     * @return mixed
      */
-    protected function _getTableStructure()
+    protected function &_getDbChema()
     {
-        BaseZF_Item_Db_Schema_Auto::loadSchemaFromDb($this->_getDbInstance());
+        static $inited = false;
 
-        return BaseZF_Item_Db_Schema_Auto::getTableStructure($this->getTable());
+        if($inited === false) {
+
+             // require by BaseZF_Item_Db_Schema_Auto to get schema from database itseft
+             BaseZF_Item_Db_Schema_Auto::loadSchemaFromDb(
+                 $this->_getDbInstance(),
+                 $this->_getCacheInstance()
+             );
+
+             $inited = true;
+        }
+
+        $dbSchemaClassName = 'BaseZF_Item_Db_Schema_Auto';
+
+        return $dbSchemaClassName;
     }
 }
 

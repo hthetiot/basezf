@@ -308,6 +308,11 @@ abstract class BaseZF_Framework_Registry
 
         setlocale(LC_MESSAGES, $locale . '.utf8');
         setlocale(LC_TIME, $locale . '.utf8');
+
+        /*
+        $gettextService = new BaseZF_Service_GetText();
+        $gettextService->iniTranslation($locale, array('message'));
+        */
     }
 
     /**

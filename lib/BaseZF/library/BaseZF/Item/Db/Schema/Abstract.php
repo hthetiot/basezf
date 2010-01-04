@@ -14,9 +14,9 @@ class BaseZF_Item_Db_Schema_Abstract
 {
     static protected $_schema = array();
 
-    public static function &getTableStructure($tableName)
+    public static function &getTableColumns($tableName)
     {
-        if(!array_key_exists($tableName, self::$_schema)) {
+        if(array_key_exists($tableName, self::$_schema) === false) {
             throw new BaseZF_Item_Db_Schema_Exception(sprintf('There no table "%s" in schema', $tableName));
         }
 

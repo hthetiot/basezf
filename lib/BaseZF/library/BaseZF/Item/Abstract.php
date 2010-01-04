@@ -87,6 +87,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      */
     const LOG_PRIORITY = Zend_Log::DEBUG;
 
+
+    const NOT_LOADED_PROPERTY_VALUE = null;
+
     /**
      * Unique Id
      */
@@ -155,17 +158,17 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      */
     public function __destruct()
     {
-        if (!empty($this->_id)) {
-
-        }
-
         // clean collection dependency
         foreach ($this->_collections as $collection) {
             $this->removeCollection($collection);
         }
 
-        // remove instance from
-        BaseZF_Item_Registry::destructItemExistInstance($this, get_class($this));
+        // remove instance from registry if not deleted (cause delete remove it)
+        if(BaseZF_Item_Registry::removeItemInstance($this, get_class($this)) === false) {
+            die(sprintf('Unable to destuct item "%s" properly', $this));
+        }
+
+        echo 'kill:' . $this;
     }
 
     //
@@ -192,9 +195,23 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     // Singleton Item instance manager
     //
 
-    protected static function _getInstance($id = null, $className = __CLASS__)
+    /**
+     * Get Instance from BaseZF_Item_Registry
+     *
+     * @param mixed $id unique item identifier
+     * @param string $className item classname
+     *
+     * @return object instance of $className
+     */
+    protected static function &_getInstance($id = null, $className = __CLASS__)
     {
-        return BaseZF_Item_Registry::getItemInstance($id, $className);
+        $item = BaseZF_Item_Registry::getItemInstanceById($id, $className);
+
+        if (!$item instanceof BaseZF_Item_Abstract) {
+            throw new BaseZF_Item_Exception(sprintf('Unable to get instance of object "%s" with id "%s" from BaseZF_Item_Registry.', $className, $id));
+        }
+
+        return $item;
     }
 
     //
@@ -204,9 +221,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Set unique id
      *
-     * @param void $id unique DbObject id
+     * @param void $id unique item identifier
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
     final protected function setId($id)
     {
@@ -226,16 +243,8 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
 
         $this->_id = $id;
 
-        if ($oldId != $id) {
-
-            if (!empty($oldId)) {
-                BaseZF_Item_Registry::destructItemExistInstance($this, get_class($this));
-            }
-
-            if (!empty($id)) {
-                BaseZF_Item_Registry::saveItemInstance($this, get_class($this));
-            }
-        }
+        // update instance in registry
+        BaseZF_Item_Registry::saveItemInstance($this, get_class($this));
 
         return $this;
     }
@@ -341,6 +350,16 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
         return !empty($this->_modified);
     }
 
+    /**
+     * Check if item has an id
+     *
+     * @return bool true if loaded else false
+     */
+    final public function hasId()
+    {
+        return !is_null($this->_id);
+    }
+
     //
     // Properties Func
     //
@@ -358,10 +377,6 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
            return $this->_modified[$property];
         } else if (!$this->isPropertyLoaded($property)) {
             $this->_loadProperty($property);
-        }
-
-        if (!$this->isPropertyLoaded($property)) {
-            throw new BaseZF_Item_Exception(sprintf('Unable to get property "%s" for Item "%s" with id "%s" ', $property, $this, $this->getId()));
         }
 
         return $this->_data[$property];
@@ -405,11 +420,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     public function setProperty($property, $value)
     {
 
-        /*
-        if (!$this->getPropertyType($property)) {
-            throw new BaseZF_Item_Exception(sprintf('Unable to set value to property "%s->%s" cause: property is not found in structure.', $this, $property));
+        if (!$this->isProperty($property)) {
+            throw new BaseZF_Item_Exception(sprintf('Unable to set value to property "%s->%s" cause: property is not found in data, may it is a virtual property.', $this, $property));
         }
-        */
 
         // check same property
         if ($this->_checkValueSame && $this->isPropertyLoaded($property) && $value === $this->_data[$property]) {
@@ -460,7 +473,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
             throw new BaseZF_Item_Exception(sprintf('Unable to set value to virtual property "%s->%s" cause: property found in structure.', $this, $property));
         }
 
-        $this->_data[$property] = $value;
+        $this->$property = $value;
 
         if (!is_null($propertyDependency)) {
             $this->_addDependency($property, $propertyDependency);
@@ -474,7 +487,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      *
      * @param string $property name of requested property
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
     protected function _loadProperty($property)
     {
@@ -500,18 +513,18 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     protected function _getIdsNeedToLoad($property, $prefereIds = array(), $limit = self::MAX_ITEM_BY_LOAD)
     {
         // get neighbours ids
+        $neighboursIds = array();
         $neighboursItems = $this->_getNeighboursItems();
 
-        $ids = array_unique(array_merge($prefereIds, array_keys($neighboursItems)));
-        $result = array();
+        foreach ($neighboursItems as $neighboursItem) {
 
-        foreach ($ids as $id) {
+            $neighboursItemId = $neighboursItem->getId();
+            if (
+                array_search($neighboursItemId, $prefereIds) === false &&
+                !$neighboursItem->isPropertyLoaded($property)
+            ) {
 
-            $item = (isset($neighboursItems[$id]) ? $item = $neighboursItems[$id] : false);
-
-            if (!$item || !$item->isPropertyLoaded($property)) {
-
-                $result[] = $id;
+                $neighboursIds[] = $neighboursItemId;
                 $limit--;
 
                 if ($limit <= 0) {
@@ -520,7 +533,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
             }
         }
 
-        return $result;
+        return array_merge($neighboursIds, $prefereIds);
     }
 
     /**
@@ -529,7 +542,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * @param array $ids item ids of item should be loaded
      * @param string $property name of property
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
     final protected function _massLoadProperty(array $ids, $property)
     {
@@ -543,7 +556,8 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
             $data = $this->_loadData($ids);
             foreach ($data as $id => $row) {
                 if ($item = self::_getInstance($id, get_class($this))) {
-                    $item->_setData($row, true);
+                    $item->_setData($row);
+                    $item->_setLoaded(true);
                 }
             }
 
@@ -561,9 +575,23 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      *
      * @return bool true if available else false
      */
-    final public function isPropertyLoaded($property)
+    final public function isProperty($property)
     {
         return array_key_exists($property, $this->_data);
+    }
+
+    /**
+     * Check if a property allready loaded into $this->_data array
+     *
+     * @param string $property name of property
+     *
+     * @return bool true if available else false
+     */
+    final public function isPropertyLoaded($property)
+    {
+        $notLoadedValue = self::getNotLoadedPropertyDefaultValue();
+
+        return $this->isProperty($property) && $this->_data[$property] !== $notLoadedValue ? true : false;
     }
 
     /**
@@ -573,18 +601,26 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      */
     final public function unloadProperty($property)
     {
-        // clear modified if exist
-        if ($this->isPropertyModified($property)) {
+        // clear modified if exist and
+        if ($this->isProperty($property)) {
             $this->resetProperty($property);
-        }
-
-        // clear loaded if exist
-        if ($this->isPropertyLoaded($property)) {
-            unset($this->_data[$property]);
+            $this->_data[$property] = self::getNotLoadedPropertyDefaultValue();
             $this->_setLoaded(false);
         }
 
         return $this;
+    }
+
+    final protected function _initProperties($propertiesNames)
+    {
+        $this->_setData(array_fill_keys($propertiesNames, null));
+        $this->_setLoaded(false);
+
+    }
+
+    final protected function getNotLoadedPropertyDefaultValue()
+    {
+        return self::NOT_LOADED_PROPERTY_VALUE;
     }
 
     /**
@@ -621,7 +657,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * @param string $property
      * @param string $propertyDepend
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
     final protected function _addDependency($property, $dependProperty)
     {
@@ -647,7 +683,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * @param object $item instance of item
      * @param string $property property name
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
     final protected function _flushDependency($property)
     {
@@ -661,7 +697,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     }
 
     //
-    // Validators callback methods
+    // Validators callback methods for peroperty
     //
 
     /**
@@ -691,7 +727,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     }
 
     //
-    // Data loader and setter
+    // Properties values (alias Data) setter and loader
     //
 
     /**
@@ -709,16 +745,13 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * @param array $data record as assotiative array
      * @param boolean $isLoaded is loaded from database or no
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
-    protected function _setData(array $data, $isLoaded = false)
+    protected function _setData(array $data)
     {
         // @todo convert property value to standart format
-        $this->_data = array_merge($this->_data, $data);
 
-        if ($isLoaded) {
-            $this->_setLoaded();
-        }
+        $this->_data = array_merge($this->_data, $data);
 
         return $this;
     }
@@ -730,7 +763,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Insert new record
      */
-    public function insert()
+    final public function insert()
     {
         // ignore not modified
         if (!$this->isModified()) {
@@ -741,6 +774,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
 
             $this->setId($id);
             $this->_setData($this->_modified);
+            $this->_setLoaded(true);
+
+            // clear modified
             $this->_modified = array();
         }
 
@@ -753,7 +789,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * @param array $propertyies assotiative array of properties
      *
      * @throw BaseZF_Item_Exception
-     * @return object current item instance
+     * @return object current Item instance
      */
     abstract protected function _insert(array $properties);
 
@@ -765,7 +801,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * @throw BaseZF_Item_Exception
      * @return true if success then false
      */
-    public static function massInsert($items)
+    final public static function massInsert($items)
     {
         if (empty($items) || !is_array($items)) {
             return false;
@@ -802,7 +838,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Update modified property of Item
      */
-    public function update()
+    final public function update()
     {
         // ignore not modified
         if (!$this->isModified()) {
@@ -811,6 +847,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
 
         if ($this->_update($this->_id, $this->_modified)) {
             $this->_setData($this->_modified);
+            $this->_setLoaded(true);
             $this->_modified = array();
         }
 
@@ -824,7 +861,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * @param array $properties assotiative array of properties
      *
      * @throw BaseZF_Item_Exception
-     * @return object current item instance
+     * @return object current Item instance
      */
     abstract protected function _update($id, $properties);
 
@@ -853,20 +890,18 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Delete record
      */
-    public function delete()
+    final public function delete()
     {
         $id = $this->_id;
         if (empty($id)) return $this;
 
         $this->_delete($id);
-        $this->setId(null);
 
         foreach ($this->_collections as $collection) {
             $collection->removeId($id);
         }
 
         $this->_setDeleted();
-        $this->__destruct();
 
         return $this;
     }
@@ -909,7 +944,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * @param array $ids unique items ids should me deleted
      *
      * @throw BaseZF_Item_Exception
-     * @return object current item instance
+     * @return object current Item instance
      */
     abstract protected function _delete($ids);
 
@@ -933,10 +968,6 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
             foreach ($this->_collections as &$collection) {
                 $neighboursItems = array_merge($neighboursItems, $collection->getItems());
             }
-
-        // get neighbours from available instances
-        } else {
-             $neighboursItems = array();
         }
 
         return $neighboursItems;
@@ -947,7 +978,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      *
      * @return array of BaseZF_Collection instances
      */
-    public function getCollection()
+    final public function getCollection()
     {
         return $this->_collections;
     }
@@ -957,9 +988,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      *
      * @param object instance of BaseZF_Collection_Abstract
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
-    public function addCollection(BaseZF_Collection_Abstract $collection)
+    final public function addCollection(BaseZF_Collection_Abstract $collection)
     {
         $key = array_search($collection, $this->_collections);
         if ($key === false) {
@@ -974,9 +1005,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      *
      * @param object instance of BaseZF_Collection_Abstract
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
-    public function removeCollection(BaseZF_Collection_Abstract $collection)
+    final public function removeCollection(BaseZF_Collection_Abstract $collection)
     {
         $key = array_search($collection, $this->_collections);
         if ($key !== false) {
@@ -997,7 +1028,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      *
      * @return boolean true if isset else false
      */
-    public function __isset($property)
+    final public function __isset($property)
     {
         return array_key_exists($property, $this->_modified) || array_key_exists($property, $this->_data);
     }
@@ -1038,9 +1069,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Reset all modified properties of Item
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
-    public function reset()
+    final public function reset()
     {
         // clean some things when object is reused
         $this->_modified = array();
@@ -1051,9 +1082,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * unload loaded properties of Item
      *
-     * @return object current item instance
+     * @return object current Item instance
      */
-    public function unload()
+    final public function unload()
     {
         // clean some things when object is reused
         $this->_data = array();
@@ -1120,28 +1151,28 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      *
      */
-    public function offsetSet($offset, $value) {
+    final public function offsetSet($offset, $value) {
         return $this->$offset = $value;
     }
 
     /**
      *
      */
-    public function offsetExists($offset) {
+    final public function offsetExists($offset) {
         return isset($this->$offset);
     }
 
     /**
      *
      */
-    public function offsetUnset($offset) {
+    final public function offsetUnset($offset) {
         $this->$offset = null;
     }
 
     /**
      *
      */
-    public function offsetGet($offset) {
+    final public function offsetGet($offset) {
         return $this->$offset;
     }
 }

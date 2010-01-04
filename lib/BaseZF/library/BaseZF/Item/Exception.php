@@ -12,3 +12,4 @@ class BaseZF_Item_Exception extends BaseZF_Exception
 {
 
 }
+

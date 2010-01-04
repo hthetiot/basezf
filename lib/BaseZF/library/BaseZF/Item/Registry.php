@@ -8,64 +8,133 @@
  * @author     Harold Thetiot (hthetiot)
  *             Oleg Stephanwhite (oleg)
  *             Fabien Guiraud (fguiraud)
+ *
+ * @todo - limit of nb item instance via sleep and wakeup on a window
+ *       - export registry for wizard feature
  */
 
 class BaseZF_Item_Registry
 {
+    /**
+     * Item instance indexed by item hash group by item class name
+     */
     static protected $_itemsInstances = array();
 
-    public static function getItemInstance($id = null, $className)
+    /**
+     * Item hash to item id group by item class name
+     */
+    static protected $_itemsIdToItemHash = array();
+
+    /**
+     * Get item instance by id
+     *
+     * @param mixed $itemId
+     * @param string $itemClassName
+     *
+     * @return object instance of BaseZF_Item_Abstract
+     */
+    public static function &getItemInstanceById($itemId, $itemClassName)
     {
-        if (is_null($id) || !$item = self::getItemExistInstance($id, $className)) {
-            $item = self::createItemInstance($id, $className);
-        }
-
-        return $item;
-    }
-
-    public static function getItemExistInstance($id, $className)
-    {
-         if(isset(self::$_itemsInstances[$className]) &&
-            array_key_exists($id, self::$_itemsInstances[$className])
-         ) {
-            return self::$_itemsInstances[$className][$id];
-         }
-
-         return false;
-    }
-
-    public static function createItemInstance($id, $className)
-    {
-        $item = new $className($id);
-
-        return $item;
-    }
-
-    public static function saveItemInstance($item, $className)
-    {
-        if(!isset(self::$_itemsInstances[$className])) {
-            self::$_itemsInstances[$className] = array();
-        }
-
-        self::$_itemsInstances[$className][$item->getId()] = &$item;
-    }
-
-    public static function destructItemExistInstance($item, $className)
-    {
-        if(isset(self::$_itemsInstances[$className]) &&
-            array_key_exists($item->getId(), self::$_itemsInstances[$className])
+        // do we have this item instance in registry indexed by item id then get it
+        if(
+            array_key_exists($itemClassName, self::$_itemsIdToItemHash) !== false &&
+            $itemHash = array_search($itemId, self::$_itemsIdToItemHash[$itemClassName])
         ) {
 
-            unset(self::$_itemsInstances[$className][$item->getId()]);
-            return true;
+            $item = &self::$_itemsInstances[$itemClassName][$itemHash];
+
+        // else create it
+        } else {
+            $item = self::createItemInstanceById($itemId, $itemClassName);
         }
 
-        return false;
+        return $item;
     }
 
-    public static function getInstances($className)
+    /**
+     * Add item instance into registry
+     *
+     * @param mixed $itemId
+     * @param string $itemClassName
+     *
+     * @return object instance of BaseZF_Item_Abstract
+     */
+    public static function &createItemInstanceById($itemId, $itemClassName)
     {
-        return self::$_itemsInstances;
+        $item = new $itemClassName($itemId);
+
+        self::saveItemInstance($item, $itemClassName);
+
+        return $item;
     }
 
+    /**
+     * Save item instance into registry
+     *
+     * @param object $item
+     * @param string $itemClassName
+     *
+     * @return string item hash
+     */
+    public static function saveItemInstance(BaseZF_Item_Abstract $item, $itemClassName)
+    {
+        // get item hash
+        $itemHash = self::_getItemHash($item);
+
+        // do we have this item instance in registry indexed by item hash then save it
+        if(
+            array_key_exists($itemClassName, self::$_itemsInstances) === false ||
+            array_key_exists($itemHash, self::$_itemsInstances[$itemClassName]) === false
+        ) {
+            self::$_itemsInstances[$itemClassName][$itemHash] = &$item;
+        }
+
+        // do we have this item instance in registry indexed by item id then save it
+        if(array_key_exists($itemClassName, self::$_itemsIdToItemHash) == false) {
+            self::$_itemsIdToItemHash[$itemClassName] = array();
+        }
+
+        self::$_itemsIdToItemHash[$itemClassName][$itemHash] = $item->getId();
+
+        return $itemHash;
+    }
+
+    /**
+     * Remove item instance from registry
+     *
+     * @param object $item
+     * @param string $itemClassName
+     *
+     * @return bool true if found and removed else false
+     */
+    public static function removeItemInstance(BaseZF_Item_Abstract $item, $itemClassName)
+    {
+        $removed = false;
+
+        // get item hash
+        $itemHash = self::_getItemHash($item);
+
+        // do we have this item instance in registry indexed by item hash then remove it
+        if(
+            array_key_exists($itemClassName, self::$_itemsInstances) !== false &&
+            array_key_exists($itemHash, self::$_itemsInstances[$itemClassName]) !== false
+        ) {
+            unset(self::$_itemsInstances[$itemClassName][$itemHash]);
+            unset(self::$_itemsIdToItemHash[$itemClassName][$itemHash]);
+            $removed = true;
+        }
+
+        return $removed;
+    }
+
+    /**
+     * Build item hash for item class instance
+     *
+     * @return string item instance hash
+     */
+    static protected function _getItemHash(BaseZF_Item_Abstract $item)
+    {
+        return spl_object_hash($item);
+    }
 }
+

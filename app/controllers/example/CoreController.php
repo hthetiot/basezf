@@ -113,9 +113,31 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
 
     public function dbitemAction()
     {
+        $this->_helper->layout->disableLayout();
 
+        /*
+        // select
+        echo '<hr />';
+        echo 'properties dbItem:' . "<br />";
+        $myExample = MyProject_Item_Db::getInstance('example', 4);
+        $myExample->getId();
+        echo $myExample->unique_string;
+        */
+
+        // select
+        echo '<hr />';
+        echo 'create collection:';
+        $examples = new MyProject_Collection_Db('example', array(3, 4));
+        foreach ($examples as $example) {
+            echo $example->getId() . '/' . $example->creation . "<br />";
+        }
+
+/*
         // clear count cache /cache/perpage
         // add collection dependency
+
+        echo '<hr />';
+        echo 'create collection:';
         $examples = new MyProject_Collection_Db('example');
         $examples->filterWhere('example_id > ? AND example_type_id = 1', 1);
         $examples->filterOrderBy('example_id DESC');
@@ -124,17 +146,18 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
 
         //
         echo '<hr />';
-        echo 'filterCount dbColl:';
+        echo 'filterCount Coll db:';
         echo $examples->filterCount();
 
         //
         echo '<hr />';
-        echo 'filter dbColl:' . "<br />";
+        echo 'see Coll db item:' . "<br />";
         $examples->filterExecute();
         foreach ($examples as $example) {
             echo $example->getId() . '/' . $example->creation . "<br />";
         }
-
+        */
+/*
         // create
         echo '<hr />';
         echo 'insert dbItem:' . "<br />";
@@ -146,24 +169,23 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
             'creation'          => '2008-10-10',
         );
 
-        $example = $examples->newItem($data);
-
-        $id = $example->getId();
-        echo $id;
+        $myExample = $examples->newItem($data);
+        $myId = $myExample->getId();
+        echo $myId;
 
         // select
         echo '<hr />';
         echo 'properties dbItem:' . "<br />";
-        $example = MyProject_Item_Db::getInstance('example', $id);
-        $example->getId();
-        echo $example->unique_string;
+        $myExample = MyProject_Item_Db::getInstance('example', $myId);
+        $myExample->getId();
+        echo $myExample->unique_string;
 
         // update
         echo '<hr />';
         echo 'update dbItem:' . "<br />";
-        $example->unique_string = 'titi' . time();
-        $example->unique_string = 'titi' . time();
-        $example->update();
+        $myExample->unique_string = 'titi' . time();
+        $myExample->unique_string = 'titi' . time();
+        $myExample->update();
         echo 'done';
 
         echo '<hr />';
@@ -175,7 +197,8 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
         // delete
         echo '<hr />';
         echo 'delete dbItem:' . "<br />";
-        $example->delete();
+        $myExample->delete();
+        unset($myExample);
         echo 'done';
 
         echo '<hr />';
@@ -183,7 +206,7 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
         foreach ($examples as $example) {
             echo $example->getId() . '/' . $example->unique_string . "<br />";
         }
-
+        */
     }
 
     public function dbsearchAction()

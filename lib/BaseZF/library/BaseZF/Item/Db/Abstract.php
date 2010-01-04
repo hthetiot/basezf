@@ -8,6 +8,11 @@
  * @author     Harold Thetiot (hthetiot)
  *             Oleg Stephanwhite (oleg)
  *             Fabien Guiraud (fguiraud)
+ *
+ *
+ * @todo - persistante mofidied data (apc, registry ?)
+ *       -
+ *
  */
 
 abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
@@ -20,15 +25,16 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
     /**
      * Db table associate to this item
      */
-    protected $_table;
+    protected $_table = null;
 
     /**
-     * Reference or array with field types and other information about current table
+     * Reference or array with columns types and other informations
+     * about current table's columns
      */
-    protected $_structure;
+    protected $_columns = array();
 
     /**
-     * Realtime do not use cache
+     * Realtime mean do not use cache
      */
     protected $_realtime = false;
 
@@ -47,7 +53,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
 
 
     /**
-     * Get is realtime is enable
+     * Get if realtime is enable
      *
      * @return bool true if enable
      */
@@ -57,18 +63,16 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
     }
 
     /**
-     * Define if object use cache or not
+     * Define if Item use cache or not
      *
      * @param bool $realtime set if realtime is enable or not
      *
-     * @return object instance of BaseZF_DbItem alias current object instance for more fluent interface
+     * @return object current item instance
      */
     final public function setRealTime($realtime = true)
     {
         $this->_realtime = $realtime;
-        if ($realtime) {
-            $this->_data = array();
-        }
+
         return $this;
     }
 
@@ -78,23 +82,33 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
 
     /**
      * Retrieve the Zend_Db database conexion instance
+     *
+     * @return object Zend_Db_Adapter instance
      */
     abstract protected function _getDbInstance();
 
     /**
      * Retrieve the Zend_Cache instance
+     *
+     * @return object Zend_Cache_Core instance
      */
     abstract protected function _getCacheInstance();
 
     /**
      * Retrieve the Zend_Log logger instance
+     *
+     * @return object Zend_Log instance
      */
     abstract protected function _getLogInstance();
 
+
     /**
-     * Retrieve the Database Schema as array
+     * Retreive the schema, can be an array, Zend_config instance, Zend_Db instance or
+     * a BaseZF_Item_Db_Schema_Abstract className
+     *
+     * @return mixed
      */
-    abstract protected function _getTableStructure();
+    abstract protected function &_getDbChema();
 
     //
     // Schema functions
@@ -105,21 +119,33 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
      *
      * @return string table of dbitem
      */
-    final public function getTable()
+    public function getTable()
     {
         return $this->_table;
     }
 
     /**
-     * Set current table
+     * Set current table and init columns and properties
+     * Can be use to reset Item Db instance
      *
      * @return string table of dbitem
      */
     final protected function _setTable($table)
     {
-        $this->_table = $table;
+        // if table not initialized
+        if ($this->_table !== $table) {
 
-        $this->_structure = $this->_getTableStructure($table);
+            // unload current object
+            $this->unload();
+
+            $this->_table = $table;
+
+            // extract structure and set has current by reference
+            $this->_columns = $this->getTableColumns($this->_table, get_class($this));
+
+            // init properties default values
+            $this->_initProperties(array_keys($this->_columns));
+        }
 
         return $this;
     }
@@ -129,46 +155,112 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
      *
      * @return string primary key field name
      */
-    final protected function _getPrimaryKeyColumn()
+    final public function getColumnPrimaryKey()
     {
         static $primaryKey = null;
 
         if (is_null($primaryKey)) {
 
-            foreach ($this->_structure as $columnName => $columnData) {
-                if ($columnData['PRIMARY'] == true) {
-                    $primaryKey = $columnName;
+            $columns = $this->getColumns();
+            foreach ($columns as $name => $description) {
+                if ($description['PRIMARY'] == true) {
+                    $primaryKey = $name;
                     break;
                 }
             }
+        }
 
-            if (empty($primaryKey)) {
-                throw new BaseZF_Item_Db_Exception(sprintf('Unable found Item db primary key for table "%s"', $this->getTable()));
-            }
+        if (mb_strlen($primaryKey) == 0) {
+            throw new BaseZF_Item_Db_Exception(sprintf('Unable found Item Db primary key for table "%s"', $this->getTable()));
         }
 
         return $primaryKey;
     }
 
     /**
-     * Get type of field.
+     * Returns the column descriptions for current item table.
      *
-     * @return array an array of item columns names
+     * The return value is an associative array keyed by the column name,
+     * as returned by the RDBMS.
+     *
+     * The value of each array element is an associative array
+     * with the following keys:
+     *
+     * SCHEMA_NAME => string; name of database or schema
+     * TABLE_NAME  => string;
+     * COLUMN_NAME => string; column name
+     * COLUMN_POSITION => number; ordinal position of column in table
+     * DATA_TYPE   => string; SQL datatype name of column
+     * DEFAULT     => string; default expression of column, null if none
+     * NULLABLE    => boolean; true if column can have nulls
+     * LENGTH      => number; length of CHAR/VARCHAR
+     * SCALE       => number; scale of NUMERIC/DECIMAL
+     * PRECISION   => number; precision of NUMERIC/DECIMAL
+     * UNSIGNED    => boolean; unsigned property of an integer type
+     * PRIMARY     => boolean; true if column is part of the primary key
+     * PRIMARY_POSITION => integer; position of column in primary key
+     *
+     * @param string $tableName
+     * @param string $schemaName OPTIONAL
+     * @return array
      */
-    final protected function _getColumnsNames()
+    final public function getColumns()
     {
-        return array_keys($this->_structure);
+        return $this->_columns;
     }
 
     /**
-     * Get type of field.
+     * Get names of columns
      *
-     * @param string $columnName field name
-     * @return @todo
+     * @return array an array of item columns names
      */
-    final protected function _getColumnType($columnName)
+    final public function getColumnsNames()
     {
-        return isset($this->_structure[$columnName]) ? $this->_structure[$columnName] : false;
+        return array_keys($this->_columns);
+    }
+
+    /**
+     * Returns the column descriptions for a table.
+     *
+     * The return value is an associative array keyed by the column name,
+     * as returned by the RDBMS.
+     *
+     * The value of each array element is an associative array
+     * with the following keys:
+     *
+     * SCHEMA_NAME => string; name of database or schema
+     * TABLE_NAME  => string;
+     * COLUMN_NAME => string; column name
+     * COLUMN_POSITION => number; ordinal position of column in table
+     * DATA_TYPE   => string; SQL datatype name of column
+     * DEFAULT     => string; default expression of column, null if none
+     * NULLABLE    => boolean; true if column can have nulls
+     * LENGTH      => number; length of CHAR/VARCHAR
+     * SCALE       => number; scale of NUMERIC/DECIMAL
+     * PRECISION   => number; precision of NUMERIC/DECIMAL
+     * UNSIGNED    => boolean; unsigned property of an integer type
+     * PRIMARY     => boolean; true if column is part of the primary key
+     * PRIMARY_POSITION => integer; position of column in primary key
+     *
+     * @param string $tableName
+     * @param string $schemaName OPTIONAL
+     * @return array
+     */
+    final public function getTableColumns($tableName)
+    {
+        $dbSchema = $this->_getDbChema();
+
+        if (is_string($dbSchema)) {
+            $columns = call_user_func(array($dbSchema, 'getTableColumns'), $tableName);
+        } else if (is_array($dbSchema)) {
+            // @todo
+        } else if ($dbSchema instanceOf Zend_Config) {
+            // @todo
+        } else if ($dbSchema instanceOf Zend_Db) {
+            // @todo
+        }
+
+        return $columns;
     }
 
     //
@@ -185,7 +277,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
         if (is_null($id)) $id = $this->getId();
         if (is_null($table)) $table = $this->getTable();
 
-        return 'dbItem_' . $table . '_' . $id ;
+        return get_class($this) . '_' . $table . '_' . $id ;
     }
 
     //
@@ -203,8 +295,8 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
 
         $select->from($this->getTable())
                ->reset('columns')
-               ->columns($this->_getColumnsNames())
-               ->where($this->_getPrimaryKeyColumn() . ' IN(:' . $this->_getPrimaryKeyColumn() . ')');
+               ->columns($this->getColumnsNames())
+               ->where($this->getColumnPrimaryKey() . ' IN(:' . $this->getColumnPrimaryKey() . ')');
 
         $query = $select->assemble();
 
@@ -225,13 +317,15 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
      */
     protected function _loadData($ids, $realTime = null, $cacheExpire = BaseZF_Item_Db_Query::EXPIRE_NEVER)
     {
-        $db = $this->_getDbInstance();
-        $cache = $this->_getCacheInstance();
+        // get ressources instances
+        $db     = $this->_getDbInstance();
+        $cache  = $this->_getCacheInstance();
         $logger = $this->_getLogInstance();
 
-        $primaryKey = $this->_getPrimaryKeyColumn();
-        $fields = $this->_getColumnsNames();
-        $query = $this->_getQuery();
+        // get query params
+        $primaryKey = $this->getColumnPrimaryKey();
+        $fields     = $this->getColumnsNames();
+        $query      = $this->_getQuery();
 
         $cacheKeyTemplate = $this->_getCacheKey(self::CACHE_KEY_TEMPLATE);
 
@@ -245,7 +339,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
         $dbQuery->setCacheExpire($cacheExpire);
         $dbQuery->setRealTime($realTime);
         $dbQuery->bindValue($primaryKey, $ids);
-        $dbQuery->setCacheKeyByRows( $primaryKey, self::CACHE_KEY_TEMPLATE);
+        $dbQuery->setCacheKeyByRows($primaryKey, self::CACHE_KEY_TEMPLATE);
 
         try {
 
@@ -274,7 +368,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
      * @param array $propertyies assotiative array of properties
      *
      * @throw BaseZF_Item_Db_Exception
-     * @return object instance of BaseZF_DbItem alias current object instance for more fluent interface
+     * @return object instance of BaseZF_Item_Db_Abstract alias current object instance for more fluent interface
      */
     protected function _insert(array $properties)
     {
@@ -284,7 +378,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
 
         $db = $this->_getDbInstance();
         $cache = $this->_getCacheInstance();
-        $primaryKey = $this->_getPrimaryKeyColumn();
+        $primaryKey = $this->getColumnPrimaryKey();
 
         try {
 
@@ -317,7 +411,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
      * @param array $propertyies assotiative array of properties
      *
      * @throw BaseZF_Item_Db_Exception
-     * @return object instance of BaseZF_DbItem alias current object instance for more fluent interface
+     * @return object instance of BaseZF_Item_Db_Abstract alias current object instance for more fluent interface
      */
     protected function _update($id, $properties)
     {
@@ -331,7 +425,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
 
         $db = $this->_getDbInstance();
         $cache = $this->_getCacheInstance();
-        $primaryKey = $this->_getPrimaryKeyColumn();
+        $primaryKey = $this->getColumnPrimaryKey();
 
         try {
 
@@ -361,7 +455,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
      * @param integer $id unique key
      *
      * @throw BaseZF_Item_Db_Exception
-     * @return object instance of BaseZF_DbItem alias current object instance for more fluent interface
+     * @return object instance of BaseZF_Item_Db_Abstract alias current object instance for more fluent interface
      */
     protected function _delete($ids)
     {
@@ -369,7 +463,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
 
         $db = $this->_getDbInstance();
         $cache = $this->_getCacheInstance();
-        $primaryKey = $this->_getPrimaryKeyColumn();
+        $primaryKey = $this->getColumnPrimaryKey();
         $ids = (is_array($ids) ? $ids : array($ids));
 
         try {
@@ -401,7 +495,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
             return false;
         }
 
-        $property = $this->_getPrimaryKeyColumn();
+        $property = $this->getColumnPrimaryKey();
 
         if (!$this->isPropertyLoaded($property)) {
             $this->_loadProperty($property);

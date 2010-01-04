@@ -18,16 +18,6 @@ abstract class BaseZF_Collection_Db_Abstract extends BaseZF_Collection_Abstract
     protected $_table;
 
     /**
-     * Reference or array with field types and other information about current table
-     */
-    protected $_structure;
-
-    /**
-     * Reference or array with Schema of database
-     */
-    protected static $_STATIC_SCHEMA;
-
-    /**
      * Bool for realtime data
      */
     protected $_realtime = false;
@@ -49,9 +39,10 @@ abstract class BaseZF_Collection_Db_Abstract extends BaseZF_Collection_Abstract
      */
     public function __construct($table = '', array $ids = array(), $realtime = false)
     {
+        $this->_setTable($table);
+
         parent::__construct($ids);
 
-        $this->_setTable($table);
         $this->setRealTime($realtime);
 
         // init default filter
@@ -86,51 +77,32 @@ abstract class BaseZF_Collection_Db_Abstract extends BaseZF_Collection_Abstract
 
     /**
      * Retrieve the Zend_Db database conexion instance
+     *
+     * @return object Zend_Db instance
      */
     abstract protected function _getDbInstance();
 
     /**
      * Retrieve the Zend_Cache instance
+     *
+     * @return object Zend_Cache instance
      */
     abstract protected function _getCacheInstance();
 
     /**
      * Retrieve the Zend_Log logger instance
+     *
+     * @return object Zend_log instance
      */
     abstract protected function _getLogInstance();
 
     /**
-     * Retrieve the Database Schema as array
-     */
-    abstract protected function _getTableStructure();
-
-    //
-    // Data mapping
-    //
-
-    /**
+     * Retreive the schema, can be an array, Zend_config instance, Zend_Db instance or
+     * a BaseZF_Item_Db_Schema_Abstract className
      *
+     * @return mixed
      */
-    final protected function loadStructure($table)
-    {
-        $schema = $this->_getDbSchema();
-
-        if (!isset($schema[$table])) {
-            throw new BaseZF_DbItem_Exception('There no table "' . $table . '" in schema for BaseZF_DbItem' );
-        }
-
-        $this->_structure = &$schema[$table];
-
-        // create string of fields in fomat: <field1> AS <alias1>, <field2> AS <alias2>, ....
-        if (!isset($this->_structure['values'])) {
-            foreach ($this->_structure['fields'] as $field => $type) {
-                $value = $table . '.' . $field;
-                $this->_structure['values'][$field] = $value . ' AS ' . $field;
-            }
-        }
-
-        return $this;
-    }
+    abstract protected function &_getDbChema();
 
     //
     // Some getter and setter
@@ -181,37 +153,63 @@ abstract class BaseZF_Collection_Db_Abstract extends BaseZF_Collection_Abstract
      */
     final protected function _setTable($table)
     {
-        $this->_table = $table;
+        // if table not initialized
+        if ($this->_table !== $table) {
+
+            $this->_table = $table;
+
+            // init default filter
+            $this->filterReset();
+
+            // clear ids
+            $this->setIds(array());
+        }
 
         return $this;
     }
 
     /**
-     * Get Primary Key
+     * Get Primary Key of a table throw is item class
+     *
+     * @param string $tableName
+     *
      *
      * @return string primary key field name
      */
-    final protected function _getPrimaryKeyColumn()
+    final protected function getTablePrimaryKey($tableName = null)
     {
-        static $primaryKey = null;
+        static $primaryKeys = array();
 
-        if (is_null($primaryKey)) {
-
-            $tableStructure = $this->_getTableStructure();
-
-            foreach ($tableStructure as $columnName => $columnData) {
-                if ($columnData['PRIMARY'] == true) {
-                    $primaryKey = $columnName;
-                    break;
-                }
-            }
-
-            if (empty($primaryKey)) {
-                throw new BaseZF_Item_Db_Exception(sprintf('Unable found Item db primary key for table "%s"', $this->getTable()));
-            }
+        // if no table provided git current
+        if (is_null($tableName)) {
+            $tableName = $this->getTable();
         }
 
-        return $primaryKey;
+        // available from static $primaryKeys cache
+        if (array_key_exists($tableName, $primaryKeys) !== false) {
+
+            return $primaryKeys[$tableName];
+
+        // if no item found in collection we create new one call getColumnPrimaryKey and destruct it
+        } else  if (count($this->_ids) == 0) {
+
+            $newItem = $this->_getItemInstance();
+            $primaryKeys[$tableName] = $newItem->getColumnPrimaryKey();
+            unset($newItem);
+
+        // if item found in collection we get the first then call getColumnPrimaryKey
+        } else {
+
+            $item = $this->getItem($this->getRandomId());
+            $primaryKeys[$tableName] = $item->getColumnPrimaryKey();
+        }
+
+        if (array_key_exists($tableName, $primaryKeys) === false) {
+            $itemClassName = $this->_getItemClassName();
+            throw new BaseZF_Collection_Db_Exception(sprintf('Unable found Item Db "%s" primary key for table "%s"', $itemClassName, $this->getTable()));
+        }
+
+        return $primaryKeys[$tableName];
     }
 
     //
@@ -228,7 +226,7 @@ abstract class BaseZF_Collection_Db_Abstract extends BaseZF_Collection_Abstract
         // build default query
         $select->from($this->getTable())
                ->reset(Zend_Db_Select::COLUMNS)
-               ->columns($this->_getPrimaryKeyColumn());
+               ->columns($this->getTablePrimaryKey());
 
         return $this;
     }
@@ -330,7 +328,7 @@ abstract class BaseZF_Collection_Db_Abstract extends BaseZF_Collection_Abstract
 
         try {
 
-            $primaryKey = $this->_getPrimaryKeyColumn();
+            $primaryKey = $this->getTablePrimaryKey();
             $fields = array($primaryKey);
             $dbQuery = $this->_getItemDbQuery($select->assemble(), $cacheKey, $fields);
 

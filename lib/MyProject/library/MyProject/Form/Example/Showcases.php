@@ -393,6 +393,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
 
         $this->setAttrib('enctype', Zend_Form::ENCTYPE_MULTIPART);
 
+        /*
         $decorators = array (
             'ViewHelper',
             'Errors',
@@ -401,7 +402,7 @@ class MyProject_Form_Example_Showcases extends BaseZF_Framework_Form
             array('Label', array('tag' => 'th')),
             array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))
         );
-
+        */
 
         $this->addElement('file', 'avatar_file', array(
             'label'         => __('Upload your Avatar:'),
