@@ -9,6 +9,7 @@
 *Thumbs.db
 \#Untitled-*#
 *.marks
+\#*#
 
 # production only files
 locale/*/LC_MESSAGES/*.mo
