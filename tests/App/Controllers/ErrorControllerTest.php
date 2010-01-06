@@ -1,11 +1,13 @@
 <?php
 /**
- * ErrorControllerTest.php for App in Controllers
+ * App_Controllers_ErrorControllerTest class in /test/App
  *
- * @category   App
- * @package    App_UnitTest
- * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  MyProject
+ * @package   MyProject_App_UnitTest
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 if (!defined('APPLICATION_PATH')) {
@@ -17,7 +19,7 @@ if (!defined('APPLICATION_PATH')) {
  *
  * @group App_Controllers
  */
-class ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class App_Controllers_ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
     /**
      * Sets up the fixture, for example, open a network connection.

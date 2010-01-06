@@ -2,10 +2,12 @@
 /**
  * rounded.php in /public/tools
  *
- * @category  BazeZF
- * @package   BazeZF_Service
- * @copyright Copyright (c) 2008 BazeZF
- * @author    Harold Thetiot (hthetiot)
+ * @category  MyProject
+ * @package   MyProject_App
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  *
  * Script arguments:
  * Corner Name :              cn (one of: tl, bl, tr, br)
@@ -25,5 +27,4 @@
 
 $myCorner = BaseZF_Service_CornerGenerator::factoryFromRequest();
 $myCorner->display();
-
 

@@ -4,11 +4,12 @@
  *
  * PHP Version 5.2.11 or 5.3
  *
- * @category MyProject
- * @package  MyProject_App
- * @author   Harold Thetiot <hthetiot+basezf@gmail.com>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     http://github.com/hthetiot/basezf
+ * @category  MyProject
+ * @package   MyProject_App
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 // Include auto_prepend if missing

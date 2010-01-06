@@ -1,11 +1,13 @@
 <?php
 /**
- * ErrorController.php
+ * IndexController class in /app/controllers/default
  *
- * @category   MyProject
- * @package    MyProject_App_Controller
- * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thetiot (hthetiot)
+ * @category  MyProject
+ * @package   MyProject_App_Controller
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class ErrorController extends BaseZF_Framework_Controller_Action
@@ -23,7 +25,7 @@ class ErrorController extends BaseZF_Framework_Controller_Action
     protected $_errorHandler;
 
     /**
-     * preDispatch for Controller
+     * exec by preDispatch of parent Controller class
      *
      * @return void
      */

@@ -1,11 +1,13 @@
 <?php
 /**
- * ExampleTest.php for App in tests/
+ * App_ExampleTest class in /test/App
  *
- * @category   App
- * @package    App_UnitTest
- * @copyright  Copyright (c) 2008 App
- * @author     Harold Thetiot (hthetiot)
+ * @category  MyProject
+ * @package   MyProject_App_UnitTest
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 require_once dirname(__FILE__) . '/../TestHelper.php';
