@@ -1,11 +1,13 @@
 <?php
 /**
- * FormFile.php for BaseZF in /BaseZF/Framework/View/Helper
+ * BaseZF_Framework_View_Helper_FormFile class in /BaseZF/Framework/View/Helper
  *
- * @category   BaseZF_Framework
- * @package    BaseZF
- * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BaseZF
+ * @package   BaseZF_Framework
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class BaseZF_Framework_View_Helper_FormFile extends Zend_View_Helper_FormFile

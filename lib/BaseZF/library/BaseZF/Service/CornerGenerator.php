@@ -1,11 +1,13 @@
 <?php
 /**
- * CornerGenerator class in /BazeZF/Service
+ * BaseZF_Service_CornerGenerator class in /BazeZF/Service
  *
  * @category  BazeZF
  * @package   BazeZF_Service
- * @copyright Copyright (c) 2008 BazeZF
- * @author    Harold Thetiot (hthetiot)
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class BaseZF_Service_CornerGenerator
@@ -316,7 +318,7 @@ class BaseZF_Service_CornerGenerator
         imagedestroy($imageScratch);
 
         $tempFile = tempnam(sys_get_temp_dir() . '/', get_class($this) . '_');
-        imagegif($imageDest, $tempFile);
+        imagegif ($imageDest, $tempFile);
         $this->_response->setBody(file_get_contents($tempFile));
 
         imagedestroy($imageDest);

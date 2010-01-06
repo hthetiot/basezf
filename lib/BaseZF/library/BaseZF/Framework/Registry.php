@@ -1,11 +1,13 @@
 <?php
 /**
- * BaseZF_Registry
+ * BaseZF_Registry class in /BaseZF
  *
- * @category   BaseZF
- * @package    BaseZF_Framework
- * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BaseZF
+ * @package   BaseZF_Framework
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  *
  * This class should containt only registry builder
  *

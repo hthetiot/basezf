@@ -2,17 +2,16 @@
 /**
  * BaseZF_Item_Db_Abstract class in /BaseZF/Item/Db
  *
- * @category   BaseZF
- * @package    BaseZF_Item, BaseZF_Collection
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
- *             Oleg Stephanwhite (oleg)
- *             Fabien Guiraud (fguiraud)
+ * PHP version 5.2.11
  *
+ * @category  BaseZF
+ * @package   BaseZF_Item
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  *
  * @todo - persistante mofidied data (apc, registry ?)
- *       -
- *
  */
 
 abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract

@@ -1,11 +1,13 @@
 <?php
 /**
- * Template class in /BaseZF
+ * BaseZF_Template class in /BaseZF
  *
- * @category   BaseZF
- * @package    BaseZF_Template
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BaseZF
+ * @package   BaseZF_Template
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class BaseZF_Template
@@ -411,7 +413,7 @@ class BaseZF_Template
             $index = $objectParts[1];
 
             // check if callable if it is a function
-            if( ($pos = strpos($index, '(')) !== false ) {
+            if ( ($pos = strpos($index, '(')) !== false ) {
 
                 $functionName = substr($index, 0, $pos);
 

@@ -2,12 +2,14 @@
 /**
  * BaseZF_Item_Db_Schema_Auto class in /BaseZF/Item/Db/Schema
  *
- * @category   BaseZF
- * @package    BaseZF_Item, BaseZF_Collection
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
- *             Oleg Stephanwhite (oleg)
- *             Fabien Guiraud (fguiraud)
+ * PHP version 5.2.11
+ *
+ * @category  BaseZF
+ * @package   BaseZF_Item
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class BaseZF_Item_Db_Schema_Auto extends BaseZF_Item_Db_Schema_Abstract
@@ -18,8 +20,8 @@ class BaseZF_Item_Db_Schema_Auto extends BaseZF_Item_Db_Schema_Abstract
     {
         static $tables = array();
 
-        if(empty($tables)) {
-            if(!$tables = $cache->load('tables')) {
+        if (empty($tables)) {
+            if (!$tables = $cache->load('tables')) {
                 $tables = $db->listTables();
                 $cache->save( $tables, 'tables');
             }
@@ -27,9 +29,9 @@ class BaseZF_Item_Db_Schema_Auto extends BaseZF_Item_Db_Schema_Abstract
 
         foreach ($tables as $table) {
 
-            if(!isset(self::$schema[$table])) {
+            if (!isset(self::$schema[$table])) {
 
-                if(!$tableStructure = $cache->load('tables_' . $table)) {
+                if (!$tableStructure = $cache->load('tables_' . $table)) {
                     $tableStructure = $db->describeTable($table);
                     $cache->save($tableStructure, 'tables_' . $table);
                 }
@@ -70,7 +72,7 @@ class BaseZF_Item_Db_Schema_Auto extends BaseZF_Item_Db_Schema_Abstract
      */
     public static function &getTableColumns($tableName, $schemaName = null)
     {
-        if(!array_key_exists($tableName, self::$schema)) {
+        if (!array_key_exists($tableName, self::$schema)) {
             throw new BaseZF_Item_Db_Schema_Exception(sprintf('There no table "%s" in schema', $tableName));
         }
 

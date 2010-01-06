@@ -2,12 +2,12 @@
 /**
  * BaseZF_Collection_Abstract class in /BaseZF/Collection
  *
- * @category   BaseZF
- * @package    BaseZF_Item, BaseZF_Collection
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
- *             Oleg Stephanwhite (oleg)
- *             Fabien Guiraud (fguiraud)
+ * @category  BaseZF
+ * @package   BaseZF_Item
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 abstract class BaseZF_Collection_Abstract implements Iterator, Countable
@@ -45,7 +45,7 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
     {
         $this->setIds($ids);
 
-        $this->log('Create new Collection Instance : ' . $this);
+        $this->log(sprintf('Create new Collection Instance: %s ', $this));
     }
 
     /**
@@ -202,11 +202,11 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
                 $result = $this->_ids[$idx];
             }
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
         } catch (Exception $e) {
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
             throw $e;
         }
@@ -294,11 +294,11 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
                 $result[$id] = $item;
             }
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
         } catch (Exception $e) {
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
             throw $e;
         }
@@ -360,11 +360,11 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
                 $result[$id] = $item->$property;
             }
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
         } catch (Exception $e) {
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
             throw $e;
         }
@@ -391,11 +391,11 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
                 $item->setProperty($property, $value);
             }
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
         } catch (Exception $e) {
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
             throw $e;
         }
@@ -420,11 +420,11 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
                 $item->setProperties($data);
             }
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
         } catch (Exception $e) {
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
             throw $e;
         }
@@ -446,11 +446,11 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
             $itemClassName = $this->_getItemClassName();
             call_user_func(array($itemClassName, 'massUpdate'), $this->getItems());
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
         } catch (Exception $e) {
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
             throw $e;
         }
@@ -474,11 +474,11 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
             $itemClassName = $this->_getItemClassName();
             call_user_func(array($itemClassName, 'massDelete'), $this->getItems());
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
         } catch (Exception $e) {
 
-            $this->_loadIteratorPosition();
+            $this->_restoreIteratorPosition();
 
             throw $e;
         }
@@ -576,7 +576,7 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
      *
      * @return object current collection instance
      */
-    final protected function _loadIteratorPosition()
+    final protected function _restoreIteratorPosition()
     {
         $pos = array_pop($this->_iteratorSavedPositions);
 
@@ -626,6 +626,33 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
     //
     // Tools
     //
+
+    final public function callItemsFunction($functionName, array $params = array())
+    {
+        $result = array();
+        $this->_saveIteratorPosition();
+
+        try {
+
+            foreach ($this as $id => $item) {
+
+                $itemCall = $params;
+                array_unshift($itemCall, &$item);
+
+                $result[] = call_user_func($itemCall);
+            }
+
+            $this->_restoreIteratorPosition();
+
+        } catch (Exception $e) {
+
+            $this->_restoreIteratorPosition();
+
+            throw $e;
+        }
+
+        return $result;
+    }
 
     /**
      * string builder called to display object has string

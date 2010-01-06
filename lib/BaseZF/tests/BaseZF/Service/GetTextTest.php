@@ -2,10 +2,12 @@
 /**
  * GetTextTest.php for BaseZF in tests/BaseZF/Service
  *
- * @category   BaseZF
- * @package    BaseZF_UnitTest
- * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BaseZF
+ * @package   BaseZF_UnitTest
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 require_once dirname(__FILE__) . '/../../TestHelper.php';
@@ -381,3 +383,4 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
         $this->_tmpDirs = array();
     }
 }
+

@@ -2,10 +2,12 @@
 /**
  * Info.php class in /BazeZF/Framework/Form/Element
  *
- * @category   BazeZF
- * @package    BazeZF_Framework
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BazeZF
+ * @package   BazeZF_Framework
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 /** Zend_Form_Element_Xhtml */

@@ -2,68 +2,15 @@
 /**
  * BaseZF_Item_Abstract class in /BaseZF/Item
  *
- * @category   BaseZF
- * @package    BaseZF_Item, BaseZF_Collection
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
- *             Oleg Stephanwhite (oleg)
- *             Fabien Guiraud (fguiraud)
+ * PHP version 5.2.11
+ *
+ * @category  BaseZF
+ * @package   BaseZF_Item
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
-
-
-/*
- Storage: array, db, db+cache : loadData/_insert/_delete/_update
- Plugin: netstedset, toJson, toXML, toHTMLTable, to array
- Event : insert/update/setProperty/getProperty
-
- // db
- BaseZF_Item_Registry::getInstance($namespace, $id);
- BaseZF_Item_Abstract($id);
- BaseZF_Item_Exception();
-
- BaseZF_Collection_Abstract($ids);
- BaseZF_Collection_Exception();
-
- // db
- BaseZF_Item_Db_Abstract($id, $table, $realtime);
- BaseZF_Item_Db_Exception();
-
- BaseZF_Item_Db_Query();
- BaseZF_Item_Db_Query_Exception();
-
- BaseZF_Item_Db_Schema_Abstract();
- BaseZF_Item_Db_Schema_Exception();
-
- BaseZF_Collection_Db_Abstract($ids, $table $realtime);
- BaseZF_Collection_Db_Exception();
-
- // array (old static)
- BaseZF_Item_Array($id, $namespace);
- BaseZF_Item_Array_Exception();
- BaseZF_Item_Array_Data();
-
- BaseZF_Collection_Array($ids, $namespace);
- BaseZF_Collection_Array_Exception();
-
-
-
- // helper
- BaseZF_Item_Helper_Abstract
- BaseZF_Item_Helper_Array           // Array->toArray()
- BaseZF_Item_Helper_Json            // Json->toJson, Json->setPropertiesFromJson
- BaseZF_Item_Helper_XML             // XML->toXML, XML->setPropertiesFromXML
-
- BaseZF_Collection_Helper_Abstract
- BaseZF_Collection_Helper_Array     // toArray
- BaseZF_Collection_Helper_Json      // toJson, setPropertiesFromJson
- BaseZF_Collection_Helper_XML       // toXML, setPropertiesFromXML
-
- // Observer
- BaseZF_Item_Observer_Abstract
- BaseZF_Item_Observer_NestedSet     //
-
-
-*/
 
 abstract class BaseZF_Item_Abstract implements ArrayAccess
 {
@@ -96,11 +43,6 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     protected $_id = null;
 
     /**
-     * Static instance cache
-     */
-    protected static $_INSTANCES = array();
-
-    /**
      * Array of properties values
      */
     protected $_data = array();
@@ -109,6 +51,11 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * Array of modified properties
      */
     protected $_modified = array();
+
+    /**
+     * Array for property dependency
+     */
+    protected $_dependency = array();
 
     /**
      * To check or not is new value same as old on update
@@ -125,11 +72,6 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      */
     private $_isLoaded = false;
 
-    /**
-     * Array for property dependency
-     */
-    protected $_dependency = array();
-
     //
     // DbCollection relation
     //
@@ -144,7 +86,6 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * Constructor
      *
      * @param void $id unique object id
-     * @param boolean $realtime disable cache
      */
     public function __construct($id = null)
     {
@@ -164,7 +105,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
         }
 
         // remove instance from registry if not deleted (cause delete remove it)
-        if(BaseZF_Item_Registry::removeItemInstance($this, get_class($this)) === false) {
+        if (BaseZF_Item_Registry::removeItemInstance($this, get_class($this)) === false) {
             die(sprintf('Unable to destuct item "%s" properly', $this));
         }
 
@@ -198,7 +139,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Get Instance from BaseZF_Item_Registry
      *
-     * @param mixed $id unique item identifier
+     * @param mixed  $id        unique item identifier
      * @param string $className item classname
      *
      * @return object instance of $className
@@ -211,6 +152,8 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
             throw new BaseZF_Item_Exception(sprintf('Unable to get instance of object "%s" with id "%s" from BaseZF_Item_Registry.', $className, $id));
         }
 
+        // @todo reset modified ?
+
         return $item;
     }
 
@@ -221,7 +164,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Set unique id
      *
-     * @param void $id unique item identifier
+     * @param mixed $id unique item identifier
      *
      * @return object current Item instance
      */
@@ -252,7 +195,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Getter for unique id of DbObject
      *
-     * @return void $this->_id value
+     * @return mixed $this->_id value
      */
     final public function getId()
     {
@@ -262,8 +205,8 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Get original unique id from extended id string
      *
-     * @param string $id extended id
-     * @return void unique id
+     * @param mixed $id extended id
+     * @return mixed unique id
      */
     final static public function getIdFromExtendedId($id)
     {
@@ -316,15 +259,22 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
         return $this->_isDeleted;
     }
 
+    /**
+     * Set Item _isDeleted value
+     *
+     * @param bool $value deleted new value
+     *
+     * @return object current Item instance
+     */
     final protected function _setDeleted($value = true)
     {
-        $this->_isDeleted = $value;
+        $this->_isDeleted = (bool) $value;
 
         return $this;
     }
 
     /**
-     * Check if item is loaded
+     * Check if Item is loaded
      *
      * @return bool true if loaded else false
      */
@@ -333,9 +283,21 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
         return $this->_isLoaded;
     }
 
+    /**
+     * Set Item _isLoaded value
+     *
+     * @param bool $value loaded new value
+     *
+     * @return object current Item instance
+     */
     final protected function _setLoaded($value = true)
     {
-        $this->_isLoaded = $value;
+        // has an Item Id is required to set $this->_isLoaded to true
+        if ($value === true && !$this->hasId()) {
+            throw new BaseZF_Item_Exception('Item need Id before became Loaded');
+        }
+
+        $this->_isLoaded = (bool) $value;
 
         return $this;
     }
@@ -374,8 +336,11 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     public function getProperty($property)
     {
         if ($this->isPropertyModified($property)) {
-           return $this->_modified[$property];
+
+            return $this->_modified[$property];
+
         } else if (!$this->isPropertyLoaded($property)) {
+
             $this->_loadProperty($property);
         }
 
@@ -406,7 +371,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
 
     public function getAvailableProperties()
     {
-        return array_merge(array_keys($this->_data));
+        return array_keys($this->_data);
     }
 
     /**
@@ -419,7 +384,6 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      */
     public function setProperty($property, $value)
     {
-
         if (!$this->isProperty($property)) {
             throw new BaseZF_Item_Exception(sprintf('Unable to set value to property "%s->%s" cause: property is not found in data, may it is a virtual property.', $this, $property));
         }
@@ -436,7 +400,9 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
         }
 
         $this->validatePropertyValue($property, $value);
+
         $this->_modified[$property] = $value;
+
         $this->_flushDependency($property);
 
         return $this->getProperty($property);
@@ -505,8 +471,8 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      * Get Ids will allso load
      *
      * @param string $property
-     * @param array $prefereIds
-     * @param int $limit
+     * @param array  $prefereIds
+     * @param int    $limit
      *
      * @return array an array of item id
      */
@@ -539,7 +505,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     /**
      * Load property of Items
      *
-     * @param array $ids item ids of item should be loaded
+     * @param array  $ids item ids of item should be loaded
      * @param string $property name of property
      *
      * @return object current Item instance
@@ -707,6 +673,8 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      */
     final public function validatePropertyValue($property, $value = null, $throwException = true)
     {
+        // @todo add cache value/property/validator
+
         $camelCaseProperty = str_replace(' ', '', ucwords(str_replace('_', ' ', $property)));
         $methodName = 'get' . $camelCaseProperty . 'Validator';
 

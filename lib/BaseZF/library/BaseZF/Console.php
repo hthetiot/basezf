@@ -1,11 +1,13 @@
 <?php
 /**
- * Console class in /BaseZF
+ * BaseZF_Console class in /BaseZF
  *
- * @category   BaseZF
- * @package    BazeZF_Console
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BaseZF
+ * @package   BazeZF_Console
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 /* for signals handling */

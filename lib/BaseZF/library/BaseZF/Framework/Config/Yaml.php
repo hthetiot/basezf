@@ -2,13 +2,13 @@
 /**
  * Yaml class in /BazeZF/Framework/Config
  *
- * @category   BazeZF
- * @package    BazeZF_Framework
- * @author     Sean P. O. MacCath-Moran
- *
- * Sean P. O. MacCath-Moran
- * zendcode@emanaton.com
- * http://www.emanaton.com
+ * @category  BazeZF
+ * @package   BazeZF_Framework
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @author    Sean P. O. MacCath-Moran <zendcode@emanaton.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://www.emanaton.com
  */
 
 /**

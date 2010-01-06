@@ -1,11 +1,13 @@
 <?php
 /**
- * GetText class in /BazeZF/Service
+ * BaseZF_Service_GetText class in /BazeZF/Service
  *
- * @category   BazeZF
- * @package    BazeZF_Service_GetText
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BazeZF
+ * @package   BazeZF_Service_GetText
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class BaseZF_Service_GetText
@@ -93,11 +95,11 @@ class BaseZF_Service_GetText
             throw new BaseZF_Service_GetText_Exception(sprintf('Could not set the ENV variable LANGUAGE = %s', $locale));
         }
 
-        if(setlocale(LC_MESSAGES, $localeWithEncoding) !== $localeWithEncoding) {
+        if (setlocale(LC_MESSAGES, $localeWithEncoding) !== $localeWithEncoding) {
             throw new BaseZF_Service_GetText_Exception(sprintf('Unable to set locale "%s" to value "%s", please check installed locales on system', 'LC_MESSAGES', $localeWithEncoding));
         }
 
-        if(setlocale(LC_TIME, $localeWithEncoding) !== $localeWithEncoding) {
+        if (setlocale(LC_TIME, $localeWithEncoding) !== $localeWithEncoding) {
             throw new BaseZF_Service_GetText_Exception(sprintf('Unable to set locale "%s" to value "%s", please check installed locales on system', 'LC_TIME', $localeWithEncoding));
         }
 
@@ -343,7 +345,7 @@ class BaseZF_Service_GetText
                 // check for write
                 if (!is_file($moDomainFilePath)) {
 
-                    if(!is_writable(dirname($moDomainFilePath))) {
+                    if (!is_writable(dirname($moDomainFilePath))) {
                         throw new BaseZF_Service_GetText_Exception(sprintf('Unable to create MO file on path "%s"', dirname($moDomainFilePath)));
                     }
 
@@ -380,7 +382,7 @@ class BaseZF_Service_GetText
         // check for write
         if (!is_file($poDomainFilePath)) {
 
-            if(!is_writable(dirname($poDomainFilePath))) {
+            if (!is_writable(dirname($poDomainFilePath))) {
                 throw new BaseZF_Service_GetText_Exception(sprintf('Unable to create PO file on path "%s"', dirname($poDomainFilePath)));
             }
 

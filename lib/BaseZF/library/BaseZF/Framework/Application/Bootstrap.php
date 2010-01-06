@@ -1,13 +1,15 @@
 <?php
 /**
- * Bootstrap.php
+ * BaseZF_Framework_Application_Bootstrap class in /BaseZF/Framework/Application
  *
  * Main Bootstrap
  *
- * @category   BaseZF
- * @package    BaseZF
- * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BaseZF
+ * @package   BaseZF_Framework
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 abstract class BaseZF_Framework_Application_Bootstrap extends Zend_Application_Bootstrap_Bootstrap

@@ -2,12 +2,14 @@
 /**
  * BaseZF_Item_Registry class in /BaseZF/Item
  *
- * @category   BaseZF
- * @package    BaseZF_Item, BaseZF_Collection
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
- *             Oleg Stephanwhite (oleg)
- *             Fabien Guiraud (fguiraud)
+ * PHP version 5.2.11
+ *
+ * @category  BaseZF
+ * @package   BaseZF_Item
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  *
  * @todo - limit of nb item instance via sleep and wakeup on a window
  *       - export registry for wizard feature
@@ -36,7 +38,7 @@ class BaseZF_Item_Registry
     public static function &getItemInstanceById($itemId, $itemClassName)
     {
         // do we have this item instance in registry indexed by item id then get it
-        if(
+        if (
             array_key_exists($itemClassName, self::$_itemsIdToItemHash) !== false &&
             $itemHash = array_search($itemId, self::$_itemsIdToItemHash[$itemClassName])
         ) {
@@ -82,7 +84,7 @@ class BaseZF_Item_Registry
         $itemHash = self::_getItemHash($item);
 
         // do we have this item instance in registry indexed by item hash then save it
-        if(
+        if (
             array_key_exists($itemClassName, self::$_itemsInstances) === false ||
             array_key_exists($itemHash, self::$_itemsInstances[$itemClassName]) === false
         ) {
@@ -90,7 +92,7 @@ class BaseZF_Item_Registry
         }
 
         // do we have this item instance in registry indexed by item id then save it
-        if(array_key_exists($itemClassName, self::$_itemsIdToItemHash) == false) {
+        if (array_key_exists($itemClassName, self::$_itemsIdToItemHash) == false) {
             self::$_itemsIdToItemHash[$itemClassName] = array();
         }
 
@@ -115,7 +117,7 @@ class BaseZF_Item_Registry
         $itemHash = self::_getItemHash($item);
 
         // do we have this item instance in registry indexed by item hash then remove it
-        if(
+        if (
             array_key_exists($itemClassName, self::$_itemsInstances) !== false &&
             array_key_exists($itemHash, self::$_itemsInstances[$itemClassName]) !== false
         ) {

@@ -1,11 +1,13 @@
 <?php
 /**
- * Version class in /BaseZF/
+ * BaseZF_Version class in /BaseZF
  *
- * @category   BaseZF
- * @package    BaseZF_Version
- * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BaseZF
+ * @package   BaseZF_Version
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 final class BaseZF_Version
 {

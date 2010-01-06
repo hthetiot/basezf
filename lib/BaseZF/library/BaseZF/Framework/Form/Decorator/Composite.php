@@ -2,10 +2,12 @@
 /**
  * Composite class in /BazeZF/Framework/Form/Decorator
  *
- * @category   BazeZF
- * @package    BazeZF_Framework_Form
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BazeZF
+ * @package   BazeZF_Framework_Form
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class BaseZF_Framework_Form_Decorator_Composite extends Zend_Form_Decorator_Abstract

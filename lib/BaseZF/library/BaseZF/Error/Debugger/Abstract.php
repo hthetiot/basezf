@@ -2,10 +2,12 @@
 /**
  * Abstract class in /BazeZF/Error/Debugger
  *
- * @category   BazeZF
- * @package    BazeZF_Core
- * @copyright  Copyright (c) 2008 BazeZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BazeZF
+ * @package   BaseZF_Error
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 abstract class BaseZF_Error_Debugger_Abstract

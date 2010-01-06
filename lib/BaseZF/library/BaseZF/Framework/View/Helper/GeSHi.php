@@ -1,14 +1,16 @@
 <?php
 /**
- * GeSHi.php
+ * BaseZF_Framework_View_Helper_GeSHi class in /BaseZF/Framework/View/Helper
  *
- * @category   BaseZF
- * @package    BaseZF_Framework
- * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  BaseZF
+ * @package   BaseZF_Framework
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
-/** GeSHi Engine */
+// Include GeSHi Engine
 require_once('geshi.php');
 
 class BaseZF_Framework_View_Helper_GeSHi extends BaseZF_Framework_View_Helper_Abstract

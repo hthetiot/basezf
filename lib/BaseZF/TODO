@@ -1,0 +1,64 @@
+
+ @todo
+ Storage: array, db+cache : loadData/_insert/_delete/_update
+ Plugin: netstedset, toJson, toXML, toHTMLTable, to array
+ Event : insert/update/setProperty/getProperty
+ Persistant via Item Regitry ?
+ Call Item func via Collection simply
+ Per page coll cache flushing
+ Relation (with const patern and config)
+ Virtual Peroperty with dependency (example: age from birthday)?
+ Reset modified on getInstance
+
+
+ // db
+ BaseZF_Item_Registry::getInstance($namespace, $id);
+ BaseZF_Item_Abstract($id);
+ BaseZF_Item_Exception();
+
+ BaseZF_Collection_Abstract($ids);
+ BaseZF_Collection_Exception();
+
+ // db
+ BaseZF_Item_Db_Abstract($id, $table, $realtime);
+ BaseZF_Item_Db_Exception();
+
+ BaseZF_Item_Db_Query();
+ BaseZF_Item_Db_Query_Exception();
+
+ BaseZF_Item_Db_Schema_Abstract();
+ BaseZF_Item_Db_Schema_Exception();
+
+ BaseZF_Collection_Db_Abstract($ids, $table $realtime);
+ BaseZF_Collection_Db_Exception();
+
+ // array (example: static )
+ BaseZF_Item_Array($id, $namespace);
+ BaseZF_Item_Array_Exception();
+ BaseZF_Item_Array_Data();
+
+
+ BaseZF_Item_Apc($id, $namespace);
+ BaseZF_Item_Apc();
+
+ BaseZF_Collection_Array($ids, $namespace);
+ BaseZF_Collection_Array_Exception();
+
+
+
+ // helper
+ BaseZF_Item_Helper_Abstract
+ BaseZF_Item_Helper_Array           // Array->toArray()
+ BaseZF_Item_Helper_Json            // Json->toJson, Json->setPropertiesFromJson
+ BaseZF_Item_Helper_XML             // XML->toXML, XML->setPropertiesFromXML
+
+ BaseZF_Collection_Helper_Abstract
+ BaseZF_Collection_Helper_Array     // toArray
+ BaseZF_Collection_Helper_Json      // toJson, setPropertiesFromJson
+ BaseZF_Collection_Helper_XML       // toXML, setPropertiesFromXML
+
+
+ // Observer
+ BaseZF_Item_Observer_Abstract
+ BaseZF_Item_Observer_NestedSet     //
+s
