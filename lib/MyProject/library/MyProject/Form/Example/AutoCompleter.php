@@ -1,10 +1,13 @@
 <?php
 /**
- * Example form object
+ * MyProject_Form_Example_AutoCompleter class in /MyProject/Form/Example
  *
  * @category  MyProject
  * @package   MyProject_Form
- * @copyright Copyright (c) 2008 MyProject
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/MyProject/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class MyProject_Form_Example_AutoCompleter extends BaseZF_Framework_Form

@@ -1,11 +1,13 @@
 <?php
 /**
- * Example.php for MyProject in tests/
+ * MyProject_Example class in /test/MyProject
  *
- * @category   MyProject
- * @package    MyProject_UnitTest
- * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thetiot (hthetiot)
+ * @category  MyProject
+ * @package   MyProject_UnitTest
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/MyProject/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class MyProject_Example

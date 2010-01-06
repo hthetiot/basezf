@@ -1,11 +1,13 @@
 <?php
 /**
- * Registry.php
+ * MyProject_Registry class in /MyProject
  *
- * @category   MyProject
- * @package    MyProject_Core
- * @copyright  Copyright (c) 2008 BaseZF
- * @author     Harold Thetiot (hthetiot)
+ * @category  MyProject
+ * @package   MyProject_Core
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/MyProject/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  *
  * This class should registry features
  *
@@ -34,3 +36,4 @@ final class MyProject_Registry extends BaseZF_Framework_Registry
         return parent::getInstance($class);
     }
 }
+

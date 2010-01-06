@@ -1,11 +1,13 @@
 <?php
 /**
- * Example class in /MyProject/Console
+ * MyProject_Console_Example class in /MyProject/Console
  *
- * @category   MyProject
- * @package    MyProject_Console
- * @copyright  Copyright (c) 2008 MyProject
- * @author     Harold Thetiot (hthetiot)
+ * @category  MyProject
+ * @package   MyProject_Console
+ * @author    Harold Thetiot <hthetiot@gmail.com>
+ * @copyright 2006-2009 The Authors
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/MyProject/COPYING Custom License
+ * @link      http://github.com/hthetiot/basezf
  */
 
 class MyProject_Console_Example extends BaseZF_Console
@@ -25,3 +27,4 @@ class MyProject_Console_Example extends BaseZF_Console
         $this->_log(sprintf('You enter <%s>', $choice));
     }
 }
+
