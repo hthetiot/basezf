@@ -91,7 +91,7 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
     {
         $this->setId($id);
 
-        $this->log('Create Item Instance: ' . $this);
+        $this->_log(sprintf('Create Item Instance %s ' , $this));
     }
 
     /**
@@ -123,10 +123,10 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      *
      * @return object current collection instance
      */
-    protected function log($msg)
+    protected function _log($msg)
     {
         if ($logger = $this->_getLogInstance()) {
-            $logger->log($msg, self::LOG_PRIORITY);
+            $logger->log(get_class($this) . ' -> ' . $msg, self::LOG_PRIORITY);
         }
 
         return $this;

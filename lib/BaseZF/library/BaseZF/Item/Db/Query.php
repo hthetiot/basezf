@@ -575,6 +575,10 @@ class BaseZF_Item_Db_Query
                 $data[$id] = array_combine($queryFields, $cacheDataByRow);
             }
 
+            if (!empty($cacheDataByRows)) {
+                $this->_log('Data with cache key(s) "' . implode(', ', array_keys($cacheDataByRows)) . '" pulled from cache');
+            }
+
             if (count($data) != count($cacheKeysByRows)) {
 
                 $missingCacheKeys = array_diff($cacheKeysByRows, array_keys($cacheDataByRows));
@@ -582,7 +586,7 @@ class BaseZF_Item_Db_Query
 
                 $this->bindValue($this->_getCacheKeyByRowsField(), $missingIds);
 
-                $this->log('data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
+                $this->_log('Data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
 
                 throw new BaseZF_Item_Db_Query_Exception('data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" missing from cache');
             }
@@ -625,6 +629,9 @@ class BaseZF_Item_Db_Query
 
             // store data in memCache
             if (!$this->isRealTime()) {
+
+                $this->_log('Data with cache key(s) "' . implode(', ', $missingCacheKeys) . '" pushed to cache');
+
                 foreach ($cacheDataByRows as $cacheKeyByRow => $cacheDataByRow) {
                     $this->_setInCache($cacheKeyByRow, $cacheDataByRow, $this->_expire);
                 }
@@ -681,7 +688,7 @@ class BaseZF_Item_Db_Query
     public function seek($index)
     {
         if (!isset($this->_data[$index])) {
-            throw new BaseZF_Item_Db_Query_Exception('Unable to seek on index "' . $index . '"');
+            throw new BaseZF_Item_Db_Query_Exception(sprintf('Unable to seek on index "%s"', $index));
         }
 
         array_set_current($this->_data, $index);
@@ -905,10 +912,10 @@ class BaseZF_Item_Db_Query
      *
      * @param string $msg log message
      */
-    public function log($msg)
+    protected function _log($msg)
     {
         if ($logger = $this->_getLoggerInstance()) {
-            $logger->log('DbQuery -> ' . $msg, self::LOG_PRIORITY);
+            $logger->log(get_class($this) . ' -> ' . $msg, self::LOG_PRIORITY);
         }
     }
 }

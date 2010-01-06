@@ -45,7 +45,7 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
     {
         $this->setIds($ids);
 
-        $this->log(sprintf('Create new Collection Instance: %s ', $this));
+        $this->_log(sprintf('Create new Collection Instance: %s ', $this));
     }
 
     /**
@@ -70,10 +70,10 @@ abstract class BaseZF_Collection_Abstract implements Iterator, Countable
      *
      * @return object current collection instance
      */
-    protected function log($msg)
+    protected function _log($msg)
     {
         if ($logger = $this->_getLogInstance()) {
-            $logger->log($msg, self::LOG_PRIORITY);
+            $logger->log(get_class($this) . ' -> ' . $msg, self::LOG_PRIORITY);
         }
 
         return $this;
