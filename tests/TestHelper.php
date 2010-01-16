@@ -30,3 +30,9 @@ if (!defined('APPLICATION_PATH')) {
     require_once(realpath(dirname(__FILE__)) . '/../includes/auto_prepend.php');
 }
 
+//---------------------------------------------------------------------------
+// Start Zend Loader and check Zend Framework availability
+
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->suppressNotFoundWarnings(true); // Avoid PhpUnit error
+

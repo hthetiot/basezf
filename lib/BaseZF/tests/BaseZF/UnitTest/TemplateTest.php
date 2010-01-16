@@ -10,7 +10,7 @@
  * @link      http://github.com/hthetiot/basezf
  */
 
-require_once dirname(__FILE__) . '/../TestHelper.php';
+require_once realpath(dirname(__FILE__) . '/../../') . '/TestHelper.php';
 
 /**
  * Test class for BaseZF_Template
@@ -18,7 +18,7 @@ require_once dirname(__FILE__) . '/../TestHelper.php';
  * @group BaseZF
  * @group BaseZF_Template
  */
-class BaseZF_TemplateTest extends PHPUnit_Framework_TestCase
+class BaseZF_UnitTest_TemplateTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Call before all test and on class test loading

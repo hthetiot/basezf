@@ -10,7 +10,7 @@
  * @link      http://github.com/hthetiot/basezf
  */
 
-class MyProject_Example
+class MyProject_UnitTest_Example
 {
     /**
      * Property value of Example class

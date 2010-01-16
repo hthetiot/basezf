@@ -33,6 +33,7 @@ date_default_timezone_set('GMT');
 // Define usefull paths
 
 define('BASE_PATH', realpath(dirname(__FILE__) . '/..'));
+define('TMP_PATH', sys_get_temp_dir());
 
 //---------------------------------------------------------------------------
 // file inclusion & autoload
@@ -55,6 +56,11 @@ require_once 'Zend/Loader/Autoloader.php';
 
 $autoloader = Zend_Loader_Autoloader::getInstance();
 $autoloader->setFallbackAutoloader(true);
-$autoloader->suppressNotFoundWarnings(true);
+$autoloader->suppressNotFoundWarnings(false);
+
+//---------------------------------------------------------------------------
+// Set tmp directory for BaseZF_UnitTest_TemporaryFile
+
+BaseZF_UnitTest_TemporaryFile::setTmpPath(TMP_PATH);
 
 

@@ -1,18 +1,18 @@
 <?php
 /**
- * MyProject_Item_Db class in /MyProject/Item
+ * BaseZF_Item_Db class in tests/BaseZF/Item
  *
- * @category  MyProject
- * @package   MyProject_Item_Db
+ * @category  BaseZF
+ * @package   BaseZF_UnitTest
  * @author    Harold Thetiot <hthetiot@gmail.com>
  * @copyright 2006-2009 The Authors
- * @license   http://github.com/hthetiot/basezf/blob/master/lib/MyProject/COPYING Custom License
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
  * @link      http://github.com/hthetiot/basezf
  */
 
-class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
+class BaseZF_UnitTest_Item_Db extends BaseZF_Item_Db_Abstract
 {
-    /**
+   /**
      * Get instance of allready contructed object
      *
      * @param void $id unique object id
@@ -36,7 +36,7 @@ class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
      */
     protected function _getDbInstance()
     {
-        return MyProject_Registry::getInstance()->registry('db');
+        return BaseZF_UnitTest_Item_DbTest::$db;
     }
 
     /**
@@ -46,7 +46,7 @@ class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
      */
     protected function _getCacheInstance()
     {
-        return MyProject_Registry::getInstance()->registry('cache');
+        return BaseZF_UnitTest_Item_DbTest::$cache;
     }
 
     /**

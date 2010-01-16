@@ -10,7 +10,7 @@
  * @link      http://github.com/hthetiot/basezf
  */
 
-require_once dirname(__FILE__) . '/../../TestHelper.php';
+require_once realpath(dirname(__FILE__) . '/../../../') . '/TestHelper.php';
 
 /**
  * Test class for Example
@@ -19,12 +19,8 @@ require_once dirname(__FILE__) . '/../../TestHelper.php';
  * @group BaseZF_Service
  * @group BaseZF_Service_GetText
  */
-class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
+class BaseZF_UnitTest_Service_GetTextTest extends PHPUnit_Framework_TestCase
 {
-    protected $_tmpFiles = array();
-
-    protected $_tmpDirs = array();
-
     protected $_config = array();
 
     /**
@@ -83,44 +79,11 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
      */
     private function _getTmpFile($fileName, $filePath = null, $fileData = null)
     {
-        static $testTmpDir;
+        BaseZF_UnitTest_TemporaryFile::setNameSpace(__CLASS__);
 
-        // create unique path for this test
-        if (!isset($testTmpDir)) {
-            $testTmpDir = 'phpUnitTest-' . __CLASS__ . '-' . microtime(true);
-        }
+        $tmpFilePath = BaseZF_UnitTest_TemporaryFile::getFile($fileName, $filePath, $fileData);
 
-        // sanitize $filePath value to use DIRECTORY_SEPARATOR
-        $filePath = str_replace('/', DIRECTORY_SEPARATOR, $filePath);
-
-        // create paths
-        $tmpDir = sys_get_temp_dir();
-        $tmpFile = $tmpDir . DIRECTORY_SEPARATOR . $testTmpDir . $filePath . DIRECTORY_SEPARATOR . $fileName;
-        $tmpFileDir = dirname($tmpFile);
-
-        $this->_tmpFiles[$tmpFile] = $tmpFile;
-
-        if (!is_dir($tmpFileDir) && $tmpFileDir != $tmpDir) {
-
-            $tmpDirs = explode(DIRECTORY_SEPARATOR, $tmpFileDir);
-            $nbTmpDirs = count($tmpDirs);
-            for ($i = 2; $i <= $nbTmpDirs; $i++) {
-
-                $tmpDir = implode(DIRECTORY_SEPARATOR, array_slice($tmpDirs, 0, $i));
-
-                if (!is_dir($tmpDir)) {
-                    mkdir($tmpDir);
-                    $this->_tmpDirs[] = $tmpDir;
-                }
-            }
-        }
-
-        // add contennt on tmp file
-        if (!is_null($fileData)) {
-            file_put_contents($tmpFile, $fileData);
-        }
-
-        return $tmpFile;
+        return $tmpFilePath;
     }
 
     public function testUpdatePotFiles()
@@ -363,24 +326,8 @@ class BaseZF_Service_GetTextTest extends PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        // clean database or test generated data for example
-        foreach ($this->_tmpFiles as $tmpFile) {
-            if (is_file($tmpFile)) {
-                unlink($tmpFile);
-            }
-        }
-
-        // remove dir
-        $tmpDirs = array_reverse($this->_tmpDirs);
-        foreach ($tmpDirs as $tmpDir) {
-            if (is_dir($tmpDir)) {
-                rmdir($tmpDir);
-            }
-        }
-
-        // reset
-        $this->_tmpFiles = array();
-        $this->_tmpDirs = array();
+        // remove tmp files
+        BaseZF_UnitTest_TemporaryFile::clearFiles();
     }
 }
 

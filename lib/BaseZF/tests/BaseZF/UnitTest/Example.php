@@ -1,16 +1,16 @@
 <?php
 /**
- * App_Example class in /test/App
+ * BaseZF_Example class in tests/BaseZF
  *
- * @category  MyProject
- * @package   MyProject_App_UnitTest
+ * @category  BaseZF
+ * @package   BaseZF_UnitTest
  * @author    Harold Thetiot <hthetiot@gmail.com>
  * @copyright 2006-2009 The Authors
- * @license   http://github.com/hthetiot/basezf/blob/master/COPYING Custom License
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/BaseZF/COPYING Custom License
  * @link      http://github.com/hthetiot/basezf
  */
 
-class App_Example
+class BaseZF_UnitTest_Example
 {
     /**
      * Property value of Example class

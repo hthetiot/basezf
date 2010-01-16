@@ -1,25 +1,27 @@
 <?php
 /**
- * App_ExampleTest class in /test/App
+ * MyProject_ExampleTest class in /test/MyProject
  *
  * @category  MyProject
- * @package   MyProject_App_UnitTest
+ * @package   MyProject_UnitTest
  * @author    Harold Thetiot <hthetiot@gmail.com>
  * @copyright 2006-2009 The Authors
- * @license   http://github.com/hthetiot/basezf/blob/master/COPYING Custom License
+ * @license   http://github.com/hthetiot/basezf/blob/master/lib/MyProject/COPYING Custom License
  * @link      http://github.com/hthetiot/basezf
  */
 
-require_once dirname(__FILE__) . '/../TestHelper.php';
+require_once dirname(__FILE__) . '/../../TestHelper.php';
 
 /**
  * Test class for Example
  *
- * @group App
- * @group App_Example
+ * @group MyProject
+ * @group MyProject_Example
  */
-class App_ExampleTest extends PHPUnit_Framework_TestCase
+class MyProject_UnitTest_ExampleTest extends PHPUnit_Framework_TestCase
 {
+    protected $_example = null;
+
     /**
      * Call before all test and on class test loading
      */
@@ -33,7 +35,7 @@ class App_ExampleTest extends PHPUnit_Framework_TestCase
         // use time to have floating value
         $value = time();
 
-        $example = new App_Example();
+        $example = new MyProject_UnitTest_Example();
 
         $example->updateProperty($value);
 

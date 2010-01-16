@@ -335,6 +335,10 @@ abstract class BaseZF_Item_Abstract implements ArrayAccess
      */
     public function getProperty($property)
     {
+        if (!$this->isProperty($property)) {
+            throw new BaseZF_Item_Exception(sprintf('Undefined property "%s" on Item with Class name "%s" .', $property, get_class($this)));
+        }
+
         if ($this->isPropertyModified($property)) {
 
             return $this->_modified[$property];

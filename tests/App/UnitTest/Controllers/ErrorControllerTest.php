@@ -10,16 +10,14 @@
  * @link      http://github.com/hthetiot/basezf
  */
 
-if (!defined('APPLICATION_PATH')) {
-    require_once dirname(__FILE__) . '/../../TestHelper.php';
-}
+require_once realpath(dirname(__FILE__) . '/../../../') . '/TestHelper.php';
 
 /**
  * Test class for Error.
  *
  * @group App_Controllers
  */
-class App_Controllers_ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class App_UnitTest_Controllers_ErrorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
     /**
      * Sets up the fixture, for example, open a network connection.
