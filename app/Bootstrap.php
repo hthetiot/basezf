@@ -1,8 +1,6 @@
 <?php
 /**
- * Bootstrap class in /app/
- *
- * Main Bootstrap
+ * Bootstrap class in /app
  *
  * @category  MyProject
  * @package   MyProject_App
@@ -19,6 +17,8 @@ final class Bootstrap extends BaseZF_Framework_Application_Bootstrap
 {
     /**
      * Init MyProject Bean class
+     *
+     * @return void
      */
     protected function _initMyProject()
     {
@@ -33,6 +33,8 @@ final class Bootstrap extends BaseZF_Framework_Application_Bootstrap
 
     /**
      * Get available routes
+     *
+     * @return array an array of Zend_Controller_Router_Route instance
      */
     protected function _getRoutes()
     {
