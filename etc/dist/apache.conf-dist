@@ -5,7 +5,7 @@
 # $PROJECT_PATH: Your project path (example: /home/jhondoe/project/basezf)
 # $PROJECT_DOMAIN: Your project domain name (example: myproject.com)
 #
-<VirtualHost *>
+<VirtualHost *:80>
 
     ### Domains
     ServerName $PROJECT_DOMAIN
