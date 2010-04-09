@@ -52,4 +52,4 @@ define_if_not('DEBUG_REPORT_TO', 'dev@' . BASE_URL);
 // Frameworks Path
 
 //define_if_not('ZF_VERSION', '1.8.4');
-//define_if_not('ZF_PATH', '/home/johndoe/ZendFramework-1.7.7-minimal/library');
+define_if_not('ZF_PATH', '/usr/share/php/ZendFramework/release-1.10.3-minimal');
