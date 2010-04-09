@@ -115,7 +115,9 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
 
     public function dbitemAction()
     {
+    	/*
         $this->_helper->layout->disableLayout();
+        */
 
         /*
         // select

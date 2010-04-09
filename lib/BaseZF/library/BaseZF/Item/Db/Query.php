@@ -118,7 +118,7 @@ class BaseZF_Item_Db_Query
             $this->setCacheInstance($cache);
         }
 
-        if (!is_null($logger)) {
+        if (!is_null($logger) && !($logger === FALSE)) {
             $this->setLoggerInstance($logger);
         }
     }
