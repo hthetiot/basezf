@@ -133,7 +133,16 @@
                     <img width="127" height="25" alt="Powered by the Zend Framework" src="/images/layouts/example/powered-by-zf.png"/>
                 </a>
 
-                <a href="http://validator.w3.org/check?uri=<?php echo urlencode(MAIN_URL . $_SERVER['REQUEST_URI']); ?>" onclick="window.open(this.href); return false;">
+				<?php
+					if (isset($_SERVER['SCRIPT_URI'])) {
+						$uri = $_SERVER['SCRIPT_URI'];
+					} elseif (isset($_SERVER['REQUEST_URI'])) {
+						$uri = MAIN_URL . $_SERVER['REQUEST_URI'];
+					} else {
+						$uri = MAIN_URL;
+					}
+				?>
+                <a href="http://validator.w3.org/check?uri=<?php echo urlencode($uri); ?>" onclick="window.open(this.href); return false;">
                     <img src="/images/layouts/example/w3c-xhtml.gif" alt="Valid XHTML 1.0 Strict" height="25" width="88" />
                 </a>
             </p>
