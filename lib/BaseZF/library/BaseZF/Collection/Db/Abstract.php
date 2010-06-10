@@ -232,16 +232,31 @@ abstract class BaseZF_Collection_Db_Abstract extends BaseZF_Collection_Abstract
     }
 
     /**
-     * Set the table name or expression with INNER JOIN parts and so on
+     * Set the table name or expression
      *
      * @param string $table - table name or expression
      */
-    public function filterTable($table)
+    public function filterFrom($name, $cols = '*', $schema = null)
     {
-        $this->_getDbSelectInstance()->from($table);
+    	$select = $this->_getDbSelectInstance();
+        $select->reset();
+        
+        $select->from($name, $cols, $schema);
 
         return $this;
     }
+    
+    /**
+     * Set the join name or expression with INNER JOIN parts and so on
+     *
+     * @param string $table - table name or expression
+     */
+    public function filterJoin($name, $cond, $cols = '*', $schema = null)
+    {
+        $this->_getDbSelectInstance()->join($name, $cond, $cols, $schema);
+
+        return $this;
+    }    
 
     /**
      * Set filter WHERE expression
