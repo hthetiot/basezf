@@ -12,7 +12,7 @@
 
 class BaseZF_Service_GetText_Translator_Google extends BaseZF_Service_GetText_Translator_Abstract
 {
-    protected function _translateData($data, $toLocale);
+    protected function _translateData($data, $toLocale)
     {
     }
 }
