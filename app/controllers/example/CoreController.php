@@ -115,27 +115,6 @@ class Example_CoreController extends BaseZF_Framework_Controller_Action
 
     public function dbitemAction()
     {
-    	/*
-        $this->_helper->layout->disableLayout();
-        */
-
-        /*
-        // select
-        echo '<hr />';
-        echo 'properties dbItem:' . "<br />";
-        $myExample = MyProject_Item_Db::getInstance('example', 4);
-        $myExample->getId();
-        echo $myExample->unique_string;
-        */
-
-        // select
-        echo '<hr />';
-        echo 'create collection:';
-        $examples = new MyProject_Collection_Db('example', array(3, 4));
-        foreach ($examples as $example) {
-            echo $example->getId() . '/' . $example->creation . "<br />";
-        }
-
 /*
         // clear count cache /cache/perpage
         // add collection dependency

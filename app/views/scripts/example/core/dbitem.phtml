@@ -1,117 +1,114 @@
 <div id="main" class="l-border r-border span-15">
 
-    <h1 id="intro"><a href="#intro">DbItem</a></h1>
+    <h2 id="Tabs"><a href="#Section">Classic Select</a></h2>
 
-    <p>
-        Bla bla...
-    </p>
+    <h3>Syntax:</h3>
 
-    <h2 id=""><a href="#">Function: getInstance</a></h2>
-    <h2 id=""><a href="#">Function: getId</a></h2>
-    <h2 id=""><a href="#">Function: getExtendedId</a></h2>
-    <h2 id=""><a href="#">Function: getDbItemExtendedId</a></h2>
-    <h2 id=""><a href="#">Function: setRealTime</a></h2>
-    <h2 id=""><a href="#">Function: isRealTime</a></h2>
-    <h2 id=""><a href="#">Function: isDeleted</a></h2>
-    <h2 id=""><a href="#">Function: isLoaded</a></h2>
-    <h2 id=""><a href="#">Function: isModified</a></h2>
-    <h2 id=""><a href="#">Function: getProperty</a></h2>
-    <h2 id=""><a href="#">Function: getProperties</a></h2>
-    <h2 id=""><a href="#">Function: setProperty</a></h2>
-    <h2 id=""><a href="#">Function: setProperties</a></h2>
-    <h2 id=""><a href="#">Function: setVirtualProperty</a></h2>
-    <h2 id=""><a href="#">Function: resetProperty</a></h2>
-    <h2 id=""><a href="#">Function: insert</a></h2>
-    <h2 id=""><a href="#">Function: update</a></h2>
-    <h2 id=""><a href="#">Function: delete</a></h2>
-    <h2 id=""><a href="#">Function: isEqual</a></h2>
+    <?php
+        $source= array();
+        $source[] = "\$examples = new MyProject_Collection_Db('example', array(3, 4));";
+		$source[] = "foreach (\$examples as \$example) {";
+            $source[] = "echo \$example->getId() . '/' . \$example->creation . '<br />';";
+        $source[] = "}";
 
-    <h1 id="intro"><a href="#intro">DbCollection</a></h1>
-
-    <p>
-        Bla bla...
-    </p>
-
-    <h2 id=""><a href="#">Function: setIds</a></h2>
-    <h2 id=""><a href="#">Function: getIds</a></h2>
-    <h2 id=""><a href="#">Function: removeId</a></h2>
-    <h2 id=""><a href="#">Function: getRandomId</a></h2>
-    <h2 id=""><a href="#">Function: setRealTime</a></h2>
-    <h2 id=""><a href="#">Function: isRealTime</a></h2>
-    <h2 id=""><a href="#">Function: filterReset</a></h2>
-    <h2 id=""><a href="#">Function: filterTable</a></h2>
-    <h2 id=""><a href="#">Function: filterWhere</a></h2>
-    <h2 id=""><a href="#">Function: filterOrderBy</a></h2>
-    <h2 id=""><a href="#">Function: filterGroupBy</a></h2>
-    <h2 id=""><a href="#">Function: filterLimit</a></h2>
-    <h2 id=""><a href="#">Function: filterCache</a></h2>
-    <h2 id=""><a href="#">Function: filterExecute</a></h2>
-    <h2 id=""><a href="#">Function: filterCount</a></h2>
-    <h2 id=""><a href="#">Function: clearCache</a></h2>
-    <h2 id=""><a href="#">Function: clearPerPageCache</a></h2>
-    <h2 id=""><a href="#">Function: filterDelete</a></h2>
-    <h2 id=""><a href="#">Function: getItem</a></h2>
-    <h2 id=""><a href="#">Function: newItem</a></h2>
-    <h2 id=""><a href="#">Function: getProperty</a></h2>
-    <h2 id=""><a href="#">Function: getProperties</a></h2>
-    <h2 id=""><a href="#">Function: setProperty</a></h2>
-    <h2 id=""><a href="#">Function: setProperties</a></h2>
-    <h2 id=""><a href="#">Function: update</a></h2>
-    <h2 id=""><a href="#">Function: delete</a></h2>
+        echo $this->GeSHi(implode("\n", $source), 'php');
+    ?>
 
 
+    <h3>Example:</h3>
+
+	<?php 
+		/*
+		$examples = new MyProject_Collection_Db('example', array(3, 4));
+        foreach ($examples as $example) {
+            echo $example->getId() . '/' . $example->creation . "<br />";
+        }
+        */
+	?>
+
+    <br />
+    <br />
+    
+    <h2 id="Tabs"><a href="#Section">Complex Select</a></h2>
+
+    <h3>Syntax:</h3>
+
+    <?php
+        $source= array();
+        
+        $source[] = "\$examples = new MyProject_Collection_Db('example');";
+		$source[] = "\$examples->filterJoin('example_type', 'example.example_type_id = example_type.example_type_id')";
+		$source[] = "\$examples->filterWhere('example.example_id > ?', 1)";
+		$source[] = "\$examples->filterWhere('(example.example_type_id = 1 OR example.example_type_id = 2)')";
+		$source[] = "\$examples->filterOrderBy('example_id DESC')";
+		$source[] = "\$examples->filterLimit(10)";
+		$source[] = "\$examples->filterExecute();";
+		
+		$source[] = "foreach (\$examples as \$example) {";
+            $source[] = "echo \$example->getId() . '/' . \$example->example_type_id . '<br />';";
+        $source[] = "}";
+
+        echo $this->GeSHi(implode("\n", $source), 'php');
+    ?>
+
+
+    <h3>Example:</h3>
+
+	<?php 
+		/*
+        $examples = new MyProject_Collection_Db('example');
+        $examples->filterJoin('example_type', 'example.example_type_id = example_type.example_type_id')
+        		->filterWhere('example.example_id > ?', 1)
+        		->filterWhere('(example.example_type_id = 1 OR example.example_type_id = 2)')
+        		->filterOrderBy('example.example_id DESC')
+        		->filterLimit(10)
+        		->filterExecute();
+        		
+        foreach ($examples as $example) {
+            echo $example->getId() . '/' . $example->example_type_id . "<br />";
+        }
+        */
+	?>
+
+    <br />
+    <br />
+    
+    <h2 id="Tabs"><a href="#Section">Relation</a></h2>
+
+    <h3>Syntax:</h3>
+
+    <?php
+        $source= array();
+        
+        $source[] = "\$examples = new MyProject_Collection_Db('example');";
+		$source[] = "\$examples->filterJoin('example_type', 'example.example_type_id = example_type.example_type_id')";
+		$source[] = "\$examples->filterWhere('example.example_id > ?', 1)";
+		$source[] = "\$examples->filterWhere('(example.example_type_id = 1 OR example.example_type_id = 2)')";
+		$source[] = "\$examples->filterOrderBy('example_id DESC')";
+		$source[] = "\$examples->filterLimit(10)";
+		$source[] = "\$examples->filterExecute();";
+		
+		$source[] = "foreach (\$examples as \$example) {";
+            $source[] = "echo \$example->getId() . '/' . \$example->Example_type->label . '<br />';";
+        $source[] = "}";
+
+        echo $this->GeSHi(implode("\n", $source), 'php');
+    ?>
+
+
+    <h3>Example:</h3>
+
+	<?php 
+        $examples = new MyProject_Collection_Db('example');
+        $examples->filterJoin('example_type', 'example.example_type_id = example_type.example_type_id')
+        		->filterWhere('example.example_id > ?', 1)
+        		->filterWhere('(example.example_type_id = 1 OR example.example_type_id = 2)')
+        		->filterOrderBy('example.example_id DESC')
+        		->filterLimit(10)
+        		->filterExecute();
+        		
+        foreach ($examples as $example) {
+            echo $example->getId() . '/' . $example->Example_type->label . "<br />";
+        }
+	?>
 </div>
-
-
-<div id="menu" class="span-5 last">
-    <h4 class="menu-item"><a href="#intro">DbItem</a></h4>
-    <div class="menu-item"><a href="#">getInstance</a></div>
-    <div class="menu-item"><a href="#">getId</a></div>
-    <div class="menu-item"><a href="#">getExtendedId</a></div>
-    <div class="menu-item"><a href="#">getDbItemExtendedId</a></div>
-    <div class="menu-item"><a href="#">setRealTime</a></div>
-    <div class="menu-item"><a href="#">isRealTime</a></div>
-    <div class="menu-item"><a href="#">isDeleted</a></div>
-    <div class="menu-item"><a href="#">isLoaded</a></div>
-    <div class="menu-item"><a href="#">isModified</a></div>
-    <div class="menu-item"><a href="#">getProperty</a></div>
-    <div class="menu-item"><a href="#">getProperties</a></div>
-    <div class="menu-item"><a href="#">setProperty</a></div>
-    <div class="menu-item"><a href="#">setProperties</a></div>
-    <div class="menu-item"><a href="#">setVirtualProperty</a></div>
-    <div class="menu-item"><a href="#">resetProperty</a></div>
-    <div class="menu-item"><a href="#">insert</a></div>
-    <div class="menu-item"><a href="#">update</a></div>
-    <div class="menu-item"><a href="#">delete</a></div>
-    <div class="menu-item"><a href="#">isEqual</a></div>
-
-    <h4 class="menu-item"><a href="#intro">DbCollection</a></h4>
-
-    <div class="menu-item"><a href="#">setIds</a></div>
-    <div class="menu-item"><a href="#">getIds</a></div>
-    <div class="menu-item"><a href="#">removeId</a></div>
-    <div class="menu-item"><a href="#">getRandomId</a></div>
-    <div class="menu-item"><a href="#">setRealTime</a></div>
-    <div class="menu-item"><a href="#">isRealTime</a></div>
-    <div class="menu-item"><a href="#">filterReset</a></div>
-    <div class="menu-item"><a href="#">filterTable</a></div>
-    <div class="menu-item"><a href="#">filterWhere</a></div>
-    <div class="menu-item"><a href="#">filterOrderBy</a></div>
-    <div class="menu-item"><a href="#">filterGroupBy</a></div>
-    <div class="menu-item"><a href="#">filterLimit</a></div>
-    <div class="menu-item"><a href="#">filterCache</a></div>
-    <div class="menu-item"><a href="#">filterExecute</a></div>
-    <div class="menu-item"><a href="#">filterCount</a></div>
-    <div class="menu-item"><a href="#">clearCache</a></div>
-    <div class="menu-item"><a href="#">clearPerPageCache</a></div>
-    <div class="menu-item"><a href="#">filterDelete</a></div>
-    <div class="menu-item"><a href="#">getItem</a></div>
-    <div class="menu-item"><a href="#">newItem</a></div>
-    <div class="menu-item"><a href="#">getProperty</a></div>
-    <div class="menu-item"><a href="#">getProperties</a></div>
-    <div class="menu-item"><a href="#">setProperty</a></div>
-    <div class="menu-item"><a href="#">setProperties</a></div>
-    <div class="menu-item"><a href="#">update</a></div>
-    <div class="menu-item"><a href="#">delete</a></div>
-</div>
-
