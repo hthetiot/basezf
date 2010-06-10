@@ -65,7 +65,7 @@ class MyProject_Item_Db extends BaseZF_Item_Db_Abstract
      *
      * @return mixed
      */
-    protected function &_getDbChema()
+    protected function &_getDbSchema()
     {
         static $inited = false;
 
