@@ -107,7 +107,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
      *
      * @return mixed
      */
-    abstract protected function &_getDbChema();
+    abstract protected function &_getDbSchema();
 
     //
     // Schema functions
@@ -247,7 +247,7 @@ abstract class BaseZF_Item_Db_Abstract extends BaseZF_Item_Abstract
      */
     final public function getTableColumns($tableName)
     {
-        $dbSchema = $this->_getDbChema();
+        $dbSchema = $this->_getDbSchema();
 
         if (is_string($dbSchema)) {
             $columns = call_user_func(array($dbSchema, 'getTableColumns'), $tableName);
